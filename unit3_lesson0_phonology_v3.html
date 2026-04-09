@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>שיעור 0 | תורת ההגה | יחידה 3 — גזרות הפועל | כיתה י׳</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:         #f0f2f5;
+    --surface:    #ffffff;
+    --surface2:   #e8edf3;
+    --border:     #d0d7e3;
+    --navy:       #1a3a6b;
+    --navy-lt:    #2563b8;
+    --rose:       #be185d;
+    --rose-lt:    #db2777;
+    --rose-bg:    #fdf2f8;
+    --ocean:      #1565a8;
+    --ocean-lt:   #2980d4;
+    --teal:       #0d7a6a;
+    --teal-lt:    #16a890;
+    --sun:        #e8a020;
+    --sun-lt:     #f5c842;
+    --green:      #15803d;
+    --green-lt:   #16a34a;
+    --text:       #1c2433;
+    --text-mid:   #3e4a5c;
+    --text-muted: #6b7a8d;
+    --white:      #ffffff;
+  }
+
+  * { box-sizing: border-box; margin:0; padding:0; }
+
+  body {
+    font-family: 'Heebo', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    direction: rtl;
+    text-align: right;
+    line-height: 1.7;
+  }
+
+  /* ─── TABS ─── */
+  .tab-btn { transition: all 0.2s; border-bottom: 3px solid transparent; white-space: nowrap; background: transparent; border-top: none; border-right: none; border-left: none; cursor: pointer; min-height: 44px; }
+  .tab-btn.active { border-bottom-color: var(--rose); color: var(--rose) !important; font-weight: 700; }
+  .tab-pane { display: none; }
+  .tab-pane.active { display: block; }
+
+  /* ─── LAYOUT ─── */
+  main { max-width: 860px; margin: 0 auto; padding: 20px 16px 60px; }
+  .card { background: var(--surface); border-radius: 16px; padding: 20px 22px; border: 1px solid var(--border); margin-bottom: 18px; box-shadow: 0 1px 4px rgba(0,0,0,.05); }
+  .card-rose { background: var(--rose-bg); border: 1.5px solid #f9a8d4; }
+  h2.sec-h { font-family: 'Secular One', sans-serif; font-size: 1.08rem; color: var(--rose); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  h2.sec-h-navy { font-family: 'Secular One', sans-serif; font-size: 1.08rem; color: var(--navy); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+
+  /* ─── HERO BANNER ─── */
+  .lesson-hero {
+    background: linear-gradient(135deg, #1a1040 0%, #3b0764 40%, #be185d 100%);
+    border-radius: 18px;
+    padding: 28px 24px 22px;
+    color: #fff;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .lesson-hero::before {
+    content: '🔊';
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 4.5rem;
+    opacity: 0.15;
+  }
+  .lesson-hero .unit-tag { font-size: .72rem; font-weight: 700; letter-spacing: .08em; color: #f9a8d4; text-transform: uppercase; margin-bottom: 6px; }
+  .lesson-hero h1 { font-family: 'Secular One', sans-serif; font-size: 1.45rem; line-height: 1.3; margin-bottom: 6px; }
+  .lesson-hero .sub { font-size: .82rem; color: rgba(255,255,255,.75); }
+  .meta-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+  .meta-pill { background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.25); border-radius: 100px; padding: 3px 12px; font-size: .73rem; color: #fff; }
+
+  /* ─── CONCEPT BOXES ─── */
+  .cbox { border-radius: 12px; padding: 15px 17px; margin-bottom: 14px; }
+  .cbox-rose { background: #fdf2f8; border: 1.5px solid #f9a8d4; }
+  .cbox-blue { background: #eff6ff; border: 1.5px solid #bfdbfe; }
+  .cbox-teal { background: #f0fdfa; border: 1.5px solid #99f6e4; }
+  .cbox-gold { background: #fffbeb; border: 1.5px solid #fde68a; }
+  .cbox-navy { background: #eff3fc; border: 1.5px solid #c7d7f0; }
+  .cbox-green { background: #f0fdf4; border: 1.5px solid #bbf7d0; }
+  .cbox-title { font-family: 'Secular One', sans-serif; font-size: .9rem; margin-bottom: 8px; display: flex; align-items: center; gap: 7px; }
+  .cbox-title.rose { color: var(--rose); }
+  .cbox-title.blue { color: var(--ocean); }
+  .cbox-title.teal { color: var(--teal); }
+  .cbox-title.gold { color: #92400e; }
+  .cbox-title.navy { color: var(--navy); }
+  .cbox-title.green { color: var(--green); }
+
+  /* ─── PHONOLOGY TABLES ─── */
+  .phon-table { width: 100%; border-collapse: collapse; font-size: .87rem; }
+  .phon-table th { background: var(--navy); color: #fff; padding: 8px 12px; font-family: 'Secular One', sans-serif; font-size: .82rem; text-align: center; }
+  .phon-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: center; }
+  .phon-table tr:nth-child(even) td { background: var(--surface2); }
+  .phon-table .heb-big { font-size: 1.4rem; font-weight: 900; color: var(--rose); }
+  .phon-table .heb-name { font-size: .8rem; color: var(--text-muted); }
+
+  /* ─── VOWEL GRID ─── */
+  .vowel-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  .vowel-card { background: var(--surface); border: 2px solid var(--border); border-radius: 12px; padding: 12px 8px; text-align: center; cursor: default; transition: transform .15s; }
+  .vowel-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.1); }
+  .vowel-card .v-symbol { font-size: 1.8rem; font-weight: 900; color: var(--rose); font-family: 'Secular One', sans-serif; }
+  .vowel-card .v-name { font-size: .72rem; font-weight: 700; color: var(--navy); margin-top: 3px; }
+  .vowel-card .v-example { font-size: .68rem; color: var(--text-muted); }
+  .vowel-card.big { border-color: #f9a8d4; background: var(--rose-bg); }
+  .vowel-card.small { border-color: #bfdbfe; background: #eff6ff; }
+
+  /* ─── SHVA BOX ─── */
+  .shva-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .shva-side { border-radius: 12px; padding: 14px 16px; }
+  .shva-side.nach { background: #f0fdf4; border: 1.5px solid #bbf7d0; }
+  .shva-side.na { background: var(--rose-bg); border: 1.5px solid #f9a8d4; }
+  .shva-side h4 { font-family: 'Secular One', sans-serif; font-size: .88rem; margin-bottom: 8px; }
+  .shva-side.nach h4 { color: var(--green); }
+  .shva-side.na h4 { color: var(--rose); }
+  .shva-rule { background: rgba(255,255,255,.7); border-radius: 8px; padding: 7px 10px; font-size: .8rem; margin-bottom: 6px; }
+
+  /* ─── DAGESH BOX ─── */
+  .dagesh-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .dagesh-side { border-radius: 12px; padding: 14px 16px; }
+  .dagesh-side.kal { background: #fffbeb; border: 1.5px solid #fde68a; }
+  .dagesh-side.hazak { background: #eff3fc; border: 1.5px solid #c7d7f0; }
+  .dagesh-side h4 { font-family: 'Secular One', sans-serif; font-size: .88rem; margin-bottom: 8px; }
+  .dagesh-side.kal h4 { color: #92400e; }
+  .dagesh-side.hazak h4 { color: var(--navy); }
+
+  /* ─── LETTER PILL ─── */
+  .ltr-pill { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 10px; font-size: 1.3rem; font-weight: 900; font-family: 'Secular One', sans-serif; }
+  .ltr-guttural { background: #fdf2f8; color: var(--rose); border: 2px solid #f9a8d4; }
+  .ltr-resh { background: #fffbeb; color: #92400e; border: 2px solid #fde68a; }
+
+  /* ─── WORKSHEET ─── */
+  .q-block { background: var(--surface); border: 1.5px solid var(--border); border-radius: 14px; padding: 18px 20px; margin-bottom: 16px; }
+  .q-num { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; background: var(--rose); color: #fff; font-size: .78rem; font-weight: 900; flex-shrink: 0; }
+  .q-title { font-weight: 800; font-size: .93rem; color: var(--navy); display: flex; align-items: center; gap: 9px; margin-bottom: 12px; }
+  input[type="text"], select, textarea { width: 100%; border: 1.5px solid var(--border); border-radius: 8px; padding: 8px 12px; font-family: 'Heebo', sans-serif; font-size: .88rem; direction: rtl; background: var(--surface); color: var(--text); }
+  input[type="text"]:focus, select:focus, textarea:focus { outline: none; border-color: var(--rose); box-shadow: 0 0 0 3px rgba(190,24,93,.1); }
+  .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+  .input-lbl { font-size: .78rem; color: var(--text-muted); margin-bottom: 4px; }
+  .radio-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 6px; }
+  .radio-row label { display: flex; align-items: center; gap: 5px; font-size: .87rem; cursor: pointer; }
+
+  /* ─── TEACHER GUIDE ─── */
+  .teacher-box { background: linear-gradient(135deg,#1a1040,#3b0764); color: #fff; border-radius: 14px; padding: 18px 20px; margin-bottom: 16px; }
+  .teacher-box h3 { font-family: 'Secular One', sans-serif; font-size: .95rem; color: #f9a8d4; margin-bottom: 10px; }
+  .step-row { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 9px; font-size: .85rem; }
+  .step-num { background: var(--rose); color: #fff; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: .72rem; font-weight: 900; flex-shrink: 0; margin-top: 2px; }
+  .ans-box { background: #fff; color: var(--text); border-radius: 10px; padding: 12px 14px; font-size: .84rem; }
+  .ans-tag { display: inline-block; background: var(--rose); color: #fff; border-radius: 6px; padding: 1px 8px; font-size: .72rem; font-weight: 700; margin-bottom: 6px; }
+
+  /* ─── GREETING BAR ─── */
+  #greeting-bar { display: none; align-items: center; gap: 8px; background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.3); border-radius: 100px; padding: 4px 14px; font-size: .82rem; font-weight: 700; color: #fff; width: fit-content; margin-bottom: 10px; }
+
+  /* ─── SUCCESS MODAL ─── */
+  #success-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 1000; align-items: center; justify-content: center; padding: 16px; backdrop-filter: blur(2px); }
+  #success-modal.open { display: flex; }
+  .modal-card { background: #fff; border-radius: 20px; padding: 28px 24px; max-width: 360px; width: 100%; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,.25); }
+
+  @media (max-width: 600px) {
+    .vowel-grid { grid-template-columns: repeat(3, 1fr); }
+    .shva-compare, .dagesh-compare { grid-template-columns: 1fr; }
+    .input-row { grid-template-columns: 1fr; }
+  }
+  @media print { nav, .no-print { display: none !important; } .tab-pane { display: block !important; page-break-after: always; } body { background: #fff; } }
+</style>
+</head>
+<body>
+
+<!-- ─── GREETING BAR (injected by JS) ─── -->
+<div id="greeting-bar">
+  <span>👋</span>
+  <span id="greeting-name"></span>
+</div>
+
+<!-- ─── NAV TABS ─── -->
+<nav class="no-print sticky top-0 z-50" style="background:var(--surface);border-bottom:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.06);">
+  <div class="max-w-5xl mx-auto px-4" style="display:flex;gap:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;">
+    <button class="tab-btn px-4 py-3 text-sm teacher-only" onclick="showTab('tt',this)" style="display:none !important;">📋 מדריך המורה</button>
+    <button class="tab-btn active px-4 py-3 text-sm" onclick="showTab('th',this)" style="color:var(--rose);">📚 תיאוריה</button>
+    <button class="tab-btn px-4 py-3 text-sm" onclick="showTab('tw',this)" style="color:var(--text-muted);">✏️ דף עבודה</button>
+    <button class="tab-btn px-4 py-3 text-sm teacher-only" onclick="showTab('ta',this)" style="display:none !important;">🔑 פתרונות</button>
+    <button class="tab-btn px-4 py-3 text-sm teacher-only" onclick="showTab('tq',this)" style="display:none !important;">📊 Dashboard</button>
+    <button onclick="window.location.href='index.html'" style="padding:6px 14px;font-size:0.78rem;color:var(--text-muted);background:transparent;border:1px solid var(--border);border-radius:8px;cursor:pointer;white-space:nowrap;font-family:'Heebo',sans-serif;min-height:44px;" class="no-print">🏠 תפריט</button>
+    <button onclick="window.print()" style="margin-right:auto;padding:8px 16px;font-size:0.8rem;color:var(--text-muted);background:transparent;border:none;cursor:pointer;white-space:nowrap;" class="no-print">🖨️ הדפס</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ══════════════════════════════════════════════
+     TAB 1 — TEACHER GUIDE
+════════════════════════════════════════════════ -->
+<div id="tt" class="tab-pane teacher-only" style="display:none !important;">
+
+  <!-- At a Glance -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+    <div class="card text-center" style="border-top:3px solid var(--rose);">
+      <div style="font-size:1.7rem;margin-bottom:4px;">🎯</div>
+      <div style="font-size:0.82rem;font-weight:700;color:var(--rose);">מטרות</div>
+      <div style="font-size:0.78rem;color:var(--text-muted);margin-top:3px;">עיצורים גרוניים, תנועות, שווא, דגש</div>
+    </div>
+    <div class="card text-center" style="border-top:3px solid var(--ocean);">
+      <div style="font-size:1.7rem;margin-bottom:4px;">⏱️</div>
+      <div style="font-size:0.82rem;font-weight:700;color:var(--ocean);">זמן</div>
+      <div style="font-size:0.78rem;color:var(--text-muted);margin-top:3px;">45 דקות</div>
+    </div>
+    <div class="card text-center" style="border-top:3px solid var(--teal);">
+      <div style="font-size:1.7rem;margin-bottom:4px;">🔗</div>
+      <div style="font-size:0.82rem;font-weight:700;color:var(--teal);">קדם ידע</div>
+      <div style="font-size:0.78rem;color:var(--text-muted);margin-top:3px;">אלפבית עברי, שורש ובניין (יחידה 1)</div>
+    </div>
+    <div class="card text-center" style="border-top:3px solid var(--sun);">
+      <div style="font-size:1.7rem;margin-bottom:4px;">🛠️</div>
+      <div style="font-size:0.82rem;font-weight:700;color:var(--sun);">כלים</div>
+      <div style="font-size:0.78rem;color:var(--text-muted);margin-top:3px;">לוח, כרטיסי אותיות, קלפי תנועות</div>
+    </div>
+  </div>
+
+  <h2 class="sec-h">📍 מהלך השיעור</h2>
+
+  <div class="teacher-box">
+    <h3>⏱️ שלב א׳ — פתיחה והפעלה (5 דק׳)</h3>
+    <div class="step-row"><div class="step-num">1</div><div>כתבו על הלוח: <strong>כָּתַב / אָמַר / הֵחֵל</strong>. שאלו: "מה שונה בין הפעלים?"</div></div>
+    <div class="step-row"><div class="step-num">2</div><div>הובילו לתשובה: האות א׳ גורמת לשינויים בתנועות. כאן נכנסת תורת ההגה.</div></div>
+    <div class="step-row"><div class="step-num">3</div><div>הכריזו על מטרת היחידה: <em>"יחידה 3 תעסוק בגזרות — פעלים ש'מתנהגים אחרת' בגלל האותיות שבהם."</em></div></div>
+  </div>
+
+  <div class="teacher-box">
+    <h3>⏱️ שלב ב׳ — עיצורים גרוניים (12 דק׳)</h3>
+    <div class="step-row"><div class="step-num">1</div><div>רשמו על הלוח: א ה ח ע ר. הסבירו: גרוניות מנוקדות ב<strong>פתח גנובה</strong> לפניהן כשהן בסוף מילה בתנועה גדולה.</div></div>
+    <div class="step-row"><div class="step-num">2</div><div>דוגמות: רוּחַ, נֹחַ, גָּבוֹהַּ. תנו לתלמידים לזהות את הפתח הגנובה.</div></div>
+    <div class="step-row"><div class="step-num">3</div><div>הדגישו: הגרוניות <strong>לא מקבלות דגש חזק</strong> — זה המפתח להבין גזרות א׳ וע׳ וה׳.</div></div>
+  </div>
+
+  <div class="teacher-box">
+    <h3>⏱️ שלב ג׳ — תנועות ושווא (15 דק׳)</h3>
+    <div class="step-row"><div class="step-num">1</div><div>הציגו את 5 התנועות: חלוקה לגדולות (3 מורות) וקטנות (חטפים).</div></div>
+    <div class="step-row"><div class="step-num">2</div><div>שווא נח לעומת שווא נע: בדיקת 4 הכללים על הלוח עם דוגמות. שאלו: "האם שווא ב-<strong>יִכְתְּבוּ</strong> — נח או נע?"</div></div>
+    <div class="step-row"><div class="step-num">3</div><div>פעילות: תנו 5 מילים — התלמידים מסווגים כל שווא.</div></div>
+  </div>
+
+  <div class="teacher-box">
+    <h3>⏱️ שלב ד׳ — דגש ויישום (10 דק׳)</h3>
+    <div class="step-row"><div class="step-num">1</div><div>דגש קל — רק ב-בגד כפת. מופיע בתחילת מילה ואחרי שווא נח. דגש חזק — הכפלת עיצור.</div></div>
+    <div class="step-row"><div class="step-num">2</div><div>הדגימו: <strong>סֵפֶר / בְּסֵפֶר</strong> (בי"ת ללא דגש אחרי תנועה), <strong>שָׁבַּר</strong> (בי"ת עם דגש חזק = שְׁ-בַּר).</div></div>
+  </div>
+
+  <div class="teacher-box">
+    <h3>⏱️ שלב ה׳ — סיכום ודף עבודה (3 דק׳)</h3>
+    <div class="step-row"><div class="step-num">1</div><div>סכמו: "מה הן הגרוניות? מה ההבדל בין שווא נח לנע? מה ההבדל בין דגש קל לחזק?"</div></div>
+    <div class="step-row"><div class="step-num">2</div><div>הפנו לדף העבודה. ניתן כמטלה לבית.</div></div>
+  </div>
+
+  <h2 class="sec-h" style="margin-top:24px;">🔑 פתרון דף העבודה</h2>
+
+  <div class="ans-box" style="margin-bottom:12px;">
+    <div class="ans-tag">שאלה 1 — זיהוי גרוניות</div>
+    <div style="font-size:.85rem;line-height:1.8;">
+      א׳ = גרונית ✓ | ב׳ = לא ✗ | ה׳ = גרונית ✓ | ח׳ = גרונית ✓ | ע׳ = גרונית ✓ | ר׳ = ר׳ (חצי גרונית) ✓ | כ׳ = לא ✗
+    </div>
+  </div>
+
+  <div class="ans-box" style="margin-bottom:12px;">
+    <div class="ans-tag">שאלה 2 — סיווג תנועות</div>
+    <div style="font-size:.85rem;line-height:1.8;">
+      קָמַץ = תנועת א גדולה | פַּתַח = תנועת א קטנה | חִירִיק = תנועת אי | שוּרוּק/קוּבּוּץ = תנועת או | צֵרֵי = תנועת אֵ גדולה | סֶגּוֹל = תנועת אֶ קטנה | חוֹלָם = תנועת אֹ גדולה
+    </div>
+  </div>
+
+  <div class="ans-box" style="margin-bottom:12px;">
+    <div class="ans-tag">שאלה 3 — שווא נח/נע</div>
+    <div style="font-size:.85rem;line-height:1.8;">
+      יִכְתֹּב — שווא נח (אמצע מילה אחרי תנועה קצרה) | יִכְתְּבוּ — שווא נע (לפני שווא נוסף) | מְלָכִים — שווא נע (ראש מילה) | הַמֶּלֶךְ — שווא נח (סוף מילה)
+    </div>
+  </div>
+
+  <div class="ans-box" style="margin-bottom:12px;">
+    <div class="ans-tag">שאלה 4 — דגש קל/חזק</div>
+    <div style="font-size:.85rem;line-height:1.8;">
+      בַּיִת — דגש קל בבי"ת (תחילת מילה) | שִׁבֵּר — דגש חזק בבי"ת (כפילות) | פֶּה — דגש קל בפ"א | סִפֵּר — דגש חזק בפ"א
+    </div>
+  </div>
+
+  <div class="ans-box">
+    <div class="ans-tag">שאלה 5 — פתח גנובה</div>
+    <div style="font-size:.85rem;line-height:1.8;">
+      נֹחַ ✓ | מֶלַח ✓ | גָּבוֹהַּ ✓ | כָּתַב ✗ (לא גרונית בסוף) | רוּחַ ✓
+    </div>
+  </div>
+
+  <!-- Dashboard placeholder -->
+  <h2 class="sec-h" style="margin-top:24px;">📊 Dashboard</h2>
+  <div id="tq" class="tab-pane teacher-only" style="display:none !important;">
+    <div class="card">
+      <div id="assessment-content" style="display:none;"></div>
+      <p style="color:var(--text-muted);font-size:.87rem;text-align:center;padding:8px 0">לחצו על "הערכה" לצפייה בסיכום</p>
+    </div>
+  </div>
+
+</div>
+<!-- /teacher guide -->
+
+
+<!-- ══════════════════════════════════════════════
+     TAB 2 — THEORY
+════════════════════════════════════════════════ -->
+<div id="th" class="tab-pane active">
+
+  <!-- Hero Banner -->
+  <div class="lesson-hero">
+    <div id="greeting-bar-inner" style="display:none;align-items:center;gap:7px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:100px;padding:3px 12px;font-size:.78rem;font-weight:700;color:#fff;width:fit-content;margin-bottom:8px;">
+      <span>👋</span><span id="greeting-name-2"></span>
+    </div>
+    <div class="unit-tag">יחידה 3 — גזרות הפועל • שיעור מבוא</div>
+    <h1>🔊 תורת ההגה: עיצורים, תנועות וסימנים</h1>
+    <div class="sub">הכלים הפונולוגיים שנזדקק להם בכל יחידת הגזרות</div>
+    <div class="meta-pills">
+      <span class="meta-pill">⏱️ 45 דקות</span>
+      <span class="meta-pill">🎯 רמה: י׳</span>
+      <span class="meta-pill">📌 בסיס ליחידה 3</span>
+    </div>
+  </div>
+
+  <!-- Section 1: Guttural Letters -->
+  <div class="card">
+    <h2 class="sec-h">🔡 סעיף א׳ — העיצורים הגרוניים</h2>
+
+    <div class="cbox cbox-rose" style="margin-bottom:16px;">
+      <div class="cbox-title rose">📌 הגדרה</div>
+      <p style="font-size:.88rem;">עיצורים גרוניים הם אותיות שנהגות מעמוק הגרון ומשפיעות על הניקוד שסביבן. בעברית יש <strong>חמש</strong> אותיות כאלה:</p>
+    </div>
+
+    <!-- Guttural letters grid -->
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:16px;">
+      <div style="text-align:center;">
+        <div class="ltr-pill ltr-guttural" style="margin:0 auto 4px;">א</div>
+        <div style="font-size:.73rem;color:var(--text-muted);">אלף</div>
+      </div>
+      <div style="text-align:center;">
+        <div class="ltr-pill ltr-guttural" style="margin:0 auto 4px;">ה</div>
+        <div style="font-size:.73rem;color:var(--text-muted);">הא</div>
+      </div>
+      <div style="text-align:center;">
+        <div class="ltr-pill ltr-guttural" style="margin:0 auto 4px;">ח</div>
+        <div style="font-size:.73rem;color:var(--text-muted);">חית</div>
+      </div>
+      <div style="text-align:center;">
+        <div class="ltr-pill ltr-guttural" style="margin:0 auto 4px;">ע</div>
+        <div style="font-size:.73rem;color:var(--text-muted);">עין</div>
+      </div>
+      <div style="text-align:center;">
+        <div class="ltr-pill ltr-resh" style="margin:0 auto 4px;">ר</div>
+        <div style="font-size:.73rem;color:var(--text-muted);">ריש*</div>
+      </div>
+    </div>
+    <p style="font-size:.78rem;color:var(--text-muted);margin-bottom:16px;">* ר׳ נחשבת לחצי-גרונית: אינה מנוקדת בחטף, אך גם אינה מקבלת דגש חזק.</p>
+
+    <div class="cbox cbox-gold">
+      <div class="cbox-title gold">⚡ תכונות מיוחדות של הגרוניות</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:.85rem;">
+        <div>
+          <div style="font-weight:700;color:#92400e;margin-bottom:4px;">❌ לא מקבלות דגש חזק</div>
+          <div style="color:var(--text-muted);">במקום הכפלה — לרוב הארכת תנועה לפניהן (תמורה)</div>
+        </div>
+        <div>
+          <div style="font-weight:700;color:#92400e;margin-bottom:4px;">📍 פתח גנובה</div>
+          <div style="color:var(--text-muted);">בסוף מילה, לפני גרונית בתנועה גדולה — מוסיפים פתח קטן לפניה: <strong>רוּחַ, נֹחַ, גָּבוֹהַּ</strong></div>
+        </div>
+        <div>
+          <div style="font-weight:700;color:#92400e;margin-bottom:4px;">🔄 חטפים במקום שווא נע</div>
+          <div style="color:var(--text-muted);">שווא נע הופך לחטף: <strong>אֲנִי, חֲלוֹם, עֲבוֹדָה</strong></div>
+        </div>
+        <div>
+          <div style="font-weight:700;color:#92400e;margin-bottom:4px;">🎯 השלכה לגזרות</div>
+          <div style="color:var(--text-muted);">גזרות א׳, ע׳, ה׳ — שמות הגזרות על שם מיקום הגרונית בשורש</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cbox cbox-blue" style="margin-top:14px;">
+      <div class="cbox-title blue">🔁 תשלום דגש</div>
+      <p style="font-size:.85rem;margin-bottom:8px;">כשגרונית אמורה לקבל <strong>דגש חזק</strong> אבל אינה יכולה, התנועה שלפניה מתארכת כפיצוי — תופעה זו נקראת <strong>תשלום דגש</strong>.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:.83rem;">
+        <div style="background:rgba(255,255,255,.7);border-radius:8px;padding:8px 10px;">
+          <div style="font-weight:700;color:var(--ocean);margin-bottom:3px;">צורה רגילה (ללא גרונית)</div>
+          <div>הִקְטִיל → הִ = חירק קצר</div>
+          <div>נִקְטַל → נִ = חירק קצר</div>
+        </div>
+        <div style="background:rgba(255,255,255,.7);border-radius:8px;padding:8px 10px;">
+          <div style="font-weight:700;color:var(--rose);margin-bottom:3px;">עם גרונית — תשלום דגש</div>
+          <div>הֶעֱמִיד → הֶ = סגול (הארכה)</div>
+          <div>נֶאֱמַר → נֶ = סגול (הארכה)</div>
+        </div>
+      </div>
+      <p style="font-size:.78rem;color:var(--text-muted);margin-top:8px;">כלל: חירק → צרי / סגול; קיבוץ → חולם; פתח → קמץ — לפי הגרונית ומיקומה.</p>
+    </div>
+  </div>
+
+  <!-- Section 2: Vowels -->
+  <div class="card">
+    <h2 class="sec-h">🎵 סעיף ב׳ — חמש התנועות</h2>
+
+    <div class="cbox cbox-blue" style="margin-bottom:16px;">
+      <div class="cbox-title blue">📌 עקרון יסוד</div>
+      <p style="font-size:.88rem;">בעברית יש <strong>חמש תנועות</strong>. כל תנועה יכולה להופיע בשני מצבים: <span style="color:var(--rose);font-weight:700;">גדולה</span> (ארוכה) ו<span style="color:var(--ocean);font-weight:700;">קטנה</span> (קצרה).</p>
+    </div>
+
+    <div style="overflow-x:auto;margin-bottom:16px;">
+      <table class="phon-table">
+        <thead>
+          <tr>
+            <th>תנועה</th>
+            <th>גדולה (ארוכה)</th>
+            <th>סימן</th>
+            <th>קטנה (קצרה)</th>
+            <th>סימן</th>
+            <th>חטף (גרוניות)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>א</strong></td>
+            <td>קָמַץ</td>
+            <td><span class="heb-big">ָ</span></td>
+            <td>פַּתַח</td>
+            <td><span class="heb-big">ַ</span></td>
+            <td>חֲ — חטף פתח</td>
+          </tr>
+          <tr>
+            <td><strong>אֵ</strong></td>
+            <td>צֵרֵי</td>
+            <td><span class="heb-big">ֵ</span></td>
+            <td>סֶגּוֹל</td>
+            <td><span class="heb-big">ֶ</span></td>
+            <td>חֱ — חטף סגול</td>
+          </tr>
+          <tr>
+            <td><strong>אִ</strong></td>
+            <td colspan="2">חִירִיק מָלֵא (עם י׳)</td>
+            <td>חִירִיק חָסֵר</td>
+            <td><span class="heb-big">ִ</span></td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td><strong>אֹ</strong></td>
+            <td>חוֹלָם מָלֵא (עם ו׳)</td>
+            <td><span class="heb-big">ֹ</span></td>
+            <td>קָמַץ קָטָן</td>
+            <td><span class="heb-big">ָ</span>*</td>
+            <td>חֳ — חטף קמץ</td>
+          </tr>
+          <tr>
+            <td><strong>אוּ</strong></td>
+            <td>שׁוּרוּק (עם ו׳)</td>
+            <td><span class="heb-big">ּוּ</span></td>
+            <td>קִבּוּץ</td>
+            <td><span class="heb-big">ֻ</span></td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:.76rem;color:var(--text-muted);">* קמץ קטן נראה כמו קמץ גדול אבל מופיע בהברה סגורה שאינה מוטעמת.</p>
+
+    <div class="cbox cbox-teal" style="margin-top:14px;">
+      <div class="cbox-title teal">💡 טריק: איך יודעים אם קמץ גדול או קטן?</div>
+      <p style="font-size:.85rem;">קמץ <strong>גדול</strong> = בהברה <strong>פתוחה</strong> או מוטעמת: כָּ<strong>תַ</strong>ב, מָ<strong>קוֹם</strong>.<br>קמץ <strong>קטן</strong> = בהברה <strong>סגורה ולא מוטעמת</strong>: כָּל (= כֹּל), חָכְמָה (הח׳ קמץ קטן).</p>
+    </div>
+  </div>
+
+  <!-- Section 3: Shva -->
+  <div class="card">
+    <h2 class="sec-h">✋ סעיף ג׳ — שווא נח ושווא נע</h2>
+
+    <div class="cbox cbox-navy" style="margin-bottom:14px;">
+      <div class="cbox-title navy">📌 מהו שווא?</div>
+      <p style="font-size:.88rem;">שווא הוא הסימן ְ תחת עיצור. יש שני סוגים: <strong>שווא נח</strong> — שקט, לא נהגה; <strong>שווא נע</strong> — נהגה כתנועה קצרה (e קצר).</p>
+    </div>
+
+    <div class="shva-compare">
+      <div class="shva-side nach">
+        <h4>💤 שווא נָח — שקט</h4>
+        <div class="shva-rule">1. בסוף מילה: מֶלֶ<strong>ךְ</strong>, כָּתַ<strong>בְ</strong>תָּ</div>
+        <div class="shva-rule">2. אחרי שווא נח: יִכְ<strong>תְּ</strong>בוּ (ה-כ׳ נח → ת׳ נח)</div>
+        <div class="shva-rule">3. באמצע מילה אחרי תנועה ארוכה: קוֹ<strong>טְ</strong>לִים</div>
+        <div class="shva-rule">4. כשהוא השווא השני מבין שניים: יִשְׁ<strong>מְ</strong>רוּ (ש׳ נח, מ׳ <strong>נע</strong>!)</div>
+        <div style="margin-top:8px;font-size:.8rem;color:var(--green);font-weight:700;">מבטאים: דולגים עליו לחלוטין</div>
+      </div>
+      <div class="shva-side na">
+        <h4>🗣️ שווא נָע — נהגה</h4>
+        <div class="shva-rule" style="background:rgba(190,24,93,.12);border:1px solid #f9a8d4;font-weight:700;">0. <strong>תמיד בראש מילה</strong>: <strong>מְ</strong>לָכִים, <strong>בְּ</strong>רֵאשִׁית — כלל יסוד!</div>
+        <div class="shva-rule">1. אחרי תנועה קצרה באמצע: יִ<strong>כְ</strong>תְּ<strong>בוּ</strong> — ה-כ׳ נע</div>
+        <div class="shva-rule">2. שווא ראשון בזוג: יִשְׁ<strong>מְ</strong>רוּ — ה-מ׳ נע</div>
+        <div class="shva-rule">3. מתחת לאות מוגשת (דגש חזק): הִ<strong>פְּ</strong>קִיד</div>
+        <div style="margin-top:8px;font-size:.8rem;color:var(--rose);font-weight:700;">מבטאים: כ-e קצר ומהיר</div>
+      </div>
+    </div>
+
+    <div class="cbox cbox-rose" style="margin-top:14px;">
+      <div class="cbox-title rose">⚠️ גרוניות ושווא</div>
+      <p style="font-size:.85rem;">אצל גרוניות, שווא נע הופך ל<strong>חטף</strong>: אֲ / הֱ / חֲ / עֲ (חטף פתח / חטף סגול / חטף קמץ). לכן: <strong>אֲנִי</strong> (ולא: אְנִי), <strong>עֲבוֹדָה</strong> (ולא: עְבוֹדָה).</p>
+    </div>
+  </div>
+
+  <!-- Section 4: Dagesh -->
+  <div class="card">
+    <h2 class="sec-h">🔵 סעיף ד׳ — דגש קל ודגש חזק</h2>
+
+    <div class="cbox cbox-navy" style="margin-bottom:14px;">
+      <div class="cbox-title navy">📌 מהו דגש?</div>
+      <p style="font-size:.88rem;">דגש הוא נקודה בתוך האות. יש שני סוגים שונים לחלוטין: <strong>דגש קל</strong> (מחליף צליל) ו<strong>דגש חזק</strong> (מכפיל עיצור).</p>
+    </div>
+
+    <div class="dagesh-compare">
+      <div class="dagesh-side kal">
+        <h4>⬡ דגש קַל</h4>
+        <div style="font-size:.83rem;margin-bottom:8px;color:#78350f;">רק בשש אותיות <strong>בגד כפ"ת</strong> (ב ג ד כ פ ת)</div>
+        <div class="shva-rule" style="background:rgba(234,179,8,.15);border:1px solid #fde68a;font-weight:700;">מתי מופיע? שני מצבים בלבד:<br>א. <strong>בתחילת מילה</strong>: <strong>בַּ</strong>יִת, <strong>פֶּ</strong>ה, <strong>כְּ</strong>תַב<br>ב. <strong>אחרי שווא נח</strong>: מַלְ<strong>כְּ</strong>ךָ, יִכְ<strong>תְּ</strong>בוּ</div>
+        <div class="shva-rule">משנה את הצליל: ב←פ / כ←χ / פ←f / ת←θ (בדיבור מודרני: רק פ←f)</div>
+        <div class="shva-rule">אחרי תנועה — <strong>אין</strong> דגש קל: בַּ<strong>סֵּ</strong>פֶר (הס׳ ללא דגש אחרי תנועת "בַּ")</div>
+        <div style="margin-top:8px;font-size:.79rem;color:#92400e;">⚠️ גרוניות (א ה ח ע ר) — לעולם לא מקבלות דגש קל!</div>
+      </div>
+      <div class="dagesh-side hazak">
+        <h4>⬛ דגש חָזָק</h4>
+        <div style="font-size:.83rem;margin-bottom:8px;color:var(--navy);">בכל האותיות (חוץ מגרוניות ו-ר׳)</div>
+        <div class="shva-rule">מסמן <strong>הכפלת עיצור</strong>: שִׁ<strong>בֵּ</strong>ר = שִׁבְּ-בֵר, הִ<strong>פְּ</strong>קִיד = הִפְּ-פִיד</div>
+        <div class="shva-rule">מופיע בבניינים פיעל/פועל/התפעל בתמיד: <strong>דִּ</strong>בֵּר, <strong>כִּ</strong>יסֵּא</div>
+        <div class="shva-rule">השווא שאחריו = שווא <strong>נע</strong> תמיד</div>
+        <div style="margin-top:8px;font-size:.79rem;color:var(--navy-lt);">💡 גרונית + דגש חזק → הארכת תנועה (תשלום דגש)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary Box -->
+  <div class="card" style="background:linear-gradient(135deg,#1a1040,#3b0764);color:#fff;">
+    <h2 style="font-family:'Secular One',sans-serif;font-size:1rem;color:#f9a8d4;margin-bottom:14px;">📋 סיכום — הטבלה שחייבים לזכור</h2>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:.82rem;color:#fff;">
+        <thead>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.2);">
+            <th style="padding:8px;text-align:right;font-weight:700;color:#f9a8d4;">מושג</th>
+            <th style="padding:8px;text-align:right;font-weight:700;color:#f9a8d4;">הגדרה קצרה</th>
+            <th style="padding:8px;text-align:right;font-weight:700;color:#f9a8d4;">דוגמה</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.1);">
+            <td style="padding:8px;font-weight:700;">גרוניות</td>
+            <td style="padding:8px;color:rgba(255,255,255,.8);">א ה ח ע ר — לא מקבלות דגש חזק</td>
+            <td style="padding:8px;">אָמַר, הָלַךְ, חָשַׁב</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.1);">
+            <td style="padding:8px;font-weight:700;">פתח גנובה</td>
+            <td style="padding:8px;color:rgba(255,255,255,.8);">פתח לפני גרונית בסוף מילה</td>
+            <td style="padding:8px;">רוּחַ, נֹחַ, שָׁלֵחַ</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.1);">
+            <td style="padding:8px;font-weight:700;">שווא נח</td>
+            <td style="padding:8px;color:rgba(255,255,255,.8);">לא נהגה — סוף מילה / אחרי ארוכה</td>
+            <td style="padding:8px;">מֶלֶךְ, קוֹטְלִים</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.1);">
+            <td style="padding:8px;font-weight:700;">שווא נע</td>
+            <td style="padding:8px;color:rgba(255,255,255,.8);">נהגה — ראש מילה / אחרי קצרה</td>
+            <td style="padding:8px;">מְלָכִים, בְּרֵאשִׁית</td>
+          </tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.1);">
+            <td style="padding:8px;font-weight:700;">דגש קל</td>
+            <td style="padding:8px;color:rgba(255,255,255,.8);">בבגד כפת — משנה צליל</td>
+            <td style="padding:8px;">בַּיִת, פֶּה</td>
+          </tr>
+          <tr>
+            <td style="padding:8px;font-weight:700;">דגש חזק</td>
+            <td style="padding:8px;color:rgba(255,255,255,.8);">בכל אות — מכפיל עיצור</td>
+            <td style="padding:8px;">שִׁבֵּר, דִּבֵּר</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+<!-- /theory -->
+
+
+<!-- ══════════════════════════════════════════════
+     TAB 3 — WORKSHEET
+════════════════════════════════════════════════ -->
+<div id="tw" class="tab-pane">
+
+  <div class="card" style="border-top:4px solid var(--rose);margin-bottom:20px;">
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+      <div style="font-size:2rem;">✏️</div>
+      <div style="flex:1;">
+        <div style="font-family:'Secular One',sans-serif;font-size:1rem;color:var(--rose);">דף עבודה — תורת ההגה</div>
+        <div style="font-size:.8rem;color:var(--text-muted);">יחידה 3 שיעור 0 | מלאו את כל השאלות</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:14px;">
+      <div><div class="input-lbl">שם תלמיד/ה</div><input type="text" id="sname" placeholder="שם מלא..."></div>
+      <div><div class="input-lbl">כיתה</div><input type="text" id="sclass" placeholder="י׳א..."></div>
+      <div><div class="input-lbl">תאריך</div><input type="text" id="student-date" placeholder=""></div>
+    </div>
+  </div>
+
+  <!-- Q1 -->
+  <div class="q-block">
+    <div class="q-title"><span class="q-num">1</span> זיהוי עיצורים גרוניים — סמנו ✓ ליד הגרוניות</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;font-size:.88rem;">
+      <label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" id="q1_alef"> <span style="font-size:1.1rem;font-weight:900;">א</span> אלף</label>
+      <label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" id="q1_bet"> <span style="font-size:1.1rem;font-weight:900;">ב</span> בית</label>
+      <label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" id="q1_he"> <span style="font-size:1.1rem;font-weight:900;">ה</span> הא</label>
+      <label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" id="q1_het"> <span style="font-size:1.1rem;font-weight:900;">ח</span> חית</label>
+      <label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" id="q1_ayin"> <span style="font-size:1.1rem;font-weight:900;">ע</span> עין</label>
+      <label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" id="q1_resh"> <span style="font-size:1.1rem;font-weight:900;">ר</span> ריש</label>
+      <label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" id="q1_kaf"> <span style="font-size:1.1rem;font-weight:900;">כ</span> כף</label>
+      <label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" id="q1_mem"> <span style="font-size:1.1rem;font-weight:900;">מ</span> מם</label>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="q-block">
+    <div class="q-title"><span class="q-num">2</span> סיווג תנועות — לאיזו מהחמש תנועות שייכת כל אחת?</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <div><div class="input-lbl">קָמַץ (ָ) — תנועת:</div><input type="text" id="q2_qamatz" placeholder="א / אי / או / אֵ / אֹ"></div>
+      <div><div class="input-lbl">חִירִיק (ִ) — תנועת:</div><input type="text" id="q2_hiriq" placeholder="א / אי / או / אֵ / אֹ"></div>
+      <div><div class="input-lbl">צֵרֵי (ֵ) — תנועת:</div><input type="text" id="q2_tsere" placeholder="א / אי / או / אֵ / אֹ"></div>
+      <div><div class="input-lbl">שׁוּרוּק (וּ) — תנועת:</div><input type="text" id="q2_shuruq" placeholder="א / אי / או / אֵ / אֹ"></div>
+      <div><div class="input-lbl">סֶגּוֹל (ֶ) — תנועת:</div><input type="text" id="q2_segol" placeholder="א / אי / או / אֵ / אֹ"></div>
+      <div><div class="input-lbl">חוֹלָם (ֹ) — תנועת:</div><input type="text" id="q2_holam" placeholder="א / אי / או / אֵ / אֹ"></div>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="q-block">
+    <div class="q-title"><span class="q-num">3</span> שווא נח / נע — סווגו את השווא המסומן</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <div>
+        <div class="input-lbl">יִכְתֹּב — השווא ב-<strong>כ׳</strong>:</div>
+        <select id="q3_a">
+          <option value="">בחרו...</option>
+          <option value="nach">שווא נח</option>
+          <option value="na">שווא נע</option>
+        </select>
+      </div>
+      <div>
+        <div class="input-lbl">מְלָכִים — השווא ב-<strong>מ׳</strong>:</div>
+        <select id="q3_b">
+          <option value="">בחרו...</option>
+          <option value="nach">שווא נח</option>
+          <option value="na">שווא נע</option>
+        </select>
+      </div>
+      <div>
+        <div class="input-lbl">קוֹטְלִים — השווא ב-<strong>ט׳</strong>:</div>
+        <select id="q3_c">
+          <option value="">בחרו...</option>
+          <option value="nach">שווא נח</option>
+          <option value="na">שווא נע</option>
+        </select>
+      </div>
+      <div>
+        <div class="input-lbl">כָּתַבְתָּ — השווא ב-<strong>ב׳</strong>:</div>
+        <select id="q3_d">
+          <option value="">בחרו...</option>
+          <option value="nach">שווא נח</option>
+          <option value="na">שווא נע</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="q-block">
+    <div class="q-title"><span class="q-num">4</span> דגש קל / חזק — זהו את סוג הדגש</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <div>
+        <div class="input-lbl">בַּיִת — הדגש ב-<strong>ב׳</strong>:</div>
+        <select id="q4_a">
+          <option value="">בחרו...</option>
+          <option value="kal">דגש קל</option>
+          <option value="hazak">דגש חזק</option>
+        </select>
+      </div>
+      <div>
+        <div class="input-lbl">שִׁבֵּר — הדגש ב-<strong>ב׳</strong>:</div>
+        <select id="q4_b">
+          <option value="">בחרו...</option>
+          <option value="kal">דגש קל</option>
+          <option value="hazak">דגש חזק</option>
+        </select>
+      </div>
+      <div>
+        <div class="input-lbl">פֶּה — הדגש ב-<strong>פ׳</strong>:</div>
+        <select id="q4_c">
+          <option value="">בחרו...</option>
+          <option value="kal">דגש קל</option>
+          <option value="hazak">דגש חזק</option>
+        </select>
+      </div>
+      <div>
+        <div class="input-lbl">סִפֵּר — הדגש ב-<strong>פ׳</strong>:</div>
+        <select id="q4_d">
+          <option value="">בחרו...</option>
+          <option value="kal">דגש קל</option>
+          <option value="hazak">דגש חזק</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="q-block">
+    <div class="q-title"><span class="q-num">5</span> פתח גנובה — סמנו ✓ במילים שיש בהן פתח גנובה</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;font-size:.88rem;">
+      <label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" id="q5_ruah"> <span style="font-weight:700;">רוּחַ</span></label>
+      <label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" id="q5_katav"> <span style="font-weight:700;">כָּתַב</span></label>
+      <label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" id="q5_melah"> <span style="font-weight:700;">מֶלַח</span></label>
+      <label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" id="q5_gavoah"> <span style="font-weight:700;">גָּבוֹהַּ</span></label>
+      <label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" id="q5_shomer"> <span style="font-weight:700;">שׁוֹמֵר</span></label>
+      <label style="display:flex;align-items:center;gap:6px;"><input type="checkbox" id="q5_shaliah"> <span style="font-weight:700;">שָׁלִיחַ</span></label>
+    </div>
+  </div>
+
+  <!-- Q6 open -->
+  <div class="q-block">
+    <div class="q-title"><span class="q-num">6</span> הסבירו: למה גרוניות לא מקבלות דגש חזק? מה קורה במקומו?</div>
+    <textarea id="q6_explain" rows="3" placeholder="כתבו תשובה מלאה..."></textarea>
+  </div>
+
+  <!-- PRACTICAL EXERCISE SECTION -->
+  <div style="background:linear-gradient(135deg,#1a1040,#3b0764);border-radius:16px;padding:16px 20px;margin-bottom:16px;margin-top:8px;">
+    <div style="font-family:'Secular One',sans-serif;font-size:.95rem;color:#f9a8d4;margin-bottom:4px;">🔬 תרגול מעשי — ניתוח מילים</div>
+    <div style="font-size:.8rem;color:rgba(255,255,255,.7);">קראו כל מילה בקול, נתחו את הסימנים וקבעו תשובה</div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="q-block" style="border-right:4px solid #fde68a;">
+    <div class="q-title"><span class="q-num">7</span> ניתוח דגש — קבעו: האם הדגש בבי"ת של <span style="font-size:1.1rem;color:var(--rose);font-weight:900;">בַּיִת</span> הוא דגש קל או דגש חזק?</div>
+    <div style="background:var(--surface2);border-radius:10px;padding:12px 14px;margin-bottom:12px;font-size:.84rem;">
+      <div style="font-weight:700;color:var(--navy);margin-bottom:6px;">💭 שלבי החשיבה:</div>
+      <div style="margin-bottom:4px;">א. באיזו אות יש דגש? <input type="text" id="q7_letter" placeholder="..." style="width:80px;display:inline-block;"></div>
+      <div style="margin-bottom:4px;">ב. האם היא משש אותיות בגד כפ"ת? <select id="q7_bgdkpt" style="width:120px;display:inline-block;"><option value="">בחרו</option><option value="yes">כן</option><option value="no">לא</option></select></div>
+      <div>ג. מה לפני האות — תחילת מילה / שווא נח / תנועה? <input type="text" id="q7_before" placeholder="..." style="width:160px;display:inline-block;"></div>
+    </div>
+    <div class="input-lbl">מסקנה — סוג הדגש:</div>
+    <select id="q7_answer">
+      <option value="">בחרו...</option>
+      <option value="kal">דגש קל — כי האות בגד כפ"ת ומיקומה מתאים</option>
+      <option value="hazak">דגש חזק — כי הוא מכפיל עיצור</option>
+      <option value="unsure">לא בטוח/ה</option>
+    </select>
+    <div style="margin-top:10px;">
+      <div class="input-lbl">הסבירו את הבחירה שלכם במילים שלכם:</div>
+      <textarea id="q7_reason" rows="2" placeholder="כי..."></textarea>
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="q-block" style="border-right:4px solid #f9a8d4;">
+    <div class="q-title"><span class="q-num">8</span> ניתוח שווא — קבעו: האם השווא בכ"ף של <span style="font-size:1.1rem;color:var(--rose);font-weight:900;">כָּתְבוּ</span> הוא שווא נע או שווא נח?</div>
+    <div style="background:var(--surface2);border-radius:10px;padding:12px 14px;margin-bottom:12px;font-size:.84rem;">
+      <div style="font-weight:700;color:var(--navy);margin-bottom:6px;">💭 שלבי החשיבה:</div>
+      <div style="margin-bottom:4px;">א. האם השווא בתחילת מילה? <select id="q8_start" style="width:120px;display:inline-block;"><option value="">בחרו</option><option value="yes">כן</option><option value="no">לא</option></select></div>
+      <div style="margin-bottom:4px;">ב. מה התנועה שלפני הכ"ף? <input type="text" id="q8_vowel_before" placeholder="קמץ / פתח / חירק..." style="width:180px;display:inline-block;"></div>
+      <div>ג. האם התנועה לפניו ארוכה או קצרה? <select id="q8_vowel_type" style="width:130px;display:inline-block;"><option value="">בחרו</option><option value="long">ארוכה</option><option value="short">קצרה</option></select></div>
+    </div>
+    <div class="input-lbl">מסקנה — סוג השווא:</div>
+    <select id="q8_answer">
+      <option value="">בחרו...</option>
+      <option value="nach">שווא נח — כי מופיע אחרי תנועה ארוכה באמצע מילה</option>
+      <option value="na">שווא נע — כי מופיע בתחילת מילה או אחרי תנועה קצרה</option>
+      <option value="unsure">לא בטוח/ה</option>
+    </select>
+    <div style="margin-top:10px;">
+      <div class="input-lbl">הסבירו את הבחירה שלכם במילים שלכם:</div>
+      <textarea id="q8_reason" rows="2" placeholder="כי..."></textarea>
+    </div>
+  </div>
+
+  <!-- Submit -->
+  <div style="display:flex;gap:10px;margin-top:8px;flex-wrap:wrap;">
+    <button onclick="submitWorksheet()" style="flex:1;padding:13px 20px;background:var(--rose);color:#fff;border:none;border-radius:12px;font-family:'Heebo',sans-serif;font-size:.92rem;font-weight:700;cursor:pointer;min-width:160px;">
+      ✅ שלח דף עבודה
+    </button>
+    <button onclick="window.print()" style="padding:13px 20px;background:transparent;color:var(--text-muted);border:1.5px solid var(--border);border-radius:12px;font-family:'Heebo',sans-serif;font-size:.88rem;cursor:pointer;" class="no-print">
+      🖨️ הדפס
+    </button>
+  </div>
+
+</div>
+<!-- /worksheet -->
+
+
+<!-- ══════════════════════════════════════════════
+     TAB 4 — ANSWERS (teacher only)
+════════════════════════════════════════════════ -->
+<div id="ta" class="tab-pane teacher-only" style="display:none !important;">
+
+  <div style="background:linear-gradient(135deg,#1a1040,#3b0764);border:1.5px solid #f9a8d4;border-radius:14px;padding:18px 20px;margin-bottom:24px;">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div style="font-size:2rem;">🔑</div>
+      <div>
+        <div style="font-weight:800;font-size:1rem;color:#f9a8d4;">פתרונות — לשימוש מורה בלבד</div>
+        <div style="font-size:.8rem;color:rgba(255,255,255,.65);">שיעור 0 — תורת ההגה | יחידה 3</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Answers intentionally left for teacher reference only -->
+  <!-- MC_CORRECT hidden per security policy -->
+  <script>const MC_CORRECT = {};</script>
+
+  <div class="ans-box" style="margin-bottom:12px;">
+    <div class="ans-tag">שאלה 1 — גרוניות</div>
+    <p style="font-size:.85rem;">✓ א ה ח ע ר — חמשתן גרוניות (ר׳ חצי-גרונית). ✗ ב כ מ — אינן גרוניות.</p>
+  </div>
+  <div class="ans-box" style="margin-bottom:12px;">
+    <div class="ans-tag">שאלה 2 — סיווג תנועות</div>
+    <p style="font-size:.85rem;">קמץ=א | חירק=אי | צרי=אֵ | שורוק=אוּ | סגול=אֶ | חולם=אֹ</p>
+  </div>
+  <div class="ans-box" style="margin-bottom:12px;">
+    <div class="ans-tag">שאלה 3 — שווא</div>
+    <p style="font-size:.85rem;">יִכְתֹּב — נח | מְלָכִים — נע | קוֹטְלִים — נח | כָּתַבְתָּ — נח</p>
+  </div>
+  <div class="ans-box" style="margin-bottom:12px;">
+    <div class="ans-tag">שאלה 4 — דגש</div>
+    <p style="font-size:.85rem;">בַּיִת — קל | שִׁבֵּר — חזק | פֶּה — קל | סִפֵּר — חזק</p>
+  </div>
+  <div class="ans-box" style="margin-bottom:12px;">
+    <div class="ans-tag">שאלה 5 — פתח גנובה</div>
+    <p style="font-size:.85rem;">✓ רוּחַ, מֶלַח, גָּבוֹהַּ, שָׁלִיחַ | ✗ כָּתַב (לא גרונית סופית), שׁוֹמֵר</p>
+  </div>
+  <div class="ans-box">
+    <div class="ans-tag">שאלה 6 — פתוח</div>
+    <p style="font-size:.85rem;">ציפייה: גרוניות אינן ניתנות להכפלה פיזית (אי אפשר לעצור את זרימת האוויר פעמיים). במקום הדגש החזק — מאריכים את התנועה שלפניהן (תמורה): הֵחֵל במקום הִחֵּל, בֵּרַךְ במקום בֵּרְרַךְ.</p>
+  </div>
+
+  <div style="background:linear-gradient(135deg,#1a1040,#3b0764);border-radius:12px;padding:12px 16px;margin:16px 0 12px;">
+    <div style="font-family:'Secular One',sans-serif;font-size:.88rem;color:#f9a8d4;">🔬 תרגול מעשי — שאלות 7–8</div>
+  </div>
+
+  <div class="ans-box" style="margin-bottom:12px;">
+    <div class="ans-tag">שאלה 7 — בַּיִת: דגש קל או חזק?</div>
+    <p style="font-size:.85rem;line-height:1.8;">
+      <strong>תשובה: דגש קל.</strong><br>
+      א. האות שיש בה דגש: ב׳ (בי"ת).<br>
+      ב. בי"ת היא אחת מאותיות בגד כפ"ת — ✓ מועמדת לדגש קל.<br>
+      ג. המיקום: <strong>תחילת מילה</strong> — לפניה אין כלום.<br>
+      מסקנה: דגש קל מופיע בתחילת מילה באותיות בגד כפ"ת → <strong>דגש קל</strong>.<br>
+      <span style="color:var(--text-muted);">דגש חזק היה מכפיל — "בּ" הייתה שקולה ל-bb, מה שאינו אפשרי בתחילת מילה.</span>
+    </p>
+  </div>
+
+  <div class="ans-box">
+    <div class="ans-tag">שאלה 8 — כָּתְבוּ: שווא נע או נח?</div>
+    <p style="font-size:.85rem;line-height:1.8;">
+      <strong>תשובה: שווא נח.</strong><br>
+      א. האם בתחילת מילה? לא — הכ"ף היא האות השלישית (כ-תְ-בוּ).<br>
+      ב. התנועה שלפני הכ"ף: קמץ (כָּ) — תנועה <strong>ארוכה</strong>.<br>
+      ג. כלל: שווא באמצע מילה אחרי תנועה ארוכה = <strong>שווא נח</strong>.<br>
+      מסקנה: <strong>שווא נח</strong> — דולגים עליו ומבטאים כָּת-בוּ.<br>
+      <span style="color:var(--text-muted);">השוו: כָּ<strong>תְ</strong>בוּ (נח) לעומת יִ<strong>כְ</strong>תְּבוּ (הכ׳ נע, כי קמץ כא קצר/פתח קצר לפניה).</span>
+    </p>
+  </div>
+
+</div>
+<!-- /answers -->
+
+
+<!-- ══════════════════════════════════════════════
+     SUCCESS MODAL
+════════════════════════════════════════════════ -->
+<div id="success-modal">
+  <div class="modal-card">
+    <div style="font-size:2.5rem;margin-bottom:8px;">✅</div>
+    <div style="font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--navy);margin-bottom:6px;">נשלח בהצלחה!</div>
+    <div id="modal-msg" style="font-size:.87rem;color:var(--text-muted);margin-bottom:16px;"></div>
+    <button onclick="document.getElementById('success-modal').classList.remove('open')"
+      style="padding:10px 24px;background:var(--rose);color:#fff;border:none;border-radius:10px;font-family:'Heebo',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;">
+      סגור
+    </button>
+  </div>
+</div>
+
+</main>
+
+<script>
+/* ── TABS ── */
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.style.color = 'var(--text-muted)'; });
+  const pane = document.getElementById(id);
+  if (pane) { pane.classList.add('active'); pane.style.removeProperty('display'); }
+  if (btn)  { btn.classList.add('active'); btn.style.color = 'var(--rose)'; }
+}
+
+/* ── STUDENT INJECT ── */
+function injectStudent() {
+  try {
+    var p = new URLSearchParams(window.location.search);
+    var n = (p.get('student') || p.get('name') || '').trim();
+    if (!n) { try { n = JSON.parse(localStorage.getItem('lashon_current_student') || '""') || ''; } catch(_){} }
+    if (n) {
+      var bar = document.getElementById('greeting-bar'), gn = document.getElementById('greeting-name');
+      if (bar && gn) { gn.textContent = 'שלום, ' + n + '!'; bar.style.display = 'flex'; }
+      var bar2 = document.getElementById('greeting-bar-inner'), gn2 = document.getElementById('greeting-name-2');
+      if (bar2 && gn2) { gn2.textContent = 'שלום, ' + n + '!'; bar2.style.display = 'flex'; }
+      ['sname', 'student-name', 's_name'].forEach(function(id) { var el = document.getElementById(id); if (el && !el.value) el.value = n; });
+      try { localStorage.setItem('lashon_current_student', JSON.stringify(n)); } catch(_){}
+    }
+    var dt = document.getElementById('student-date');
+    if (dt && !dt.value) dt.value = new Date().toLocaleDateString('he-IL');
+  } catch(e) {}
+}
+
+/* ── SUBMIT ── */
+function submitWorksheet() {
+  var sn = (document.getElementById('sname') || {}).value || '';
+  var sc = (document.getElementById('sclass') || {}).value || '';
+  var m = document.getElementById('success-modal'), msg = document.getElementById('modal-msg');
+  if (msg) msg.textContent = 'דף העבודה של ' + (sn || 'התלמיד/ה') + (sc ? ' מכיתה ' + sc : '') + ' נשלח בהצלחה.';
+  if (m) m.classList.add('open');
+  if (window.calcAssessment) window.calcAssessment();
+}
+
+/* ── ASSESSMENT CALCULATOR ── */
+window.calcAssessment = function() {
+  var ac = document.getElementById('assessment-content'); if (!ac) return;
+  var sname = ((document.getElementById('sname') || {value:''}).value || '').trim();
+  var sclass = ((document.getElementById('sclass') || {value:''}).value || '').trim();
+  var sdate = ((document.getElementById('student-date') || {value:''}).value || '').trim() || new Date().toLocaleDateString('he-IL');
+  var filled = 0, total = 18, qData = [];
+
+  function chkCheck(id, label) {
+    var el = document.getElementById(id);
+    var ok = !!(el && el.checked);
+    if (ok) filled++;
+    qData.push({ label: label, ok: ok, val: ok ? '✔' : '' });
+  }
+  function chkSel(id, label) {
+    var el = document.getElementById(id);
+    var ok = !!(el && el.value && el.value.trim().length > 0);
+    if (ok) filled++;
+    qData.push({ label: label, ok: ok, val: ok ? el.value : '' });
+  }
+  function chkText(id, label) {
+    var el = document.getElementById(id);
+    var ok = !!(el && el.value && el.value.trim().length > 3);
+    if (ok) filled++;
+    qData.push({ label: label, ok: ok, val: el ? el.value.trim().substring(0,36) : '' });
+  }
+
+  chkCheck('q1_alef', 'ש׳1 — א׳ גרונית'); chkCheck('q1_he', 'ש׳1 — ה׳ גרונית');
+  chkCheck('q1_het', 'ש׳1 — ח׳ גרונית'); chkCheck('q1_ayin', 'ש׳1 — ע׳ גרונית');
+  chkSel('q2_qamatz', 'ש׳2 — קמץ'); chkSel('q2_hiriq', 'ש׳2 — חירק');
+  chkSel('q2_tsere', 'ש׳2 — צרי'); chkSel('q2_shuruq', 'ש׳2 — שורוק');
+  chkSel('q3_a', 'ש׳3 — יִכְתֹּב'); chkSel('q3_b', 'ש׳3 — מְלָכִים');
+  chkSel('q4_a', 'ש׳4 — בַּיִת'); chkSel('q4_b', 'ש׳4 — שִׁבֵּר');
+  chkCheck('q5_ruah', 'ש׳5 — רוּחַ'); chkText('q6_explain', 'ש׳6 — הסבר פתוח');
+  // Q7 — practical dagesh analysis
+  chkSel('q7_answer', 'ש׳7 — מסקנה: דגש בַּיִת'); chkText('q7_reason', 'ש׳7 — הסבר');
+  // Q8 — practical shva analysis
+  chkSel('q8_answer', 'ש׳8 — מסקנה: שווא כָּתְבוּ'); chkText('q8_reason', 'ש׳8 — הסבר');
+
+  var pct = total > 0 ? Math.round(filled / total * 100) : 0;
+  var bc = pct >= 80 ? '#42b72a' : pct >= 50 ? '#f7b928' : '#fa3e3e';
+  var bg = pct >= 80 ? '#e6f4ea' : pct >= 50 ? '#fff8e1' : '#fdecea';
+  var em = pct >= 80 ? '⭐' : pct >= 50 ? '💪' : '📝';
+  var h = '';
+  h += "<div style='background:var(--rose-bg);border-radius:10px;padding:10px 14px;margin-bottom:13px;font-size:.85rem;direction:rtl;line-height:1.8;border:1px solid #f9a8d4'>";
+  h += "<strong>תלמיד/ה:</strong> " + (sname || '<span style="color:#aaa">לא הוזן</span>');
+  if (sclass) h += " · <strong>כיתה:</strong> " + sclass;
+  h += " · <strong>תאריך:</strong> " + sdate + "</div>";
+  h += "<div style='background:" + bg + ";color:" + bc + ";padding:12px 16px;border-radius:10px;text-align:center;font-weight:900;font-size:1.05rem;margin-bottom:12px;direction:rtl;border:1px solid " + bc + "33'>";
+  h += em + " " + filled + " / " + total + " שאלות מולאו — " + pct + "%</div>";
+  h += "<div style='height:9px;background:var(--border);border-radius:100px;margin-bottom:15px;overflow:hidden'>";
+  h += "<div style='height:100%;width:" + pct + "%;background:" + bc + ";border-radius:100px;transition:width .5s ease'></div></div>";
+  h += "<div style='font-size:.8rem;direction:rtl'>";
+  qData.forEach(function(q) {
+    var icon = q.ok ? '✅' : '○'; var clr = q.ok ? '#1d7a34' : '#90949c';
+    h += "<div style='display:flex;align-items:baseline;gap:8px;padding:5px 0;border-bottom:1px solid var(--surface2)'>";
+    h += "<span>" + icon + "</span><span style='flex:1;color:" + clr + ";font-size:.82rem'>" + q.label + "</span>";
+    if (q.val && q.ok) h += "<span style='color:#aaa;font-size:.76rem;max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'>" + q.val + "</span>";
+    h += "</div>";
+  });
+  h += "</div>";
+  ac.innerHTML = h; ac.style.display = 'block';
+};
+
+injectStudent();
+
+// ─── ROLE=TEACHER SECURITY (v4) ─────────────────────────────────────────
+(function applyTeacherRole() {
+  var params = new URLSearchParams(window.location.search);
+  var isTeacher = params.get('role') === 'teacher';
+
+  if (!isTeacher) {
+    document.querySelectorAll('.tab-pane').forEach(function(p){ p.classList.remove('active'); });
+    document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); b.style.color='var(--text-muted)'; });
+    var defPane = document.getElementById('th');
+    if (defPane) { defPane.classList.add('active'); }
+    var defBtn = document.querySelector('[onclick*="\'th\'"]');
+    if (defBtn) { defBtn.classList.add('active'); defBtn.style.color='var(--rose)'; }
+    return;
+  }
+
+  // Teacher mode: reveal all teacher elements
+  ['tt','ta','tq'].forEach(function(id){
+    var el = document.getElementById(id);
+    if (el) { el.style.removeProperty('display'); el.classList.remove('teacher-only'); }
+  });
+  document.querySelectorAll('.teacher-only').forEach(function(el){
+    el.style.removeProperty('display');
+  });
+  // Activate teacher guide tab
+  document.querySelectorAll('.tab-pane').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  var tPane = document.getElementById('tt');
+  if (tPane) { tPane.classList.add('active'); tPane.style.removeProperty('display'); }
+  var tBtn = document.querySelector('[onclick*="\'tt\'"]');
+  if (tBtn) { tBtn.classList.add('active'); tBtn.style.color='var(--rose)'; }
+})();
+// ─── END ROLE=TEACHER SECURITY ──────────────────────────────────────────
+
+</script>
+</body>
+</html>

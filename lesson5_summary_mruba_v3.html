@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>שיעור 5 | סיכום מערכת הפועל | כיתה י׳</title>
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+/* ═══════════════════════════════════════════════════
+   DESIGN TOKENS — Facebook-precise
+═══════════════════════════════════════════════════ */
+:root {
+  --bg:         #f0f2f5;
+  --surface:    #ffffff;
+  --surface2:   #f0f2f5;
+  --border:     #dadde1;
+  --border-lt:  #e4e6ea;
+  --ink:        #1c1e21;
+  --ink-mid:    #3e4042;
+  --muted:      #606770;
+  --dim:        #90949c;
+  --primary:    #1877f2;
+  --primary-lt: #e7f3ff;
+  --primary-dk: #166fe5;
+  --green:      #42b72a;
+  --green-lt:   #e6f4ea;
+  --red:        #fa3e3e;
+  --red-lt:     #fdecea;
+  --gold:       #f7b928;
+  --gold-lt:    #fff8e1;
+  --radius:     1rem;
+  --radius-sm:  .625rem;
+  --shadow:     0 2px 12px rgba(0,0,0,.09);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family:'Heebo',-apple-system,BlinkMacSystemFont,sans-serif;
+  background:var(--bg);color:var(--ink);
+  direction:rtl;text-align:right;line-height:1.6;font-size:15px;
+}
+
+
+/* ── GOLD-STANDARD THEORY BLOCKS ── */
+.tb-info{border-right:5px solid #2563b8;padding:1rem 1.25rem;background:#e7f3ff;border-radius:0 10px 10px 0;margin-bottom:1rem;}
+.tb-info .bt{font-weight:800;color:#1a3a6b;font-size:.9rem;margin-bottom:7px;display:flex;align-items:center;gap:6px;}
+.tb-tip{border-right:5px solid #e8a020;padding:1rem 1.25rem;background:#fef9e7;border-radius:0 10px 10px 0;margin-bottom:1rem;}
+.tb-tip .bt{font-weight:800;color:#7a5200;font-size:.9rem;margin-bottom:7px;display:flex;align-items:center;gap:6px;}
+.tb-warn{border-right:5px solid #c0392b;padding:1rem 1.25rem;background:#fdecea;border-radius:0 10px 10px 0;margin-bottom:1rem;}
+.tb-warn .bt{font-weight:800;color:#c0392b;font-size:.9rem;margin-bottom:7px;display:flex;align-items:center;gap:6px;}
+.ab{font-size:.97rem;line-height:2.0;color:#3e4a5c;}
+.ab p{margin-bottom:1.1em;}
+/* Dashboard tab */
+.dash-hero{background:linear-gradient(135deg,#0c2040,#1a3a6b);color:#fff;border-radius:14px;padding:18px 20px;margin-bottom:18px;display:flex;align-items:center;gap:14px;}
+/* ── TOPBAR / NAV ── */
+nav{
+  position:sticky;top:0;z-index:50;
+  background:var(--primary);
+  box-shadow:0 2px 8px rgba(24,119,242,.35);
+}
+.nav-inner{
+  max-width:860px;margin:0 auto;padding:0 16px;
+  display:flex;align-items:center;gap:4px;
+  overflow-x:auto;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none;height:50px;
+}
+.nav-inner::-webkit-scrollbar{display:none}
+.tab-btn{
+  flex-shrink:0;padding:7px 16px;border-radius:var(--radius-sm);border:none;
+  background:transparent;color:rgba(255,255,255,.7);
+  font-family:'Heebo',sans-serif;font-size:.83rem;font-weight:600;
+  cursor:pointer;transition:all .15s;white-space:nowrap;touch-action:manipulation;
+}
+.tab-btn:hover{background:rgba(255,255,255,.15);color:#fff}
+.tab-btn.active{background:rgba(255,255,255,.2);color:#fff;font-weight:800}
+
+.tab-pane{display:none}
+.tab-pane.active{display:block}
+
+/* ── HERO BANNER ── */
+.lesson-hero{
+  background:var(--primary);
+  padding:22px 20px 0;
+}
+.lesson-hero-inner{max-width:860px;margin:0 auto;padding-bottom:18px}
+#greeting-bar{
+  display:none;align-items:center;gap:8px;
+  background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);
+  border-radius:100px;padding:4px 14px;font-size:.83rem;font-weight:700;
+  color:#fff;width:fit-content;margin-bottom:12px;
+}
+
+/* ── MAIN LAYOUT ── */
+main{max-width:860px;margin:0 auto;padding:20px 16px}
+
+/* ── CARDS ── */
+.card{
+  background:var(--surface);border-radius:var(--radius);
+  padding:20px;margin-bottom:14px;
+  box-shadow:var(--shadow);border:1px solid var(--border);
+}
+.q-card{
+  background:var(--surface);border-radius:var(--radius);
+  padding:20px;margin-bottom:14px;
+  box-shadow:var(--shadow);border:1px solid var(--border);
+}
+
+/* ── QUESTION NUMBER BADGE ── */
+.q-num{
+  width:34px;height:34px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:.85rem;flex-shrink:0;
+  color:#fff;background:var(--primary);
+}
+
+/* ── INPUTS — clean and spacious ── */
+input[type="text"],textarea,select{
+  font-family:'Heebo',sans-serif;direction:rtl;text-align:right;
+  width:100%;background:var(--surface);
+  border:1.5px solid var(--border);border-radius:var(--radius-sm);
+  padding:10px 14px;font-size:.9rem;color:var(--ink);
+  transition:border-color .15s,box-shadow .15s;-webkit-appearance:none;
+}
+input:focus,textarea:focus,select:focus{
+  outline:none;border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(24,119,242,.12);background:#fff;
+}
+textarea{resize:vertical;line-height:1.6}
+@media(max-width:640px){input[type="text"],textarea,select{font-size:1rem!important}}
+
+/* ── WEIGHT TAG BADGES ── */
+.wt-maqtel{background:#e7f3ff;color:var(--primary);padding:2px 8px;border-radius:6px;font-weight:700;font-size:.85rem}
+.wt-kattal{background:#e6f4ea;color:#1d7a34;padding:2px 8px;border-radius:6px;font-weight:700;font-size:.85rem}
+.wt-tiqtal{background:#f3e8ff;color:#6b21a8;padding:2px 8px;border-radius:6px;font-weight:700;font-size:.85rem}
+.wt-qitla{background:var(--gold-lt);color:#92400e;padding:2px 8px;border-radius:6px;font-weight:700;font-size:.85rem}
+.wt-misc{background:var(--red-lt);color:#c0392b;padding:2px 8px;border-radius:6px;font-weight:700;font-size:.85rem}
+
+/* ── TABLE ── */
+.wt-table{width:100%;border-collapse:collapse}
+.wt-table th{background:var(--primary);color:#fff;padding:11px 14px;font-size:.8rem;font-weight:700;text-align:right}
+.wt-table td{padding:10px 14px;font-size:.88rem;border-bottom:1px solid var(--border-lt)}
+.wt-table tr:last-child td{border-bottom:none}
+.wt-table tr:hover td{background:var(--surface2)}
+
+/* ── TIMELINE ── */
+.timeline-row{display:flex;gap:14px;margin-bottom:20px;align-items:flex-start}
+.timeline-bubble{min-width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.82rem;color:#fff;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+
+/* ── ANSWER ITEMS ── */
+.answer-item{
+  padding:11px 14px;border-radius:var(--radius-sm);
+  background:var(--surface2);font-size:.87rem;margin-bottom:9px;
+  color:var(--ink-mid);border-right:3px solid var(--primary);
+  border:1px solid var(--border);border-right-width:3px;
+}
+
+/* ── BUTTONS — only Facebook Blue ── */
+.btn-primary{
+  background:var(--primary);color:#fff;border:none;
+  border-radius:var(--radius-sm);padding:11px 26px;
+  font-family:'Heebo',sans-serif;font-size:.92rem;font-weight:700;
+  cursor:pointer;touch-action:manipulation;
+  box-shadow:0 1px 4px rgba(24,119,242,.3);
+  transition:background .15s,box-shadow .15s;
+}
+.btn-primary:hover{background:var(--primary-dk);box-shadow:0 2px 10px rgba(24,119,242,.35)}
+
+.btn-submit{
+  background:var(--primary);color:#fff;border:none;
+  border-radius:var(--radius-sm);padding:13px 32px;
+  font-family:'Heebo',sans-serif;font-size:1rem;font-weight:800;
+  cursor:pointer;touch-action:manipulation;
+  box-shadow:0 2px 10px rgba(24,119,242,.3);
+  transition:background .15s;
+}
+.btn-submit:hover{background:var(--primary-dk)}
+
+/* ── MULTIPLE CHOICE ── */
+.mc-opts{display:flex;flex-direction:column;gap:9px;margin-top:12px}
+.mc-opt{
+  border:1.5px solid var(--border);border-radius:var(--radius-sm);
+  padding:12px 16px;cursor:pointer;background:var(--surface);
+  font-size:.9rem;text-align:right;font-family:'Heebo',sans-serif;
+  width:100%;transition:all .15s;color:var(--ink-mid);
+}
+.mc-opt:hover{border-color:var(--primary);background:var(--primary-lt);color:var(--primary)}
+.mc-opt.chosen{border-color:var(--primary);background:var(--primary-lt);color:var(--primary);font-weight:700}
+.mc-opt.correct{}
+.mc-opt.wrong{}
+
+/* ── ASSESSMENT ── */
+#assessment-content{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:16px;
+  direction:rtl;text-align:right;min-height:56px;
+}
+
+/* ── SUCCESS MODAL ── */
+#success-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(2px)}
+#success-modal.open{display:flex}
+
+/* ── SECTION DIVIDER ── */
+.section-title{
+  font-weight:800;font-size:1rem;color:var(--ink);
+  margin-bottom:14px;padding-bottom:10px;
+  border-bottom:2px solid var(--border);
+}
+
+/* ── INFO BOX ── */
+.info-box{
+  background:var(--primary-lt);border-right:3px solid var(--primary);
+  padding:10px 14px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  font-size:.88rem;color:var(--primary);margin-top:10px;
+}
+.info-box-gold{
+  background:var(--gold-lt);border-right:3px solid var(--gold);
+  padding:8px 12px;border-radius:0 6px 6px 0;
+  margin-top:8px;font-size:.84rem;color:#92400e;
+}
+
+@media print{nav,.no-print{display:none!important}.tab-pane{display:block!important;page-break-after:always}body{background:#fff}}
+
+
+/* ─── v3: border-radius 12px enforcement ─── */
+:root { --radius: 0.75rem; --radius-sm: 0.625rem; }
+.card, .q-card { border-radius: 12px; }
+.tb-info, .tb-tip, .tb-warn {
+  border-radius: 0 12px 12px 0 !important;
+}
+.theory-block, .theory-block-gs {
+  border-radius: 0 12px 12px 0 !important;
+}
+.neon-btn, .btn-submit, .btn-primary,
+button.bp, button.bok, button.bghost, button.bdanger {
+  border-radius: 12px;
+}
+input[type="text"], input[type="password"],
+input[type="tel"], input[type="number"],
+textarea, select {
+  border-radius: 10px;
+  font-size: 16px;   /* prevent iOS zoom */
+}
+.tab-btn { border-radius: 8px; }
+/* overflow wrapper for all tables */
+.overflow-x-auto { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+/* ─── end v3 border-radius ─── */
+
+</style>
+
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- HERO -->
+<div class="lesson-hero">
+  <div class="lesson-hero-inner">
+    <div id="greeting-bar" style="display:none;align-items:center;gap:8px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:100px;padding:4px 14px;font-size:.82rem;font-weight:700;color:#fff;width:fit-content;margin-bottom:10px">
+      <span>👋</span><span id="greeting-name">שלום!</span>
+    </div>
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:10px">
+      <div>
+        <div style="display:inline-block;background:rgba(255,255,255,.2);border-radius:100px;padding:3px 12px;font-size:.72rem;font-weight:700;color:#fff;letter-spacing:.06em;margin-bottom:8px">🏙️ לשון עברית · כיתה י׳ · יחידה 1 · שיעור 5 מתוך 6</div>
+        <h1 style="font-family:'Heebo',sans-serif;font-size:clamp(1.4rem,3.5vw,2rem);font-weight:800;color:#fff;line-height:1.2;margin-bottom:6px">סיכום מערכת הפועל + מרובעים</h1>
+        <p style="font-size:.88rem;color:rgba(255,255,255,.75);max-width:500px">שבעת הבניינים · שורשים מרובעים · בגרות</p>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:7px;padding-top:4px">
+        <span style="display:inline-flex;padding:3px 10px;border-radius:100px;font-size:.73rem;font-weight:700;background:rgba(255,255,255,.2);color:#fff">⏱ 45 דקות</span>
+        <span style="display:inline-flex;padding:3px 10px;border-radius:100px;font-size:.73rem;font-weight:700;background:rgba(255,255,255,.2);color:#fff">📐 מיצ"ב</span>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <button class="tab-btn" onclick="showTab('tt',this)">📋 מדריך</button>
+    <button class="tab-btn" onclick="showTab('tx',this)">📰 הטקסט</button>
+    <button class="tab-btn" onclick="showTab('th',this)">📚 הלכה</button>
+    <button class="tab-btn" onclick="showTab('tw',this)">✏️ דף עבודה</button>
+    <button class="tab-btn teacher-only" onclick="showTab('ta',this)">🔑 פתרונות</button>
+    <button class="tab-btn" onclick="showTab('tab-assess',this);if(window.calcAssessment)window.calcAssessment()">📊 הערכה</button>
+    <button class="tab-btn" onclick="showTab('tab-dashboard',this)">🖥️ Dashboard</button>
+    <button class="tab-btn no-print" onclick="window.print()" style="margin-right:auto">🖨️</button>
+  </div>
+</nav>
+
+<main style="max-width:860px;margin:0 auto;padding:16px">
+
+<!-- ════════ TAB 1 — TEACHER ════════ -->
+<div id="tt" class="tab-pane teacher-only active">
+
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+    <div class="card text-center" style="border-top:3px solid var(--sky);">
+      <div style="font-size:1.7rem;margin-bottom:3px;">🏙️</div>
+      <div style="font-size:0.8rem;font-weight:700;color:var(--sky);">מטרה</div>
+      <div style="font-size:0.76rem;color:var(--text-muted);margin-top:3px;">אינטגרציה: כל 7 הבניינים + פעלים מרובעים</div>
+    </div>
+    <div class="card text-center" style="border-top:3px solid var(--mint);">
+      <div style="font-size:1.7rem;margin-bottom:3px;">🔗</div>
+      <div style="font-size:0.8rem;font-weight:700;color:var(--mint);">קדם ידע</div>
+      <div style="font-size:0.76rem;color:var(--text-muted);margin-top:3px;">שיעורים 1–4: כל הבניינים</div>
+    </div>
+    <div class="card text-center" style="border-top:3px solid var(--amber);">
+      <div style="font-size:1.7rem;margin-bottom:3px;">🆕</div>
+      <div style="font-size:0.8rem;font-weight:700;color:var(--amber);">חדש בשיעור</div>
+      <div style="font-size:0.76rem;color:var(--text-muted);margin-top:3px;">פעלים מרובעים — שורש 4 אותיות</div>
+    </div>
+    <div class="card text-center" style="border-top:3px solid var(--rose);">
+      <div style="font-size:1.7rem;margin-bottom:3px;">📐</div>
+      <div style="font-size:0.8rem;font-weight:700;color:var(--rose);">מיצ"ב</div>
+      <div style="font-size:0.76rem;color:var(--text-muted);margin-top:3px;">D4.1–D4.3, R3.3, W2.2</div>
+    </div>
+  </div>
+
+  <h2 class="sec-h">📍 מהלך השיעור</h2>
+
+  <div class="phase-row">
+    <div class="phase-circle" style="background:var(--rose-dim);color:var(--rose);">5׳</div>
+    <div style="flex:1;">
+      <span class="badge" style="background:var(--rose-dim);color:var(--rose);border:1px solid var(--rose);margin-bottom:8px;">🔥 פתיחה — "מי אני? איזה בניין?"</span>
+      <h3 style="font-weight:700;font-size:1rem;color:var(--text);margin-bottom:7px;">פעילות "זיהוי עיוור" — ניחוש בניין מתצלום</h3>
+      <p style="font-size:0.88rem;color:var(--text-mid);">הקרינו 5 פעלים בניקוד מלא ללא שם הבניין. תלמידים כותבים על לוח לבן את שם הבניין בתוך 20 שניות. ניקוד: 1 נק׳ לכל תשובה נכונה — מי זכה ב-5?</p>
+      <div style="background:var(--surface2);border-right:3px solid var(--sky);padding:10px 14px;border-radius:0 8px 8px 0;margin-top:10px;font-size:0.85rem;color:var(--text-mid);">
+        <strong style="color:var(--sky);">פעלים להקרנה:</strong>
+        <em>מִשְׁתַּכְלֵל, מְכֻנֶּנֶת, הֻפְעַל, תִּסְנְכֵּר, כָּבַשׁ</em> — אחד לכל בניין.
+      </div>
+    </div>
+  </div>
+
+  <div class="phase-row">
+    <div class="phase-circle" style="background:var(--sky-dim);color:var(--sky);">10׳</div>
+    <div style="flex:1;">
+      <span class="badge" style="background:var(--sky-dim);color:var(--sky);border:1px solid var(--sky);margin-bottom:8px;">📚 רכישה — סיכום אינטגרטיבי + פעלים מרובעים</span>
+      <h3 style="font-weight:700;font-size:1rem;color:var(--text);margin-bottom:7px;">הגרד הגדול — מפת הבניינים + מרובעים</h3>
+      <p style="font-size:0.88rem;color:var(--text-mid);">הציגו את טבלת הסיכום ("הלכה") ואת מושג הפעל המרובע. הדגישו:</p>
+      <ul style="padding-right:18px;font-size:0.86rem;color:var(--text-mid);margin-top:6px;line-height:2.1;">
+        <li><strong style="color:var(--rose);">פעל מרובע</strong> = שורש של 4 עיצורים (לא 3) — <em>סנכ"ר, תכנ"ת, מחזר"</em></li>
+        <li><strong style="color:var(--amber);">מרובעים מופיעים רק בבניינים הכבדים</strong>: פִּיעֵל/פֻּעַל/הִתְפַּעֵל (ארבעה)</li>
+        <li><strong style="color:var(--sky);">מבנה הווה:</strong> מְסַנְכְּרֵן (מְ + 4 אותיות שורש + ניקוד פִּיעֵל)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="phase-row">
+    <div class="phase-circle" style="background:var(--mint-dim);color:var(--mint);">10׳</div>
+    <div style="flex:1;">
+      <span class="badge" style="background:var(--mint-dim);color:var(--mint);border:1px solid var(--mint);margin-bottom:8px;">🏙️ הדגמה — "הטקסט הירוק"</span>
+      <h3 style="font-weight:700;font-size:1rem;color:var(--text);margin-bottom:7px;">קריאת "הרובע שלא ישן" + ניתוח 7 בניינים</h3>
+      <p style="font-size:0.88rem;color:var(--text-mid);">קראו את הטקסט. הדגימו על הלוח: מצאו בטקסט דוגמה לכל 7 בניינים. שימו פועל אחד בכל תא בלוח.</p>
+    </div>
+  </div>
+
+  <div class="phase-row">
+    <div class="phase-circle" style="background:rgba(124,58,255,0.08);color:#7c3aed;">15׳</div>
+    <div style="flex:1;">
+      <span class="badge" style="background:rgba(124,58,255,0.08);color:#7c3aed;border:1px solid #7c3aed;margin-bottom:8px;">✏️ תרגול עצמאי</span>
+      <h3 style="font-weight:700;font-size:1rem;color:var(--text);margin-bottom:7px;">דף עבודה — שאלות 1–7</h3>
+      <p style="font-size:0.88rem;color:var(--text-mid);"><strong>שאלה 2</strong> — טבלת 7 הבניינים האינטגרטיבית, לב השיעור. <strong>שאלה 4</strong> — פעלים מרובעים, נושא חדש. <strong>שאלה 5</strong> — נתון ראמ"ה ערים חכמות.</p>
+    </div>
+  </div>
+
+  <div class="phase-row" style="margin-bottom:0;">
+    <div class="phase-circle" style="background:var(--surface3);color:var(--text-muted);">5׳</div>
+    <div style="flex:1;">
+      <span class="badge" style="background:var(--surface3);color:var(--text-muted);border:1px solid var(--border2);margin-bottom:8px;">🔚 Exit Ticket — "מכירות גדולה"</span>
+      <p style="font-size:0.88rem;color:var(--text-mid);">כל תלמיד "מוכר" לשכן בניין אחד: מסביר מה הוא, מה הסימן שלו ומה המשמעות שלו — בלי להשתמש בשם הבניין. השכן מנחש.</p>
+    </div>
+  </div>
+
+  <!-- Differentiation -->
+  <h2 class="sec-h" style="margin-top:30px;">🎯 התאמות</h2>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+    <div class="card" style="border-right:4px solid var(--rose);">
+      <div style="font-weight:700;color:var(--rose);margin-bottom:7px;font-size:0.9rem;">⬇️ תמיכה</div>
+      <ul style="font-size:0.85rem;color:var(--text-mid);padding-right:18px;line-height:2.1;">
+        <li>ספקו "דף בוגר בניינים" — טבלת 7 עם סימן זיהוי לכל אחד</li>
+        <li>בשאלה 2 — אפשרו להשתמש בטבלה הפתוחה בשיעורים הקודמים</li>
+        <li>במרובעים — תנו רק פִּיעֵל (עבר + הווה)</li>
+      </ul>
+    </div>
+    <div class="card" style="border-right:4px solid var(--sky);">
+      <div style="font-weight:700;color:var(--sky);margin-bottom:7px;font-size:0.9rem;">⬆️ הרחבה</div>
+      <ul style="font-size:0.85rem;color:var(--text-mid);padding-right:18px;line-height:2.1;">
+        <li>מצאו 5 פעלים מרובעים נוספים מתחום הטכנולוגיה שלא הוזכרו</li>
+        <li>כתבו פסקה קצרה על "עיר חכמת" שמשתמשת בכל 7 הבניינים</li>
+        <li>חקרו: מה ההבדל בין <em>סִנְכְרֵן</em> לבין <em>תִּאֵם</em>? כשאחד מחליף את השני?</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Common Mistakes -->
+  <h2 class="sec-h">⚠️ טעויות נפוצות — שיעור סיכום</h2>
+  <div style="background:var(--surface);border:1px solid var(--border);border-right:4px solid var(--rose);border-radius:0 12px 12px 0;padding:13px 16px;margin-bottom:10px;">
+    <div style="font-weight:700;color:var(--rose);margin-bottom:5px;font-size:0.9rem;">🔴 טעות 1 — פעל מרובע = בניין עצמאי</div>
+    <p style="font-size:0.85rem;color:var(--text-mid);">תלמידים חושבים שפעל מרובע הוא "בניין שמיני". <strong style="color:var(--text);">הבהרה:</strong> אין בניין שמיני. פעל מרובע = שורש בן 4 אותיות שנכנס לתוך אחד הבניינים הקיימים (בד"כ פִּיעֵל/פֻּעַל/הִתְפַּעֵל). הבניין עצמו זהה.</p>
+  </div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-right:4px solid var(--rose);border-radius:0 12px 12px 0;padding:13px 16px;margin-bottom:10px;">
+    <div style="font-weight:700;color:var(--rose);margin-bottom:5px;font-size:0.9rem;">🔴 טעות 2 — ניתוח מרובע כשלושי</div>
+    <p style="font-size:0.85rem;color:var(--text-mid);"><em>מְסַנְכְּרֵן</em> — תלמידים נוטלים שורש ס-נ-כ (3 אותיות) ומדלגים על ר׳. <strong style="color:var(--text);">תיקון:</strong> שורש מרובע = 4 עיצורים שלא ניתן להוציא אף אחד. ניתן לזהות לפי: כל 4 האותיות "הכרחיות" לכל משמעות המילה.</p>
+  </div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-right:4px solid var(--rose);border-radius:0 12px 12px 0;padding:13px 16px;margin-bottom:10px;">
+    <div style="font-weight:700;color:var(--rose);margin-bottom:5px;font-size:0.9rem;">🔴 טעות 3 — בלבול בין נִפְעַל לפֻּעַל ולהֻפְעַל</div>
+    <p style="font-size:0.85rem;color:var(--text-mid);">שלושתם "סביל" — אבל שונים: נִפְעַל = סביל של קַל (+ עצמי); פֻּעַל = סביל של פִּיעֵל; הֻפְעַל = סביל של הִפְעִיל. <strong style="color:var(--text);">טריק:</strong> איזה פעיל מקביל? זיהוי הפעיל ← מזהה מיד את הסביל.</p>
+  </div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-right:4px solid var(--mint);border-radius:0 12px 12px 0;padding:13px 16px;margin-bottom:14px;">
+    <div style="font-weight:700;color:var(--mint);margin-bottom:5px;font-size:0.9rem;">✅ טיפ — "מפת הזוגות"</div>
+    <p style="font-size:0.85rem;color:var(--text-mid);">למדו את הזוגות: קַל↔נִפְעַל | פִּיעֵל↔פֻּעַל | הִפְעִיל↔הֻפְעַל + הִתְפַּעֵל "הרפלקסיבי הבודד". שבעה = שלושה זוגות + אחד.</p>
+  </div>
+
+  <!-- Standards -->
+  <h2 class="sec-h" style="margin-top:6px;">📐 יישור לתקנים</h2>
+  <div class="overflow-x-auto my-4" style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+    <table style="width:100%;border-collapse:collapse;font-size:0.86rem;">
+      <thead><tr style="background:var(--surface2);">
+        <th style="padding:10px 14px;text-align:right;color:var(--sky);border-bottom:1px solid var(--border);">תחום</th>
+        <th style="padding:10px 14px;text-align:right;color:var(--sky);border-bottom:1px solid var(--border);">מטרה</th>
+        <th style="padding:10px 14px;text-align:right;color:var(--sky);border-bottom:1px solid var(--border);">מיצ"ב</th>
+      </tr></thead>
+      <tbody>
+        <tr class="rr"><td>אינטגרציה: 7 הבניינים</td><td>זיהוי כל הבניינים בטקסט רציף; ניתוח עצמאי</td><td>D4.1</td></tr>
+        <tr class="rr"><td>פעלים מרובעים</td><td>זיהוי שורש מרובע, ניתוח בניין, נטייה בסיסית</td><td>D4.2</td></tr>
+        <tr class="rr"><td>המרת בניינים (סיכום)</td><td>המרה בין כל הזוגות הפעיל/סביל</td><td>D4.3</td></tr>
+        <tr class="rr"><td>אוריינות נתונים</td><td>קריאת אינפוגרפיקה + הסקת מסקנה + ניסוח</td><td>R3.3</td></tr>
+        <tr class="rr"><td>כתיבה אינטגרטיבית</td><td>שימוש מודע בשלושה+ בניינים שונים בכתיבה</td><td>W2.2</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div><!-- /teacher -->
+
+
+<!-- ════════ TAB 2 — TEXT ════════ -->
+<div id="tx" class="tab-pane">
+<div class="legend-unified no-print" style="margin:12px 0 18px">
+  <span class="lu-i"><span class="lu-d" style="background:#c84b31"></span><span class="vb-kal">קַל&nbsp;/&nbsp;פִּיעֵל</span></span>
+  <span class="lu-i"><span class="lu-d" style="background:#2d3561"></span><span class="vb-nif">נִפְעַל&nbsp;/&nbsp;הֻפְעַל</span></span>
+  <span class="lu-i"><span class="lu-d" style="background:#4a7c59"></span><span class="vb-hif">הִפְעִיל&nbsp;/&nbsp;הִתְפַּעֵל&nbsp;/&nbsp;פֻּעַל</span></span>
+</div>
+
+  <div style="background:linear-gradient(135deg,var(--sky-dim),var(--mint-dim));border:1px solid var(--sky);border-radius:14px;padding:22px 26px;margin-bottom:26px;">
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">
+      <span class="badge" style="background:var(--sky-dim);color:var(--sky);border:1px solid var(--sky);">כתבת עתיד</span>
+      <span class="badge" style="background:var(--mint-dim);color:var(--mint);border:1px solid var(--mint);">רמה: ג׳ — שאלון 70%</span>
+      <span class="badge" style="background:var(--rose-dim);color:var(--rose);border:1px solid var(--rose);">2026</span>
+    </div>
+    <h1 style="font-family:'Varela Round',sans-serif;font-size:clamp(1.3rem,3vw,2rem);font-weight:700;color:var(--text);line-height:1.3;margin-bottom:10px;">
+      הרובע שלא ישן: כיצד ערים חכמות משנות את חיי היומיום
+    </h1>
+    <p style="color:var(--text-muted);font-size:0.86rem;">מאת: <strong style="color:var(--text-mid);">ד"ר שירה אלוני</strong> | <em>גלובס טכנולוגיה</em>, ינואר 2026</p>
+  </div>
+
+  <div class="article-body max-w-3xl" style="margin:0 auto 30px;">
+
+    <p>בשנת 2025 <span class="vb-nif">הוכרזה</span> באר שבע כ"עיר החכמה ביותר בישראל" — תואר <span class="vb-nif">שנרכש</span> בעקבות עשור של השקעות בתשתיות דיגיטליות. הפרויקט, שהחל כניסיון <span class="vb-kal">לתכנן</span> תחבורה ציבורית יעילה יותר, <span class="vb-hif">התפתח</span> לרשת אינטגרטיבית שמשנה כל תחום בחיי התושבים.</p>
+
+    <p>"אנחנו <span class="vb-kal">מסנכרנים</span> אלפי חיישנים בו-זמנית", <span class="vb-hif">הסביר</span> ראש עיריית באר שבע בפגישה עם עיתונאים. "כל פח אשפה <span class="vb-kal">מדווח</span> כשהוא מלא, כל אוטובוס <span class="vb-nif">מותאם</span> לביקוש האמיתי, וכל תמרור <span class="vb-nif">מכוּוָן</span> בזמן אמת." השיטה <span class="vb-nif">תוכנתה</span> על ידי צוות מקומי שסירב <span class="vb-hif">להתפשר</span> על רמת הדיוק.</p>
+
+    <p>אחת ההצלחות הגדולות היא מערכת ניהול האנרגיה. רחובות <span class="vb-nif">מוארים</span> כעת רק כאשר חיישן <span class="vb-kal">מזהה</span> תנועה; בניינים ציבוריים <span class="vb-nif">מוּבְנִים</span> עם לוחות סולאריים שמייצרים אנרגיה עודפת שבתורה <span class="vb-nif">מוזרמת</span> בחזרה לרשת. "בגלל שהכל <span class="vb-nif">מסונכרן</span>, הצלחנו <span class="vb-kal">לחסוך</span> 34% מצריכת החשמל", <span class="vb-kal">ציין</span> מנהל האנרגיה של העיר.</p>
+
+    <p>אך הפרויקט לא <span class="vb-nif">נקלט</span> ללא ביקורת. ארגוני זכויות אדם <span class="vb-hif">הביעו</span> חשש מפני מעקב: "כאשר כל צעד <span class="vb-nif">נרשם</span> ו<span class="vb-nif">מנוטר</span>, מהי הפרטיות?" שאלה עו"ד נעמה ברק, ממייסדות התנועה לפרטיות דיגיטלית. העירייה <span class="vb-hif">השיבה</span> שהנתונים <span class="vb-nif">מאוחסנים</span> בשרתים מקומיים ואינם <span class="vb-nif">מועברים</span> לגורם חיצוני.</p>
+
+    <p>ועדת האו"ם לפיתוח בר-קיימא <span class="vb-hif">ממליצה</span> כי ערים ברחבי העולם <span class="vb-kal">יאמצו</span> את המודל. "הטכנולוגיה כבר <span class="vb-nif">פותחה</span>", <span class="vb-hif">הצהירה</span> נציגת האו"ם. "כעת <span class="vb-nif">מדובר</span> בשאלה פוליטית: האם מקבלי ההחלטות <span class="vb-nif">מוכנים</span> <span class="vb-kal">לשנות</span> סדרי עדיפויות?"</p>
+
+  </div>
+
+  <!-- Legend -->
+  <div class="card max-w-3xl" style="margin:0 auto 22px;">
+    <div style="font-weight:700;margin-bottom:10px;font-size:0.9rem;">מקרא — פעלים בטקסט לפי קטגוריה</div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;font-size:0.84rem;color:var(--text-mid);">
+      <span>■ הִפְעִיל / קַל / נִפְעַל</span>
+      <span>■ פִּיעֵל / הֻפְעַל</span>
+      <span>■ הִתְפַּעֵל / פֻּעַל</span>
+      <span>■ מרובע / לזיהוי</span>
+    </div>
+    <div class="note-sm">* ההדגשות לדיון מודרך; תלמידים מזהים ומסווגים בעצמם</div>
+  </div>
+
+  <!-- ══ SMART CITY INFOGRAPHIC ══ -->
+  <div class="info-block max-w-3xl" style="margin:0 auto 0;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap;">
+      <span style="background:var(--sky);color:#fff;font-size:0.7rem;font-weight:800;padding:4px 12px;border-radius:100px;letter-spacing:0.06em;">נספח ראמ"ה — נתוני ערים חכמות</span>
+      <span style="font-size:0.79rem;color:var(--text-muted);">מקור: UN Habitat Smart Cities Report + עיריית ב"ש 2025</span>
+    </div>
+    <h3 style="font-weight:800;font-size:1.02rem;margin-bottom:14px;color:var(--text);">חיסכון מדיד בערים חכמות — ממוצע עולמי לעומת ישראל</h3>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+      <div class="info-stat">
+        <div class="num">34%</div>
+        <div class="unit">חיסכון בחשמל</div>
+        <div class="desc">ב"ש 2025</div>
+      </div>
+      <div class="info-stat">
+        <div class="num" style="color:var(--mint);">22%</div>
+        <div class="unit">פחות פקק תנועה</div>
+        <div class="desc">ממוצע עולמי</div>
+      </div>
+      <div class="info-stat">
+        <div class="num" style="color:var(--amber);">$2.4M</div>
+        <div class="unit">חיסכון שנתי</div>
+        <div class="desc">עיר בינונית</div>
+      </div>
+      <div class="info-stat">
+        <div class="num" style="color:var(--rose);">18%</div>
+        <div class="unit">פחות פסולת</div>
+        <div class="desc">ניהול חכם</div>
+      </div>
+    </div>
+
+    <div style="background:var(--surface);border-radius:10px;padding:14px 16px;border:1px solid var(--border);">
+      <div style="font-weight:700;font-size:0.9rem;color:var(--text);margin-bottom:10px;">השוואה: אחוז ערים שהטמיעו טכנולוגיה לפחות בתחום אחד (2025)</div>
+      <div id="city-chart">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+          <div style="min-width:90px;font-size:0.8rem;color:var(--text-mid);">אירופה</div>
+          <div style="flex:1;height:22px;background:var(--surface2);border-radius:4px;overflow:hidden;border:1px solid var(--border);">
+            <div class="city-bar" style="height:100%;background:linear-gradient(90deg,#1a6fcc,#2d8fe8);border-radius:4px;display:flex;align-items:center;padding-right:6px;font-size:0.76rem;font-weight:700;color:#fff;transition:width 1.2s ease;" data-w="71%">71%</div>
+          </div>
+          <div style="min-width:36px;font-size:0.8rem;color:var(--text-muted);">71%</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+          <div style="min-width:90px;font-size:0.8rem;color:var(--text-mid);">אסיה-פסיפיק</div>
+          <div style="flex:1;height:22px;background:var(--surface2);border-radius:4px;overflow:hidden;border:1px solid var(--border);">
+            <div class="city-bar" style="height:100%;background:linear-gradient(90deg,#0e9e78,#14c99a);border-radius:4px;display:flex;align-items:center;padding-right:6px;font-size:0.76rem;font-weight:700;color:#fff;transition:width 1.2s ease;" data-w="64%">64%</div>
+          </div>
+          <div style="min-width:36px;font-size:0.8rem;color:var(--text-muted);">64%</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+          <div style="min-width:90px;font-size:0.8rem;color:var(--text-mid);">ישראל</div>
+          <div style="flex:1;height:22px;background:var(--surface2);border-radius:4px;overflow:hidden;border:1px solid var(--border);">
+            <div class="city-bar" style="height:100%;background:linear-gradient(90deg,#d97706,#f59e0b);border-radius:4px;display:flex;align-items:center;padding-right:6px;font-size:0.76rem;font-weight:700;color:#fff;transition:width 1.2s ease;" data-w="58%">58%</div>
+          </div>
+          <div style="min-width:36px;font-size:0.8rem;color:var(--text-muted);">58%</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+          <div style="min-width:90px;font-size:0.8rem;color:var(--text-mid);">ה"ב ואפריקה</div>
+          <div style="flex:1;height:22px;background:var(--surface2);border-radius:4px;overflow:hidden;border:1px solid var(--border);">
+            <div class="city-bar" style="height:100%;background:linear-gradient(90deg,#718096,#a0aec0);border-radius:4px;display:flex;align-items:center;padding-right:6px;font-size:0.76rem;font-weight:700;color:#fff;transition:width 1.2s ease;" data-w="31%">31%</div>
+          </div>
+          <div style="min-width:36px;font-size:0.8rem;color:var(--text-muted);">31%</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:14px;padding:12px 14px;background:var(--sky-dim);border-right:3px solid var(--sky);border-radius:0 8px 8px 0;font-size:0.83rem;color:var(--text-mid);">
+      <strong style="color:var(--sky);">📌 נתון מרכזי:</strong> ערים חכמות חסכו בממוצע 17% בצריכת האנרגיה — אך רק 58% מערי ישראל הטמיעו טכנולוגיה לפחות בתחום אחד.<br>
+      <strong style="color:var(--mint);">📌 מגמה:</strong> הגידול המהיר ביותר <span class="vb-nif">נרשם</span> באסיה — עלייה של 18% בשנת 2025 לעומת 2024.
+    </div>
+  </div>
+
+</div><!-- /text -->
+
+
+<!-- ════════ TAB 3 — THEORY ════════ -->
+<div id="th" class="tab-pane">
+
+  <h2 class="sec-h" style="font-size:1.3rem;">📚 סיכום: שבעת הבניינים + פעלים מרובעים</h2>
+
+  <!-- The Big 7 Summary Table -->
+  <h3 style="font-weight:700;font-size:1.05rem;margin-bottom:12px;color:var(--text);">טבלת סיכום — שבעת הבניינים (שורש כ-ת-ב)</h3>
+  <div class="overflow-x-auto my-4" style="overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:24px;">
+    <table class="b7-table">
+      <thead><tr>
+        <th>#</th><th>בניין</th><th>עבר (הוא)</th><th>הווה (ז׳ יחיד)</th><th>עתיד (הוא)</th><th>תפקיד סמנטי</th><th>סימן זיהוי</th>
+      </tr></thead>
+      <tbody>
+        <tr><td>1</td><td style="font-weight:700;color:#1a6fcc;">קַל</td><td class="kal">כָּתַב</td><td class="kal">כּוֹתֵב</td><td class="kal">יִכְתֹּב</td><td style="font-size:0.83rem;">פעולה בסיסית, מצב</td><td style="font-size:0.8rem;color:var(--text-muted);">פָּעַל / קוֹטֵל</td></tr>
+        <tr><td>2</td><td style="font-weight:700;color:#0e9e78;">נִפְעַל</td><td class="nifal">נִכְתַּב</td><td class="nifal">נִכְתָּב</td><td class="nifal">יִיכָּתֵב</td><td style="font-size:0.83rem;">סביל/עצמי/הדדי</td><td style="font-size:0.8rem;color:var(--text-muted);">נ"ון תחילית (עבר) / נִ (הווה+עתיד)</td></tr>
+        <tr><td>3</td><td style="font-weight:700;color:#7c3aff;">פִּיעֵל</td><td class="piel">כִּתֵּב</td><td class="piel">מְכַתֵּב</td><td class="piel">יְכַתֵּב</td><td style="font-size:0.83rem;">עצימות/גרימה/חוזרת</td><td style="font-size:0.8rem;color:var(--text-muted);">דגש בעי"ן + פתח תחת פ"פ</td></tr>
+        <tr><td>4</td><td style="font-weight:700;color:#1565a8;">פֻּעַל</td><td class="pual">כֻּתַּב</td><td class="pual">מְכֻתָּב</td><td class="pual">יְכֻתַּב</td><td style="font-size:0.83rem;">סביל של פִּיעֵל</td><td style="font-size:0.8rem;color:var(--text-muted);">קיבוץ + דגש עי"ן</td></tr>
+        <tr><td>5</td><td style="font-weight:700;color:#1a6fcc;">הִפְעִיל</td><td class="hifil">הִכְתִּיב</td><td class="hifil">מַכְתִּיב</td><td class="hifil">יַכְתִּיב</td><td style="font-size:0.83rem;">גרימה/כניסה למצב/כלי</td><td style="font-size:0.8rem;color:var(--text-muted);">הִ עבר | מַ הווה | יַ עתיד</td></tr>
+        <tr><td>6</td><td style="font-weight:700;color:#4a90d9;">הֻפְעַל</td><td class="hufal">הֻכְתַּב</td><td class="hufal">מֻכְתָּב</td><td class="hufal">יֻכְתַּב</td><td style="font-size:0.83rem;">סביל של הִפְעִיל</td><td style="font-size:0.8rem;color:var(--text-muted);">קיבוץ תחת ה"א/מ"ם</td></tr>
+        <tr><td>7</td><td style="font-weight:700;color:#d97706;">הִתְפַּעֵל</td><td class="hitp">הִתְכַּתֵּב</td><td class="hitp">מִתְכַּתֵּב</td><td class="hitp">יִתְכַּתֵּב</td><td style="font-size:0.83rem;">רפלקסיבי/הדדי/עצמי</td><td style="font-size:0.8rem;color:var(--text-muted);">הִתְ/מִתְ תחילית</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Pairs -->
+  <h3 style="font-weight:700;font-size:1.05rem;margin:20px 0 12px;color:var(--text);">זוגות פעיל–סביל (ושאינו זוג)</h3>
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-6">
+    <div class="card text-center" style="border-top:3px solid #1a6fcc;">
+      <div style="font-size:1.05rem;font-weight:800;color:#1a6fcc;">קַל</div>
+      <div style="color:var(--text-muted);font-size:1.1rem;margin:3px 0;">↕</div>
+      <div style="font-size:1.05rem;font-weight:800;color:#0e9e78;">נִפְעַל</div>
+      <div class="note-sm">פעיל / סביל+עצמי</div>
+    </div>
+    <div class="card text-center" style="border-top:3px solid #7c3aff;">
+      <div style="font-size:1.05rem;font-weight:800;color:#7c3aff;">פִּיעֵל</div>
+      <div style="color:var(--text-muted);font-size:1.1rem;margin:3px 0;">↕</div>
+      <div style="font-size:1.05rem;font-weight:800;color:#1565a8;">פֻּעַל</div>
+      <div class="note-sm">פעיל / סביל</div>
+    </div>
+    <div class="card text-center" style="border-top:3px solid #1a6fcc;">
+      <div style="font-size:1.05rem;font-weight:800;color:#1a6fcc;">הִפְעִיל</div>
+      <div style="color:var(--text-muted);font-size:1.1rem;margin:3px 0;">↕</div>
+      <div style="font-size:1.05rem;font-weight:800;color:#4a90d9;">הֻפְעַל</div>
+      <div class="note-sm">פעיל / סביל</div>
+    </div>
+    <div class="card text-center" style="border-top:3px solid #d97706;">
+      <div style="font-size:1.05rem;font-weight:800;color:#d97706;">הִתְפַּעֵל</div>
+      <div style="color:var(--text-muted);font-size:1.1rem;margin:3px 0;">🔄</div>
+      <div style="font-size:0.82rem;color:var(--text-muted);">רפלקסיבי — אין סביל מקביל</div>
+      <div class="note-sm">"הבודד"</div>
+    </div>
+  </div>
+
+  <!-- Quadriliteral section -->
+  <div style="border-top:2px dashed var(--rose);padding-top:20px;margin-top:4px;">
+    <h2 style="font-size:1.2rem;font-weight:800;color:var(--rose);margin-bottom:14px;">🆕 פעלים מרובעים — שורש בן 4 אותיות</h2>
+
+    <div class="tb-info" style="margin-bottom:1rem;">
+      <div class="bt">ℹ️ מה הם פעלים מרובעים?</div>
+      <div class="ab">
+        <p>פועל מרובע הוא פועל שמקורו שורש בן <strong>ארבעה עיצורים</strong> שאי אפשר לצמצם לשלושה. הם נוצרים בדרך כלל ממילים לועזיות שהוכנסו לעברית: <strong>טִלְפֵּן</strong> (שורש: ט.ל.פ.נ, בניין: פִּעֵל — השתמש בטלפון), <strong>סִנְכְּרֵן</strong> (שורש: ס.נ.כ.ר, בניין: פִּעֵל — Synchronize), <strong>תִּרְגֵּל</strong> (שורש: ת.ר.ג.ל, בניין: פִּעֵל — תרגל), <strong>קִשְׁקֵשׁ</strong> (שורש: ק.ש.ק.ש, בניין: פִּעֵל — ביצע פעולה חוזרת).</p>
+        <p><strong>חשוב:</strong> פעלים מרובעים מופיעים <em>רק</em> בשלושה בניינים: פִּיעֵל, פֻּעַל, והִתְפַּעֵל — לא בקַל, לא בנִפְעַל, ולא בהִפְעִיל/הֻפְעַל. הסיבה: כל בניין אחר אינו מאפשר ארבעה עיצורי שורש ברצף.</p>
+      </div>
+    </div>
+
+    <h3 style="font-weight:700;font-size:1.02rem;margin:16px 0 10px;color:var(--text);">דוגמות פעלים מרובעים בתחום הטכנולוגיה</h3>
+    <div class="overflow-x-auto my-4" style="overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px;">
+      <table class="b7-table">
+        <thead><tr>
+          <th>שורש מרובע</th><th>פִּיעֵל עבר (הוא)</th><th>פִּיעֵל הווה</th><th>פֻּעַל (סביל) הווה</th><th>הִתְפַּעֵל הווה</th><th>משמעות</th>
+        </tr></thead>
+        <tbody>
+          <tr><td class="mrubatext">סנכ"ר</td><td class="piel">סִנְכְּרֵן</td><td class="piel">מְסַנְכְּרֵן</td><td class="pual">מְסֻנְכְּרָן</td><td class="hitp">מִתְסַנְכְּרֵן</td><td style="font-size:0.82rem;">Synchronize</td></tr>
+          <tr><td class="mrubatext">תכנ"ת</td><td class="piel">תִּכְנֵת</td><td class="piel">מְתַכְנֵת</td><td class="pual">מְתֻכְנָת</td><td class="hitp">מִתְתַּכְנֵת</td><td style="font-size:0.82rem;">לתכנת (Program)</td></tr>
+          <tr><td class="mrubatext">מחזר"</td><td class="piel">מִחְזֵר</td><td class="piel">מְמַחְזֵר</td><td class="pual">מְמֻחְזָר</td><td class="hitp">מִתְמַחְזֵר</td><td style="font-size:0.82rem;">Recycle</td></tr>
+          <tr><td class="mrubatext">אפיי"ן</td><td class="piel">אִפְיֵן</td><td class="piel">מְאַפְיֵן</td><td class="pual">מְאֻפְיָן</td><td class="hitp">מִתְאַפְיֵן</td><td style="font-size:0.82rem;">Characterize</td></tr>
+          <tr><td class="mrubatext">פקס"ד</td><td class="piel">פִּקְסֵד</td><td class="piel">מְפַקְסֵד</td><td class="pual">מְפֻקְסָד</td><td>—</td><td style="font-size:0.82rem;">לפקס; קבוע</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tb-tip" style="margin-bottom:1rem;">
+      <div class="bt">💡 איך מזהים שורש מרובע?</div>
+      <div class="ab">
+        <p>כדי לזהות שורש מרובע, יש לבצע שלושה בדיקות: ראשית, הסר את תחיליות וסיומות הבניין (מְ, הִתְ, ות-/ים-) ובדוק כמה עיצורים נשארו. שנית, נסה "לצמצם" ל-3 עיצורים — אם אי אפשר מבלי לאבד משמעות — זהו מרובע. שלישית, הבינוני (הווה) של פִּעֵל מרובע תמיד פותח ב-<strong>מְ + 4 עיצורים</strong>: לדוגמה, <strong>מְסַנְכְּרֵן</strong> (שורש: ס.נ.כ.ר, בניין: פִּעֵל, הווה — מסנכרן קבצים), <strong>מְאַפְיֵן</strong> (שורש: א.פ.י.נ, בניין: פִּעֵל, הווה — מאפיין, Characterize), <strong>מְתַכְנֵת</strong> (שורש: ת.כ.נ.ת, בניין: פִּעֵל, הווה — מתכנת, Program).</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /theory -->
+
+
+<!-- ════════ TAB 4 — WORKSHEET ════════ -->
+<div id="tw" class="tab-pane student-exercise">
+
+  <div class="card sky" style="background:linear-gradient(135deg,var(--surface2),var(--surface));margin-bottom:20px;">
+    <h2 style="font-weight:800;font-size:1.2rem;color:var(--text);margin-bottom:16px;">✏️ דף עבודה — שיעור 5: סיכום מערכת הפועל</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div><label style="font-size:0.79rem;font-weight:600;color:var(--text-muted);display:block;margin-bottom:4px;">שם מלא</label><input type="text" id="sname" placeholder="הקלד/י שם..."></div>
+      <div><label style="font-size:0.79rem;font-weight:600;color:var(--text-muted);display:block;margin-bottom:4px;">כיתה</label><input type="text" id="sclass" placeholder="לדוגמה: י׳3"></div>
+      <div><label style="font-size:0.79rem;font-weight:600;color:var(--text-muted);display:block;margin-bottom:4px;">תאריך</label><input type="text" id="sdate" placeholder="יום/חודש/שנה"></div>
+    </div>
+  </div>
+
+  <!-- Q1 — All-7 Identification -->
+  <div class="card sky">
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;">
+      <div style="background:var(--sky);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.88rem;flex-shrink:0;">1</div>
+      <div>
+        <div style="font-weight:700;font-size:0.98rem;color:var(--text);">ה-7 בטקסט — זיהוי אינטגרטיבי</div>
+        <div style="font-size:0.83rem;color:var(--text-muted);">(14 נקודות — 2 נקודות לכל בניין)</div>
+      </div>
+    </div>
+    <p style="font-size:0.9rem;color:var(--text-mid);margin-bottom:14px;">מצאו בטקסט דוגמה אחת לכל אחד מ-7 הבניינים. לכל פועל: ציינו את הפועל המדויק, שורש וגוף+זמן:</p>
+    <div class="overflow-x-auto my-4" style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+      <table style="width:100%;border-collapse:collapse;font-size:0.87rem;">
+        <thead><tr style="background:var(--surface2);">
+          <th style="padding:9px 12px;text-align:right;color:var(--sky);border-bottom:1px solid var(--border);">בניין</th>
+          <th style="padding:9px 12px;color:var(--sky);border-bottom:1px solid var(--border);">פועל מהטקסט</th>
+          <th style="padding:9px 12px;color:var(--sky);border-bottom:1px solid var(--border);">שורש</th>
+          <th style="padding:9px 12px;color:var(--sky);border-bottom:1px solid var(--border);">זמן + גוף</th>
+        </tr></thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 12px;font-weight:700;color:#1a6fcc;">קַל</td>
+            <td style="padding:5px 8px;"><input type="text" id="b7kal" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+            <td style="padding:5px 8px;"><input type="text" id="b7kal_r" placeholder="_-_-_" style="min-height:36px;font-size:0.85rem;"></td>
+            <td style="padding:5px 8px;"><input type="text" id="b7kal_t" placeholder="עבר/הווה/עתיד + גוף" style="min-height:36px;font-size:0.85rem;"></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 12px;font-weight:700;color:#0e9e78;">נִפְעַל</td>
+            <td style="padding:5px 8px;"><input type="text" id="b7nif" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+            <td style="padding:5px 8px;"><input type="text" id="b7nif_r" placeholder="_-_-_" style="min-height:36px;font-size:0.85rem;"></td>
+            <td style="padding:5px 8px;"><input type="text" id="b7nif_t" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 12px;font-weight:700;color:#7c3aff;">פִּיעֵל</td>
+            <td style="padding:5px 8px;"><input type="text" id="b7pie" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+            <td style="padding:5px 8px;"><input type="text" id="b7pie_r" placeholder="_-_-_" style="min-height:36px;font-size:0.85rem;"></td>
+            <td style="padding:5px 8px;"><input type="text" id="b7pie_t" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 12px;font-weight:700;color:#1565a8;">פֻּעַל</td>
+            <td style="padding:5px 8px;"><input type="text" id="b7pua" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+            <td style="padding:5px 8px;"><input type="text" id="b7pua_r" placeholder="_-_-_" style="min-height:36px;font-size:0.85rem;"></td>
+            <td style="padding:5px 8px;"><input type="text" id="b7pua_t" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 12px;font-weight:700;color:#1a6fcc;">הִפְעִיל</td>
+            <td style="padding:5px 8px;"><input type="text" id="b7hif" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+            <td style="padding:5px 8px;"><input type="text" id="b7hif_r" placeholder="_-_-_" style="min-height:36px;font-size:0.85rem;"></td>
+            <td style="padding:5px 8px;"><input type="text" id="b7hif_t" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 12px;font-weight:700;color:#4a90d9;">הֻפְעַל</td>
+            <td style="padding:5px 8px;"><input type="text" id="b7huf" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+            <td style="padding:5px 8px;"><input type="text" id="b7huf_r" placeholder="_-_-_" style="min-height:36px;font-size:0.85rem;"></td>
+            <td style="padding:5px 8px;"><input type="text" id="b7huf_t" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+          </tr>
+          <tr>
+            <td style="padding:8px 12px;font-weight:700;color:#d97706;">הִתְפַּעֵל</td>
+            <td style="padding:5px 8px;"><input type="text" id="b7hit" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+            <td style="padding:5px 8px;"><input type="text" id="b7hit_r" placeholder="_-_-_" style="min-height:36px;font-size:0.85rem;"></td>
+            <td style="padding:5px 8px;"><input type="text" id="b7hit_t" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Q2 — Integrative Fill-in -->
+  <div class="card" style="border-right:4px solid var(--mint);">
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;">
+      <div style="background:var(--mint);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.88rem;flex-shrink:0;">2</div>
+      <div>
+        <div style="font-weight:700;font-size:0.98rem;color:var(--text);">מפת הבניינים — שורש אחד, 7 צורות</div>
+        <div style="font-size:0.83rem;color:var(--text-muted);">(21 נקודות — 3 נקודות לכל בניין)</div>
+      </div>
+    </div>
+    <p style="font-size:0.9rem;color:var(--text-mid);margin-bottom:14px;">השורש <strong>ש-מ-ר</strong>. לכל בניין — כתבו עבר (הוא), הווה (זכר יחיד) ומשפט קצר בהקשר של עיר חכמה:</p>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div style="background:var(--surface2);border-radius:9px;padding:12px 14px;border-right:3px solid #1a6fcc;">
+        <div style="font-weight:700;color:#1a6fcc;margin-bottom:8px;font-size:0.9rem;">1. קַל</div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">עבר (הוא):</label><input type="text" id="sh1a" placeholder="שָׁמַר"></div>
+          <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">הווה (ז׳ י׳):</label><input type="text" id="sh1b" placeholder="שׁוֹמֵר"></div>
+          <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">משפט (עיר חכמה):</label><input type="text" id="sh1c" placeholder="חיישן ___ על..."></div>
+        </div>
+      </div>
+      <div style="background:var(--surface2);border-radius:9px;padding:12px 14px;border-right:3px solid #0e9e78;">
+        <div style="font-weight:700;color:#0e9e78;margin-bottom:8px;font-size:0.9rem;">2. נִפְעַל</div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">עבר (הוא):</label><input type="text" id="sh2a" placeholder="נִשְׁמַר"></div>
+          <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">הווה:</label><input type="text" id="sh2b" placeholder="נִשְׁמָר"></div>
+          <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">משפט:</label><input type="text" id="sh2c" placeholder="המידע ___..."></div>
+        </div>
+      </div>
+      <div style="background:var(--surface2);border-radius:9px;padding:12px 14px;border-right:3px solid #7c3aff;">
+        <div style="font-weight:700;color:#7c3aff;margin-bottom:8px;font-size:0.9rem;">3. פִּיעֵל</div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">עבר:</label><input type="text" id="sh3a" placeholder="שִׁמֵּר"></div>
+          <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">הווה:</label><input type="text" id="sh3b" placeholder="מְשַׁמֵּר"></div>
+          <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">משפט:</label><input type="text" id="sh3c" placeholder="המערכת ___ את הנתונים..."></div>
+        </div>
+      </div>
+      <div style="background:var(--surface2);border-radius:9px;padding:12px 14px;border-right:3px solid #1565a8;">
+        <div style="font-weight:700;color:#1565a8;margin-bottom:8px;font-size:0.9rem;">4. פֻּעַל</div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">עבר:</label><input type="text" id="sh4a" placeholder="שֻׁמַּר"></div>
+          <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">הווה:</label><input type="text" id="sh4b" placeholder="מְשֻׁמָּר"></div>
+          <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">משפט:</label><input type="text" id="sh4c" placeholder="הפרטיות ___ על פי חוק..."></div>
+        </div>
+      </div>
+      <div style="background:var(--surface2);border-radius:9px;padding:12px 14px;border-right:3px solid #1a6fcc;">
+        <div style="font-weight:700;color:#1a6fcc;margin-bottom:8px;font-size:0.9rem;">5. הִפְעִיל</div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">עבר:</label><input type="text" id="sh5a" placeholder="הִשְׁמִיר"></div>
+          <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">הווה:</label><input type="text" id="sh5b" placeholder="מַשְׁמִיר"></div>
+          <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">משפט:</label><input type="text" id="sh5c" placeholder="הסייבר ___ את הנתונים..."></div>
+        </div>
+      </div>
+      <div style="background:var(--surface2);border-radius:9px;padding:12px 14px;border-right:3px solid #4a90d9;">
+        <div style="font-weight:700;color:#4a90d9;margin-bottom:8px;font-size:0.9rem;">6. הֻפְעַל</div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">עבר:</label><input type="text" id="sh6a" placeholder="הֻשְׁמַר"></div>
+          <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">הווה:</label><input type="text" id="sh6b" placeholder="מֻשְׁמָר"></div>
+          <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">משפט:</label><input type="text" id="sh6c" placeholder="המסמך ___ בכספת דיגיטלית..."></div>
+        </div>
+      </div>
+      <div style="background:var(--surface2);border-radius:9px;padding:12px 14px;border-right:3px solid #d97706;">
+        <div style="font-weight:700;color:#d97706;margin-bottom:8px;font-size:0.9rem;">7. הִתְפַּעֵל</div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">עבר:</label><input type="text" id="sh7a" placeholder="הִתְשַׁמֵּר"></div>
+          <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">הווה:</label><input type="text" id="sh7b" placeholder="מִתְשַׁמֵּר"></div>
+          <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">משפט:</label><input type="text" id="sh7c" placeholder="האזרח ___ מהגדרות..."></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q3 — Active-Passive pairs -->
+  <div class="card" style="border-right:4px solid var(--amber);">
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;">
+      <div style="background:var(--amber);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.88rem;flex-shrink:0;">3</div>
+      <div>
+        <div style="font-weight:700;font-size:0.98rem;color:var(--text);">פעיל ↔ סביל — שלושת הזוגות</div>
+        <div style="font-size:0.83rem;color:var(--text-muted);">(18 נקודות | 3 זוגות × 6 נקודות)</div>
+      </div>
+    </div>
+    <p style="font-size:0.9rem;color:var(--text-mid);margin-bottom:14px;">לכל זוג: (א) כתבו את הצורה הסבילה המבוקשת, (ב) כתבו משפט חדש, (ג) הסבירו מה "נעלם" בסביל:</p>
+    <div style="display:flex;flex-direction:column;gap:14px;">
+
+      <div style="background:var(--surface2);border-radius:9px;padding:13px 14px;border:1px solid var(--border);">
+        <div style="font-weight:700;color:#7c3aff;margin-bottom:8px;font-size:0.88rem;">זוג 1 — פִּיעֵל ↔ פֻּעַל</div>
+        <p style="font-size:0.9rem;color:var(--text-mid);margin-bottom:8px;">"הצוות <span class="vb-kal">תִּכְנֵת</span> את המערכת בשלושה שבועות." → הפכו לסביל:</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">פועל בפֻּעַל (עבר):</label><input type="text" id="q3z1a" placeholder="תֻּכְנְ___"></div>
+          <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">המשפט הסביל:</label><input type="text" id="q3z1b" placeholder="המערכת ___..."></div>
+          <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">מה נעלם?</label><input type="text" id="q3z1c" placeholder="הצוות נעלם / הגורם לא..."></div>
+        </div>
+      </div>
+
+      <div style="background:var(--surface2);border-radius:9px;padding:13px 14px;border:1px solid var(--border);">
+        <div style="font-weight:700;color:#1a6fcc;margin-bottom:8px;font-size:0.88rem;">זוג 2 — הִפְעִיל ↔ הֻפְעַל</div>
+        <p style="font-size:0.9rem;color:var(--text-mid);margin-bottom:8px;">"הנדסאים <span class="vb-hif">הֵאִירוּ</span> את הרחובות בנורות חסכוניות." → הפכו לסביל:</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">פועל בהֻפְעַל (עבר):</label><input type="text" id="q3z2a" placeholder="הֻ___"></div>
+          <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">המשפט הסביל:</label><input type="text" id="q3z2b" placeholder="הרחובות ___..."></div>
+          <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">מה נעלם?</label><input type="text" id="q3z2c" placeholder="הנדסאים נעלמים..."></div>
+        </div>
+      </div>
+
+      <div style="background:var(--surface2);border-radius:9px;padding:13px 14px;border:1px solid var(--border);">
+        <div style="font-weight:700;color:#0e9e78;margin-bottom:8px;font-size:0.88rem;">זוג 3 — קַל ↔ נִפְעַל</div>
+        <p style="font-size:0.9rem;color:var(--text-mid);margin-bottom:8px;">"העיר <span class="vb-kal">שמרה</span> על נתוני התושבים בקפידה." → הפכו לסביל:</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">פועל בנִפְעַל (עבר):</label><input type="text" id="q3z3a" placeholder="נִ___"></div>
+          <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">המשפט הסביל:</label><input type="text" id="q3z3b" placeholder="נתוני התושבים ___..."></div>
+          <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">הבדל נוסף בין הזוגות:</label><input type="text" id="q3z3c" placeholder="נפעל יכול גם להיות עצמי..."></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q4 — Quadriliteral -->
+  <div class="card" style="border-right:4px solid var(--rose);">
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;">
+      <div style="background:var(--rose);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.88rem;flex-shrink:0;">4</div>
+      <div>
+        <div style="font-weight:700;font-size:0.98rem;color:var(--text);">פעלים מרובעים — ניתוח ותרגול</div>
+        <div style="font-size:0.83rem;color:var(--text-muted);">(20 נקודות | חדש!)</div>
+      </div>
+    </div>
+
+    <p style="font-size:0.9rem;color:var(--text-mid);margin-bottom:14px;"><strong>חלק א׳ (12 נק׳) — ניתוח:</strong> לכל פועל — זהו שורש מרובע, בניין, זמן וגוף:</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+      <div><label style="font-size:0.82rem;color:var(--text-muted);display:block;margin-bottom:3px;">א. <span class="vb-kal">מְסַנְכְּרֵן</span> (מסנכרן)</label><input type="text" id="q4a" placeholder="שורש: _-_-_-_ | בניין: ___ | זמן+גוף: ___"></div>
+      <div><label style="font-size:0.82rem;color:var(--text-muted);display:block;margin-bottom:3px;">ב. <span class="vb-nif">תֻּכְנְתָה</span> (תוכנתה)</label><input type="text" id="q4b" placeholder="שורש: _-_-_-_ | בניין: ___ | זמן+גוף: ___"></div>
+      <div><label style="font-size:0.82rem;color:var(--text-muted);display:block;margin-bottom:3px;">ג. <span class="vb-hif">מִתְמַחְזְרִים</span> (מתמחזרים)</label><input type="text" id="q4c" placeholder="שורש: _-_-_-_ | בניין: ___ | זמן+גוף: ___"></div>
+      <div><label style="font-size:0.82rem;color:var(--text-muted);display:block;margin-bottom:3px;">ד. <span class="vb-kal">אִפְיְנָה</span> (אפיינה)</label><input type="text" id="q4d" placeholder="שורש: _-_-_-_ | בניין: ___ | זמן+גוף: ___"></div>
+      <div><label style="font-size:0.82rem;color:var(--text-muted);display:block;margin-bottom:3px;">ה. <span class="vb-hif">יְמֻחְזָרוּ</span> (ימוחזרו)</label><input type="text" id="q4e" placeholder="שורש: _-_-_-_ | בניין: ___ | זמן+גוף: ___"></div>
+      <div><label style="font-size:0.82rem;color:var(--text-muted);display:block;margin-bottom:3px;">ו. <span class="vb-hif">הִתְאַפְיְנוּ</span> (התאפיינו)</label><input type="text" id="q4f" placeholder="שורש: _-_-_-_ | בניין: ___ | זמן+גוף: ___"></div>
+    </div>
+
+    <p style="font-size:0.9rem;color:var(--text-mid);margin-bottom:10px;"><strong>חלק ב׳ (8 נק׳) — ניסוח:</strong> כתבו 2 משפטים הכוללים פעל מרובע — אחד פִּיעֵל (פעיל) ואחד פֻּעַל (סביל), בנושא ערים חכמות:</p>
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <div><label style="font-size:0.82rem;color:var(--text-muted);display:block;margin-bottom:3px;">משפט 1 (פִּיעֵל, מרובע):</label><textarea id="q4s1" rows="2" placeholder="_____ [שורש מרובע: ___] בהקשר של..."></textarea></div>
+      <div><label style="font-size:0.82rem;color:var(--text-muted);display:block;margin-bottom:3px;">משפט 2 (פֻּעַל, מרובע):</label><textarea id="q4s2" rows="2" placeholder="_____ [שורש מרובע: ___]"></textarea></div>
+    </div>
+  </div>
+
+  <!-- Q5 — Data + Writing -->
+  <div class="card sky" style="background:linear-gradient(135deg,var(--surface),var(--sky-dim));">
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;">
+      <div style="background:var(--sky);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.88rem;flex-shrink:0;">5</div>
+      <div>
+        <div style="font-weight:700;font-size:0.98rem;color:var(--text);">אוריינות נתונים — ערים חכמות (ראמ"ה)</div>
+        <div style="font-size:0.83rem;color:var(--text-muted);">(22 נקודות)</div>
+      </div>
+    </div>
+    <div style="background:var(--sky-dim);border:1px solid rgba(26,111,204,0.2);border-radius:8px;padding:12px 14px;margin-bottom:14px;font-size:0.86rem;color:var(--text-mid);">
+      עיינו שוב בנספח הנתונים בלשונית "הטקסט" (אינפוגרפיקה + גרף) וענו:
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div>
+        <label style="font-size:0.87rem;font-weight:700;color:var(--sky);display:block;margin-bottom:6px;">א. (5 נק׳) פגשתם שני נתונים: 17% חיסכון ממוצע בעולם, ו-34% בבאר שבע. כמה פי חסכה ב"ש מהממוצע? הציגו חישוב ומסקנה:</label>
+        <textarea id="q5a" rows="2" placeholder="34% ÷ 17% = פי ___. מסקנה: ב"ש _____ מהממוצע העולמי כי..."></textarea>
+      </div>
+      <div>
+        <label style="font-size:0.87rem;font-weight:700;color:var(--sky);display:block;margin-bottom:6px;">ב. (5 נק׳) לפי הגרף — ישראל ב-58%, אירופה ב-71%. מדוע לדעתכם הפער קיים? כתבו סיבה אחת כלכלית ואחת פוליטית:</label>
+        <textarea id="q5b" rows="4" placeholder="סיבה כלכלית: ייתכן ש...&#10;סיבה פוליטית: ייתכן ש..."></textarea>
+      </div>
+      <div>
+        <label style="font-size:0.87rem;font-weight:700;color:var(--sky);display:block;margin-bottom:6px;">ג. (12 נק׳ — דקדוק) כתבו <u>ארבעה</u> משפטים על הנתונים — <strong>אחד מכל קטגוריה</strong>: קַל, פִּיעֵל, הִפְעִיל, נִפְעַל. <strong>סמנו</strong> כל פועל [בניין + זמן + גוף]:</label>
+        <textarea id="q5c" rows="8" placeholder="קַל: _____ [קַל, ___]&#10;פִּיעֵל: _____ [פִּיעֵל, ___]&#10;הִפְעִיל: _____ [הִפְעִיל, ___]&#10;נִפְעַל: _____ [נִפְעַל, ___]"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q6 — Error Correction -->
+  <div class="card" style="border-right:4px solid var(--rose);">
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;">
+      <div style="background:var(--rose);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.88rem;flex-shrink:0;">6</div>
+      <div>
+        <div style="font-weight:700;font-size:0.98rem;color:var(--text);">תיקון שגיאות — סיכום כולל</div>
+        <div style="font-size:0.83rem;color:var(--text-muted);">(12 נקודות — 2 נקודות לכל שגיאה)</div>
+      </div>
+    </div>
+    <p style="font-size:0.9rem;color:var(--text-mid);margin-bottom:14px;">בקטע הבא יש <strong>6 שגיאות</strong> בפעלים מבניינים שונים. מצאו, תקנו, ונמקו:</p>
+    <div style="background:#fff5f5;border:1px solid #feb2b2;border-radius:10px;padding:14px;margin-bottom:14px;font-size:0.96rem;line-height:2.3;color:var(--text-mid);">
+      "העיר <span style="background:#fee2e2;border:1px solid var(--rose);border-radius:3px;padding:1px 4px;color:var(--rose);">מְסֻנְכְרֶנֶת</span> כיום בצורה מושלמת — כל חיישן
+      <span style="background:#fee2e2;border:1px solid var(--rose);border-radius:3px;padding:1px 4px;color:var(--rose);">שָׁמַרְנוּ</span> על הנתונים. אנרגיה עודפת
+      <span style="background:#fee2e2;border:1px solid var(--rose);border-radius:3px;padding:1px 4px;color:var(--rose);">הִמְזַרְמֶת</span> לרשת החשמל, ואזרחים
+      <span style="background:#fee2e2;border:1px solid var(--rose);border-radius:3px;padding:1px 4px;color:var(--rose);">מִתְשַׁמְּרִים</span> את זכויותיהם. הפרויקט
+      <span style="background:#fee2e2;border:1px solid var(--rose);border-radius:3px;padding:1px 4px;color:var(--rose);">תֻּכְנֵת</span> ב-2023 על ידי מהנדסים, ומאז
+      <span style="background:#fee2e2;border:1px solid var(--rose);border-radius:3px;padding:1px 4px;color:var(--rose);">אַפְיְינָה</span> את ב"ש כמרכז טכנולוגי."
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">שגיאה 1:</label><input type="text" id="e1" placeholder="_____ → _____ | כי: ___"></div>
+      <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">שגיאה 2:</label><input type="text" id="e2" placeholder="_____ → _____ | כי: ___"></div>
+      <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">שגיאה 3:</label><input type="text" id="e3" placeholder="_____ → _____ | כי: ___"></div>
+      <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">שגיאה 4:</label><input type="text" id="e4" placeholder="_____ → _____ | כי: ___"></div>
+      <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">שגיאה 5:</label><input type="text" id="e5" placeholder="_____ → _____ | כי: ___"></div>
+      <div><label style="font-size:0.78rem;color:var(--text-muted);display:block;margin-bottom:3px;">שגיאה 6:</label><input type="text" id="e6" placeholder="_____ → _____ | כי: ___"></div>
+    </div>
+  </div>
+
+  <!-- Q7 — Integrative Writing -->
+  <div class="card" style="border:1.5px dashed var(--sky);background:var(--sky-dim);">
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;">
+      <div style="background:var(--sky);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.88rem;flex-shrink:0;">7</div>
+      <div>
+        <div style="font-weight:700;font-size:0.98rem;color:var(--sky);">⭐ כתיבה אינטגרטיבית — "ב-2030"</div>
+        <div style="font-size:0.83rem;color:var(--text-muted);">(13 נקודות | הרחבה)</div>
+      </div>
+    </div>
+    <p style="font-size:0.9rem;color:var(--text-mid);margin-bottom:10px;">
+      כתבו פסקה (5–6 משפטים): <strong>"כיצד תיראה עירי בשנת 2030?"</strong><br>
+      <strong>דרישות:</strong>
+    </p>
+    <ul style="padding-right:18px;font-size:0.86rem;color:var(--text-mid);margin-bottom:14px;line-height:2.2;">
+      <li>לפחות <strong>5 פעלים</strong> מ-<strong>4 בניינים שונים</strong></li>
+      <li>לפחות <strong>פועל מרובע אחד</strong> (כגון: סִנְכְרֵן, תִּכְנֵת, מִחְזֵר)</li>
+      <li>לפחות <strong>זוג פעיל-סביל</strong> אחד מאותו שורש</li>
+      <li>סמנו כל פועל: [בניין + זמן]</li>
+    </ul>
+    <textarea id="q7" rows="8" placeholder="בשנת 2030, עירי תְּסַנְכְרֵן [פִּיעֵל מרובע, עתיד] כל תחומי החיים. הרחובות יֻאָרוּ [הֻפְעַל, עתיד] אוטומטית..."></textarea>
+    <div class="note-sm">💡 טיפ: קראו את הטקסט שוב — הוא מלא ברעיונות לכתיבה!</div>
+  </div>
+
+  <!-- Submit -->
+  <div class="card no-print" style="background:linear-gradient(135deg,var(--surface2),var(--surface));border:1.5px solid var(--sky);text-align:center;">
+    <div style="font-size:2rem;margin-bottom:8px;">📤</div>
+    <h3 style="font-weight:700;font-size:1rem;color:var(--text);margin-bottom:6px;">שליחה למורה</h3>
+    <p style="font-size:0.84rem;color:var(--text-muted);margin-bottom:16px;">לחצו לשליחת דף העבודה המלא</p>
+    <button onclick="submitWS()" class="sky-btn">שלח/י דף עבודה</button>
+  </div>
+
+</div><!-- /worksheet -->
+
+
+<!-- ════════ TAB 5 — ANSWERS ════════ -->
+<div id="ta" class="tab-pane teacher-only">
+
+  <div style="background:linear-gradient(135deg,var(--sky-dim),var(--surface));border:1.5px solid var(--sky);border-radius:12px;padding:16px 20px;margin-bottom:22px;">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div style="font-size:2rem;">🔑</div>
+      <div>
+        <div style="font-weight:800;font-size:0.98rem;color:var(--text);">מדריך פתרונות מלא — לשימוש מורה בלבד</div>
+        <div style="font-size:0.8rem;color:var(--text-muted);">כולל ניקוד, הסברים ורובריקות לכל שאלה</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q1 -->
+  <h3 style="font-size:1.05rem;font-weight:800;color:var(--sky);margin-bottom:12px;">שאלה 1 — ה-7 בטקסט (14 נקודות)</h3>
+  <div class="ai"><strong>קַל</strong>: לשנות / לחסוך / שאלה — דוגמה: <span class="vb-kal">לִשְׁנוֹת</span> | שורש: ש-נ-ה (ל"ה) | עתיד, שלישי נקבה (היא/הן)</div>
+  <div class="ai mint"><strong>נִפְעַל</strong>: נרכש / נרשמו / נקלט — דוגמה: <span class="vb-nif">נִרְשְׁמוּ</span> | שורש: ר-ש-מ | עבר, ג׳ זכר רבים</div>
+  <div class="ai" style="border-color:#7c3aff;background:rgba(124,58,255,0.06)"><strong>פִּיעֵל</strong>: מסנכרנים / הסביר / מדווח — דוגמה: <span class="vb-kal">מְסַנְכְּרֵן</span> | שורש: סנכ"ר (מרובע!) | הווה, זכר יחיד | ⚠️ מרובע בתוך פִּיעֵל</div>
+  <div class="ai" style="border-color:#1565a8;background:#e8f0fc"><strong>פֻּעַל</strong>: מותאם / מאוחסנים / מוזרמת — דוגמה: <span class="vb-nif">מְאֻחְסָן</span> | שורש: א-ח-ס-נ (מרובע) | הווה, זכר יחיד</div>
+  <div class="ai"><strong>הִפְעִיל</strong>: הוכרזה / השיבה / ממליצה — דוגמה: <span class="vb-nif">הֻכְרְזָה</span> ← ⚠️ תלמידים עשויים לבלבל; <em>הִכְרִיזָה</em> היא הִפְעִיל | שורש: כ-ר-ז | עבר, ג׳ נקבה</div>
+  <div class="ai" style="border-color:#4a90d9;background:#e8f0fc"><strong>הֻפְעַל</strong>: מובנים / מועברים / מוזרמת — דוגמה: <span class="vb-nif">מוּבְנִים</span> | שורש: ב-נ-ה | הווה, זכר רבים | ⚠️ מוּ = הֻפְעַל הווה</div>
+  <div class="ai amber"><strong>הִתְפַּעֵל</strong>: התפתח / להתפשר — דוגמה: <span class="vb-hif">הִתְפַּתֵּחַ</span> | שורש: פ-ת-ח | עבר, ג׳ זכר יחיד</div>
+
+  <!-- Q2 -->
+  <h3 style="font-size:1.05rem;font-weight:800;color:var(--sky);margin:22px 0 12px;">שאלה 2 — שורש ש-מ-ר, 7 בניינים (21 נקודות)</h3>
+  <div class="overflow-x-auto my-4" style="overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:8px;">
+    <table style="width:100%;border-collapse:collapse;font-size:0.84rem;">
+      <thead><tr style="background:var(--surface2);">
+        <th style="padding:9px;color:var(--sky);border-bottom:1px solid var(--border);">בניין</th>
+        <th style="padding:9px;color:var(--sky);border-bottom:1px solid var(--border);">עבר</th>
+        <th style="padding:9px;color:var(--sky);border-bottom:1px solid var(--border);">הווה</th>
+        <th style="padding:9px;color:var(--sky);border-bottom:1px solid var(--border);">משפט לדוגמה</th>
+      </tr></thead>
+      <tbody>
+        <tr class="rr"><td class="kal">קַל</td><td class="kal">שָׁמַר</td><td class="kal">שׁוֹמֵר</td><td style="font-size:0.82rem;color:var(--text-mid);">"חיישן שׁוֹמֵר על המבנה 24/7"</td></tr>
+        <tr class="rr"><td class="nifal">נִפְעַל</td><td class="nifal">נִשְׁמַר</td><td class="nifal">נִשְׁמָר</td><td style="font-size:0.82rem;color:var(--text-mid);">"המידע נִשְׁמַר בשרת מאובטח"</td></tr>
+        <tr class="rr"><td class="piel">פִּיעֵל</td><td class="piel">שִׁמֵּר</td><td class="piel">מְשַׁמֵּר</td><td style="font-size:0.82rem;color:var(--text-mid);">"המערכת מְשַׁמֶּרֶת את היסטוריית הפעילות"</td></tr>
+        <tr class="rr"><td class="pual">פֻּעַל</td><td class="pual">שֻׁמַּר</td><td class="pual">מְשֻׁמָּר</td><td style="font-size:0.82rem;color:var(--text-mid);">"הפרטיות מְשֻׁמֶּרֶת על פי חוק הגנת הפרטיות"</td></tr>
+        <tr class="rr"><td class="hifil">הִפְעִיל</td><td class="hifil">הִשְׁמִיר</td><td class="hifil">מַשְׁמִיר</td><td style="font-size:0.82rem;color:var(--text-mid);">"הגיבוי הַשְׁמִיר את הקבצים אוטומטית"</td></tr>
+        <tr class="rr"><td class="hufal">הֻפְעַל</td><td class="hufal">הֻשְׁמַר</td><td class="hufal">מֻשְׁמָר</td><td style="font-size:0.82rem;color:var(--text-mid);">"המסמך מֻשְׁמָר בכספת דיגיטלית"</td></tr>
+        <tr class="rr"><td class="hitp">הִתְפַּעֵל</td><td class="hitp">הִשְׁתַּמֵּר ⚠️</td><td class="hitp">מִשְׁתַּמֵּר</td><td style="font-size:0.82rem;color:var(--text-mid);">"האזרח מִשְׁתַּמֵּר מחשיפה יתר" | ⚠️ חילוף ת↔ש</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note-sm" style="margin-bottom:16px;">⚠️ הִתְפַּעֵל של ש-מ-ר: חילוף ת↔ש (כי ת׳ לפני ש׳) → <strong>הִשְׁתַּמֵּר</strong> (לא הִתְשַׁמֵּר!). קבלו גם <em>הִשְׁתַּמֵּר</em>.</div>
+
+  <!-- Q3 -->
+  <h3 style="font-size:1.05rem;font-weight:800;color:var(--sky);margin:22px 0 12px;">שאלה 3 — שלושת הזוגות (18 נקודות)</h3>
+  <div class="ai" style="border-color:#7c3aff;background:rgba(124,58,255,0.06)"><strong>זוג 1 — פִּיעֵל↔פֻּעַל:</strong> <em>תֻּכְנְתָה</em> | "המערכת תֻּכְנְתָה בשלושה שבועות." | נעלם: "הצוות" — מי תכנת לא נאמר.</div>
+  <div class="ai"><strong>זוג 2 — הִפְעִיל↔הֻפְעַל:</strong> <em>הֻאָרוּ</em> | "הרחובות הֻאָרוּ בנורות חסכוניות." | נעלם: "הנדסאים" — הגורם המאיר הוסתר.</div>
+  <div class="ai mint"><strong>זוג 3 — קַל↔נִפְעַל:</strong> <em>נִשְׁמְרוּ</em> | "נתוני התושבים נִשְׁמְרוּ בקפידה." | הבדל נוסף: נִפְעַל יכול להיות גם <em>עצמי</em> (לא רק סביל), למשל: "השמש נשמרה בענן" — אין גורם חיצוני.</div>
+
+  <!-- Q4 -->
+  <h3 style="font-size:1.05rem;font-weight:800;color:var(--sky);margin:22px 0 12px;">שאלה 4 — פעלים מרובעים (20 נקודות)</h3>
+  <div class="ai rose"><strong>א. מְסַנְכְּרֵן</strong> — שורש: ס-נ-כ-ר | פִּיעֵל | הווה, זכר יחיד | ⚠️ מְ + 4 אותיות</div>
+  <div class="ai rose"><strong>ב. תֻּכְנְתָה</strong> — שורש: ת-כ-נ-ת | פֻּעַל | עבר, ג׳ נקבה יחיד</div>
+  <div class="ai rose"><strong>ג. מִתְמַחְזְרִים</strong> — שורש: מ-ח-ז-ר | הִתְפַּעֵל | הווה, זכר רבים | מִתְ + מחזר</div>
+  <div class="ai rose"><strong>ד. אִפְיְנָה</strong> — שורש: א-פ-י-נ | פִּיעֵל | עבר, ג׳ נקבה יחיד</div>
+  <div class="ai rose"><strong>ה. יְמֻחְזָרוּ</strong> — שורש: מ-ח-ז-ר | פֻּעַל | עתיד, ג׳ זכר רבים</div>
+  <div class="ai rose"><strong>ו. הִתְאַפְיְנוּ</strong> — שורש: א-פ-י-נ | הִתְפַּעֵל | עבר, ג׳ זכר רבים</div>
+
+  <!-- Q5 -->
+  <h3 style="font-size:1.05rem;font-weight:800;color:var(--sky);margin:22px 0 12px;">שאלה 5 — נתונים + כתיבה (22 נקודות)</h3>
+  <div class="ai"><strong>א. חישוב:</strong> 34% ÷ 17% = פי 2. מסקנה: ב"ש חסכה פי 2 מהממוצע העולמי. ייתכן שזה קשור לרמת ההטמעה הגבוהה ולנטייה לאנרגיה סולארית. (5 נק׳)</div>
+  <div class="ai"><strong>ב. דוגמות:</strong><br>כלכלית: בישראל עלות ההטמעה גבוהה, ערים קטנות לא יכולות לממן.<br>פוליטית: אין מדיניות לאומית מחייבת — כל עיר מחליטה בנפרד. (5 נק׳)</div>
+  <div class="ai"><strong>ג. דוגמות:</strong><br>קַל: "ב"ש <u>חָסְכָה</u> [קַל, עבר, ג׳ נקבה] 34% אנרגיה."<br>פִּיעֵל: "הדוח <u>מְסַנְכְּרֵן</u> [פִּיעֵל מרובע, הווה, ז׳ י׳] נתונים מ-40 ערים."<br>הִפְעִיל: "האו"ם <u>הֶמְלִיץ</u> [הִפְעִיל, עבר, ג׳ ז׳] לאמץ את המודל."<br>נִפְעַל: "עלייה של 18% <u>נִרְשְׁמָה</u> [נִפְעַל, עבר, ג׳ נ׳] באסיה." (12 נק׳)</div>
+
+  <!-- Q6 -->
+  <h3 style="font-size:1.05rem;font-weight:800;color:var(--sky);margin:22px 0 12px;">שאלה 6 — תיקון שגיאות (12 נקודות)</h3>
+  <div class="ai rose"><strong>1. מְסֻנְכְרֶנֶת →</strong> <strong>מְסֻנְכְּרֶנֶת</strong> | ניקוד: שווא תחת כ׳ (מרובע — כ-4-נ); בנוסף "מְסֻנְכְרֶנֶת" עם שווא נכון; קבלו גם תיקון בניין: מְסֻנְכֶּרֶת (פֻּעַל).</div>
+  <div class="ai rose"><strong>2. שָׁמַרְנוּ →</strong> <strong>שׁוֹמֵר</strong> (הווה, זכר יחיד) | "כל חיישן שׁוֹמֵר" — הנושא "חיישן" = יחיד, לא "אנחנו".</div>
+  <div class="ai rose"><strong>3. הִמְזַרְמֶת →</strong> <strong>מוּזְרֶמֶת</strong> (הֻפְעַל הווה, נקבה) | אנרגיה = נקבה; "מוּ" = הֻפְעַל הווה; שורש: ז-ר-מ.</div>
+  <div class="ai rose"><strong>4. מִתְשַׁמְּרִים →</strong> <strong>שׁוֹמְרִים</strong> (קַל, הווה, ז׳ רבים) | "אזרחים שׁוֹמְרִים על זכויותיהם" — פעולה בסיסית פעילה, לא רפלקסיבית; גם הִתְשַׁמְּרִים → הִשְׁתַּמְּרִים (חילוף ת→ש) אם רוצים רפלקסיבי.</div>
+  <div class="ai rose"><strong>5. תֻּכְנֵת →</strong> <strong>תֻּכְנַת</strong> (פֻּעַל, עבר, ג׳ זכר יחיד) | פתח בסוף בעבר שלישי, לא צרה; "תִּכְנֵת" = פִּיעֵל פעיל, לכן אם ה"על ידי" נשמר — הצורה הסבילה = תֻּכְנַת.</div>
+  <div class="ai rose"><strong>6. אַפְיְינָה →</strong> <strong>אִפְיְנָה</strong> (פִּיעֵל, עבר, ג׳ נקבה) | הניקוד הנכון: חיריק תחת א׳ (פִּיעֵל עבר), לא פתח.</div>
+
+  <!-- Q7 Rubric -->
+  <h3 style="font-size:1.05rem;font-weight:800;color:var(--sky);margin:22px 0 12px;">שאלה 7 — כתיבה אינטגרטיבית (13 נקודות)</h3>
+  <div class="overflow-x-auto my-4" style="overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:12px;">
+    <table style="width:100%;border-collapse:collapse;font-size:0.86rem;">
+      <thead><tr style="background:var(--surface2);">
+        <th style="padding:9px;text-align:right;color:var(--sky);border-bottom:1px solid var(--border);">קריטריון</th>
+        <th style="padding:9px;text-align:center;color:var(--mint);border-bottom:1px solid var(--border);">מלא</th>
+        <th style="padding:9px;text-align:center;color:var(--amber);border-bottom:1px solid var(--border);">חלקי</th>
+        <th style="padding:9px;text-align:center;color:var(--rose);border-bottom:1px solid var(--border);">לא</th>
+      </tr></thead>
+      <tbody>
+        <tr class="rr"><td>5+ פעלים מ-4 בניינים שונים — מסומנים</td><td style="text-align:center;">6</td><td style="text-align:center;">3</td><td style="text-align:center;">0</td></tr>
+        <tr class="rr"><td>פועל מרובע אחד לפחות</td><td style="text-align:center;">3</td><td style="text-align:center;">1</td><td style="text-align:center;">0</td></tr>
+        <tr class="rr"><td>זוג פעיל-סביל מאותו שורש</td><td style="text-align:center;">2</td><td style="text-align:center;">1</td><td style="text-align:center;">0</td></tr>
+        <tr class="rr"><td>ניסוח קוהרנטי ורעיון מעניין</td><td style="text-align:center;">2</td><td style="text-align:center;">1</td><td style="text-align:center;">0</td></tr>
+      </tbody>
+      <tfoot><tr style="background:var(--surface2);font-weight:700;"><td style="padding:9px;">סה"כ</td><td style="text-align:center;padding:9px;">13</td><td></td><td></td></tr></tfoot>
+    </table>
+  </div>
+  <div style="background:var(--sky-dim);border:1px solid rgba(26,111,204,0.2);border-radius:9px;padding:13px 15px;font-size:0.86rem;color:var(--text-mid);margin-bottom:22px;">
+    <strong style="color:var(--sky);">דוגמת תשובה מצוינת:</strong><br>
+    "בשנת 2030, עירי <u>תְּסַנְכְּרֵן</u> [פִּיעֵל מרובע, עתיד] את כל מערכות האנרגיה. רחובות <u>יֻאָרוּ</u> [הֻפְעַל, עתיד] אוטומטית, ופסולת <u>תְּמֻחְזַר</u> [פֻּעַל מרובע, עתיד] ב-90%. תושבים <u>יִשְׁמְרוּ</u> [קַל, עתיד] פחות עלויות, ונתוניהם <u>יִשָּׁמְרוּ</u> [נִפְעַל, עתיד] בפרטיות מוחלטת. כולנו <u>נִתְרַגֵּל</u> [הִתְפַּעֵל, עתיד] לחיים שבהם הטכנולוגיה <u>מְשָׁרֶתֶת</u> [פִּיעֵל, הווה] — לא שולטת."
+  </div>
+
+  <!-- Score Card -->
+  <div class="card" style="background:linear-gradient(135deg,#0d2a4a,#1a4f8c);color:#fff;text-align:center;">
+    <div style="font-family:'Varela Round',sans-serif;font-size:1.2rem;margin-bottom:16px;">סה"כ ניקוד שיעור 5</div>
+    <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;">
+      <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:100px;padding:8px 16px;text-align:center;display:inline-block;">
+        <div style="font-size:1.4rem;font-weight:800;color:#a8d4ff;">14</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.5);">שאלה 1</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:100px;padding:8px 16px;text-align:center;display:inline-block;">
+        <div style="font-size:1.4rem;font-weight:800;color:#a8d4ff;">21</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.5);">שאלה 2</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:100px;padding:8px 16px;text-align:center;display:inline-block;">
+        <div style="font-size:1.4rem;font-weight:800;color:#6dd5fa;">18</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.5);">שאלה 3</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:100px;padding:8px 16px;text-align:center;display:inline-block;">
+        <div style="font-size:1.4rem;font-weight:800;color:#ffd700;">20</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.5);">שאלה 4</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:100px;padding:8px 16px;text-align:center;display:inline-block;">
+        <div style="font-size:1.4rem;font-weight:800;color:#a8d4ff;">22</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.5);">שאלה 5</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:100px;padding:8px 16px;text-align:center;display:inline-block;">
+        <div style="font-size:1.4rem;font-weight:800;color:#ff8a9a;">12</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.5);">שאלה 6</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:100px;padding:8px 16px;text-align:center;display:inline-block;">
+        <div style="font-size:1.4rem;font-weight:800;color:#ffd700;">13</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.5);">שאלה 7</div>
+      </div>
+      <div style="background:#a8d4ff;border-radius:100px;padding:10px 22px;display:inline-block;">
+        <div style="font-size:1.9rem;font-weight:900;color:#0d2a4a;font-family:'Varela Round',sans-serif;">120</div>
+        <div style="font-size:0.7rem;color:#0d2a4a;opacity:0.7;">סה"כ</div>
+      </div>
+    </div>
+    <div style="font-size:0.77rem;color:rgba(255,255,255,0.4);">שאלות 1–6 = 107 נק׳ | שאלה 7 = 13 נק׳ (הרחבה)</div>
+  </div>
+
+</div><!-- /answers -->
+
+<!-- ═══ TAB: ASSESSMENT — lesson 5 ═══ -->
+<div id="tab-assess" class="tab-pane">
+  <div style="max-width:660px;margin:0 auto;padding:8px 0">
+    <h2 style="font-size:1.2rem;font-weight:800;margin-bottom:8px">
+      📊 הערכה עצמית — שיעור 5</h2>
+    <p style="font-size:.87rem;color:#6b7280;margin-bottom:18px">
+      מלאו את דף העבודה ולחצו על הכפתור לסיכום</p>
+    <div id="assessment-content-old"
+      style="display:none;background:#ffffff;border:1.5px solid #dde3f0;
+             border-radius:12px;padding:20px;
+             direction:rtl;text-align:right;min-height:60px">
+      <p style="color:#9ca3af;font-size:.87rem;text-align:center;padding:8px 0">לחצו על כפתור “חשב סיכום” לצפייה בלשונית ההערכה</p>
+    </div>
+    <button
+      onclick="if(window.calcAssessment)window.calcAssessment()"
+      style="margin-top:14px;background:#2d3561;color:#fff;border:none;
+             padding:12px 24px;border-radius:9px;
+             font-family:'Heebo','Assistant',sans-serif;
+             font-size:.93rem;font-weight:700;cursor:pointer;
+             width:100%;display:block">
+      חשב סיכום מילוי ⇩
+    </button>
+  </div>
+</div>
+
+<!-- DASHBOARD TAB -->
+<div id="tab-dashboard" class="tab-pane">
+  <div style="max-width:660px;margin:0 auto;padding:8px 0">
+    <div class="dash-hero">
+      <div style="font-size:2.5rem;">📊</div>
+      <div><div style="font-family:'Secular One',sans-serif;font-size:1.15rem;">לוח בקרה — Dashboard</div><div style="font-size:.82rem;color:rgba(255,255,255,.6);">סיכום מילוי דף העבודה</div></div>
+    </div>
+    <div class="card">
+      <div style="font-weight:700;font-size:1rem;margin-bottom:8px;">📋 סיכום מילוי</div>
+      <div id="assessment-content" style="display:none;background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:18px;direction:rtl;text-align:right;min-height:56px;">
+        <p style="color:var(--dim);font-size:.87rem;text-align:center;padding:6px 0;">לחצו "חשב סיכום" לצפייה</p>
+      </div>
+      <button onclick="if(window.calcAssessment)window.calcAssessment()" style="margin-top:14px;background:#1a3a6b;color:#fff;border:none;padding:12px 24px;border-radius:9px;font-family:'Heebo',sans-serif;font-size:.93rem;font-weight:700;cursor:pointer;width:100%;display:block;">חשב סיכום מילוי ⇩</button>
+    </div>
+  </div>
+</div>
+</main>
+
+<!-- MODAL -->
+<div id="modal">
+  <div style="background:var(--surface);border:1.5px solid var(--sky);border-radius:18px;padding:32px;max-width:420px;width:90%;text-align:center;box-shadow:0 8px 40px rgba(26,111,204,0.2);">
+    <div style="font-size:3rem;margin-bottom:10px;">✅</div>
+    <h2 style="font-family:'Varela Round',sans-serif;font-size:1.3rem;font-weight:700;color:var(--text);margin-bottom:8px;">נשלח בהצלחה!</h2>
+    <p style="color:var(--text-muted);font-size:0.88rem;margin-bottom:16px;">דף העבודה נשלח למורה. כל הכבוד!</p>
+    <div id="modal-sum" style="background:var(--surface2);border-radius:8px;padding:12px;text-align:right;margin-bottom:16px;font-size:0.85rem;color:var(--text-mid);"></div>
+    <button onclick="closeModal()" class="sky-btn" style="padding:10px 26px;font-size:0.92rem;">סגור</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="no-print" style="background:var(--sky);color:rgba(255,255,255,0.6);text-align:center;padding:20px;font-size:0.76rem;margin-top:60px;">
+  פלטפורמת לשון עברית — כיתה י׳ | יחידה 1: מערכת הפועל | שיעור 5 מתוך 6<br>
+  תואם תכנית המפמ"ר ומיצ"ב 2026 | © כל הזכויות שמורות
+</footer>
+
+<script>
+// Tabs
+function showTab(id,btn){
+  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>{b.classList.remove('active');b.style.color='var(--text-muted)';});
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  if(id==='tx') setTimeout(animateBars,80);
+}
+
+// Timer
+let tInt=null,tSec=2700,elapsed=0;
+const phases=[{end:300,label:'🔥 פתיחה'},{end:900,label:'📚 רכישה'},{end:1500,label:'🏙️ הדגמה'},{end:2400,label:'✏️ תרגול'},{end:2700,label:'🔚 סיכום'}];
+function startTimer(){
+  if(tInt)return;
+  tInt=setInterval(()=>{
+    elapsed++;
+    const rem=tSec-elapsed;
+    if(rem<=0){clearInterval(tInt);document.getElementById('timer-display').textContent='00:00';return;}
+    const m=Math.floor(rem/60),s=rem%60;
+    const d=document.getElementById('timer-display');
+    d.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    d.classList.toggle('warning',rem<=120);
+    const pct=Math.round(elapsed/tSec*100);
+    document.getElementById('prog-fill').style.width=pct+'%';
+    document.getElementById('prog-pct').textContent=pct+'%';
+    const ph=phases.find(p=>elapsed<=p.end);
+    if(ph)document.getElementById('phase-ind').textContent=ph.label;
+  },1000);
+}
+function resetTimer(){
+  clearInterval(tInt);tInt=null;elapsed=0;
+  document.getElementById('timer-display').textContent='45:00';
+  document.getElementById('timer-display').classList.remove('warning');
+  document.getElementById('prog-fill').style.width='0%';
+  document.getElementById('prog-pct').textContent='0%';
+  document.getElementById('phase-ind').textContent='';
+}
+
+// Animate chart bars
+function animateBars(){
+  document.querySelectorAll('.city-bar').forEach(b=>{
+    const w=b.getAttribute('data-w');
+    b.style.width='0%';
+    setTimeout(()=>{b.style.width=w;},120);
+  });
+}
+
+// Submit
+function submitWS(){
+  const name=document.getElementById('sname').value.trim()||'לא הוזן';
+  const cls=document.getElementById('sclass').value.trim()||'לא הוזנה';
+  const date=document.getElementById('sdate').value.trim()||new Date().toLocaleDateString('he-IL');
+  const q2len=document.getElementById('sh1a').value.trim().length;
+  const q7len=document.getElementById('q7').value.trim().length;
+  document.getElementById('modal-sum').innerHTML=`
+    <div style="margin-bottom:5px;"><strong>תלמיד/ה:</strong> ${name}</div>
+    <div style="margin-bottom:5px;"><strong>כיתה:</strong> ${cls}</div>
+    <div style="margin-bottom:5px;"><strong>תאריך:</strong> ${date}</div>
+    <div style="margin-bottom:5px;"><strong>שאלה 2:</strong> ${q2len?'הוזנה':'ריקה'}</div>
+    <div><strong>שאלה 7 (פסקה):</strong> ${q7len} תווים</div>
+  `;
+  document.getElementById('modal').classList.add('show');
+}
+function closeModal(){document.getElementById('modal').classList.remove('show');}
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+// ─── AUTO-INJECTED BY DASHBOARD: read student name from URL/LS ───
+(function injectStudentName() {
+  try {
+    var p = new URLSearchParams(window.location.search);
+    var n = (p.get('student') || p.get('name') || '').trim();
+    if (!n) { try { n = JSON.parse(localStorage.getItem('lashon_current_student') || '""') || ''; } catch(_){} }
+    if (n) {
+      var bar = document.getElementById('greeting-bar'), gn = document.getElementById('greeting-name');
+      if (bar && gn) { gn.textContent = 'שלום, ' + n + '!'; bar.style.display = 'flex'; }
+      ['sname','student-name','s_name','studentName'].forEach(function(id){ var el=document.getElementById(id); if(el&&!el.value) el.value=n; });
+      try { localStorage.setItem('lashon_current_student', JSON.stringify(n)); } catch(_){}
+    }
+    var dt = document.getElementById('sdate') || document.getElementById('student-date');
+    if (dt && !dt.value) dt.value = new Date().toLocaleDateString('he-IL');
+  } catch(e) {}
+})();
+// ─── END AUTO-INJECT ───
+</script>
+
+<script>
+/* ═══ window.calcAssessment — שיעור 5 ═══ */
+/* ═══ window.calcAssessment — lesson 5 ═══ */
+window.calcAssessment = function() {
+  var ac = document.getElementById("assessment-content");
+  if (!ac) return;
+
+  // Read student info
+  var sname  = (document.getElementById("sname")  || {value:""}).value.trim();
+  var sclass = (document.getElementById("sclass") || {value:""}).value.trim();
+  var sdate  = (document.getElementById("sdate")  || {value:""}).value.trim()
+               || new Date().toLocaleDateString("he-IL");
+
+  var filled = 0;
+  var total  = 21;
+  var qData  = [];   // [{label, ok}]
+
+  // chkText: plain input or textarea
+  function chkText(id, label) {
+    var el = document.getElementById(id);
+    var ok = !!(el && el.value && el.value.trim().length > 0);
+    if (ok) filled++;
+    qData.push({label: label, ok: ok, val: el ? el.value.trim().substring(0,40) : ""});
+  }
+
+  // chkRadio: radio group by name
+  function chkRadio(name, label) {
+    var radios = document.querySelectorAll("input[type=radio][name=" + name + "]");
+    var ok = false;
+    radios.forEach(function(r) { if (r.checked) ok = true; });
+    // Also check mc-option selected class (for styled radio)
+    if (!ok) {
+      var opts = document.querySelectorAll(".mc-option.selected[data-q=" + name + "]");
+      ok = opts.length > 0;
+    }
+    if (ok) filled++;
+    qData.push({label: label, ok: ok, val: ok ? "✔" : ""});
+  }
+
+  chkText("q3z1a", "שאלה 3 — מרובע 1 עבר");
+  chkText("q3z1b", "שאלה 3 — מרובע 1 הווה");
+  chkText("q3z1c", "שאלה 3 — מרובע 1 עתיד");
+  chkText("q3z2a", "שאלה 3 — מרובע 2 עבר");
+  chkText("q3z2b", "שאלה 3 — מרובע 2 הווה");
+  chkText("q3z2c", "שאלה 3 — מרובע 2 עתיד");
+  chkText("q3z3a", "שאלה 3 — מרובע 3 עבר");
+  chkText("q3z3b", "שאלה 3 — מרובע 3 הווה");
+  chkText("q3z3c", "שאלה 3 — מרובע 3 עתיד");
+  chkText("q4a", "שאלה 4א — המרה");
+  chkText("q4b", "שאלה 4ב — המרה");
+  chkText("q4c", "שאלה 4ג — המרה");
+  chkText("q4d", "שאלה 4ד — המרה");
+  chkText("q4e", "שאלה 4ה — המרה");
+  chkText("q4f", "שאלה 4ו — המרה");
+  chkText("q4s1", "שאלה 4 — סכום נקודות");
+  chkText("q4s2", "שאלה 4 — ציון בניין");
+  chkText("q5a", "שאלה 5א — ניתוח");
+  chkText("q5b", "שאלה 5ב — ניתוח");
+  chkText("q5c", "שאלה 5ג — ניתוח");
+  chkText("q7", "שאלה 7 — פסקה אישית");
+
+  var pct = total > 0 ? Math.round(filled / total * 100) : 0;
+  var barColor = pct >= 80 ? "#4a7c59" : pct >= 50 ? "#b45309" : "#c84b31";
+  var bgColor  = pct >= 80 ? "#e8f5e9" : pct >= 50 ? "#fff8e1" : "#ffebee";
+
+  // Build HTML
+  var html = "";
+
+  // Header: student info
+  html += "<div style='background:#f0f3ff;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:.88rem;direction:rtl'>";
+  html += "<strong>תלמיד/ה:</strong> " + (sname || "לא הוזן");
+  if (sclass) html += " &nbsp;|  <strong>כיתה:</strong> " + sclass;
+  html += " &nbsp;|  <strong>תאריך:</strong> " + sdate;
+  html += "</div>";
+
+  // Score badge
+  html += "<div style='background:" + bgColor + ";color:" + barColor + ";padding:12px 16px;border-radius:10px;text-align:center;font-weight:800;font-size:1.05rem;margin-bottom:12px;direction:rtl'>";
+  html += (pct >= 80 ? "⭐" : pct >= 50 ? "💪" : "📝") + " " + filled + " שאלות מולאו מתוך " + total + " — " + pct + "%";
+  html += "</div>";
+
+  // Progress bar
+  html += "<div style='height:10px;background:#e8edf5;border-radius:5px;margin-bottom:16px;overflow:hidden'>";
+  html += "<div style='height:100%;width:" + pct + "%;background:" + barColor + ";border-radius:5px;transition:width .6s ease'></div>";
+  html += "</div>";
+
+  // Per-question rows
+  html += "<div style='font-size:.82rem;direction:rtl'>";
+  qData.forEach(function(q, i) {
+    var icon = q.ok ? "✅" : "○";
+    var clr  = q.ok ? "#2e7d32" : "#9ca3af";
+    html += "<div style='display:flex;align-items:baseline;gap:8px;padding:4px 0;border-bottom:1px solid #f0f3ff'>";
+    html += "<span style='flex-shrink:0;font-size:.9rem'>" + icon + "</span>";
+    html += "<span style='flex:1;color:" + clr + "'>" + q.label + "</span>";
+    if (q.val && q.ok) html += "<span style='color:#6b7280;font-size:.78rem;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'>" + q.val + "</span>";
+    html += "</div>";
+  });
+  html += "</div>";
+
+  ac.innerHTML = html;
+  ac.style.display = "block";
+};;
+</script>
+<script>
+/* ── Auto visual feedback on inputs (green when filled) ── */
+document.addEventListener('DOMContentLoaded', function() {
+  var skip = ['sname','sclass','sdate','student-date'];
+  document.querySelectorAll('input[type="text"],textarea').forEach(function(el){
+    if (skip.indexOf(el.id) >= 0) return;
+    el.addEventListener('input', function(){
+      this.classList.remove('ok','err');
+      if (this.value.trim()) this.classList.add('ok');
+    });
+    // mark already-filled on load
+    if (el.value && el.value.trim()) el.classList.add('ok');
+  });
+  injectStudentName();
+});
+
+// ─── ROLE=STUDENT SECURITY (v3) ─────────────────────────────
+(function applyStudentRole() {
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('role') !== 'student') return;
+
+  // Hide these tab panes
+  var hideIds = [
+    'tt', 'tab-teacher',
+    'ta', 'tab-answers',
+    'tab-assess',
+    'tab-dashboard'
+  ];
+  hideIds.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) { el.style.display = 'none'; el.setAttribute('aria-hidden','true'); }
+  });
+
+  // Hide tab buttons (by onclick content, text, or class)
+  document.querySelectorAll('.tab-btn, button').forEach(function(btn) {
+    var oc  = btn.getAttribute('onclick') || '';
+    var txt = (btn.textContent || '').trim();
+    var cls = btn.className || '';
+    var hide =
+      cls.indexOf('teacher-only') !== -1 ||
+      oc.indexOf("'tt'") !== -1          || oc.indexOf('"tt"') !== -1 ||
+      oc.indexOf("'tab-teacher'") !== -1 || oc.indexOf('"tab-teacher"') !== -1 ||
+      oc.indexOf("'ta'") !== -1          || oc.indexOf('"ta"') !== -1 ||
+      oc.indexOf("'tab-answers'") !== -1 || oc.indexOf('"tab-answers"') !== -1 ||
+      oc.indexOf("'tab-assess'") !== -1  || oc.indexOf('"tab-assess"') !== -1 ||
+      oc.indexOf("'tab-dashboard'") !== -1 || oc.indexOf('"tab-dashboard"') !== -1 ||
+      txt === '🔑 פתרונות' ||
+      txt.indexOf('Dashboard') !== -1 ||
+      txt === '📊 הערכה' ||
+      txt === '📋 מדריך' ||
+      txt === '📋 מדריך המורה';
+    if (hide) btn.style.display = 'none';
+  });
+
+  // Hide any remaining teacher-only elements
+  document.querySelectorAll('.teacher-only').forEach(function(el){
+    el.style.display = 'none';
+  });
+
+  // Activate first visible student tab: theory > text > worksheet
+  var preferOrder = ['th', 'tx', 'tw'];
+  for (var i = 0; i < preferOrder.length; i++) {
+    var pane = document.getElementById(preferOrder[i]);
+    if (pane && pane.style.display !== 'none') {
+      document.querySelectorAll('.tab-pane').forEach(function(p){ p.classList.remove('active'); });
+      pane.classList.add('active');
+      document.querySelectorAll('.tab-btn').forEach(function(b){
+        b.classList.remove('active');
+        var oc2 = b.getAttribute('onclick') || '';
+        if (oc2.indexOf("'" + preferOrder[i] + "'") !== -1 ||
+            oc2.indexOf('"' + preferOrder[i] + '"') !== -1) {
+          b.classList.add('active');
+        }
+      });
+      break;
+    }
+  }
+})();
+// ─── END ROLE=STUDENT SECURITY ──────────────────────────────
+
+</script>
+</body>
+</html>

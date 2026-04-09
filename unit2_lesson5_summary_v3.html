@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>שיעור 5 | סיכום יחידה 2 | מערכת השם | כיתה י׳</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:         #f0f2f5;
+    --surface:    #ffffff;
+    --surface2:   #e8edf3;
+    --border:     #d0d7e3;
+    --navy:       #1a3a6b;
+    --navy-lt:    #2563b8;
+    --teal:       #0d7a6a;
+    --earth:      #8b5e3c;
+    --sun:        #e8a020;
+    --danger:     #c0392b;
+    --purple:     #6b3aed;
+    --green:      #1a7a3c;
+    --text:       #1c2433;
+    --text-mid:   #3e4a5c;
+    --text-muted: #6b7a8d;
+  }
+
+  * { box-sizing:border-box; margin:0; padding:0; }
+
+  body {
+    font-family:'Heebo',sans-serif;
+    background:var(--bg); color:var(--text);
+    direction:rtl; text-align:right; line-height:1.7;
+  }
+
+  /* ─── TABS ─── */
+  .tab-btn { transition:all 0.2s; border-bottom:3px solid transparent; white-space:nowrap; background:transparent; border-top:none; border-right:none; border-left:none; cursor:pointer; min-height:44px; }
+  .tab-btn.active { border-bottom-color:var(--navy); color:var(--navy) !important; font-weight:700; }
+  .tab-pane { display:none; }
+  .tab-pane.active { display:block; }
+
+  /* ─── HERO ─── */
+  .hero { background:linear-gradient(160deg,#0c2040 0%,#1a3a6b 45%,#1a5080 100%); position:relative; overflow:hidden; }
+  .hero::before { content:''; position:absolute; inset:0; background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+
+  /* ─── TIMER ─── */
+  #timer-display { font-family:'Secular One',sans-serif; font-size:2.1rem; color:#a8d4f0; letter-spacing:0.04em; }
+  #timer-display.warning { color:#ff9f7f; animation:pulse 1s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+  .prog-wrap { height:6px; background:rgba(255,255,255,0.15); border-radius:3px; overflow:hidden; }
+  .prog-fill  { height:100%; background:linear-gradient(90deg,#a8d4f0,#6dcbfa); border-radius:3px; transition:width 0.4s; }
+
+  /* ─── CARD ─── */
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:1.4rem 1.6rem; margin-bottom:1.25rem; box-shadow:0 2px 8px rgba(26,58,107,0.07); transition:box-shadow 0.2s; }
+  .card:hover { box-shadow:0 4px 20px rgba(26,58,107,0.13); }
+
+  /* ─── ARTICLE ─── */
+  .article-body { font-size:1rem; line-height:2.0; color:var(--text-mid); }
+  .article-body p { margin-bottom:1.15em; }
+
+  /* ─── THEORY BLOCKS ─── */
+  .theory-block { border-right:5px solid var(--navy-lt); padding:1rem 1.25rem; background:#e7f3ff; border-radius:0 12px 12px 0; margin-bottom:1rem; }
+  .theory-block .block-title { font-weight:800; color:var(--navy); font-size:0.9rem; margin-bottom:7px; display:flex; align-items:center; gap:6px; }
+  .theory-block.tip    { border-right-color:var(--sun);    background:#fef9e7; }
+  .theory-block.tip .block-title { color:#7a5200; }
+  .theory-block.danger { border-right-color:var(--danger); background:#fdecea; }
+  .theory-block.danger .block-title { color:var(--danger); }
+  .theory-block.teal   { border-right-color:var(--teal);   background:#e6f7f5; }
+  .theory-block.teal .block-title { color:var(--teal); }
+  .theory-block.purple { border-right-color:var(--purple); background:#f0ebff; }
+  .theory-block.purple .block-title { color:var(--purple); }
+  .theory-block.earth  { border-right-color:var(--earth);  background:#f7efe8; }
+  .theory-block.earth .block-title { color:var(--earth); }
+  .theory-block.green  { border-right-color:var(--green);  background:#e6f7ed; }
+  .theory-block.green .block-title { color:var(--green); }
+
+  /* ─── TABLE ─── */
+  .ctable { width:100%; border-collapse:collapse; border-radius:10px; overflow:hidden; }
+  .ctable th { background:var(--navy); color:#fff; padding:10px 14px; font-size:0.85rem; font-weight:700; }
+  .ctable td { padding:9px 14px; border-bottom:1px solid var(--border); font-size:0.9rem; line-height:1.6; }
+  .ctable tr:nth-child(even) td { background:#f4f7fd; }
+  .ctable tr:hover td { background:#e3ecf8; transition:background 0.15s; }
+
+  /* ─── INPUTS ─── */
+  textarea, input[type="text"] { font-family:'Heebo',sans-serif; direction:rtl; text-align:right; background:#fafdff; border:1.5px solid var(--border); border-radius:10px; padding:10px 14px; width:100%; font-size:1rem; line-height:1.7; color:var(--text); transition:border-color 0.2s; resize:vertical; min-height:44px; }
+  textarea:focus, input[type="text"]:focus { outline:none; border-color:var(--navy-lt); box-shadow:0 0 0 3px rgba(37,99,184,0.12); }
+  input::placeholder, textarea::placeholder { color:var(--text-muted); }
+  select { font-family:'Heebo',sans-serif; direction:rtl; background:#fafdff; border:1.5px solid var(--border); border-radius:10px; padding:10px 12px; color:var(--text); font-size:1rem; width:100%; transition:border-color 0.2s; min-height:44px; }
+  select:focus { outline:none; border-color:var(--navy-lt); }
+
+  /* ─── ANSWER ITEMS ─── */
+  .ai { border-right:4px solid var(--navy-lt); padding:0.65rem 1rem; margin-bottom:0.75rem; background:#e7f3ff; border-radius:0 10px 10px 0; font-size:0.9rem; line-height:1.7; }
+  .ai.teal   { border-color:var(--teal);   background:#e6f7f5; }
+  .ai.earth  { border-color:var(--earth);  background:#f7efe8; }
+  .ai.danger { border-color:var(--danger); background:#fdecea; }
+  .ai.sun    { border-color:var(--sun);    background:#fef9e7; }
+  .ai.purple { border-color:var(--purple); background:#f0ebff; }
+
+  /* ─── HIGHLIGHTS ─── */
+  .hl-n { background:#c8dff8; padding:1px 4px; border-radius:3px; color:#0d2a6b; font-weight:700; }
+  .hl-t { background:#c2ede8; padding:1px 4px; border-radius:3px; color:#0a4f45; font-weight:700; }
+  .hl-e { background:#f5dfc8; padding:1px 4px; border-radius:3px; color:#5c3000; font-weight:700; }
+  .hl-p { background:#e2d3fc; padding:1px 4px; border-radius:3px; color:#3a1070; font-weight:700; }
+  .hl-s { background:#fdefd4; padding:1px 4px; border-radius:3px; color:#7a4000; font-weight:700; }
+
+  /* ─── BADGE / CHIP ─── */
+  .badge { display:inline-flex; align-items:center; gap:4px; padding:3px 11px; border-radius:100px; font-size:0.75rem; font-weight:700; }
+  .wchip { display:inline-block; background:#e7f3ff; color:var(--navy); border-radius:6px; padding:1px 8px; font-weight:700; font-size:0.88rem; }
+  .wchip.teal   { background:#e6f7f5; color:var(--teal); }
+  .wchip.sun    { background:#fef9e7; color:#7a5200; }
+  .wchip.purple { background:#f0ebff; color:var(--purple); }
+
+  /* ─── SORT WORD ─── */
+  .sort-word {
+    display:inline-flex; align-items:center; gap:6px;
+    background:var(--surface); border:1.5px solid var(--border);
+    border-radius:10px; padding:7px 14px; cursor:pointer;
+    font-size:1rem; font-weight:700; transition:all 0.15s;
+    user-select:none; touch-action:manipulation; min-height:44px;
+  }
+  .sort-word:hover  { border-color:var(--navy-lt); background:#f0f7ff; }
+  .sort-word.fusion { background:#dbeafe; border-color:#2563b8; color:#1e3a8a; }
+  .sort-word.glue   { background:#ccfbf1; border-color:#0f766e; color:#134e4a; }
+  .sort-word.correct { border-color:#16a34a !important; background:#f0fdf4 !important; }
+  .sort-word.wrong   { border-color:#dc2626 !important; background:#fef2f2 !important; }
+
+  /* ─── SORT ZONES ─── */
+  .sort-zone { min-height:80px; border:2px dashed var(--border); border-radius:12px; padding:12px; display:flex; flex-wrap:wrap; gap:8px; align-content:flex-start; transition:border-color 0.2s; }
+  .sort-zone.highlight { border-color:var(--navy-lt); background:#f0f7ff; }
+
+  /* ─── MATCH PAIR ─── */
+  .match-select { border:1.5px solid var(--border); border-radius:10px; padding:8px 12px; background:#fafdff; font-family:'Heebo',sans-serif; font-size:0.95rem; color:var(--text); min-height:44px; cursor:pointer; width:100%; direction:rtl; }
+  .match-select.ok  { border-color:#16a34a; background:#f0fdf4; }
+  .match-select.err { border-color:#dc2626; background:#fef2f2; }
+
+  /* ─── FEEDBACK ICONS ─── */
+  .fb-icon { font-size:1.2rem; margin-right:4px; }
+
+  /* ─── MODAL ─── */
+  #modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center; }
+  #modal.show { display:flex; }
+
+  /* ─── PRINT ─── */
+  @media print { .no-print{display:none!important} .tab-pane{display:block!important} body{background:#fff} }
+
+  /* ─── MOBILE ─── */
+  @media (max-width:640px) {
+    textarea, input[type="text"], select { font-size:1rem !important; }
+    .card { padding:1rem !important; }
+    .ctable { font-size:0.8rem; }
+    .ctable th, .ctable td { padding:7px 8px; }
+    #timer-display { font-size:1.5rem; }
+  }
+
+  button { min-height:44px; touch-action:manipulation; }
+  .teal-h { font-family:'Secular One',sans-serif; color:var(--navy); font-size:1.25rem; border-bottom:2px solid var(--border); padding-bottom:8px; margin-bottom:18px; }
+  .section-note { font-size:0.82rem; color:var(--text-muted); margin-top:6px; }
+
+  /* ─── WS QUESTION CARDS ─── */
+  .q-num { background:var(--navy-lt); color:#fff; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.88rem; flex-shrink:0; }
+
+  /* ─── SCORE BAR ─── */
+  #score-display { display:none; }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════
+     HERO
+════════════════════════════════════ -->
+<header class="hero text-white py-10 px-5 no-print" style="position:relative;z-index:1;">
+  <div class="max-w-5xl mx-auto relative" style="z-index:2;">
+    <div class="flex items-start justify-between flex-wrap gap-4">
+      <div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">
+          <span class="badge" style="background:rgba(168,212,240,0.2);color:#a8d4f0;border:1px solid rgba(168,212,240,0.4);">כיתה י׳</span>
+          <span class="badge" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.15);">לשון עברית</span>
+          <span class="badge" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.15);">יחידה 2 — מערכת השם</span>
+          <span class="badge" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.15);">שיעור 5 מתוך 5 — סיכום</span>
+          <span class="badge" style="background:rgba(232,160,32,0.3);color:#fde68a;border:1px solid rgba(232,160,32,0.5);">⭐ שיעור סיכום</span>
+        </div>
+        <h1 style="font-family:'Secular One',sans-serif;font-size:clamp(1.6rem,4vw,2.7rem);line-height:1.15;margin-bottom:10px;">
+          סיכום יחידה 2 — מערכת השם
+          <span style="display:block;font-size:clamp(1rem,2.5vw,1.5rem);color:#a8d4f0;margin-top:4px;">שורש+משקל · בסיס+סיומת · משמעויות ותפקודים</span>
+        </h1>
+        <p style="color:rgba(255,255,255,0.65);font-size:0.97rem;max-width:520px;">
+          חזרה, מיון ותרגול — הכנה מלאה לבגרות
+        </p>
+      </div>
+      <!-- Timer -->
+      <div style="background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.15);border-radius:16px;padding:16px 20px;min-width:185px;text-align:center;" class="no-print">
+        <div style="font-size:0.7rem;color:rgba(255,255,255,0.5);margin-bottom:4px;letter-spacing:0.1em;">⏱ טיימר שיעור</div>
+        <div id="timer-display">45:00</div>
+        <div style="display:flex;gap:8px;justify-content:center;margin-top:10px;">
+          <button onclick="startTimer()" style="background:#a8d4f0;color:#0c2040;border:none;border-radius:7px;padding:5px 14px;font-family:'Heebo',sans-serif;font-size:0.78rem;font-weight:700;cursor:pointer;min-height:36px;">▶ התחל</button>
+          <button onclick="resetTimer()" style="background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.2);border-radius:7px;padding:5px 10px;font-family:'Heebo',sans-serif;font-size:0.78rem;cursor:pointer;min-height:36px;">↺</button>
+        </div>
+        <div id="phase-ind" style="font-size:0.74rem;color:#a8d4f0;margin-top:8px;min-height:1.2em;"></div>
+      </div>
+    </div>
+    <div style="margin-top:22px;" class="no-print">
+      <div style="display:flex;justify-content:space-between;font-size:0.71rem;color:rgba(255,255,255,0.45);margin-bottom:5px;"><span>התקדמות השיעור</span><span id="prog-pct">0%</span></div>
+      <div class="prog-wrap"><div class="prog-fill" id="prog-fill" style="width:0%;"></div></div>
+      <div style="display:flex;justify-content:space-between;font-size:0.67rem;color:rgba(255,255,255,0.3);margin-top:4px;"><span>תיאוריה (10׳)</span><span>תרגול (15׳)</span><span>דף עבודה (15׳)</span><span>סיכום (5׳)</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ════════════════════════════════════
+     NAV
+════════════════════════════════════ -->
+<nav class="no-print sticky top-0 z-50" style="background:var(--surface);border-bottom:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+  <div class="max-w-5xl mx-auto px-4" style="display:flex;gap:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;">
+    <button class="tab-btn active px-4 py-3 text-sm" onclick="showTab('th',this)" style="color:var(--navy);">📚 תיאוריה</button>
+    <button class="tab-btn px-4 py-3 text-sm" onclick="showTab('tp',this)" style="color:var(--text-muted);">🎯 תרגול</button>
+    <button class="tab-btn px-4 py-3 text-sm" onclick="showTab('tw',this)" style="color:var(--text-muted);">✏️ דף עבודה</button>
+    <button onclick="window.location.href='index.html'" style="margin-right:auto;padding:8px 16px;font-size:0.8rem;color:var(--text-muted);background:transparent;border:1px solid var(--border);border-radius:8px;cursor:pointer;white-space:nowrap;font-family:'Heebo',sans-serif;" class="no-print">🏠 תפריט</button>
+    <button onclick="window.print()" style="padding:8px 14px;font-size:0.8rem;color:var(--text-muted);background:transparent;border:none;cursor:pointer;white-space:nowrap;" class="no-print">🖨️</button>
+  </div>
+</nav>
+
+<main class="max-w-5xl mx-auto px-4 py-8">
+
+<!-- ════════════════════════════════════
+     TAB 1 — THEORY (Summary)
+════════════════════════════════════ -->
+<div id="th" class="tab-pane active">
+
+  <h2 class="teal-h" style="font-size:1.35rem;">📚 סיכום יחידה 2 — כל מה שצריך לדעת</h2>
+
+  <!-- Method comparison -->
+  <div class="theory-block" style="margin-bottom:1.5rem;">
+    <div class="block-title">ℹ️ שיטה א׳ — שורש ומשקל (היתוך)</div>
+    <div class="article-body">
+      <p>בהיתוך, שלושת עיצורי השורש "נוצקים" לתוך תבנית המשקל. <strong>השורש לעולם אינו מילה עצמאית.</strong> סימן ההיכר: אם תנסו לבודד "בסיס" — לא תמצאו מילה שלמה. לדוגמה: <strong>מַחְשֵׁב</strong> (שורש: ח.ש.ב + משקל: מַקְטֵל — כלי חישוב), <strong>מִסְפָּר</strong> (שורש: ס.פ.ר + משקל: מִקְטָל — מושג מופשט), <strong>כְּתִיבָה</strong> (שורש: כ.ת.ב + משקל: קְטִילָה — שם פעולה). בכל אלה — אין "חצי" שהוא מילה עצמאית לפני "הסיומת".</p>
+    </div>
+  </div>
+
+  <div class="theory-block teal" style="margin-bottom:1.5rem;">
+    <div class="block-title">ℹ️ שיטה ב׳ — בסיס וסיומת (הדבקה)</div>
+    <div class="article-body">
+      <p>בהדבקה, מדביקים סיומת (צורן סופי) למילה שלמה וקיימת — הנקראת <strong>בסיס</strong>. הכלל: "אם אוכל להסיר את הסיומת ותישאר מילה שלמה — זו הדבקה." לדוגמה: <strong>סְפָרִיָּה</strong> (בסיס: <span class="hl-t">סֵפֶר</span> + סיומת: <span class="hl-n">-ִיָּה</span>), <strong>חַצּוֹצְרָן</strong> (בסיס: <span class="hl-t">חַצּוֹצְרָה</span> + סיומת: <span class="hl-n">-ָן</span>), <strong>מַדָּעִי</strong> (בסיס: <span class="hl-t">מַדָּע</span> + סיומת: <span class="hl-n">-ִי</span>).</p>
+    </div>
+  </div>
+
+  <!-- Combined formation -->
+  <div class="theory-block purple" style="margin-bottom:1.5rem;">
+    <div class="block-title">ℹ️ שיטה ג׳ — תצורה משולבת (בסיס לועזי + סיומת עברית)</div>
+    <div class="article-body">
+      <p>לעיתים, הבסיס אינו מילה עברית מקורית אלא מילה <strong>לועזית</strong> שהוטמעה בשפה — ועליה מוסיפים סיומת עברית רגילה. הדבקה כזו נקראת <strong>תצורה משולבת</strong>. הכלל נשמר: הבסיס עומד בפני עצמו (גם אם מקורו זר), והסיומת מוסיפה משמעות עברית. לדוגמה: <strong>טֶלֶפוֹנִי</strong> (בסיס לועזי: טֶלֶפוֹן + סיומת: <span class="hl-n">-ִי</span> שייכות — הקשור לטלפון), <strong>גְּלוֹבָּלִי</strong> (בסיס לועזי: global + סיומת: <span class="hl-n">-ִי</span> — עולמי/כלל-עולמי), <strong>דִּיגִיטָלִי</strong> (בסיס: digital + -ִי), <strong>אִינְטֶרְנֶטִי</strong> (בסיס: אינטרנט + -ִי). מילים כאלה שכיחות מאוד בעברית המודרנית ומהוות חלק עצום מאוצר המילים של כיום.</p>
+      <p>⚠️ <strong>שימו לב לבגרות:</strong> כאשר מוצאים מילה עם בסיס לועזי + סיומת עברית — יש לציין את שתיהן: "בסיס לועזי: ___ + סיומת עברית: ___". אין לנסות לנתח את הבסיס הלועזי כשורש עברי.</p>
+    </div>
+  </div>
+
+  <!-- Quick tip: cover method -->
+  <div class="theory-block tip" style="margin-bottom:1.5rem;">
+    <div class="block-title">💡 שיטת ה"כיסוי" — כלי מהיר לזיהוי</div>
+    <div class="article-body">
+      <p><strong>כיסו את הסיומת הידועה (-וֹן, -ָן, -ִיָּה, -ִי, -ִית, -ָאי, -וּת)</strong> ובדקו: מה נשאר?</p>
+      <p>▸ נשאר <strong>בסיס</strong> — מילה שלמה ועצמאית בעלת משמעות עצמאית → <span class="wchip teal">הדבקה</span>.<br>
+      דוגמה: כיסיתם -ָאי מ<strong>עִיתּוֹנַאי</strong> → נשאר <strong>עִיתּוֹן</strong> — מילה שלמה בפני עצמה ✓.</p>
+      <p>▸ נשארו <strong>עיצורי שורש בלבד</strong> — שלד שאינו מילה עצמאית → <span class="wchip">היתוך</span>.<br>
+      דוגמה: כיסיתם "-ֶת" מ<strong>מַדְפֶּסֶת</strong> → נשאר "מַדְפֶּ" — אינו מילה ✗. השורש ד.פ.ס נוצק לתבנית מַקְטֶלֶת.</p>
+      <p>🔑 <strong>הכלל המדויק:</strong> <em>בסיס</em> = מילה שלמה בעלת משמעות עצמאית שיכולה לעמוד לבדה. <em>שורש</em> = שלד עיצורי שלעולם אינו עומד לבדו כמילה. כאשר תוצאת ה"כיסוי" היא מילה — זהו <strong>בסיס</strong>; כאשר תוצאת ה"כיסוי" היא עיצורים ללא משמעות עצמאית — זהו <strong>שורש</strong>.</p>
+      <p>⚠️ <strong>מלכודת:</strong> <strong>מְכוֹנִית</strong> — כיסיתם -ִית → נשאר "מְכוֹנ" (לא מילה ✗) = <span class="wchip">היתוך</span>. לעומת זאת, <strong>טֶלֶפוֹנִי</strong> — כיסיתם -ִי → נשאר <strong>טֶלֶפוֹן</strong> (מילה ✓, גם אם לועזית!) = <span class="wchip teal">הדבקה</span> (תצורה משולבת).</p>
+    </div>
+  </div>
+
+  <!-- Big comparison table -->
+  <h3 style="font-family:'Secular One',sans-serif;font-size:1.05rem;color:var(--navy);margin:24px 0 14px;">טבלת השוואה מרכזת — שורש+משקל לעומת בסיס+סיומת</h3>
+  <div class="overflow-x-auto my-4" style="overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:1.5rem;">
+    <table class="ctable" style="min-width:560px;">
+      <thead>
+        <tr>
+          <th>קריטריון</th>
+          <th style="color:#a8d4f0;">שורש + משקל (היתוך)</th>
+          <th style="background:#0a5040;color:#a8e8df;">בסיס + סיומת (הדבקה)</th>
+          <th style="background:#3b1080;color:#d4b8fc;">תצורה משולבת (לועזי+עברי)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="font-weight:700;">שאלת הבחינה</td><td>האם ניתן לזהות שורש עיצורי?</td><td>האם הבסיס (עברי) מילה שלמה?</td><td>האם הבסיס (לועזי) + סיומת עברית?</td></tr>
+        <tr><td style="font-weight:700;">בסיס עצמאי?</td><td>לא — שורש בלבד</td><td>כן — מילה עברית קיימת</td><td>כן — מילה לועזית קיימת</td></tr>
+        <tr><td style="font-weight:700;">תפקיד הצורן</td><td>המשקל קובע משמעות</td><td>הסיומת מוסיפה משמעות</td><td>הסיומת העברית מוסיפה משמעות</td></tr>
+        <tr><td style="font-weight:700;">דוגמאות</td><td><strong>מַחְשֵׁב</strong>, <strong>נַגָּר</strong>, <strong>כְּתִיבָה</strong></td><td><strong>סְפָרִיָּה</strong>, <strong>שַׁחְמַטַאי</strong>, <strong>עִבְרִית</strong></td><td><strong>טֶלֶפוֹנִי</strong>, <strong>גְּלוֹבָּלִי</strong>, <strong>אִינְטֶרְנֶטִי</strong></td></tr>
+        <tr><td style="font-weight:700;">מלכודת נפוצה</td><td><strong>מַדְפֶּסֶת</strong> — "מַד" לא מילה ✗</td><td><strong>כַּדּוּרְגְּלָן</strong> — "כַּדּוּרֶגֶל" מילה ✓</td><td>לא לנתח בסיס לועזי כשורש עברי!</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Suffix meaning summary -->
+  <h3 style="font-family:'Secular One',sans-serif;font-size:1.05rem;color:var(--navy);margin:24px 0 14px;">טבלת משמעויות — משקלים וסיומות מרכזיים</h3>
+  <div class="overflow-x-auto my-4" style="overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:1.5rem;">
+    <table class="ctable" style="min-width:500px;">
+      <thead><tr><th>צורן</th><th>משמעות עיקרית</th><th>דוגמה מנותחת</th></tr></thead>
+      <tbody>
+        <tr><td><strong>מַקְטֵל</strong></td><td>מכשיר / כלי</td><td><strong>מַחְשֵׁב</strong> (ח.ש.ב — כלי חישוב)</td></tr>
+        <tr><td><strong>מִקְטָל</strong></td><td>מקום</td><td><strong>מִגְרָשׁ</strong> (ג.ר.ש — מקום המשחק)</td></tr>
+        <tr><td><strong>קַטָּל</strong></td><td>א. בעל מקצוע<br>ב. בעל תכונה</td><td><strong>נַגָּר</strong> (נ.ג.ר — בעל מקצוע הנגרות)<br><strong>קַנָּאי</strong> (ק.נ.א — בעל תכונת הקנאות) <span style="font-size:0.78rem;color:var(--danger);">⚠️ לא תמיד מקצוע!</span></td></tr>
+        <tr><td><strong>קַטֶּלֶת</strong></td><td>מחלה / מצב גופני</td><td><strong>דַּלֶּקֶת</strong> (ד.ל.ק — inflammation)</td></tr>
+        <tr><td><strong>קְטִילָה</strong></td><td>שם פעולה</td><td><strong>כְּתִיבָה</strong> (כ.ת.ב — פעולת הכתיבה)</td></tr>
+        <tr><td><strong>-וֹן</strong></td><td>הקטנה / כתב-עת</td><td><strong>שִׁירוֹן</strong> (שִׁיר + -וֹן) / <strong>עִתּוֹן</strong> (עֵת + -וֹן)</td></tr>
+        <tr><td><strong>-ָן</strong></td><td>בעל מקצוע / תכונה</td><td><strong>פַּסְנְתְּרָן</strong> (פַּסְנְתֵּר + -ָן)</td></tr>
+        <tr><td><strong>-ִיָּה</strong></td><td>מקום / אוסף</td><td><strong>תַּקְלִיטִיָּה</strong> (תַּקְלִיט + -ִיָּה)</td></tr>
+        <tr><td><strong>-ִית</strong></td><td>שפה / תחבורה / הקטנה</td><td><strong>עִבְרִית</strong> / <strong>מְכוֹנִית</strong> / <strong>כַּפִּית</strong></td></tr>
+        <tr><td><strong>-ָאי</strong></td><td>עוסק בתחום</td><td><strong>עִיתּוֹנַאי</strong> (עִיתּוֹן + -ָאי)</td></tr>
+        <tr><td><strong>-וּת</strong></td><td>מצב מופשט / תחום</td><td><strong>יַלְדוּת</strong> (יֶלֶד + -וּת)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Warning block -->
+  <div class="theory-block danger" style="margin-bottom:1rem;">
+    <div class="block-title">⚠️ ארבע המלכודות הגדולות בבגרות</div>
+    <div class="article-body">
+      <p><strong>1. מַדְפֶּסֶת ≠ הדבקה.</strong> "מַד" לא מילה עצמאית ✗ → שורש ד.פ.ס + מַקְטֶלֶת = היתוך.</p>
+      <p><strong>2. -ִית ≠ תמיד הקטנה.</strong> <strong>עִבְרִית</strong> = שפה (עִבְרִי + -ִית), <strong>מְכוֹנִית</strong> = תחבורה (מְכוֹנָה + -ִית), <strong>כַּפִּית</strong> = הקטנה (כַּף + -ִית). ההקשר קובע!</p>
+      <p><strong>3. קַטָּל ≠ קוֹטֵל, וקַטָּל ≠ רק מקצוע.</strong> <strong>נַגָּר</strong> (קַטָּל) = בעל מקצוע; <strong>קַנָּאי</strong> (קַטָּל) = בעל תכונה — לא מקצוע! <strong>כּוֹתֵב</strong> (קוֹטֵל) = מי שכותב כרגע. הכלל: קַטָּל = עיסוק/תכונה קבועים; קוֹטֵל = פעולה ברגע זה.</p>
+      <p><strong>4. תצורה משולבת ≠ שורש עברי.</strong> <strong>טֶלֶפוֹנִי</strong>, <strong>גְּלוֹבָּלִי</strong> — הבסיס לועזי + -ִי עברי. אל תנסו למצוא שורש עברי לבסיס כזה. ציינו: "בסיס לועזי: ___ + סיומת עברית: -ִי".</p>
+    </div>
+  </div>
+
+  <!-- Next: practice -->
+  <div class="card no-print" style="text-align:center;border:1.5px dashed var(--teal);background:#f0fdf9;">
+    <p style="font-size:0.9rem;color:var(--text-mid);margin-bottom:12px;">מוכנים לתרגל? עברו ללשונית הבאה:</p>
+    <button onclick="showTab('tp',document.querySelector('[onclick*=\"tp\"]'))" style="background:var(--teal);color:#fff;border:none;padding:10px 28px;border-radius:10px;font-family:'Heebo',sans-serif;font-size:0.95rem;font-weight:700;cursor:pointer;">
+      🎯 עברו לתרגול ←
+    </button>
+  </div>
+
+</div><!-- /theory -->
+
+
+<!-- ════════════════════════════════════
+     TAB 2 — PRACTICE (interactive)
+════════════════════════════════════ -->
+<div id="tp" class="tab-pane">
+
+  <h2 class="teal-h" style="font-size:1.35rem;">🎯 תרגול — מיון, התאמה ובדיקה עצמית</h2>
+
+  <!-- ── Exercise A: Sort 15 words ── -->
+  <div class="card" style="border-right:4px solid var(--navy-lt);margin-bottom:1.5rem;">
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;">
+      <div style="background:var(--navy-lt);color:#fff;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">א</div>
+      <div>
+        <div style="font-weight:700;font-size:1rem;color:var(--text);">מיון 15 מילים — היתוך או הדבקה?</div>
+        <div style="font-size:0.84rem;color:var(--text-muted);">לחצו על כל מילה כדי לסווגה, ואז לחצו "בדוק"</div>
+      </div>
+    </div>
+
+    <!-- Word bank -->
+    <div id="word-bank" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px;padding:14px;background:var(--surface2);border-radius:12px;min-height:60px;">
+      <!-- populated by JS -->
+    </div>
+
+    <!-- Sort zones -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <div>
+        <div style="font-weight:800;font-size:0.88rem;color:var(--navy-lt);margin-bottom:8px;display:flex;align-items:center;gap:6px;">
+          <span style="background:var(--navy-lt);color:#fff;border-radius:6px;padding:2px 10px;font-size:0.8rem;">היתוך</span> שורש + משקל
+        </div>
+        <div id="zone-fusion" class="sort-zone" onclick="setDropZone('fusion')">
+          <span style="color:var(--text-muted);font-size:0.82rem;align-self:center;">גררו לכאן מילות היתוך…</span>
+        </div>
+      </div>
+      <div>
+        <div style="font-weight:800;font-size:0.88rem;color:var(--teal);margin-bottom:8px;display:flex;align-items:center;gap:6px;">
+          <span style="background:var(--teal);color:#fff;border-radius:6px;padding:2px 10px;font-size:0.8rem;">הדבקה</span> בסיס + סיומת
+        </div>
+        <div id="zone-glue" class="sort-zone" onclick="setDropZone('glue')">
+          <span style="color:var(--text-muted);font-size:0.82rem;align-self:center;">גררו לכאן מילות הדבקה…</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <button onclick="checkSort()" style="background:var(--navy-lt);color:#fff;border:none;padding:10px 24px;border-radius:10px;font-family:'Heebo',sans-serif;font-size:0.95rem;font-weight:700;cursor:pointer;">✔ בדוק תשובות</button>
+      <button onclick="resetSort()" style="background:transparent;color:var(--text-muted);border:1.5px solid var(--border);padding:10px 20px;border-radius:10px;font-family:'Heebo',sans-serif;font-size:0.9rem;cursor:pointer;">↺ איפוס</button>
+    </div>
+    <div id="sort-result" style="margin-top:14px;display:none;"></div>
+  </div>
+
+  <!-- ── Exercise B: Match meaning ── -->
+  <div class="card" style="border-right:4px solid var(--teal);margin-bottom:1.5rem;">
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;">
+      <div style="background:var(--teal);color:#fff;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">ב</div>
+      <div>
+        <div style="font-weight:700;font-size:1rem;color:var(--text);">התאמת משמעויות — בחרו את הקטגוריה הנכונה</div>
+        <div style="font-size:0.84rem;color:var(--text-muted);">לכל מילה — בחרו מה היא "מציינת" לפי צורתה</div>
+      </div>
+    </div>
+
+    <div class="overflow-x-auto my-4" style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+      <table style="width:100%;border-collapse:collapse;font-size:0.9rem;min-width:480px;">
+        <thead>
+          <tr style="background:var(--surface2);">
+            <th style="padding:10px 12px;text-align:right;color:var(--text-muted);border-bottom:1px solid var(--border);">#</th>
+            <th style="padding:10px 12px;text-align:right;color:var(--teal);border-bottom:1px solid var(--border);">מילה</th>
+            <th style="padding:10px 12px;text-align:right;color:var(--teal);border-bottom:1px solid var(--border);">הקטגוריה שלה</th>
+            <th style="padding:10px;text-align:center;color:var(--text-muted);border-bottom:1px solid var(--border);">✓/✗</th>
+          </tr>
+        </thead>
+        <tbody id="match-tbody">
+          <!-- populated by JS -->
+        </tbody>
+      </table>
+    </div>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;">
+      <button onclick="checkMatch()" style="background:var(--teal);color:#fff;border:none;padding:10px 24px;border-radius:10px;font-family:'Heebo',sans-serif;font-size:0.95rem;font-weight:700;cursor:pointer;">✔ בדוק תשובות</button>
+      <button onclick="resetMatch()" style="background:transparent;color:var(--text-muted);border:1.5px solid var(--border);padding:10px 20px;border-radius:10px;font-family:'Heebo',sans-serif;font-size:0.9rem;cursor:pointer;">↺ איפוס</button>
+    </div>
+    <div id="match-result" style="margin-top:12px;display:none;"></div>
+  </div>
+
+  <!-- ── Score summary ── -->
+  <div id="score-display" class="card" style="background:linear-gradient(135deg,#0c2040,#1a3a6b);color:#fff;text-align:center;">
+    <div style="font-family:'Secular One',sans-serif;font-size:1.15rem;margin-bottom:10px;">🏆 ציון תרגול</div>
+    <div id="score-text" style="font-size:1.5rem;font-weight:900;"></div>
+    <div id="score-msg" style="font-size:0.85rem;color:rgba(255,255,255,0.65);margin-top:6px;"></div>
+  </div>
+
+</div><!-- /practice -->
+
+
+<!-- ════════════════════════════════════
+     TAB 3 — WORKSHEET (10 bagrut-style Qs)
+════════════════════════════════════ -->
+<div id="tw" class="tab-pane">
+
+  <!-- Student info -->
+  <div class="card" style="background:linear-gradient(135deg,var(--surface2),var(--surface));margin-bottom:20px;">
+    <h2 style="font-family:'Secular One',sans-serif;font-size:1.15rem;color:var(--navy);margin-bottom:16px;">✏️ דף עבודה — סיכום יחידה 2</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div><label style="font-size:0.82rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:4px;">שם מלא</label><input type="text" id="sname" placeholder="הקלד/י שם..."></div>
+      <div><label style="font-size:0.82rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:4px;">כיתה</label><input type="text" id="sclass" placeholder="לדוגמה: י׳3"></div>
+      <div><label style="font-size:0.82rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:4px;">תאריך</label><input type="text" id="sdate" placeholder="יום/חודש/שנה"></div>
+    </div>
+  </div>
+
+  <!-- Q1 -->
+  <div class="card" style="border-right:4px solid var(--navy-lt);">
+    <div style="display:flex;gap:12px;margin-bottom:12px;">
+      <div class="q-num">1</div>
+      <div><div style="font-weight:700;font-size:1rem;color:var(--text);">זיהוי דרך תצורה + ניתוח</div><div style="font-size:0.84rem;color:var(--text-muted);">(20 נקודות — 4 נקודות לכל מילה)</div></div>
+    </div>
+    <p style="font-size:0.91rem;color:var(--text-mid);margin-bottom:14px;">לכל מילה: (א) קבעו דרך תצורה (היתוך/הדבקה), (ב) ציינו שורש/בסיס + משקל/סיומת:</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <div><label style="font-size:0.83rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:4px;">א. <span class="hl-n">תַּקְלִיטִיָּה</span></label><input type="text" id="q1a" placeholder="דרך: ___ | בסיס: ___ | סיומת: ___"></div>
+      <div><label style="font-size:0.83rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:4px;">ב. <span class="hl-e">מַדְפֶּסֶת</span></label><input type="text" id="q1b" placeholder="דרך: ___ | שורש: ___ | משקל: ___"></div>
+      <div><label style="font-size:0.83rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:4px;">ג. <span class="hl-t">עִיתּוֹנַאי</span></label><input type="text" id="q1c" placeholder="דרך: ___ | בסיס: ___ | סיומת: ___"></div>
+      <div><label style="font-size:0.83rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:4px;">ד. <span class="hl-n">מִסְפָּרָה</span></label><input type="text" id="q1d" placeholder="דרך: ___ | שורש: ___ | משקל: ___"></div>
+      <div style="grid-column:1/-1;"><label style="font-size:0.83rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:4px;">ה. <span class="hl-p">שַׁחְמַטַאי</span></label><input type="text" id="q1e" placeholder="דרך: ___ | בסיס: ___ | סיומת: ___"></div>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="card" style="border-right:4px solid var(--teal);">
+    <div style="display:flex;gap:12px;margin-bottom:12px;">
+      <div class="q-num" style="background:var(--teal);">2</div>
+      <div><div style="font-weight:700;font-size:1rem;color:var(--text);">משמעות לפי צורה</div><div style="font-size:0.84rem;color:var(--text-muted);">(15 נקודות — 3 נקודות לכל שאלה)</div></div>
+    </div>
+    <p style="font-size:0.91rem;color:var(--text-mid);margin-bottom:14px;">לכל מילה — כתבו מה הצורה "מציינת" ונמקו בשורה אחת:</p>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div><label style="font-size:0.83rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:3px;">א. <span class="hl-t">דַּלֶּקֶת</span> — קַטֶּלֶת</label><input type="text" id="q2a" placeholder="מציינת: ___ | כי: ___"></div>
+      <div><label style="font-size:0.83rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:3px;">ב. <span class="hl-n">מַקְדֵּחַ</span> — מַקְטֵל</label><input type="text" id="q2b" placeholder="מציינת: ___ | כי: ___"></div>
+      <div><label style="font-size:0.83rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:3px;">ג. <span class="hl-e">עַצְלָנוּת</span> — בסיס + -וּת</label><input type="text" id="q2c" placeholder="מציינת: ___ | כי: ___"></div>
+      <div><label style="font-size:0.83rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:3px;">ד. <span class="hl-t">מְכוֹנִית</span> — בסיס + -ִית</label><input type="text" id="q2d" placeholder="מציינת: ___ | כי: ___"></div>
+      <div><label style="font-size:0.83rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:3px;">ה. <span class="hl-p">סַפָּר</span> ו<span class="hl-e">קַנָּאי</span> — שניהם קַטָּל. מה ההבדל ביניהם?</label><input type="text" id="q2e" placeholder="סַפָּר = ___ | קַנָּאי = ___ | ההבדל: קַטָּל יכול לציין גם ___ וגם ___"></div>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="card" style="border-right:4px solid var(--sun);">
+    <div style="display:flex;gap:12px;margin-bottom:12px;">
+      <div class="q-num" style="background:var(--sun);">3</div>
+      <div><div style="font-weight:700;font-size:1rem;color:var(--text);">בניין מילה חדשה — יישום</div><div style="font-size:0.84rem;color:var(--text-muted);">(15 נקודות — 3 נקודות לכל שאלה)</div></div>
+    </div>
+    <p style="font-size:0.91rem;color:var(--text-mid);margin-bottom:14px;">בנו מילה חדשה לפי ההנחיה, כתבו אותה בניקוד ותנו משמעות:</p>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div><label style="font-size:0.83rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:3px;">א. שורש <strong>ר.ק.ד</strong> + משקל מַקְטֵל (כלי)</label><input type="text" id="q3a" placeholder="המילה: ___ | משמעות: ___"></div>
+      <div><label style="font-size:0.83rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:3px;">ב. בסיס <strong>כִּנּוֹר</strong> + סיומת -ָן (בעל עיסוק)</label><input type="text" id="q3b" placeholder="המילה: ___ | משמעות: ___"></div>
+      <div><label style="font-size:0.83rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:3px;">ג. שורש <strong>ל.מ.ד</strong> + משקל קְטִילָה (שם פעולה)</label><input type="text" id="q3c" placeholder="המילה: ___ | משמעות: ___"></div>
+      <div><label style="font-size:0.83rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:3px;">ד. בסיס <strong>שִׁיר</strong> + סיומת -ִיָּה (מקום)</label><input type="text" id="q3d" placeholder="המילה: ___ | משמעות: ___"></div>
+      <div><label style="font-size:0.83rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:3px;">ה. שורש <strong>ש.מ.ר</strong> + משקל קַטָּל (בעל מקצוע)</label><input type="text" id="q3e" placeholder="המילה: ___ | משמעות: ___"></div>
+    </div>
+  </div>
+
+  <!-- Q4 — bagrut context -->
+  <div class="card" style="border-right:4px solid var(--purple);">
+    <div style="display:flex;gap:12px;margin-bottom:12px;">
+      <div class="q-num" style="background:var(--purple);">4</div>
+      <div><div style="font-weight:700;font-size:1rem;color:var(--text);">ניתוח בהקשר — סגנון בגרות</div><div style="font-size:0.84rem;color:var(--text-muted);">(20 נקודות)</div></div>
+    </div>
+    <div style="background:#fef3f2;border:1px solid #fecdca;border-radius:10px;padding:14px 16px;margin-bottom:14px;font-size:0.93rem;line-height:2.0;color:var(--text-mid);">
+      "ה<strong>סְפָרִיָּה</strong> העירונית רכשה <strong>מַחְשֵׁבִים</strong> חדשים. ה<strong>סַפְרָנִית</strong> המנוסה <strong>תִּכְנְתָה</strong> מערכת ניהול חדשה, ו<strong>לְמִידַת</strong> הממשק החלה מיד. המנהלת ציינה כי <strong>חַדְשָׁנוּת</strong> טכנולוגית היא ערך מרכזי בספרייה."
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div><label style="font-size:0.83rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:3px;">א. נתחו את המילה <strong>סְפָרִיָּה</strong>:</label><input type="text" id="q4a" placeholder="דרך תצורה: ___ | בסיס: ___ | סיומת: ___ | משמעות: ___"></div>
+      <div><label style="font-size:0.83rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:3px;">ב. נתחו את המילה <strong>מַחְשֵׁבִים</strong> (צורת יחיד: מַחְשֵׁב):</label><input type="text" id="q4b" placeholder="דרך תצורה: ___ | שורש: ___ | משקל: ___ | משמעות: ___"></div>
+      <div><label style="font-size:0.83rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:3px;">ג. נתחו את המילה <strong>סַפְרָנִית</strong>:</label><input type="text" id="q4c" placeholder="בסיס: ___ | סיומות: ___ | משמעות: ___"></div>
+      <div><label style="font-size:0.83rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:3px;">ד. נתחו את המילה <strong>חַדְשָׁנוּת</strong> — כתבו את הבסיס, הסיומת והמשמעות:</label><textarea id="q4d" rows="3" placeholder="בסיס: ___ (חדשן / חדש?) | סיומת: ___ | משמעות: ___ | דרך תצורה: ___"></textarea></div>
+    </div>
+  </div>
+
+  <!-- Submit -->
+  <div class="card no-print" style="background:linear-gradient(135deg,var(--surface2),var(--surface));border:1.5px solid var(--navy-lt);text-align:center;">
+    <div style="font-size:2rem;margin-bottom:8px;">📤</div>
+    <h3 style="font-weight:700;font-size:1.05rem;color:var(--text);margin-bottom:6px;">שליחה למורה</h3>
+    <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:16px;">לחצו לשליחת דף העבודה המלא</p>
+    <button onclick="submitWS()" style="background:var(--navy-lt);color:#fff;border:none;padding:12px 36px;border-radius:10px;font-family:'Heebo',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;">שלח/י דף עבודה ✓</button>
+  </div>
+
+  <!-- Answers key -->
+  <details style="margin-top:24px;">
+    <summary style="font-family:'Secular One',sans-serif;font-size:1rem;color:var(--navy);cursor:pointer;padding:12px 16px;background:var(--surface2);border-radius:12px;list-style:none;display:flex;align-items:center;gap:8px;">
+      🔑 פתחו לתשובות המלאות (לאחר ביצוע העבודה!)
+    </summary>
+    <div style="margin-top:12px;">
+      <h3 style="font-family:'Secular One',sans-serif;font-size:1rem;color:var(--navy);margin-bottom:12px;">שאלה 1 — זיהוי ונתוח</h3>
+      <div class="ai teal"><strong>א. תַּקְלִיטִיָּה</strong> — <strong>הדבקה</strong> | בסיס: תַּקְלִיט (מילה שלמה ✓) + -ִיָּה | משמעות: מקום לתקליטים</div>
+      <div class="ai"><strong>ב. מַדְפֶּסֶת</strong> — <strong>היתוך</strong> | שורש: ד.פ.ס + משקל: מַקְטֶלֶת | ⚠️ "מַד" לא מילה עצמאית!</div>
+      <div class="ai teal"><strong>ג. עִיתּוֹנַאי</strong> — <strong>הדבקה</strong> | בסיס: עִיתּוֹן + -ָאי | בעל עיסוק בעיתונאות</div>
+      <div class="ai"><strong>ד. מִסְפָּרָה</strong> — <strong>היתוך</strong> | שורש: ס.פ.ר + משקל: מִקְטָלָה | מקום הסיפור/תספורת</div>
+      <div class="ai teal"><strong>ה. שַׁחְמַטַאי</strong> — <strong>הדבקה</strong> | בסיס: שַׁחְמַט + -ָאי | עוסק בשחמט</div>
+
+      <h3 style="font-family:'Secular One',sans-serif;font-size:1rem;color:var(--teal);margin:20px 0 12px;">שאלה 2 — משמעות לפי צורה</h3>
+      <div class="ai teal"><strong>א. דַּלֶּקֶת</strong> → <strong>מחלה/מצב גופני</strong> | כי קַטֶּלֶת = משקל המציין מחלות ומצבים גופניים</div>
+      <div class="ai teal"><strong>ב. מַקְדֵּחַ</strong> → <strong>מכשיר/כלי</strong> | כי מַקְטֵל = משקל המציין כלים ומכשירים (שורש ק.ד.ח)</div>
+      <div class="ai teal"><strong>ג. עַצְלָנוּת</strong> → <strong>מצב מופשט/תכונה</strong> | כי -וּת מציינת מצב מופשט (בסיס: עַצְלָן + -וּת)</div>
+      <div class="ai teal"><strong>ד. מְכוֹנִית</strong> → <strong>כלי תחבורה</strong> | כי -ִית כאן = תחבורה (בסיס: מְכוֹנָה + -ִית)</div>
+      <div class="ai teal"><strong>ה. סַפָּר</strong> → <strong>בעל מקצוע</strong> (קַטָּל, שורש ס.פ.ר) | <strong>קַנָּאי</strong> → <strong>בעל תכונה</strong> (קַטָּל, שורש ק.נ.א) | ההבדל: <span style="font-weight:800;">קַטָּל יכול לציין גם מקצוע וגם תכונת אופי</span> — ההקשר קובע!</div>
+
+      <h3 style="font-family:'Secular One',sans-serif;font-size:1rem;color:var(--sun);margin:20px 0 12px;">שאלה 3 — בניין מילה</h3>
+      <div class="ai sun"><strong>א.</strong> <strong>מַרְקֵד</strong> (שורש ר.ק.ד + מַקְטֵל) — כלי ריקוד / רקדנית | קבלו גם מַרְקֵד = מכשיר מוזיקלי</div>
+      <div class="ai sun"><strong>ב.</strong> <strong>כִּנּוֹרָן</strong> (כִּנּוֹר + -ָן) — מי שמנגן בכינור</div>
+      <div class="ai sun"><strong>ג.</strong> <strong>לְמִידָה</strong> (שורש ל.מ.ד + קְטִילָה) — פעולת הלמידה</div>
+      <div class="ai sun"><strong>ד.</strong> <strong>שִׁירִיָּה</strong> (שִׁיר + -ִיָּה) — מקום שירה / אוסף שירים</div>
+      <div class="ai sun"><strong>ה.</strong> <strong>שַׁמָּר</strong> (שורש ש.מ.ר + קַטָּל) — שומר/שמרן (בעל מקצוע)</div>
+
+      <h3 style="font-family:'Secular One',sans-serif;font-size:1rem;color:var(--purple);margin:20px 0 12px;">שאלה 4 — ניתוח בהקשר</h3>
+      <div class="ai purple"><strong>א. סְפָרִיָּה</strong> — הדבקה | בסיס: סֵפֶר + -ִיָּה | משמעות: מקום שבו שוכנים ספרים</div>
+      <div class="ai purple"><strong>ב. מַחְשֵׁב</strong> — היתוך | שורש: ח.ש.ב + מַקְטֵל | משמעות: כלי חישוב / computer</div>
+      <div class="ai purple"><strong>ג. סַפְרָנִית</strong> — שתי סיומות! | בסיס: ספר → סַפְרָן (ס.פ.ר + קַטָּל = ספרן) + -ִית (נקבה). משמעות: אישה העובדת בספרייה</div>
+      <div class="ai purple"><strong>ד. חַדְשָׁנוּת</strong> — <strong>הדבקה</strong> | ניתוח:<br>
+      • <strong>בסיס: חַדְשָׁן</strong> (בעל תכונה של חדשנות — קַטָּל מ-ח.ד.ש) — מילה עצמאית ✓<br>
+      • לחלופין: <strong>בסיס: חָדָשׁ</strong> (תואר — מילה עצמאית ✓) + -ָן + -וּת, אך הבסיס הישיר הוא חַדְשָׁן<br>
+      • <strong>סיומת: -וּת</strong> | <strong>משמעות: מצב מופשט / תכונה</strong> — נטייה לחדש, יצירתיות<br>
+      ⚠️ <strong>שתי התשובות מקובלות</strong>: בסיס = חַדְשָׁן + -וּת, <em>או</em> בסיס = חָדָשׁ עם צעד ביניים.</div>
+
+      <div class="card" style="background:linear-gradient(135deg,#0c2040,#1a3a6b);color:#fff;text-align:center;margin-top:16px;">
+        <div style="font-family:'Secular One',sans-serif;font-size:1.1rem;margin-bottom:12px;">סה"כ ניקוד דף עבודה</div>
+        <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;">
+          <div style="background:rgba(255,255,255,0.1);border-radius:100px;padding:8px 18px;text-align:center;"><div style="font-size:1.3rem;font-weight:900;color:#a8d4f0;">20</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.6);">שאלה 1</div></div>
+          <div style="background:rgba(255,255,255,0.1);border-radius:100px;padding:8px 18px;text-align:center;"><div style="font-size:1.3rem;font-weight:900;color:#a8d4f0;">15</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.6);">שאלה 2</div></div>
+          <div style="background:rgba(255,255,255,0.1);border-radius:100px;padding:8px 18px;text-align:center;"><div style="font-size:1.3rem;font-weight:900;color:#a8d4f0;">15</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.6);">שאלה 3</div></div>
+          <div style="background:rgba(255,255,255,0.1);border-radius:100px;padding:8px 18px;text-align:center;"><div style="font-size:1.3rem;font-weight:900;color:#f5c842;">20</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.6);">שאלה 4</div></div>
+          <div style="background:rgba(255,255,255,0.2);border-radius:100px;padding:8px 22px;text-align:center;"><div style="font-size:1.8rem;font-weight:900;color:#fff;font-family:'Secular One',sans-serif;">70</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.6);">סה"כ</div></div>
+        </div>
+      </div>
+    </div>
+  </details>
+
+</div><!-- /worksheet -->
+
+<!-- ─── BACK/NEXT BAR ─── -->
+<div class="no-print" style="margin:32px 0 8px;">
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 20px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+    <div style="font-size:0.88rem;color:var(--text-muted);">✅ סיום יחידה 2 — כל הכבוד!</div>
+    <a href="index.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--navy-lt);color:#fff;padding:10px 22px;border-radius:10px;font-family:'Heebo',sans-serif;font-size:0.9rem;font-weight:700;text-decoration:none;min-height:44px;">🏠 חזרה לתפריט</a>
+  </div>
+</div>
+
+</main>
+
+<!-- MODAL -->
+<div id="modal">
+  <div style="background:var(--surface);border:1.5px solid var(--navy-lt);border-radius:20px;padding:36px;max-width:420px;width:90%;text-align:center;">
+    <div style="font-size:3rem;margin-bottom:10px;">✅</div>
+    <h2 style="font-family:'Secular One',sans-serif;font-size:1.4rem;color:var(--text);margin-bottom:8px;">נשלח בהצלחה!</h2>
+    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:18px;">דף העבודה נשלח למורה. כל הכבוד!</p>
+    <div id="modal-sum" style="background:var(--surface2);border-radius:10px;padding:14px;text-align:right;margin-bottom:18px;font-size:0.87rem;color:var(--text-mid);"></div>
+    <button onclick="closeModal()" style="background:var(--navy-lt);color:#fff;border:none;padding:10px 28px;border-radius:10px;font-family:'Heebo',sans-serif;font-size:0.95rem;font-weight:700;cursor:pointer;min-height:44px;">סגור</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="no-print" style="background:var(--navy);color:rgba(255,255,255,0.55);text-align:center;padding:20px;font-size:0.78rem;margin-top:60px;">
+  פלטפורמת לשון עברית — כיתה י׳ | יחידה 2: מערכת השם | שיעור 5 — סיכום<br>
+  תואם תכנית המפמ"ר ומיצ"ב 2026 | © כל הזכויות שמורות
+</footer>
+
+<script>
+/* ─── Tabs ─── */
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.style.color = 'var(--text-muted)'; });
+  document.getElementById(id).classList.add('active');
+  if (btn) { btn.classList.add('active'); btn.style.color = ''; }
+  // handle string button reference for programmatic calls
+}
+// Allow calling showTab with element or selector string
+document.querySelectorAll('[onclick*="showTab(\'tp"]').forEach(b => {
+  b.addEventListener('click', function(){ showTab('tp', this); });
+});
+
+/* ─── Timer ─── */
+let tInt=null, tSec=2700, elapsed=0;
+const phases=[{end:600,label:'📚 תיאוריה'},{end:1500,label:'🎯 תרגול'},{end:2400,label:'✏️ דף עבודה'},{end:2700,label:'🔚 סיכום'}];
+function startTimer(){
+  if(tInt)return;
+  tInt=setInterval(()=>{
+    elapsed++;
+    const rem=tSec-elapsed;
+    if(rem<=0){clearInterval(tInt);document.getElementById('timer-display').textContent='00:00';return;}
+    const m=Math.floor(rem/60),s=rem%60;
+    const d=document.getElementById('timer-display');
+    d.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    d.classList.toggle('warning',rem<=120);
+    const pct=Math.round(elapsed/tSec*100);
+    document.getElementById('prog-fill').style.width=pct+'%';
+    document.getElementById('prog-pct').textContent=pct+'%';
+    const ph=phases.find(p=>elapsed<=p.end);
+    if(ph)document.getElementById('phase-ind').textContent=ph.label;
+  },1000);
+}
+function resetTimer(){
+  clearInterval(tInt);tInt=null;elapsed=0;
+  document.getElementById('timer-display').textContent='45:00';
+  document.getElementById('timer-display').classList.remove('warning');
+  document.getElementById('prog-fill').style.width='0%';
+  document.getElementById('prog-pct').textContent='0%';
+  document.getElementById('phase-ind').textContent='';
+}
+
+/* ══════════════════════════════════════════════════════
+   EXERCISE A — SORT (15 words)
+══════════════════════════════════════════════════════ */
+// NOTE: שִׂמְלָה is a "trick" word — it looks derivable but is a root/mishkal word
+// (ש.מ.ל + קִטְלָה), NOT a base+suffix. Marked as 'fusion' with a trap warning.
+// עָצִיץ = ע.צ.צ + קָטִיל (fusion). מַחְשֵׁבוֹן = מַחְשֵׁב (base) + -וֹן (glue).
+const SORT_WORDS = [
+  { word:'מַחְשֵׁב',        answer:'fusion', hint:'ח.ש.ב + מַקְטֵל — כלי חישוב' },
+  { word:'מַחְשֵׁבוֹן',     answer:'glue',   hint:'מַחְשֵׁב (בסיס!) + -וֹן הקטנה' },
+  { word:'סְפָרִיָּה',      answer:'glue',   hint:'סֵפֶר + -ִיָּה' },
+  { word:'עִיתּוֹנַאי',     answer:'glue',   hint:'עִיתּוֹן + -ָאי (בעל עיסוק)' },
+  { word:'עָצִיץ',           answer:'fusion', hint:'ע.צ.צ + קָטִיל (כלי/מכל)' },
+  { word:'כְּתִיבָה',       answer:'fusion', hint:'כ.ת.ב + קְטִילָה (שם פעולה)' },
+  { word:'שַׁחְמַטַאי',     answer:'glue',   hint:'שַׁחְמַט + -ָאי' },
+  { word:'מִסְעָדָה',       answer:'fusion', hint:'ס.ע.ד + מִקְטָלָה (מקום)' },
+  { word:'שִׂמְלָה',         answer:'fusion', hint:'ש.מ.ל + קִטְלָה ⚠️ מלכודת! "שִׂמ" לא בסיס' },
+  { word:'תַּקְלִיטִיָּה',  answer:'glue',   hint:'תַּקְלִיט + -ִיָּה' },
+  { word:'דַּלֶּקֶת',       answer:'fusion', hint:'ד.ל.ק + קַטֶּלֶת (מחלה)' },
+  { word:'מַדְפֶּסֶת',      answer:'fusion', hint:'ד.פ.ס + מַקְטֶלֶת ⚠️ "מַד" לא מילה!' },
+  { word:'כַּדּוּרְגְּלָן',  answer:'glue',   hint:'כַּדּוּרֶגֶל + -ָן' },
+  { word:'יַלְדוּת',        answer:'glue',   hint:'יֶלֶד + -וּת' },
+  { word:'מִגְרָשׁ',        answer:'fusion', hint:'ג.ר.ש + מִקְטָל (מקום)' },
+];
+
+// State: each word has: placed ('fusion'|'glue'|null)
+let sortState = {};
+let selectedWord = null;  // word currently selected (by click)
+
+function initSort() {
+  SORT_WORDS.forEach(w => sortState[w.word] = null);
+  renderSort();
+}
+
+function renderSort() {
+  const bank = document.getElementById('word-bank');
+  const zF   = document.getElementById('zone-fusion');
+  const zG   = document.getElementById('zone-glue');
+
+  bank.innerHTML = '';
+  zF.innerHTML   = '<span style="color:var(--text-muted);font-size:0.82rem;align-self:center;display:' +
+    (SORT_WORDS.filter(w=>sortState[w.word]==='fusion').length?'none':'block') + '">גררו לכאן מילות היתוך…</span>';
+  zG.innerHTML   = '<span style="color:var(--text-muted);font-size:0.82rem;align-self:center;display:' +
+    (SORT_WORDS.filter(w=>sortState[w.word]==='glue').length?'none':'block') + '">גררו לכאן מילות הדבקה…</span>';
+
+  SORT_WORDS.forEach(w => {
+    const btn = document.createElement('button');
+    btn.className = 'sort-word';
+    if (sortState[w.word] === 'fusion') btn.classList.add('fusion');
+    if (sortState[w.word] === 'glue')   btn.classList.add('glue');
+    if (selectedWord === w.word)        btn.style.outline = '2px solid var(--navy-lt)';
+    btn.textContent = w.word;
+    btn.onclick = () => selectWord(w.word);
+
+    if (sortState[w.word] === 'fusion') {
+      zF.appendChild(btn);
+    } else if (sortState[w.word] === 'glue') {
+      zG.appendChild(btn);
+    } else {
+      bank.appendChild(btn);
+    }
+  });
+
+  // Clicking zones when a word is selected
+  zF.onclick = (e) => { if (e.target === zF || e.target.tagName !== 'BUTTON') moveSelected('fusion'); };
+  zG.onclick = (e) => { if (e.target === zG || e.target.tagName !== 'BUTTON') moveSelected('glue'); };
+}
+
+function selectWord(word) {
+  if (selectedWord === word) {
+    // Toggle back to bank
+    sortState[word] = null;
+    selectedWord = null;
+  } else {
+    selectedWord = word;
+    // If word already in a zone, move it back to bank first
+  }
+  renderSort();
+}
+
+function setDropZone(zone) {
+  if (!selectedWord) return;
+  sortState[selectedWord] = zone;
+  selectedWord = null;
+  renderSort();
+}
+
+function moveSelected(zone) {
+  if (!selectedWord) return;
+  sortState[selectedWord] = zone;
+  selectedWord = null;
+  renderSort();
+}
+
+function checkSort() {
+  let correct = 0;
+  SORT_WORDS.forEach(w => {
+    if (sortState[w.word] === w.answer) correct++;
+  });
+  const total = SORT_WORDS.length;
+  const pct   = Math.round(correct / total * 100);
+  const res   = document.getElementById('sort-result');
+  const col   = pct >= 80 ? '#16a34a' : pct >= 60 ? '#ca8a04' : '#dc2626';
+  const em    = pct >= 80 ? '⭐' : pct >= 60 ? '💪' : '📝';
+  res.style.display = 'block';
+  res.innerHTML = `
+    <div style="background:${pct>=80?'#f0fdf4':pct>=60?'#fefce8':'#fef2f2'};border:1px solid ${col};border-radius:10px;padding:12px 16px;font-family:'Heebo',sans-serif;direction:rtl;">
+      <div style="font-weight:800;font-size:1rem;color:${col};margin-bottom:8px;">${em} ${correct} / ${total} נכון — ${pct}%</div>
+      <div style="font-size:0.82rem;color:#374151;">
+        ${SORT_WORDS.map(w => {
+          const placed = sortState[w.word];
+          const ok = placed === w.answer;
+          return `<span style="display:inline-flex;align-items:center;gap:4px;margin:2px 4px;padding:2px 8px;border-radius:6px;background:${ok?'#dcfce7':'#fee2e2'};color:${ok?'#166534':'#991b1b'};font-size:0.8rem;">
+            ${ok?'✅':'❌'} ${w.word} <span style="opacity:0.7;font-size:0.72rem;">(${w.hint})</span>
+          </span>`;
+        }).join('')}
+      </div>
+    </div>`;
+  updateScore();
+}
+
+function resetSort() {
+  SORT_WORDS.forEach(w => sortState[w.word] = null);
+  selectedWord = null;
+  document.getElementById('sort-result').style.display = 'none';
+  renderSort();
+}
+
+/* ══════════════════════════════════════════════════════
+   EXERCISE B — MATCH MEANING
+══════════════════════════════════════════════════════ */
+const MATCH_DATA = [
+  { word:'תַּזְמֹרֶת', answer:'אוסף / מכלול',      options:['מכשיר/כלי','אוסף / מכלול','מקום','בעל מקצוע','מחלה','שם פעולה'] },
+  { word:'מַקְדֵּחַ',  answer:'מכשיר/כלי',         options:['מכשיר/כלי','אוסף / מכלול','מקום','בעל מקצוע','מחלה','שם פעולה'] },
+  { word:'שַׁחֶפֶת',   answer:'מחלה',              options:['מכשיר/כלי','אוסף / מכלול','מקום','בעל מקצוע','מחלה','שם פעולה'] },
+  { word:'כּוֹרֵם',    answer:'בעל מקצוע',          options:['מכשיר/כלי','אוסף / מכלול','מקום','בעל מקצוע','מחלה','שם פעולה'] },
+  { word:'כְּרִיכָה',  answer:'שם פעולה',           options:['מכשיר/כלי','אוסף / מכלול','מקום','בעל מקצוע','מחלה','שם פעולה'] },
+  { word:'מִשְׂרָד',   answer:'מקום',               options:['מכשיר/כלי','אוסף / מכלול','מקום','בעל מקצוע','מחלה','שם פעולה'] },
+  { word:'נַגָּרִיָּה', answer:'מקום',              options:['מכשיר/כלי','אוסף / מכלול','מקום','בעל מקצוע','מחלה','שם פעולה'] },
+  { word:'מוֹרוּת',    answer:'תחום מופשט',         options:['מכשיר/כלי','אוסף / מכלול','תחום מופשט','בעל מקצוע','מחלה','שם פעולה'] },
+];
+
+function initMatch() {
+  const tbody = document.getElementById('match-tbody');
+  tbody.innerHTML = MATCH_DATA.map((item, i) => `
+    <tr style="border-bottom:1px solid var(--border);">
+      <td style="padding:9px 12px;font-weight:700;color:var(--text-muted);">${i+1}</td>
+      <td style="padding:9px 12px;font-weight:900;font-size:1.05rem;">${item.word}</td>
+      <td style="padding:6px 8px;">
+        <select class="match-select" id="ms${i}" data-idx="${i}">
+          <option value="">— בחר/י —</option>
+          ${item.options.map(o => `<option value="${o}">${o}</option>`).join('')}
+        </select>
+      </td>
+      <td style="padding:9px;text-align:center;font-size:1.2rem;" id="mf${i}">—</td>
+    </tr>`).join('');
+}
+
+function checkMatch() {
+  let correct = 0;
+  MATCH_DATA.forEach((item, i) => {
+    const sel = document.getElementById(`ms${i}`);
+    const fb  = document.getElementById(`mf${i}`);
+    if (!sel.value) { fb.textContent = '—'; sel.className = 'match-select'; return; }
+    const ok = sel.value === item.answer;
+    if (ok) correct++;
+    fb.textContent       = ok ? '✅' : '❌';
+    sel.className        = 'match-select ' + (ok ? 'ok' : 'err');
+  });
+  const total = MATCH_DATA.length;
+  const pct   = Math.round(correct / total * 100);
+  const res   = document.getElementById('match-result');
+  const col   = pct >= 80 ? '#16a34a' : pct >= 60 ? '#ca8a04' : '#dc2626';
+  res.style.display = 'block';
+  res.innerHTML = `
+    <div style="background:${pct>=80?'#f0fdf4':pct>=60?'#fefce8':'#fef2f2'};border:1px solid ${col};border-radius:10px;padding:12px 16px;">
+      <strong style="color:${col};">${pct>=80?'⭐':pct>=60?'💪':'📝'} ${correct}/${total} נכון — ${pct}%</strong>
+      ${pct<100?`<div style="font-size:0.82rem;color:#374151;margin-top:6px;">${MATCH_DATA.filter((_,i)=>{const s=document.getElementById('ms'+i);return s.value&&s.value!==_.answer;}).map(item=>`<span style="color:#991b1b;margin:0 4px;">❌ ${item.word} → ${item.answer}</span>`).join('')}</div>`:''}
+    </div>`;
+  updateScore();
+}
+
+function resetMatch() {
+  MATCH_DATA.forEach((_, i) => {
+    const sel = document.getElementById(`ms${i}`);
+    const fb  = document.getElementById(`mf${i}`);
+    if (sel) { sel.value = ''; sel.className = 'match-select'; }
+    if (fb)  { fb.textContent = '—'; }
+  });
+  document.getElementById('match-result').style.display = 'none';
+}
+
+/* ─── Score aggregation ─── */
+function updateScore() {
+  const sortRes  = document.getElementById('sort-result');
+  const matchRes = document.getElementById('match-result');
+  if (!sortRes.style.display  || sortRes.style.display  === 'none') return;
+  if (!matchRes.style.display || matchRes.style.display === 'none') return;
+
+  // extract scores
+  const sortText  = sortRes.textContent  || '';
+  const matchText = matchRes.textContent || '';
+  const sm = sortText.match(/(\d+)\s*\/\s*\d+\s*נכון/);
+  const mm = matchText.match(/(\d+)\s*\/\s*\d+\s*נכון/);
+  if (!sm || !mm) return;
+  const total = +sm[1] + +mm[1];
+  const max   = SORT_WORDS.length + MATCH_DATA.length;
+  const pct   = Math.round(total / max * 100);
+  const disp  = document.getElementById('score-display');
+  disp.style.display = 'block';
+  document.getElementById('score-text').textContent = `${total} / ${max} — ${pct}%`;
+  document.getElementById('score-msg').textContent  = pct >= 85 ? '🌟 מצוין! מוכנים לבגרות!' : pct >= 70 ? '💪 טוב מאוד — עוד קצת תרגול!' : '📝 חזרו על ההלכה ונסו שוב';
+}
+
+/* ─── Submit ─── */
+function submitWS() {
+  const name = (document.getElementById('sname')||{}).value || 'לא הוזן';
+  const cls  = (document.getElementById('sclass')||{}).value || 'לא הוזנה';
+  const date = (document.getElementById('sdate')||{}).value || new Date().toLocaleDateString('he-IL');
+  const q1   = (document.getElementById('q1a')||{}).value;
+  const q4   = (document.getElementById('q4d')||{}).value;
+  document.getElementById('modal-sum').innerHTML = `
+    <div style="margin-bottom:6px;"><strong>תלמיד/ה:</strong> ${name}</div>
+    <div style="margin-bottom:6px;"><strong>כיתה:</strong> ${cls}</div>
+    <div style="margin-bottom:6px;"><strong>תאריך:</strong> ${date}</div>
+    <div><strong>שאלה 1 (זיהוי):</strong> ${q1 ? 'הוזנה' : 'ריקה'} | <strong>שאלה 4 (הקשר):</strong> ${q4.length || 0} תווים</div>
+  `;
+  document.getElementById('modal').classList.add('show');
+}
+function closeModal() { document.getElementById('modal').classList.remove('show'); }
+document.getElementById('modal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
+
+/* ─── Init ─── */
+initSort();
+initMatch();
+
+// Fill in date
+(function() {
+  const dt = document.getElementById('sdate');
+  if (dt && !dt.value) dt.value = new Date().toLocaleDateString('he-IL');
+})();
+
+// ─── ROLE=TEACHER SECURITY (v4) ─────────────────────────────────────────
+(function applyTeacherRole() {
+  var params = new URLSearchParams(window.location.search);
+  var isTeacher = params.get('role') === 'teacher';
+
+  // No teacher-only tabs in this file — enforce student default regardless
+  if (!isTeacher) {
+    document.querySelectorAll('.teacher-only').forEach(function(el){
+      el.style.display = 'none';
+    });
+    // Ensure theory tab is active
+    var defPane = document.getElementById('th') || document.getElementById('tab-theory');
+    if (defPane && !defPane.classList.contains('active')) {
+      document.querySelectorAll('.tab-pane').forEach(function(p){ p.classList.remove('active'); });
+      document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+      defPane.classList.add('active');
+    }
+  }
+})();
+// ─── END ROLE=TEACHER SECURITY ──────────────────────────────────────────
+</script>
+</body>
+</html>

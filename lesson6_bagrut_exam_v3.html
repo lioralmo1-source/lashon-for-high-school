@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>שיעור 6 | מבחן יחידה — מערכת הפועל | כיתה י׳</title>
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+/* ═══════════════════════════════════════════════════
+   DESIGN TOKENS — Facebook-precise
+═══════════════════════════════════════════════════ */
+:root {
+  --bg:         #f0f2f5;
+  --surface:    #ffffff;
+  --surface2:   #f0f2f5;
+  --border:     #dadde1;
+  --border-lt:  #e4e6ea;
+  --ink:        #1c1e21;
+  --ink-mid:    #3e4042;
+  --muted:      #606770;
+  --dim:        #90949c;
+  --primary:    #1877f2;
+  --primary-lt: #e7f3ff;
+  --primary-dk: #166fe5;
+  --green:      #42b72a;
+  --green-lt:   #e6f4ea;
+  --red:        #fa3e3e;
+  --red-lt:     #fdecea;
+  --gold:       #f7b928;
+  --gold-lt:    #fff8e1;
+  --radius:     1rem;
+  --radius-sm:  .625rem;
+  --shadow:     0 2px 12px rgba(0,0,0,.09);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family:'Heebo',-apple-system,BlinkMacSystemFont,sans-serif;
+  background:var(--bg);color:var(--ink);
+  direction:rtl;text-align:right;line-height:1.6;font-size:15px;
+}
+
+
+/* ── GOLD-STANDARD THEORY BLOCKS ── */
+.tb-info{border-right:5px solid #2563b8;padding:1rem 1.25rem;background:#e7f3ff;border-radius:0 10px 10px 0;margin-bottom:1rem;}
+.tb-info .bt{font-weight:800;color:#1a3a6b;font-size:.9rem;margin-bottom:7px;display:flex;align-items:center;gap:6px;}
+.tb-tip{border-right:5px solid #e8a020;padding:1rem 1.25rem;background:#fef9e7;border-radius:0 10px 10px 0;margin-bottom:1rem;}
+.tb-tip .bt{font-weight:800;color:#7a5200;font-size:.9rem;margin-bottom:7px;display:flex;align-items:center;gap:6px;}
+.tb-warn{border-right:5px solid #c0392b;padding:1rem 1.25rem;background:#fdecea;border-radius:0 10px 10px 0;margin-bottom:1rem;}
+.tb-warn .bt{font-weight:800;color:#c0392b;font-size:.9rem;margin-bottom:7px;display:flex;align-items:center;gap:6px;}
+.ab{font-size:.97rem;line-height:2.0;color:#3e4a5c;}
+.ab p{margin-bottom:1.1em;}
+/* Dashboard tab */
+.dash-hero{background:linear-gradient(135deg,#0c2040,#1a3a6b);color:#fff;border-radius:14px;padding:18px 20px;margin-bottom:18px;display:flex;align-items:center;gap:14px;}
+/* ── TOPBAR / NAV ── */
+nav{
+  position:sticky;top:0;z-index:50;
+  background:var(--primary);
+  box-shadow:0 2px 8px rgba(24,119,242,.35);
+}
+.nav-inner{
+  max-width:860px;margin:0 auto;padding:0 16px;
+  display:flex;align-items:center;gap:4px;
+  overflow-x:auto;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none;height:50px;
+}
+.nav-inner::-webkit-scrollbar{display:none}
+.tab-btn{
+  flex-shrink:0;padding:7px 16px;border-radius:var(--radius-sm);border:none;
+  background:transparent;color:rgba(255,255,255,.7);
+  font-family:'Heebo',sans-serif;font-size:.83rem;font-weight:600;
+  cursor:pointer;transition:all .15s;white-space:nowrap;touch-action:manipulation;
+}
+.tab-btn:hover{background:rgba(255,255,255,.15);color:#fff}
+.tab-btn.active{background:rgba(255,255,255,.2);color:#fff;font-weight:800}
+
+.tab-pane{display:none}
+.tab-pane.active{display:block}
+
+/* ── HERO BANNER ── */
+.lesson-hero{
+  background:var(--primary);
+  padding:22px 20px 0;
+}
+.lesson-hero-inner{max-width:860px;margin:0 auto;padding-bottom:18px}
+#greeting-bar{
+  display:none;align-items:center;gap:8px;
+  background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);
+  border-radius:100px;padding:4px 14px;font-size:.83rem;font-weight:700;
+  color:#fff;width:fit-content;margin-bottom:12px;
+}
+
+/* ── MAIN LAYOUT ── */
+main{max-width:860px;margin:0 auto;padding:20px 16px}
+
+/* ── CARDS ── */
+.card{
+  background:var(--surface);border-radius:var(--radius);
+  padding:20px;margin-bottom:14px;
+  box-shadow:var(--shadow);border:1px solid var(--border);
+}
+.q-card{
+  background:var(--surface);border-radius:var(--radius);
+  padding:20px;margin-bottom:14px;
+  box-shadow:var(--shadow);border:1px solid var(--border);
+}
+
+/* ── QUESTION NUMBER BADGE ── */
+.q-num{
+  width:34px;height:34px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:.85rem;flex-shrink:0;
+  color:#fff;background:var(--primary);
+}
+
+/* ── INPUTS — clean and spacious ── */
+input[type="text"],textarea,select{
+  font-family:'Heebo',sans-serif;direction:rtl;text-align:right;
+  width:100%;background:var(--surface);
+  border:1.5px solid var(--border);border-radius:var(--radius-sm);
+  padding:10px 14px;font-size:.9rem;color:var(--ink);
+  transition:border-color .15s,box-shadow .15s;-webkit-appearance:none;
+}
+input:focus,textarea:focus,select:focus{
+  outline:none;border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(24,119,242,.12);background:#fff;
+}
+textarea{resize:vertical;line-height:1.6}
+@media(max-width:640px){input[type="text"],textarea,select{font-size:1rem!important}}
+
+/* ── WEIGHT TAG BADGES ── */
+.wt-maqtel{background:#e7f3ff;color:var(--primary);padding:2px 8px;border-radius:6px;font-weight:700;font-size:.85rem}
+.wt-kattal{background:#e6f4ea;color:#1d7a34;padding:2px 8px;border-radius:6px;font-weight:700;font-size:.85rem}
+.wt-tiqtal{background:#f3e8ff;color:#6b21a8;padding:2px 8px;border-radius:6px;font-weight:700;font-size:.85rem}
+.wt-qitla{background:var(--gold-lt);color:#92400e;padding:2px 8px;border-radius:6px;font-weight:700;font-size:.85rem}
+.wt-misc{background:var(--red-lt);color:#c0392b;padding:2px 8px;border-radius:6px;font-weight:700;font-size:.85rem}
+
+/* ── TABLE ── */
+.wt-table{width:100%;border-collapse:collapse}
+.wt-table th{background:var(--primary);color:#fff;padding:11px 14px;font-size:.8rem;font-weight:700;text-align:right}
+.wt-table td{padding:10px 14px;font-size:.88rem;border-bottom:1px solid var(--border-lt)}
+.wt-table tr:last-child td{border-bottom:none}
+.wt-table tr:hover td{background:var(--surface2)}
+
+/* ── TIMELINE ── */
+.timeline-row{display:flex;gap:14px;margin-bottom:20px;align-items:flex-start}
+.timeline-bubble{min-width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.82rem;color:#fff;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+
+/* ── ANSWER ITEMS ── */
+.answer-item{
+  padding:11px 14px;border-radius:var(--radius-sm);
+  background:var(--surface2);font-size:.87rem;margin-bottom:9px;
+  color:var(--ink-mid);border-right:3px solid var(--primary);
+  border:1px solid var(--border);border-right-width:3px;
+}
+
+/* ── BUTTONS — only Facebook Blue ── */
+.btn-primary{
+  background:var(--primary);color:#fff;border:none;
+  border-radius:var(--radius-sm);padding:11px 26px;
+  font-family:'Heebo',sans-serif;font-size:.92rem;font-weight:700;
+  cursor:pointer;touch-action:manipulation;
+  box-shadow:0 1px 4px rgba(24,119,242,.3);
+  transition:background .15s,box-shadow .15s;
+}
+.btn-primary:hover{background:var(--primary-dk);box-shadow:0 2px 10px rgba(24,119,242,.35)}
+
+.btn-submit{
+  background:var(--primary);color:#fff;border:none;
+  border-radius:var(--radius-sm);padding:13px 32px;
+  font-family:'Heebo',sans-serif;font-size:1rem;font-weight:800;
+  cursor:pointer;touch-action:manipulation;
+  box-shadow:0 2px 10px rgba(24,119,242,.3);
+  transition:background .15s;
+}
+.btn-submit:hover{background:var(--primary-dk)}
+
+/* ── MULTIPLE CHOICE ── */
+.mc-opts{display:flex;flex-direction:column;gap:9px;margin-top:12px}
+.mc-opt{
+  border:1.5px solid var(--border);border-radius:var(--radius-sm);
+  padding:12px 16px;cursor:pointer;background:var(--surface);
+  font-size:.9rem;text-align:right;font-family:'Heebo',sans-serif;
+  width:100%;transition:all .15s;color:var(--ink-mid);
+}
+.mc-opt:hover{border-color:var(--primary);background:var(--primary-lt);color:var(--primary)}
+.mc-opt.chosen{border-color:var(--primary);background:var(--primary-lt);color:var(--primary);font-weight:700}
+.mc-opt.correct{}
+.mc-opt.wrong{}
+
+/* ── ASSESSMENT ── */
+#assessment-content{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:16px;
+  direction:rtl;text-align:right;min-height:56px;
+}
+
+/* ── SUCCESS MODAL ── */
+#success-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(2px)}
+#success-modal.open{display:flex}
+
+/* ── SECTION DIVIDER ── */
+.section-title{
+  font-weight:800;font-size:1rem;color:var(--ink);
+  margin-bottom:14px;padding-bottom:10px;
+  border-bottom:2px solid var(--border);
+}
+
+/* ── INFO BOX ── */
+.info-box{
+  background:var(--primary-lt);border-right:3px solid var(--primary);
+  padding:10px 14px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  font-size:.88rem;color:var(--primary);margin-top:10px;
+}
+.info-box-gold{
+  background:var(--gold-lt);border-right:3px solid var(--gold);
+  padding:8px 12px;border-radius:0 6px 6px 0;
+  margin-top:8px;font-size:.84rem;color:#92400e;
+}
+
+@media print{nav,.no-print{display:none!important}.tab-pane{display:block!important;page-break-after:always}body{background:#fff}}
+
+
+/* ─── v3: border-radius 12px enforcement ─── */
+:root { --radius: 0.75rem; --radius-sm: 0.625rem; }
+.card, .q-card { border-radius: 12px; }
+.tb-info, .tb-tip, .tb-warn {
+  border-radius: 0 12px 12px 0 !important;
+}
+.theory-block, .theory-block-gs {
+  border-radius: 0 12px 12px 0 !important;
+}
+.neon-btn, .btn-submit, .btn-primary,
+button.bp, button.bok, button.bghost, button.bdanger {
+  border-radius: 12px;
+}
+input[type="text"], input[type="password"],
+input[type="tel"], input[type="number"],
+textarea, select {
+  border-radius: 10px;
+  font-size: 16px;   /* prevent iOS zoom */
+}
+.tab-btn { border-radius: 8px; }
+/* overflow wrapper for all tables */
+.overflow-x-auto { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+/* ─── end v3 border-radius ─── */
+
+</style>
+
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- HERO -->
+<div class="lesson-hero">
+  <div class="lesson-hero-inner">
+    <div id="greeting-bar" style="display:none;align-items:center;gap:8px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:100px;padding:4px 14px;font-size:.82rem;font-weight:700;color:#fff;width:fit-content;margin-bottom:10px">
+      <span>👋</span><span id="greeting-name">שלום!</span>
+    </div>
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:10px">
+      <div>
+        <div style="display:inline-block;background:rgba(255,255,255,.2);border-radius:100px;padding:3px 12px;font-size:.72rem;font-weight:700;color:#fff;letter-spacing:.06em;margin-bottom:8px">🎯 לשון עברית · כיתה י׳ · יחידה 1 · שיעור 6 מתוך 6 — מבחן</div>
+        <h1 style="font-family:'Heebo',sans-serif;font-size:clamp(1.4rem,3.5vw,2rem);font-weight:800;color:#fff;line-height:1.2;margin-bottom:6px">מבחן יחידה — מערכת הפועל</h1>
+        <p style="font-size:.88rem;color:rgba(255,255,255,.75);max-width:500px">בחירה מרובה · נטייה · ניתוח · פסקה אישית</p>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:7px;padding-top:4px">
+        <span style="display:inline-flex;padding:3px 10px;border-radius:100px;font-size:.73rem;font-weight:700;background:rgba(255,255,255,.2);color:#fff">⏱ 45 דקות</span>
+        <span style="display:inline-flex;padding:3px 10px;border-radius:100px;font-size:.73rem;font-weight:700;background:rgba(255,255,255,.2);color:#fff">📐 מיצ"ב</span>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <button class="tab-btn" onclick="showTab('tt',this)">📋 מדריך</button>
+    <button class="tab-btn" onclick="showTab('tx',this)">📰 הטקסט</button>
+    <button class="tab-btn" onclick="showTab('th',this)">📚 הלכה</button>
+    <button class="tab-btn" onclick="showTab('tw',this)">✏️ מבחן</button>
+    <button class="tab-btn teacher-only" onclick="showTab('ta',this)">🔑 פתרונות</button>
+    <button class="tab-btn" onclick="showTab('tab-assess',this);if(window.calcAssessment)window.calcAssessment()">📊 הערכה</button>
+    <button class="tab-btn" onclick="showTab('tab-dashboard',this)">🖥️ Dashboard</button>
+    <button class="tab-btn no-print" onclick="window.print()" style="margin-right:auto">🖨️</button>
+  </div>
+</nav>
+
+<!-- Live Score Bar (exam tab only) -->
+<div id="live-score-bar" class="no-print">
+  <div class="max-w-5xl mx-auto" style="display:flex;align-items:center;gap:12px;">
+    <span style="font-size:0.78rem;font-weight:700;color:var(--ink-muted);white-space:nowrap;">ציון חי:</span>
+    <div class="score-track"><div class="score-fill" id="score-fill" style="width:0%;"></div></div>
+    <span id="score-display" style="font-size:0.9rem;font-weight:800;color:var(--ink);white-space:nowrap;min-width:60px;text-align:left;">0 / 100</span>
+  </div>
+</div>
+
+<main style="max-width:860px;margin:0 auto;padding:16px">
+
+<!-- ════════ TAB 1 — TEACHER ════════ -->
+<div id="tt" class="tab-pane teacher-only active">
+
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+    <div class="card text-center" style="border-top:3px solid var(--gold);">
+      <div style="font-size:1.7rem;margin-bottom:3px;">🏁</div>
+      <div style="font-size:0.8rem;font-weight:700;color:var(--gold);">מטרה</div>
+      <div style="font-size:0.76rem;color:var(--ink-muted);margin-top:3px;">הוכחת שליטה בכל מערכת הפועל; ניתוח, המרה, כתיבה</div>
+    </div>
+    <div class="card text-center" style="border-top:3px solid var(--silver);">
+      <div style="font-size:1.7rem;margin-bottom:3px;">🔗</div>
+      <div style="font-size:0.8rem;font-weight:700;color:var(--silver);">קדם ידע</div>
+      <div style="font-size:0.76rem;color:var(--ink-muted);margin-top:3px;">שיעורים 1–5: כל היחידה</div>
+    </div>
+    <div class="card text-center" style="border-top:3px solid var(--ok);">
+      <div style="font-size:1.7rem;margin-bottom:3px;">⚡</div>
+      <div style="font-size:0.8rem;font-weight:700;color:var(--ok);">ניקוד</div>
+      <div style="font-size:0.76rem;color:var(--ink-muted);margin-top:3px;">מבחן 100 נקודות + ציון חי</div>
+    </div>
+    <div class="card text-center" style="border-top:3px solid var(--err);">
+      <div style="font-size:1.7rem;margin-bottom:3px;">📐</div>
+      <div style="font-size:0.8rem;font-weight:700;color:var(--err);">מיצ"ב</div>
+      <div style="font-size:0.76rem;color:var(--ink-muted);margin-top:3px;">D1–D4, R2–R3, W1–W2</div>
+    </div>
+  </div>
+
+  <h2 class="sec-h">📍 מהלך השיעור — שיעור סיום</h2>
+
+  <div style="display:flex;gap:14px;margin-bottom:20px;align-items:flex-start;">
+    <div style="min-width:44px;height:44px;background:var(--gold);color:var(--ink);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.83rem;flex-shrink:0;">5׳</div>
+    <div style="flex:1;">
+      <span class="badge" style="background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold);margin-bottom:8px;">🔥 סקירה מהירה — "מה ידעתי לפני, מה אני יודע/ת עכשיו"</span>
+      <p style="font-size:0.88rem;color:var(--ink-muted);">2 דקות: כל תלמיד כותב על גיליון 3 דברים שלמד ביחידה. 3 דקות: שיתוף בכיתה. יוצרים "מפת ידע" על הלוח.</p>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:14px;margin-bottom:20px;align-items:flex-start;">
+    <div style="min-width:44px;height:44px;background:var(--silver);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.83rem;flex-shrink:0;">10׳</div>
+    <div style="flex:1;">
+      <span class="badge" style="background:var(--silver-dim);color:var(--silver);border:1px solid var(--silver);margin-bottom:8px;">📰 קריאת הטקסט + דיון מקדים</span>
+      <p style="font-size:0.88rem;color:var(--ink-muted);">קראו יחד "מה יעשה לי ה-AI?" (לשונית "הטקסט"). שאלו: "מה דעתכם?" — 3–4 תגובות. זה מכין את הרקע הנושאי למבחן.</p>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:14px;margin-bottom:20px;align-items:flex-start;">
+    <div style="min-width:44px;height:44px;background:var(--ink);color:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.83rem;flex-shrink:0;">5׳</div>
+    <div style="flex:1;">
+      <span class="badge" style="background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold);margin-bottom:8px;">📚 סיכום הלכה ב-3 דקות</span>
+      <p style="font-size:0.88rem;color:var(--ink-muted);">הקרינו את "כרטיס הבגרות" (לשונית "סיכום הלכה"). שאלו 2–3 שאלות מהירות מהכיתה. ודאו שכולם בעמוד.</p>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:14px;margin-bottom:20px;align-items:flex-start;">
+    <div style="min-width:44px;height:44px;background:linear-gradient(135deg,var(--ink),#2a2a4a);color:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.83rem;flex-shrink:0;">20׳</div>
+    <div style="flex:1;">
+      <span class="badge" style="background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold);margin-bottom:8px;">🎯 מבחן יחידה — 100 נקודות</span>
+      <p style="font-size:0.88rem;color:var(--ink-muted);">תלמידים עובדים עצמאית על לשונית "מבחן יחידה". המבחן כולל 6 חלקים עם ציון חי. המורה סייר/ת. בסוף: לחיצה על "הגש מבחן" — ציון ודוח מיידיים.</p>
+      <div style="background:var(--surface2);border-right:3px solid var(--gold);padding:9px 12px;border-radius:0 8px 8px 0;margin-top:9px;font-size:0.83rem;color:var(--ink-muted);">
+        <strong style="color:var(--ink);">חלוקת הניקוד:</strong> חלק א׳ (20), חלק ב׳ (25), חלק ג׳ (20), חלק ד׳ (15), חלק ה׳ (10), חלק ו׳ (10)
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:14px;margin-bottom:0;align-items:flex-start;">
+    <div style="min-width:44px;height:44px;background:var(--surface3);color:var(--ink-muted);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.83rem;flex-shrink:0;">5׳</div>
+    <div style="flex:1;">
+      <span class="badge" style="background:var(--surface2);color:var(--ink-muted);border:1px solid var(--border2);margin-bottom:8px;">✅ תיקון + סגירת יחידה</span>
+      <p style="font-size:0.88rem;color:var(--ink-muted);">הצגת התשובות ביחד. התייחסות לשאלות הנפוצות. סגירת היחידה: "מה לקחתם?" — כל תלמיד משפט סיכום אחד.</p>
+    </div>
+  </div>
+
+  <!-- Mistakes -->
+  <h2 class="sec-h" style="margin-top:28px;">⚠️ טעויות צפויות במבחן</h2>
+  <div style="background:var(--surface);border:1px solid var(--border);border-right:4px solid var(--err);border-radius:0 10px 10px 0;padding:12px 14px;margin-bottom:10px;">
+    <div style="font-weight:700;color:var(--err);margin-bottom:4px;font-size:0.88rem;">🔴 חלק ג׳ (המרות) — שכחת לשנות את הנושא</div>
+    <p style="font-size:0.84rem;color:var(--ink-muted);">כאשר הופכים מפעיל לסביל, הנושא משתנה. תלמידים מחליפים פועל אבל שוכחים לשנות את מבנה המשפט. <strong style="color:var(--ink);">דגישו:</strong> בסביל — הנושא החדש הוא מה שהיה מושא בפעיל.</p>
+  </div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-right:4px solid var(--err);border-radius:0 10px 10px 0;padding:12px 14px;margin-bottom:10px;">
+    <div style="font-weight:700;color:var(--err);margin-bottom:4px;font-size:0.88rem;">🔴 חלק ד׳ — ניתוח גוף של "אתה ← הוא" בעתיד</div>
+    <p style="font-size:0.84rem;color:var(--ink-muted);">בבניין הִפְעִיל ובקַל, "היא" ו"אתה" בעתיד זהים בצורה. תלמידים רושמים "שלישי" אבל ההקשר קובע. <strong style="color:var(--ink);">הסבירו:</strong> ציינו תמיד שתי האפשרויות.</p>
+  </div>
+  <div style="background:var(--surface);border:1px solid var(--border);border-right:4px solid var(--ok);border-radius:0 10px 10px 0;padding:12px 14px;margin-bottom:16px;">
+    <div style="font-weight:700;color:var(--ok);margin-bottom:4px;font-size:0.88rem;">✅ טיפ למורה — הציון החי</div>
+    <p style="font-size:0.84rem;color:var(--ink-muted);">שאלות בחירה מרובה ואמת/שקר נבדקות אוטומטית. שאלות פתוחות (חלקים ד׳-ו׳) מקבלות ניקוד ידני. המורה יכול/ה להזין ציון ידני בשדה שמופיע לאחר ההגשה.</p>
+  </div>
+
+</div><!-- /teacher -->
+
+
+<!-- ════════ TAB 2 — TEXT ════════ -->
+<div id="tx" class="tab-pane">
+<div class="legend-unified no-print" style="margin:12px 0 18px">
+  <span class="lu-i"><span class="lu-d" style="background:#c84b31"></span><span class="vb-kal">קַל&nbsp;/&nbsp;פִּיעֵל</span></span>
+  <span class="lu-i"><span class="lu-d" style="background:#2d3561"></span><span class="vb-nif">נִפְעַל&nbsp;/&nbsp;הֻפְעַל</span></span>
+  <span class="lu-i"><span class="lu-d" style="background:#4a7c59"></span><span class="vb-hif">הִפְעִיל&nbsp;/&nbsp;הִתְפַּעֵל&nbsp;/&nbsp;פֻּעַל</span></span>
+</div>
+
+  <div style="background:linear-gradient(135deg,var(--ink),#1a1a3a);border:1px solid rgba(201,162,39,0.3);border-radius:14px;padding:22px 26px;margin-bottom:26px;">
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">
+      <span class="badge" style="background:rgba(201,162,39,0.15);color:var(--gold);border:1px solid var(--gold);">מאמר דעה</span>
+      <span class="badge" style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.12);">רמה: ג׳ — בגרות</span>
+      <span class="badge" style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.12);">2026</span>
+    </div>
+    <h1 style="font-family:'DM Serif Display',serif;font-size:clamp(1.3rem,3vw,2rem);font-weight:400;color:#fff;line-height:1.3;margin-bottom:10px;">
+      מה יעשה לי ה-AI? עובדים, כלכלנים ומשוררים על עתיד העבודה
+    </h1>
+    <p style="color:rgba(255,255,255,0.45);font-size:0.85rem;">מאת: <strong style="color:rgba(255,255,255,0.7);">פרופ׳ אמיר גורן</strong> | <em>הארץ</em>, מרץ 2026</p>
+  </div>
+
+  <div class="article-body max-w-3xl" style="margin:0 auto 30px;">
+
+    <p>שאלת "מה יעשה ה-AI לשוק העבודה" <span class="vb-nif">נדונה</span> מזה עשרים שנה, אבל בשנת 2026 היא <span class="vb-hif">הפכה</span> מתיאורטית לאקוטית. מנהלים <span class="vb-kal">מדווחים</span> שמשרות שחייבו בעבר שלוש שנות ניסיון כעת <span class="vb-nif">מבוצעות</span> בחלקן על ידי מודלים ניסיוניים. העובדים <span class="vb-nif">הורגשו</span> — לא נשמעו.</p>
+
+    <p>"הטכנולוגיה <span class="vb-hif">מאיצה</span> תהליכים שכבר <span class="vb-nif">הופעלו</span>", <span class="vb-hif">הסביר</span> ד"ר יניב שגב, כלכלן עבודה מאוניברסיטת חיפה. "לא <span class="vb-nif">מדובר</span> בגל חדש — אלא בגל ישן שנ<span class="vb-kal">עשה</span> גבוה יותר." לפי מחקרו, 38% מהמשרות בישראל <span class="vb-nif">מאופיינות</span> כ"בסיכון גבוה" לאוטומציה. "אבל לא כולן <span class="vb-nif">ייעלמו</span>", הוא <span class="vb-kal">ממהר</span> <span class="vb-hif">להדגיש</span>. "חלקן <span class="vb-hif">יִשְׁתַּנּוּ</span> — ו<span class="vb-nif">ייווצרו</span> משרות חדשות שעדיין לא ממש <span class="vb-nif">מוּגְדָּרוֹת</span>."</p>
+
+    <p>את הדעה הנגדית <span class="vb-hif">מציגה</span> ד"ר ענבל אוחיון, חוקרת עתידנות מהמרכז להכשרה מקצועית: "כל מהפכה טכנולוגית <span class="vb-kal">יצרה</span> יותר משרות ממה ש<span class="vb-hif">הורסת</span>. מי ש<span class="vb-hif">התאים</span> את עצמו — <span class="vb-kal">שרד</span>. מי ש<span class="vb-kal">ינטש</span> — <span class="vb-nif">ייאבד</span>." היא <span class="vb-hif">מצטטת</span> נתון: בין 2015 ל-2025, בעוד שמשרות כניסת נתונים <span class="vb-kal">ירדו</span> ב-60%, משרות אנליסטים לנתונים <span class="vb-kal">עלו</span> ב-340%.</p>
+
+    <p>בינתיים, <span class="vb-hif">מתנהל</span> ויכוח פוליטי: האם המדינה צריכה <span class="vb-hif">להסדיר</span> שימוש ב-AI? "תעשיות שלמות <span class="vb-nif">מוסדרות</span> — אבל AI <span class="vb-nif">נשאר</span> כמעט ללא פיקוח", <span class="vb-hif">מעיר</span> ח"כ גל לוי, יו"ר ועדת הכלכלה. הצעת חוק ש<span class="vb-nif">הוגשה</span> בפברואר <span class="vb-kal">מחייבת</span> גילוי מלא כאשר AI <span class="vb-kal">מקבל</span> החלטה שמשפיעה על אדם — ממתין לאישור הממשלה.</p>
+
+    <p>ואולי השאלה החשובה ביותר היא זו: מה <span class="vb-nif">נשאיר</span> לאנושי? "כל עוד בני אדם <span class="vb-kal">זקוקים</span> לחיבור אנושי, לסיפור, לאמפתיה — יהיו מקצועות שלא יוחלפו", <span class="vb-kal">מסכמת</span> ד"ר אוחיון. "הבינה הגדולה ביותר אינה מלאכותית — היא היכולת <span class="vb-kal">לבחור</span> כיצד <span class="vb-hif">להשתמש</span> בה."</p>
+
+  </div>
+
+  <!-- Legend -->
+  <div class="card max-w-3xl" style="margin:0 auto 20px;">
+    <div style="font-weight:700;margin-bottom:10px;font-size:0.9rem;">מקרא</div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;font-size:0.84rem;color:var(--ink-muted);">
+      <span>■ פִּיעֵל / קַל — פעיל</span>
+      <span>■ הִפְעִיל / הִתְפַּעֵל</span>
+      <span>■ סביל (נִפְעַל / פֻּעַל / הֻפְעַל)</span>
+    </div>
+    <div class="note-sm">* ההדגשות לשימוש מורה בלבד — תלמידים מנתחים בעצמם</div>
+  </div>
+
+</div><!-- /text -->
+
+
+<!-- ════════ TAB 3 — THEORY SUMMARY ════════ -->
+<div id="th" class="tab-pane">
+
+  <h2 class="sec-h" style="font-size:1.3rem;">📚 כרטיס הבגרות — סיכום מערכת הפועל</h2>
+
+  <!-- Quick Reference Card -->
+  <div class="card gold" style="background:linear-gradient(135deg,var(--gold-dim),var(--surface));">
+    <div style="font-weight:800;font-size:0.95rem;color:var(--ink);margin-bottom:14px;">⭐ מפת הבניינים — 60 שניות</div>
+    <div class="overflow-x-auto my-4" style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+      <table style="width:100%;border-collapse:collapse;font-size:0.84rem;">
+        <thead><tr style="background:var(--ink);">
+          <th style="padding:9px 12px;color:var(--gold);">בניין</th>
+          <th style="padding:9px 12px;color:var(--gold);">סימן מהיר</th>
+          <th style="padding:9px 12px;color:var(--gold);">תפקיד</th>
+          <th style="padding:9px 12px;color:var(--gold);">זוג</th>
+          <th style="padding:9px 12px;color:var(--gold);">דוגמה (ש-ל-ח)</th>
+        </tr></thead>
+        <tbody>
+          <tr class="rr"><td style="font-weight:700;color:#1a6fcc;">קַל</td><td>פָּ<strong>עַ</strong>ל / קוֹ<strong>טֵ</strong>ל</td><td>בסיסי</td><td style="color:#0e9e78;">↔ נִפְעַל</td><td>שָׁלַח / שׁוֹלֵחַ</td></tr>
+          <tr class="rr"><td style="font-weight:700;color:#0e9e78;">נִפְעַל</td><td>נִ / נֶ</td><td>סביל+עצמי</td><td style="color:#1a6fcc;">↔ קַל</td><td>נִשְׁלַח / נִשְׁלָח</td></tr>
+          <tr class="rr"><td style="font-weight:700;color:#7c3aff;">פִּיעֵל</td><td>דגש עי"ן + פתח</td><td>עצים/גרימה</td><td style="color:#1565a8;">↔ פֻּעַל</td><td>שִׁלֵּחַ / מְשַׁלֵּחַ</td></tr>
+          <tr class="rr"><td style="font-weight:700;color:#1565a8;">פֻּעַל</td><td>קיבוץ + דגש</td><td>סביל פִּיעֵל</td><td style="color:#7c3aff;">↔ פִּיעֵל</td><td>שֻׁלַּח / מְשֻׁלָּח</td></tr>
+          <tr class="rr"><td style="font-weight:700;color:#1a6fcc;">הִפְעִיל</td><td>הִ/מַ/יַ</td><td>גרימה/מצב/כלי</td><td style="color:#4a90d9;">↔ הֻפְעַל</td><td>הִשְׁלִיחַ / מַשְׁלִיחַ</td></tr>
+          <tr class="rr"><td style="font-weight:700;color:#4a90d9;">הֻפְעַל</td><td>קיבוץ ה"א/מ"ם</td><td>סביל הִפְעִיל</td><td style="color:#1a6fcc;">↔ הִפְעִיל</td><td>הֻשְׁלַח / מֻשְׁלָח</td></tr>
+          <tr class="rr"><td style="font-weight:700;color:#d97706;">הִתְפַּעֵל</td><td>הִתְ/מִתְ</td><td>רפלקסיבי/הדדי</td><td>— בודד</td><td>הִשְׁתַּלֵּחַ / מִשְׁתַּלֵּחַ</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Conversion Rules - rich annotated -->
+  <div class="tb-info" style="margin-top:20px;">
+    <div class="bt">ℹ️ כללי המרה פעיל → סביל (לבגרות)</div>
+    <div class="ab">
+      <p>בבגרות יש להמיר בין פעיל לסביל תוך שמירה על הזמן הדקדוקי. שלושת הזוגות הקלאסיים הם: <strong>קַל ↔ נִפְעַל</strong> — "הכיתה <strong>שָׁמְרָה</strong> (שורש: ש.מ.ר, בניין: קַל, עבר) שקט" → "שקט <strong>נִשְׁמַר</strong> (שורש: ש.מ.ר, בניין: נִפְעַל, עבר)". <strong>פִּיעֵל ↔ פֻּעַל</strong> — "הממשלה <strong>אִישְּׁרָה</strong> (שורש: א.ש.ר, בניין: פִּיעֵל, עבר) את החוק" → "החוק <strong>אֻשַּׁר</strong> (שורש: א.ש.ר, בניין: פֻּעַל, עבר)". <strong>הִפְעִיל ↔ הֻפְעַל</strong> — "החברה <strong>הִטְמִיעָה</strong> (שורש: ט.מ.ע, בניין: הִפְעִיל, עבר) AI" → "AI <strong>הֻטְמַע</strong> (שורש: ט.מ.ע, בניין: הֻפְעַל, עבר)".</p>
+      <p>⚠️ <strong>מה נשמר:</strong> הזמן הדקדוקי (עבר/הווה/עתיד) והגוף (מתאים לנושא החדש). <strong>מה נעלם:</strong> הנושא המקורי הגורם — לעיתים מופיע כ"על ידי ___".</p>
+    </div>
+  </div>
+
+  <div class="tb-tip" style="margin-top:16px;">
+    <div class="bt">💡 ניתוח פועל מלא — 5 שלבים (שאלת בגרות קלאסית)</div>
+    <div class="ab">
+      <p>כדי לנתח פועל בשלמות עבור בגרות יש לעבור 5 שלבים: (1) <strong>שורש</strong> — חלץ את שלושת/ארבעת העיצורים, (2) <strong>בניין</strong> — זהה לפי הסימנים (דגש, קיבוץ, הִ/מַ/הִתְ...), (3) <strong>זמן</strong> — עבר/הווה/עתיד, (4) <strong>גוף+מין+מספר</strong> — מי מבצע, (5) <strong>תפקיד סמנטי</strong> — מה משמעות הבניין.</p>
+      <p><strong>דוגמה מלאה:</strong> <strong>מְאַפְיֵן</strong> — (1) שורש: א.פ.י.נ (מרובע!), (2) בניין: פִּעֵל (מרובע — מ"ם + פתח + ארבעה עיצורים), (3) זמן: הווה, (4) גוף: ג׳ זכר יחיד, (5) תפקיד: Characterize — ייחוד תכונות. ודוגמה נוספת: <strong>הֻגְדְּרוּ</strong> — שורש: ג.ד.ר, בניין: הֻפְעַל (קיבוץ תחת ה"א), זמן: עבר, גוף: ג׳ זכר רבים, תפקיד: סביל של הִפְעִיל.</p>
+    </div>
+  </div>
+
+</div><!-- /theory -->
+
+
+<!-- ════════ TAB 4 — EXAM ════════ -->
+<div id="tw" class="tab-pane student-exercise">
+
+  <!-- Student Info -->
+  <div class="card" style="background:linear-gradient(135deg,var(--surface2),var(--surface));margin-bottom:24px;border-top:4px solid var(--gold);">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+      <div style="font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--ink);">🎯 מבחן יחידה — מערכת הפועל</div>
+      <span class="badge" style="background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold);">100 נקודות</span>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div><label style="font-size:0.79rem;font-weight:600;color:var(--ink-muted);display:block;margin-bottom:4px;">שם מלא</label><input type="text" id="sname" class="exam-input" placeholder="הקלד/י שם..."></div>
+      <div><label style="font-size:0.79rem;font-weight:600;color:var(--ink-muted);display:block;margin-bottom:4px;">כיתה</label><input type="text" id="sclass" class="exam-input" placeholder="לדוגמה: י׳3"></div>
+      <div><label style="font-size:0.79rem;font-weight:600;color:var(--ink-muted);display:block;margin-bottom:4px;">תאריך</label><input type="text" id="sdate" class="exam-input" placeholder="יום/חודש/שנה"></div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION A — Multiple Choice 20pts ══ -->
+  <div class="exam-sec">
+    <span style="font-family:'DM Serif Display',serif;font-size:1.1rem;">חלק א׳ — בחירה מרובה</span>
+    <span style="font-size:0.82rem;color:rgba(201,162,39,0.7);">20 נקודות | 4 נקודות לשאלה</span>
+  </div>
+  <div class="exam-sec-body">
+    <p style="font-size:0.88rem;color:var(--ink-muted);margin-bottom:18px;">סמנו את התשובה הנכונה לכל שאלה:</p>
+
+    <div class="q-block">
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+        <div class="q-num">1</div>
+        <div>
+          <div style="font-weight:600;font-size:0.95rem;">איזה בניין מתאים למשפט: "המחשב <u>____</u> את הנתונים אוטומטית."?</div>
+          <div class="q-pts">(4 נקודות)</div>
+        </div>
+      </div>
+      <div id="q1-opts">
+        <div class="mc-option" data-q="q1" data-val="a" onclick="selectMC(this)"><input type="radio" name="q1" value="a" style="flex-shrink:0;"> <span>עיבד — קַל</span></div>
+        <div class="mc-option" data-q="q1" data-val="b" onclick="selectMC(this)"><input type="radio" name="q1" value="b" style="flex-shrink:0;"> <span>עִיבֵּד — פִּיעֵל</span></div>
+        <div class="mc-option" data-q="q1" data-val="c" onclick="selectMC(this)"><input type="radio" name="q1" value="c" style="flex-shrink:0;"> <span>עֻבַּד — פֻּעַל</span></div>
+        <div class="mc-option" data-q="q1" data-val="d" onclick="selectMC(this)"><input type="radio" name="q1" value="d" style="flex-shrink:0;"> <span>הִתְעַבֵּד — הִתְפַּעֵל</span></div>
+      </div>
+      <div id="q1-fb" class="feedback"></div>
+    </div>
+
+    <div class="q-block">
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+        <div class="q-num">2</div>
+        <div>
+          <div style="font-weight:600;font-size:0.95rem;">הפועל <span class="vb-nif">הֻגְדְּרוּ</span> שייך לבניין:</div>
+          <div class="q-pts">(4 נקודות)</div>
+        </div>
+      </div>
+      <div id="q2-opts">
+        <div class="mc-option" data-q="q2" data-val="a" onclick="selectMC(this)"><input type="radio" name="q2" value="a" style="flex-shrink:0;"> <span>נִפְעַל</span></div>
+        <div class="mc-option" data-q="q2" data-val="b" onclick="selectMC(this)"><input type="radio" name="q2" value="b" style="flex-shrink:0;"> <span>פֻּעַל</span></div>
+        <div class="mc-option" data-q="q2" data-val="c" onclick="selectMC(this)"><input type="radio" name="q2" value="c" style="flex-shrink:0;"> <span>הֻפְעַל</span></div>
+        <div class="mc-option" data-q="q2" data-val="d" onclick="selectMC(this)"><input type="radio" name="q2" value="d" style="flex-shrink:0;"> <span>הִתְפַּעֵל</span></div>
+      </div>
+      <div id="q2-fb" class="feedback"></div>
+    </div>
+
+    <div class="q-block">
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+        <div class="q-num">3</div>
+        <div>
+          <div style="font-weight:600;font-size:0.95rem;">הצורה <span class="vb-hif">מִתְנַהֵל</span> היא:</div>
+          <div class="q-pts">(4 נקודות)</div>
+        </div>
+      </div>
+      <div id="q3-opts">
+        <div class="mc-option" data-q="q3" data-val="a" onclick="selectMC(this)"><input type="radio" name="q3" value="a" style="flex-shrink:0;"> <span>הִפְעִיל, עבר, ג׳ זכר יחיד</span></div>
+        <div class="mc-option" data-q="q3" data-val="b" onclick="selectMC(this)"><input type="radio" name="q3" value="b" style="flex-shrink:0;"> <span>הִתְפַּעֵל, הווה, זכר יחיד</span></div>
+        <div class="mc-option" data-q="q3" data-val="c" onclick="selectMC(this)"><input type="radio" name="q3" value="c" style="flex-shrink:0;"> <span>נִפְעַל, הווה, זכר יחיד</span></div>
+        <div class="mc-option" data-q="q3" data-val="d" onclick="selectMC(this)"><input type="radio" name="q3" value="d" style="flex-shrink:0;"> <span>פִּיעֵל, עתיד, ג׳ זכר יחיד</span></div>
+      </div>
+      <div id="q3-fb" class="feedback"></div>
+    </div>
+
+    <div class="q-block">
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+        <div class="q-num">4</div>
+        <div>
+          <div style="font-weight:600;font-size:0.95rem;">מהו הפועל הסביל התואם ל"הממשלה <span class="vb-hif">תַּסְדִּיר</span> את הנושא"?</div>
+          <div class="q-pts">(4 נקודות)</div>
+        </div>
+      </div>
+      <div id="q4-opts">
+        <div class="mc-option" data-q="q4" data-val="a" onclick="selectMC(this)"><input type="radio" name="q4" value="a" style="flex-shrink:0;"> <span>יוסדר — פֻּעַל</span></div>
+        <div class="mc-option" data-q="q4" data-val="b" onclick="selectMC(this)"><input type="radio" name="q4" value="b" style="flex-shrink:0;"> <span>יֻסְדַּר — הֻפְעַל</span></div>
+        <div class="mc-option" data-q="q4" data-val="c" onclick="selectMC(this)"><input type="radio" name="q4" value="c" style="flex-shrink:0;"> <span>יִסָּדֵר — נִפְעַל</span></div>
+        <div class="mc-option" data-q="q4" data-val="d" onclick="selectMC(this)"><input type="radio" name="q4" value="d" style="flex-shrink:0;"> <span>יְסַדֵּר — פִּיעֵל</span></div>
+      </div>
+      <div id="q4-fb" class="feedback"></div>
+    </div>
+
+    <div class="q-block" style="margin-bottom:0;">
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+        <div class="q-num">5</div>
+        <div>
+          <div style="font-weight:600;font-size:0.95rem;">איזה פועל מרובע מציין "להפוך לדיגיטלי"?</div>
+          <div class="q-pts">(4 נקודות)</div>
+        </div>
+      </div>
+      <div id="q5-opts">
+        <div class="mc-option" data-q="q5" data-val="a" onclick="selectMC(this)"><input type="radio" name="q5" value="a" style="flex-shrink:0;"> <span>דִּגֵּל</span></div>
+        <div class="mc-option" data-q="q5" data-val="b" onclick="selectMC(this)"><input type="radio" name="q5" value="b" style="flex-shrink:0;"> <span>דִּיגֵּט</span></div>
+        <div class="mc-option" data-q="q5" data-val="c" onclick="selectMC(this)"><input type="radio" name="q5" value="c" style="flex-shrink:0;"> <span>הֵדִיג</span></div>
+        <div class="mc-option" data-q="q5" data-val="d" onclick="selectMC(this)"><input type="radio" name="q5" value="d" style="flex-shrink:0;"> <span>נִדְגַּם</span></div>
+      </div>
+      <div id="q5-fb" class="feedback"></div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION B — True/False 25pts ══ -->
+  <div class="exam-sec">
+    <span style="font-family:'DM Serif Display',serif;font-size:1.1rem;">חלק ב׳ — אמת / שקר + נימוק</span>
+    <span style="font-size:0.82rem;color:rgba(201,162,39,0.7);">25 נקודות | 5 נקודות לשאלה</span>
+  </div>
+  <div class="exam-sec-body">
+    <p style="font-size:0.88rem;color:var(--ink-muted);margin-bottom:18px;">סמנו אמת/שקר <strong>ונמקו</strong> בשורה אחת (ניקוד מלא = נימוק מדויק):</p>
+
+    <div class="q-block">
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+        <div class="q-num" style="font-size:0.78rem;">6</div>
+        <div style="font-size:0.93rem;font-weight:600;">"הפועל <span class="vb-nif">הֻחְלַט</span> שייך לבניין הֻפְעַל ומשמעותו: 'הגיעו להחלטה'"</div>
+      </div>
+      <div style="display:flex;gap:10px;margin-bottom:8px;">
+        <div class="mc-option" style="flex:1;" data-q="q6" data-val="t" onclick="selectMC(this)"><input type="radio" name="q6" value="t" style="flex-shrink:0;"> <span>✅ אמת</span></div>
+        <div class="mc-option" style="flex:1;" data-q="q6" data-val="f" onclick="selectMC(this)"><input type="radio" name="q6" value="f" style="flex-shrink:0;"> <span>❌ שקר</span></div>
+      </div>
+      <textarea id="q6-reason" class="exam-input" rows="2" placeholder="נמקו: בניין הֻפְעַל הוא... ומשמעותו..."></textarea>
+      <div id="q6-fb" class="feedback"></div>
+    </div>
+
+    <div class="q-block">
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+        <div class="q-num" style="font-size:0.78rem;">7</div>
+        <div style="font-size:0.93rem;font-weight:600;">"פועל מרובע יכול להופיע בבניין קַל"</div>
+      </div>
+      <div style="display:flex;gap:10px;margin-bottom:8px;">
+        <div class="mc-option" style="flex:1;" data-q="q7" data-val="t" onclick="selectMC(this)"><input type="radio" name="q7" value="t" style="flex-shrink:0;"> <span>✅ אמת</span></div>
+        <div class="mc-option" style="flex:1;" data-q="q7" data-val="f" onclick="selectMC(this)"><input type="radio" name="q7" value="f" style="flex-shrink:0;"> <span>❌ שקר</span></div>
+      </div>
+      <textarea id="q7-reason" class="exam-input" rows="2" placeholder="נמקו: פעל מרובע..."></textarea>
+      <div id="q7-fb" class="feedback"></div>
+    </div>
+
+    <div class="q-block">
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+        <div class="q-num" style="font-size:0.78rem;">8</div>
+        <div style="font-size:0.93rem;font-weight:600;">"המשפט 'ה-AI <span class="vb-hif">מְאַפְשֵׁר</span> לחסוך זמן' — הפועל הוא בינוני הִפְעִיל"</div>
+      </div>
+      <div style="display:flex;gap:10px;margin-bottom:8px;">
+        <div class="mc-option" style="flex:1;" data-q="q8" data-val="t" onclick="selectMC(this)"><input type="radio" name="q8" value="t" style="flex-shrink:0;"> <span>✅ אמת</span></div>
+        <div class="mc-option" style="flex:1;" data-q="q8" data-val="f" onclick="selectMC(this)"><input type="radio" name="q8" value="f" style="flex-shrink:0;"> <span>❌ שקר</span></div>
+      </div>
+      <textarea id="q8-reason" class="exam-input" rows="2" placeholder="נמקו: הסימן של הִפְעִיל הווה הוא..."></textarea>
+      <div id="q8-fb" class="feedback"></div>
+    </div>
+
+    <div class="q-block">
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+        <div class="q-num" style="font-size:0.78rem;">9</div>
+        <div style="font-size:0.93rem;font-weight:600;">"'נִשְׁמָר' (נשמר) ו-'מֻשְׁמָר' (מושמר) שניהם סביל, אבל ממקור שונה"</div>
+      </div>
+      <div style="display:flex;gap:10px;margin-bottom:8px;">
+        <div class="mc-option" style="flex:1;" data-q="q9" data-val="t" onclick="selectMC(this)"><input type="radio" name="q9" value="t" style="flex-shrink:0;"> <span>✅ אמת</span></div>
+        <div class="mc-option" style="flex:1;" data-q="q9" data-val="f" onclick="selectMC(this)"><input type="radio" name="q9" value="f" style="flex-shrink:0;"> <span>❌ שקר</span></div>
+      </div>
+      <textarea id="q9-reason" class="exam-input" rows="2" placeholder="נמקו: נִשְׁמָר = סביל של... | מֻשְׁמָר = סביל של..."></textarea>
+      <div id="q9-fb" class="feedback"></div>
+    </div>
+
+    <div class="q-block" style="margin-bottom:0;">
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+        <div class="q-num" style="font-size:0.78rem;">10</div>
+        <div style="font-size:0.93rem;font-weight:600;">"בבניין הִתְפַּעֵל, הצורה <span class="vb-hif">הִשְׁתַּכְלֵל</span> מגיעה מהשורש ש-כ-ל-ל (מרובע)"</div>
+      </div>
+      <div style="display:flex;gap:10px;margin-bottom:8px;">
+        <div class="mc-option" style="flex:1;" data-q="q10" data-val="t" onclick="selectMC(this)"><input type="radio" name="q10" value="t" style="flex-shrink:0;"> <span>✅ אמת</span></div>
+        <div class="mc-option" style="flex:1;" data-q="q10" data-val="f" onclick="selectMC(this)"><input type="radio" name="q10" value="f" style="flex-shrink:0;"> <span>❌ שקר</span></div>
+      </div>
+      <textarea id="q10-reason" class="exam-input" rows="2" placeholder="נמקו: השורש הוא..."></textarea>
+      <div id="q10-fb" class="feedback"></div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION C — Conversions 20pts ══ -->
+  <div class="exam-sec">
+    <span style="font-family:'DM Serif Display',serif;font-size:1.1rem;">חלק ג׳ — המרות פעיל ↔ סביל</span>
+    <span style="font-size:0.82rem;color:rgba(201,162,39,0.7);">20 נקודות | 5 נקודות לשאלה</span>
+  </div>
+  <div class="exam-sec-body">
+    <p style="font-size:0.88rem;color:var(--ink-muted);margin-bottom:18px;">לכל משפט — כתבו את המשפט הסביל המלא (שינוי פועל + שינוי נושא), וציינו את הבניין הסביל:</p>
+
+    <div class="q-block">
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;"><div class="q-num" style="font-size:0.78rem;">11</div><div style="font-size:0.93rem;font-weight:600;">"חברות הטכנולוגיה <span class="vb-kal">פיתחו</span> כלי AI חדשים." (פִּיעֵל → פֻּעַל)</div></div>
+      <input type="text" id="q11" class="exam-input" placeholder="_____ כלי AI חדשים. | בניין: ___">
+    </div>
+
+    <div class="q-block">
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;"><div class="q-num" style="font-size:0.78rem;">12</div><div style="font-size:0.93rem;font-weight:600;">"הממשלה <span class="vb-hif">תַּסְדִּיר</span> את עולם ה-AI." (הִפְעִיל → הֻפְעַל)</div></div>
+      <input type="text" id="q12" class="exam-input" placeholder="_____ בידי הממשלה. | בניין: ___">
+    </div>
+
+    <div class="q-block">
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;"><div class="q-num" style="font-size:0.78rem;">13</div><div style="font-size:0.93rem;font-weight:600;">"הכלכלן <span class="vb-kal">שמר</span> על הנתונים." (קַל → נִפְעַל)</div></div>
+      <input type="text" id="q13" class="exam-input" placeholder="הנתונים _____ . | בניין: ___">
+    </div>
+
+    <div class="q-block" style="margin-bottom:0;">
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;"><div class="q-num" style="font-size:0.78rem;">14</div><div style="font-size:0.93rem;font-weight:600;">⭐ <strong>הפוך:</strong> "משרות רבות <span class="vb-nif">הֻחְלְפוּ</span> על ידי אלגוריתמים." → כתבו את המשפט הפעיל (הֻפְעַל → הִפְעִיל):</div></div>
+      <input type="text" id="q14" class="exam-input" placeholder="אלגוריתמים _____ משרות רבות. | בניין: ___">
+    </div>
+  </div>
+
+  <!-- ══ SECTION D — Full Analysis 15pts ══ -->
+  <div class="exam-sec">
+    <span style="font-family:'DM Serif Display',serif;font-size:1.1rem;">חלק ד׳ — ניתוח פועל מלא</span>
+    <span style="font-size:0.82rem;color:rgba(201,162,39,0.7);">15 נקודות | 5 נקודות לשאלה</span>
+  </div>
+  <div class="exam-sec-body">
+    <p style="font-size:0.88rem;color:var(--ink-muted);margin-bottom:18px;">לכל פועל — ניתוח מלא (שורש | בניין | זמן | גוף+מין+מספר | תפקיד סמנטי):</p>
+
+    <div class="q-block">
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;"><div class="q-num" style="font-size:0.78rem;">15</div><div style="font-size:0.93rem;font-weight:600;">הפועל: <span class="vb-kal">מְסַנְכְּרְנִים</span> (מסנכרנים)</div></div>
+      <textarea id="q15" class="exam-input" rows="2" placeholder="שורש: _-_-_-_ | בניין: ___ | זמן: ___ | גוף: ___ | תפקיד: ___"></textarea>
+    </div>
+
+    <div class="q-block">
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;"><div class="q-num" style="font-size:0.78rem;">16</div><div style="font-size:0.93rem;font-weight:600;">הפועל: <span class="vb-hif">הִתְאַפְיְנָה</span> (התאפיינה)</div></div>
+      <textarea id="q16" class="exam-input" rows="2" placeholder="שורש: _-_-_-_ | בניין: ___ | זמן: ___ | גוף: ___ | תפקיד: ___"></textarea>
+    </div>
+
+    <div class="q-block" style="margin-bottom:0;">
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;"><div class="q-num" style="font-size:0.78rem;">17</div><div style="font-size:0.93rem;font-weight:600;">הפועל: <span class="vb-nif">יֻחְלְפוּ</span> (יוחלפו)</div></div>
+      <textarea id="q17" class="exam-input" rows="2" placeholder="שורש: _-_-_ | בניין: ___ | זמן: ___ | גוף: ___ | תפקיד: ___"></textarea>
+    </div>
+  </div>
+
+  <!-- ══ SECTION E — Meaning 10pts ══ -->
+  <div class="exam-sec">
+    <span style="font-family:'DM Serif Display',serif;font-size:1.1rem;">חלק ה׳ — שינוי בניין ↔ שינוי משמעות</span>
+    <span style="font-size:0.82rem;color:rgba(201,162,39,0.7);">10 נקודות</span>
+  </div>
+  <div class="exam-sec-body">
+    <div class="q-block" style="margin-bottom:0;">
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;"><div class="q-num" style="font-size:0.78rem;">18</div><div style="font-size:0.93rem;font-weight:600;">קראו את שני המשפטים. הסבירו כיצד שינוי הבניין משנה את המשמעות:</div></div>
+      <div style="background:var(--surface2);border-radius:10px;padding:14px 16px;margin-bottom:12px;font-size:0.93rem;">
+        <p style="margin-bottom:8px;"><strong>א.</strong> "העובד <span class="vb-hif">הִתְאַקְלֵם</span> לשינויים הטכנולוגיים." (הִתְפַּעֵל)</p>
+        <p style="margin-bottom:8px;"><strong>ב.</strong> "הניסיון <span class="vb-hif">הֶאֱקְלִים</span> את העובד לשינויים." (הִפְעִיל)</p>
+        <p><strong>ג.</strong> "העובד <span class="vb-nif">אֻקְלַם</span> לסביבה החדשה." (הֻפְעַל)</p>
+      </div>
+      <label style="font-size:0.86rem;font-weight:700;color:var(--ink-muted);display:block;margin-bottom:6px;">הסבירו את ההבדל בין שלוש הצורות (פעיל עצמי / גרימה / סביל):</label>
+      <textarea id="q18" class="exam-input" rows="4" placeholder="הִתְאַקְלֵם = ___&#10;הֶאֱקְלִים = ___&#10;אֻקְלַם = ___"></textarea>
+    </div>
+  </div>
+
+  <!-- ══ SECTION F — Free Writing 10pts ══ -->
+  <div class="exam-sec">
+    <span style="font-family:'DM Serif Display',serif;font-size:1.1rem;">חלק ו׳ — כתיבה עצמאית</span>
+    <span style="font-size:0.82rem;color:rgba(201,162,39,0.7);">10 נקודות</span>
+  </div>
+  <div class="exam-sec-body">
+    <div class="q-block" style="margin-bottom:0;">
+      <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;"><div class="q-num" style="font-size:0.78rem;">19</div><div style="font-size:0.93rem;font-weight:600;">על בסיס הטקסט — כתבו פסקה (4–5 משפטים) המביעה את עמדתכם לגבי AI ועתיד העבודה. <strong>דרישות:</strong> לפחות 5 פעלים מ-3 בניינים שונים, מסומנים בסוגריים [בניין].</div></div>
+      <textarea id="q19" class="exam-input" rows="8" placeholder="לדעתי, ה-AI _____ [פִּיעֵל] את שוק העבודה בשנים הקרובות. עובדים רבים _____  [___] ...&#10;&#10;סמנו: [בניין + זמן] ליד כל פועל"></textarea>
+      <div class="note-sm">ניקוד: 2 נק׳ לכל פועל נכון שזוהה + 0–2 נק׳ לניסוח</div>
+    </div>
+  </div>
+
+  <!-- SUBMIT BUTTON -->
+  <div style="text-align:center;padding:32px 0 16px;" class="no-print">
+    <button onclick="submitExam()" class="exam-submit-btn">
+      ⭐ הגש/י מבחן וקבל/י ציון
+    </button>
+    <p style="font-size:0.82rem;color:var(--ink-muted);margin-top:10px;">לחיצה תחשב את החלקים האוטומטיים ותציג דוח מלא</p>
+  </div>
+
+</div><!-- /exam -->
+
+
+<!-- ════════ TAB 5 — ANSWERS ════════ -->
+<div id="ta" class="tab-pane teacher-only">
+
+  <div style="background:var(--gold-dim);border:1.5px solid var(--gold);border-radius:12px;padding:16px 20px;margin-bottom:22px;">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div style="font-size:2rem;">🔑</div>
+      <div>
+        <div style="font-weight:800;font-size:0.98rem;color:var(--ink);">מדריך פתרונות מלא — לשימוש מורה בלבד</div>
+        <div style="font-size:0.8rem;color:var(--ink-muted);">כולל כל 19 השאלות, הסברים ורובריקות</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-size:1rem;font-weight:800;color:var(--gold);margin-bottom:12px;">חלק א׳ — בחירה מרובה (20 נקודות)</h3>
+  <div class="ai"><strong>1. עִיבֵּד — פִּיעֵל</strong> ✓ | גרימה + עצימות; שורש ע-ב-ד; דגש בב"ת = פִּיעֵל</div>
+  <div class="ai"><strong>2. הֻפְעַל</strong> ✓ | קיבוץ תחת ה"א (הֻ) = הֻפְעַל; שורש ג-ד-ר; עבר ג׳ זכר רבים</div>
+  <div class="ai"><strong>3. הִתְפַּעֵל, הווה, זכר יחיד</strong> ✓ | מִתְ = תחילית הִתְפַּעֵל; שורש נ-ה-ל</div>
+  <div class="ai"><strong>4. יֻסְדַּר — הֻפְעַל</strong> ✓ | הִפְעִיל → הֻפְעַל; תַּסְדִּיר (הִפְעִיל עתיד) → יֻסְדַּר</div>
+  <div class="ai"><strong>5. דִּיגֵּט</strong> ✓ | שורש מרובע ד-י-ג-ט; פִּיעֵל | מקור: Digital</div>
+
+  <h3 style="font-size:1rem;font-weight:800;color:var(--gold);margin:22px 0 12px;">חלק ב׳ — אמת/שקר (25 נקודות)</h3>
+  <div class="ai ok"><strong>6. אמת ✓</strong> | הֻחְלַט = הֻפְעַל, עבר ג׳ זכר; שורש ח-ל-ט; משמעות: "הוחלט" — קיבל החלטה (ללא נושא מפורש = אנונימי)</div>
+  <div class="ai err"><strong>7. שקר ✗</strong> | פועל מרובע מופיע <em>רק</em> בבניינים פִּיעֵל/פֻּעַל/הִתְפַּעֵל — לא בקַל, לא בנִפְעַל, ולא בהִפְעִיל/הֻפְעַל</div>
+  <div class="ai ok"><strong>8. אמת ✓</strong> | מְאַפְשֵׁר: מ"ם + פתח = הִפְעִיל הווה (זכר יחיד); שורש א-פ-ש-ר (מרובע? לא — שלושי א-פ-ש)</div>
+  <div class="ai ok"><strong>9. אמת ✓</strong> | נִשְׁמָר = סביל של קַל (נִפְעַל) | מֻשְׁמָר = סביל של פִּיעֵל (פֻּעַל) — אותו שורש, שני מסלולים!</div>
+  <div class="ai ok"><strong>10. אמת ✓</strong> | הִשְׁתַּכְלֵל: שורש ש-כ-ל-ל (4 עיצורים) + חילוף ת↔ש = הִשְׁ-תַּ; בניין הִתְפַּעֵל</div>
+
+  <h3 style="font-size:1rem;font-weight:800;color:var(--gold);margin:22px 0 12px;">חלק ג׳ — המרות (20 נקודות)</h3>
+  <div class="ai"><strong>11.</strong> "כלי AI חדשים <em>פֻּתְּחוּ</em> על ידי חברות הטכנולוגיה." | פֻּעַל, עבר, ג׳ זכר רבים | ⚠️ "כלי" = נושא החדש</div>
+  <div class="ai"><strong>12.</strong> "עולם ה-AI <em>יֻסְדַּר</em> על ידי הממשלה." | הֻפְעַל, עתיד, ג׳ זכר יחיד</div>
+  <div class="ai"><strong>13.</strong> "הנתונים <em>נִשְׁמְרוּ</em> על ידי הכלכלן." | נִפְעַל, עבר, ג׳ זכר רבים</div>
+  <div class="ai"><strong>14 ⭐.</strong> "אלגוריתמים <em>הֶחְלִיפוּ</em> משרות רבות." | הִפְעִיל, עבר, ג׳ זכר רבים | ⚠️ "אלגוריתמים" = נושא חדש מ"על ידי"</div>
+
+  <h3 style="font-size:1rem;font-weight:800;color:var(--gold);margin:22px 0 12px;">חלק ד׳ — ניתוח מלא (15 נקודות)</h3>
+  <div class="ai"><strong>15. מְסַנְכְּרְנִים</strong> — שורש: ס-נ-כ-ר (מרובע) | פִּיעֵל | הווה | זכר רבים | תפקיד: Synchronize — תאום מערכות</div>
+  <div class="ai"><strong>16. הִתְאַפְיְנָה</strong> — שורש: א-פ-י-נ (מרובע) | הִתְפַּעֵל | עבר | ג׳ נקבה יחיד | תפקיד: אפיון עצמי / להתאפיין</div>
+  <div class="ai"><strong>17. יֻחְלְפוּ</strong> — שורש: ח-ל-פ | הֻפְעַל | עתיד | ג׳ זכר רבים | תפקיד: סביל של הִפְעִיל — קבלת ההחלפה</div>
+
+  <h3 style="font-size:1rem;font-weight:800;color:var(--gold);margin:22px 0 12px;">חלק ה׳ — שינוי בניין (10 נקודות)</h3>
+  <div class="ai">
+    <strong>18.</strong><br>
+    <em>הִתְאַקְלֵם</em> (הִתְפַּעֵל) = העובד <strong>בעצמו</strong> הסתגל — פעולה רפלקסיבית, ביוזמתו.<br>
+    <em>הֶאֱקְלִים</em> (הִפְעִיל) = <strong>גורם חיצוני</strong> (הניסיון) גרם לעובד להסתגל — גרימה.<br>
+    <em>אֻקְלַם</em> (הֻפְעַל) = העובד <strong>קיבל</strong> את ההסתגלות מבחוץ — סביל, ללא בחירה עצמאית.
+  </div>
+
+  <h3 style="font-size:1rem;font-weight:800;color:var(--gold);margin:22px 0 12px;">חלק ו׳ — כתיבה (10 נקודות)</h3>
+  <div style="background:var(--gold-dim);border:1px solid rgba(201,162,39,0.3);border-radius:9px;padding:13px 15px;margin-bottom:12px;font-size:0.86rem;color:var(--ink-muted);">
+    <strong style="color:var(--ink);">דוגמת תשובה מצוינת:</strong><br>
+    "לדעתי, ה-AI <u>ישנה</u> [קַל, עתיד] את שוק העבודה — אבל לא <u>יחריב</u> [קַל, עתיד] אותו. עובדים <u>יחויבו</u> [הֻפְעַל, עתיד] ללמוד מיומנויות חדשות, ומי ש<u>יסתגל</u> [קַל, עתיד] — <u>ישגשג</u> [קַל, עתיד]. הממשלה צריכה <u>להסדיר</u> [הִפְעִיל, שם פועל] את השוק ולוודא שהשינויים <u>מבוצעים</u> [פֻּעַל, הווה] בצורה הוגנת."
+  </div>
+  <div class="overflow-x-auto my-4" style="overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px;">
+    <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+      <thead><tr style="background:var(--surface2);">
+        <th style="padding:9px;color:var(--gold);border-bottom:1px solid var(--border);">קריטריון</th>
+        <th style="padding:9px;text-align:center;color:var(--ok);border-bottom:1px solid var(--border);">מלא</th>
+        <th style="padding:9px;text-align:center;color:var(--warn);border-bottom:1px solid var(--border);">חלקי</th>
+        <th style="padding:9px;text-align:center;color:var(--err);border-bottom:1px solid var(--border);">לא</th>
+      </tr></thead>
+      <tbody>
+        <tr class="rr"><td>5+ פעלים מ-3 בניינים — מסומנים ונכונים</td><td style="text-align:center;">6</td><td style="text-align:center;">3</td><td style="text-align:center;">0</td></tr>
+        <tr class="rr"><td>הפסקה קוהרנטית ועמדה ברורה</td><td style="text-align:center;">4</td><td style="text-align:center;">2</td><td style="text-align:center;">0</td></tr>
+      </tbody>
+      <tfoot><tr style="background:var(--surface2);font-weight:700;"><td style="padding:9px;">סה"כ</td><td style="text-align:center;padding:9px;">10</td><td></td><td></td></tr></tfoot>
+    </table>
+  </div>
+
+  <!-- Final Score -->
+  <div class="card" style="background:linear-gradient(135deg,var(--ink),#1a1a3a);color:#fff;text-align:center;border:2px solid var(--gold);">
+    <div style="font-family:'DM Serif Display',serif;font-size:1.3rem;margin-bottom:16px;color:var(--gold);">ניקוד המבחן</div>
+    <div style="display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:14px;">
+      <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(201,162,39,0.3);border-radius:100px;padding:8px 18px;text-align:center;display:inline-block;"><div style="font-size:1.4rem;font-weight:800;color:var(--gold);">20</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.5);">חלק א׳</div></div>
+      <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(201,162,39,0.3);border-radius:100px;padding:8px 18px;text-align:center;display:inline-block;"><div style="font-size:1.4rem;font-weight:800;color:var(--gold);">25</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.5);">חלק ב׳</div></div>
+      <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(201,162,39,0.3);border-radius:100px;padding:8px 18px;text-align:center;display:inline-block;"><div style="font-size:1.4rem;font-weight:800;color:var(--gold);">20</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.5);">חלק ג׳</div></div>
+      <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(201,162,39,0.3);border-radius:100px;padding:8px 18px;text-align:center;display:inline-block;"><div style="font-size:1.4rem;font-weight:800;color:var(--gold);">15</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.5);">חלק ד׳</div></div>
+      <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(201,162,39,0.3);border-radius:100px;padding:8px 18px;text-align:center;display:inline-block;"><div style="font-size:1.4rem;font-weight:800;color:var(--gold);">10</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.5);">חלק ה׳</div></div>
+      <div style="background:rgba(255,255,255,0.07);border:1px solid rgba(201,162,39,0.3);border-radius:100px;padding:8px 18px;text-align:center;display:inline-block;"><div style="font-size:1.4rem;font-weight:800;color:var(--gold);">10</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.5);">חלק ו׳</div></div>
+      <div style="background:var(--gold);border-radius:100px;padding:10px 24px;display:inline-block;"><div style="font-size:2rem;font-weight:800;color:var(--ink);font-family:'DM Sans',sans-serif;">100</div><div style="font-size:0.7rem;color:rgba(0,0,0,0.6);">סה"כ</div></div>
+    </div>
+  </div>
+
+</div><!-- /answers -->
+
+<!-- ═══ TAB: ASSESSMENT — lesson 6 ═══ -->
+<div id="tab-assess" class="tab-pane">
+  <div style="max-width:660px;margin:0 auto;padding:8px 0">
+    <h2 style="font-size:1.2rem;font-weight:800;margin-bottom:8px">
+      📊 הערכה עצמית — שיעור 6</h2>
+    <p style="font-size:.87rem;color:#6b7280;margin-bottom:18px">
+      מלאו את דף העבודה ולחצו על הכפתור לסיכום</p>
+    <div id="assessment-content-old"
+      style="display:none;background:#ffffff;border:1.5px solid #dde3f0;
+             border-radius:12px;padding:20px;
+             direction:rtl;text-align:right;min-height:60px">
+      <p style="color:#9ca3af;font-size:.87rem;text-align:center;padding:8px 0">לחצו על כפתור “חשב סיכום” לצפייה בלשונית ההערכה</p>
+    </div>
+    <button
+      onclick="if(window.calcAssessment)window.calcAssessment()"
+      style="margin-top:14px;background:#2d3561;color:#fff;border:none;
+             padding:12px 24px;border-radius:9px;
+             font-family:'Heebo','Assistant',sans-serif;
+             font-size:.93rem;font-weight:700;cursor:pointer;
+             width:100%;display:block">
+      חשב סיכום מילוי ⇩
+    </button>
+  </div>
+</div>
+
+<!-- DASHBOARD TAB -->
+<div id="tab-dashboard" class="tab-pane">
+  <div style="max-width:660px;margin:0 auto;padding:8px 0">
+    <div class="dash-hero">
+      <div style="font-size:2.5rem;">📊</div>
+      <div><div style="font-family:'Secular One',sans-serif;font-size:1.15rem;">לוח בקרה — Dashboard</div><div style="font-size:.82rem;color:rgba(255,255,255,.6);">סיכום מילוי מבחן היחידה</div></div>
+    </div>
+    <div class="card">
+      <div style="font-weight:700;font-size:1rem;margin-bottom:8px;">📋 סיכום מילוי</div>
+      <div id="assessment-content" style="display:none;background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:18px;direction:rtl;text-align:right;min-height:56px;">
+        <p style="color:var(--dim);font-size:.87rem;text-align:center;padding:6px 0;">לחצו "חשב סיכום" לצפייה</p>
+      </div>
+      <button onclick="if(window.calcAssessment)window.calcAssessment()" style="margin-top:14px;background:#1a3a6b;color:#fff;border:none;padding:12px 24px;border-radius:9px;font-family:'Heebo',sans-serif;font-size:.93rem;font-weight:700;cursor:pointer;width:100%;display:block;">חשב סיכום מילוי ⇩</button>
+    </div>
+  </div>
+</div>
+</main>
+
+<!-- RESULTS MODAL -->
+<div id="results-modal">
+  <div class="results-box">
+    <div style="text-align:center;margin-bottom:20px;">
+      <div class="grade-circle">
+        <div class="grade-letter" id="grade-letter">—</div>
+        <div class="grade-pct" id="grade-pct">0 / 100</div>
+      </div>
+      <h2 style="font-family:'DM Serif Display',serif;font-size:1.5rem;margin-bottom:6px;">תוצאות המבחן</h2>
+      <p style="color:var(--ink-muted);font-size:0.9rem;" id="grade-msg"></p>
+    </div>
+
+    <div style="background:var(--surface2);border-radius:10px;padding:16px;margin-bottom:20px;">
+      <div style="font-weight:700;font-size:0.9rem;margin-bottom:12px;">פירוט לפי חלקים</div>
+      <div id="breakdown-rows"></div>
+    </div>
+
+    <div style="background:var(--gold-dim);border:1px solid rgba(201,162,39,0.3);border-radius:10px;padding:14px;margin-bottom:20px;font-size:0.86rem;">
+      <div style="font-weight:700;color:var(--gold);margin-bottom:6px;">📝 חלקים ד׳–ו׳ (ניתוח + כתיבה)</div>
+      <p style="color:var(--ink-muted);">שאלות אלו מחייבות בדיקה ידנית. המורה יזין/תזין ניקוד אחרי העיון בתשובות.</p>
+      <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
+        <div><label style="font-size:0.78rem;color:var(--ink-muted);">חלק ד׳ (15):</label><input type="number" id="manual-d" min="0" max="15" class="exam-input" style="width:80px;padding:5px 8px;font-size:0.9rem;" placeholder="0–15" oninput="updateManual()"></div>
+        <div><label style="font-size:0.78rem;color:var(--ink-muted);">חלק ה׳ (10):</label><input type="number" id="manual-e" min="0" max="10" class="exam-input" style="width:80px;padding:5px 8px;font-size:0.9rem;" placeholder="0–10" oninput="updateManual()"></div>
+        <div><label style="font-size:0.78rem;color:var(--ink-muted);">חלק ו׳ (10):</label><input type="number" id="manual-f" min="0" max="10" class="exam-input" style="width:80px;padding:5px 8px;font-size:0.9rem;" placeholder="0–10" oninput="updateManual()"></div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+      <button onclick="closeResults()" style="background:var(--ink);color:var(--gold);border:1.5px solid var(--gold);padding:10px 24px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.92rem;font-weight:700;cursor:pointer;">חזור לבדיקה</button>
+      <button onclick="window.print()" style="background:var(--surface2);color:var(--ink-mid);border:1.5px solid var(--border);padding:10px 24px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:0.92rem;cursor:pointer;">🖨️ הדפס דוח</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="no-print" style="background:var(--ink);color:rgba(255,255,255,0.4);text-align:center;padding:20px;font-size:0.76rem;margin-top:60px;">
+  פלטפורמת לשון עברית — כיתה י׳ | יחידה 1: מערכת הפועל | שיעור 6 — מבחן יחידה<br>
+  תואם תכנית המפמ"ר ומיצ"ב 2026 | © כל הזכויות שמורות
+</footer>
+
+<script>
+// ─── Answer Key (auto-graded) ───
+const MC_CORRECT = {b:true, c:true, b_q2:true}; // handled in key
+
+// Points per section
+const SECTION_POINTS = {
+  'חלק א׳':20,'חלק ב׳':25,'חלק ג׳':20,'חלק ד׳':15,'חלק ה׳':10,'חלק ו׳':10
+};
+
+let autoScore = 0;
+let manualScore = 0;
+let examSubmitted = false;
+
+// ─── Tabs ───
+function showTab(id,btn){
+  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>{b.classList.remove('active');b.style.color='var(--ink-muted)';});
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  const bar = document.getElementById('live-score-bar');
+  if(id==='tw') bar.classList.add('visible');
+  else bar.classList.remove('visible');
+}
+
+// ─── MC Selection ───
+function selectMC(el){
+  const q = el.dataset.q;
+  document.querySelectorAll(`[data-q="${q}"]`).forEach(o=>o.classList.remove('selected'));
+  el.classList.add('selected');
+  el.querySelector('input').checked = true;
+  }
+
+// answer-check removed
+
+// ─── Timer ───
+let tInt=null,tSec=2700,elapsed=0;
+const phases=[{end:300,label:'📖 סקירה'},{end:900,label:'📰 טקסט'},{end:1200,label:'📚 הלכה'},{end:2400,label:'🎯 מבחן'},{end:2700,label:'✅ תיקון'}];
+function startTimer(){
+  if(tInt)return;
+  tInt=setInterval(()=>{
+    elapsed++;
+    const rem=tSec-elapsed;
+    if(rem<=0){clearInterval(tInt);document.getElementById('timer-display').textContent='00:00';return;}
+    const m=Math.floor(rem/60),s=rem%60;
+    const d=document.getElementById('timer-display');
+    d.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    d.classList.toggle('warning',rem<=120);
+    const pct=Math.round(elapsed/tSec*100);
+    document.getElementById('prog-fill').style.width=pct+'%';
+    document.getElementById('prog-pct').textContent=pct+'%';
+    const ph=phases.find(p=>elapsed<=p.end);
+    if(ph)document.getElementById('phase-ind').textContent=ph.label;
+  },1000);
+}
+function resetTimer(){
+  clearInterval(tInt);tInt=null;elapsed=0;
+  document.getElementById('timer-display').textContent='45:00';
+  document.getElementById('timer-display').classList.remove('warning');
+  document.getElementById('prog-fill').style.width='0%';
+  document.getElementById('prog-pct').textContent='0%';
+  document.getElementById('phase-ind').textContent='';
+}
+
+// ─── Score Calculation ───
+function calcAutoScore(){ return 0; } // hidden server-side
+
+function updateLiveScore(){}  // score display removed
+
+},3000);
+
+// ─── Submit Exam ───
+function submitExam(){
+  examSubmitted = true;
+  // Run assessment silently (no answer feedback shown to student)
+  if (window.calcAssessment) window.calcAssessment();
+  const name = (document.getElementById('sname')||{}).value||'תלמיד/ה';
+  const cls  = (document.getElementById('sclass')||{}).value||'';
+  const modal = document.getElementById('success-modal') || document.getElementById('exam-done-modal');
+  const msg   = document.getElementById('modal-msg') || document.getElementById('exam-msg');
+  if (msg) msg.textContent = 'מבחן ' + name + (cls ? ' מכיתה '+cls:'') + ' נשלח למורה.';
+  if (modal) modal.classList.add('open');
+  // Switch to assessment tab
+  const assessBtn = document.querySelector('.tab-btn[onclick*="assess"]');
+  const assessTab = document.getElementById('tab-assess');
+  if (assessTab) { document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active')); assessTab.classList.add('active'); }
+}
+
+function updateManual(){
+  const d = parseInt(document.getElementById('manual-d')?.value)||0;
+  const e = parseInt(document.getElementById('manual-e')?.value)||0;
+  const f = parseInt(document.getElementById('manual-f')?.value)||0;
+  manualScore = d + e + f;
+  const total = autoScore + manualScore;
+  document.getElementById('grade-pct').textContent = `${total} / 100`;
+  document.getElementById('grade-letter').textContent = total>=90?'A+':total>=80?'A':total>=70?'B':total>=60?'C':'D';
+}
+
+function closeResults(){
+  document.getElementById('results-modal').classList.remove('show');
+}
+document.getElementById('results-modal').addEventListener('click',function(e){if(e.target===this)closeResults();});
+
+// ─── AUTO-INJECTED BY DASHBOARD: read student name from URL/LS ───
+(function injectStudentName() {
+  try {
+    var p = new URLSearchParams(window.location.search);
+    var n = (p.get('student') || p.get('name') || '').trim();
+    if (!n) { try { n = JSON.parse(localStorage.getItem('lashon_current_student') || '""') || ''; } catch(_){} }
+    if (n) {
+      var bar = document.getElementById('greeting-bar'), gn = document.getElementById('greeting-name');
+      if (bar && gn) { gn.textContent = 'שלום, ' + n + '!'; bar.style.display = 'flex'; }
+      ['sname','student-name','s_name','studentName'].forEach(function(id){ var el=document.getElementById(id); if(el&&!el.value) el.value=n; });
+      try { localStorage.setItem('lashon_current_student', JSON.stringify(n)); } catch(_){}
+    }
+    var dt = document.getElementById('sdate') || document.getElementById('student-date');
+    if (dt && !dt.value) dt.value = new Date().toLocaleDateString('he-IL');
+  } catch(e) {}
+})();
+// ─── END AUTO-INJECT ───
+</script>
+
+<script>
+/* ═══ window.calcAssessment — שיעור 6 ═══ */
+/* ═══ window.calcAssessment — lesson 6 ═══ */
+window.calcAssessment = function() {
+  var ac = document.getElementById("assessment-content");
+  if (!ac) return;
+
+  // Read student info
+  var sname  = (document.getElementById("sname")  || {value:""}).value.trim();
+  var sclass = (document.getElementById("sclass") || {value:""}).value.trim();
+  var sdate  = (document.getElementById("sdate")  || {value:""}).value.trim()
+               || new Date().toLocaleDateString("he-IL");
+
+  var filled = 0;
+  var total  = 24;
+  var qData  = [];   // [{label, ok}]
+
+  // chkText: plain input or textarea
+  function chkText(id, label) {
+    var el = document.getElementById(id);
+    var ok = !!(el && el.value && el.value.trim().length > 0);
+    if (ok) filled++;
+    qData.push({label: label, ok: ok, val: el ? el.value.trim().substring(0,40) : ""});
+  }
+
+  // chkRadio: radio group by name
+  function chkRadio(name, label) {
+    var radios = document.querySelectorAll("input[type=radio][name=" + name + "]");
+    var ok = false;
+    radios.forEach(function(r) { if (r.checked) ok = true; });
+    // Also check mc-option selected class (for styled radio)
+    if (!ok) {
+      var opts = document.querySelectorAll(".mc-option.selected[data-q=" + name + "]");
+      ok = opts.length > 0;
+    }
+    if (ok) filled++;
+    qData.push({label: label, ok: ok, val: ok ? "✔" : ""});
+  }
+
+  chkRadio("q1", "שאלה 1 — בחירה מרובה");
+  chkRadio("q2", "שאלה 2 — בחירה מרובה");
+  chkRadio("q3", "שאלה 3 — בחירה מרובה");
+  chkRadio("q4", "שאלה 4 — בחירה מרובה");
+  chkRadio("q5", "שאלה 5 — בחירה מרובה");
+  chkRadio("q6", "שאלה 6 — בחירה מרובה");
+  chkRadio("q7", "שאלה 7 — בחירה מרובה");
+  chkRadio("q8", "שאלה 8 — בחירה מרובה");
+  chkRadio("q9", "שאלה 9 — בחירה מרובה");
+  chkRadio("q10", "שאלה 10 — בחירה מרובה");
+  chkText("q6-reason", "שאלה 6 — נימוק");
+  chkText("q7-reason", "שאלה 7 — נימוק");
+  chkText("q8-reason", "שאלה 8 — נימוק");
+  chkText("q9-reason", "שאלה 9 — נימוק");
+  chkText("q10-reason", "שאלה 10 — נימוק");
+  chkText("q11", "שאלה 11 — קל עבר");
+  chkText("q12", "שאלה 12 — קל עתיד");
+  chkText("q13", "שאלה 13 — פיעל עבר");
+  chkText("q14", "שאלה 14 — פיעל הווה");
+  chkText("q15", "שאלה 15 — הפעיל עבר");
+  chkText("q16", "שאלה 16 — הפעיל הווה");
+  chkText("q17", "שאלה 17 — ניתוח אישי");
+  chkText("q18", "שאלה 18 — ניתוח אישי");
+  chkText("q19", "שאלה 19 — פסקה אישית");
+
+  var pct = total > 0 ? Math.round(filled / total * 100) : 0;
+  var barColor = pct >= 80 ? "#4a7c59" : pct >= 50 ? "#b45309" : "#c84b31";
+  var bgColor  = pct >= 80 ? "#e8f5e9" : pct >= 50 ? "#fff8e1" : "#ffebee";
+
+  // Build HTML
+  var html = "";
+
+  // Header: student info
+  html += "<div style='background:#f0f3ff;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:.88rem;direction:rtl'>";
+  html += "<strong>תלמיד/ה:</strong> " + (sname || "לא הוזן");
+  if (sclass) html += " &nbsp;|  <strong>כיתה:</strong> " + sclass;
+  html += " &nbsp;|  <strong>תאריך:</strong> " + sdate;
+  html += "</div>";
+
+  // Score badge
+  html += "<div style='background:" + bgColor + ";color:" + barColor + ";padding:12px 16px;border-radius:10px;text-align:center;font-weight:800;font-size:1.05rem;margin-bottom:12px;direction:rtl'>";
+  html += (pct >= 80 ? "⭐" : pct >= 50 ? "💪" : "📝") + " " + filled + " שאלות מולאו מתוך " + total + " — " + pct + "%";
+  html += "</div>";
+
+  // Progress bar
+  html += "<div style='height:10px;background:#e8edf5;border-radius:5px;margin-bottom:16px;overflow:hidden'>";
+  html += "<div style='height:100%;width:" + pct + "%;background:" + barColor + ";border-radius:5px;transition:width .6s ease'></div>";
+  html += "</div>";
+
+  // Per-question rows
+  html += "<div style='font-size:.82rem;direction:rtl'>";
+  qData.forEach(function(q, i) {
+    var icon = q.ok ? "✅" : "○";
+    var clr  = q.ok ? "#2e7d32" : "#9ca3af";
+    html += "<div style='display:flex;align-items:baseline;gap:8px;padding:4px 0;border-bottom:1px solid #f0f3ff'>";
+    html += "<span style='flex-shrink:0;font-size:.9rem'>" + icon + "</span>";
+    html += "<span style='flex:1;color:" + clr + "'>" + q.label + "</span>";
+    if (q.val && q.ok) html += "<span style='color:#6b7280;font-size:.78rem;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'>" + q.val + "</span>";
+    html += "</div>";
+  });
+  html += "</div>";
+
+  ac.innerHTML = html;
+  ac.style.display = "block";
+};;
+</script>
+<script>
+/* ── Auto visual feedback on inputs (green when filled) ── */
+document.addEventListener('DOMContentLoaded', function() {
+  var skip = ['sname','sclass','sdate','student-date'];
+  document.querySelectorAll('input[type="text"],textarea').forEach(function(el){
+    if (skip.indexOf(el.id) >= 0) return;
+    el.addEventListener('input', function(){
+      this.classList.remove('ok','err');
+      if (this.value.trim()) this.classList.add('ok');
+    });
+    // mark already-filled on load
+    if (el.value && el.value.trim()) el.classList.add('ok');
+  });
+  injectStudentName();
+});
+
+// ─── ROLE=STUDENT SECURITY (v3) ─────────────────────────────
+(function applyStudentRole() {
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('role') !== 'student') return;
+
+  // Hide these tab panes
+  var hideIds = [
+    'tt', 'tab-teacher',
+    'ta', 'tab-answers',
+    'tab-assess',
+    'tab-dashboard'
+  ];
+  hideIds.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) { el.style.display = 'none'; el.setAttribute('aria-hidden','true'); }
+  });
+
+  // Hide tab buttons (by onclick content, text, or class)
+  document.querySelectorAll('.tab-btn, button').forEach(function(btn) {
+    var oc  = btn.getAttribute('onclick') || '';
+    var txt = (btn.textContent || '').trim();
+    var cls = btn.className || '';
+    var hide =
+      cls.indexOf('teacher-only') !== -1 ||
+      oc.indexOf("'tt'") !== -1          || oc.indexOf('"tt"') !== -1 ||
+      oc.indexOf("'tab-teacher'") !== -1 || oc.indexOf('"tab-teacher"') !== -1 ||
+      oc.indexOf("'ta'") !== -1          || oc.indexOf('"ta"') !== -1 ||
+      oc.indexOf("'tab-answers'") !== -1 || oc.indexOf('"tab-answers"') !== -1 ||
+      oc.indexOf("'tab-assess'") !== -1  || oc.indexOf('"tab-assess"') !== -1 ||
+      oc.indexOf("'tab-dashboard'") !== -1 || oc.indexOf('"tab-dashboard"') !== -1 ||
+      txt === '🔑 פתרונות' ||
+      txt.indexOf('Dashboard') !== -1 ||
+      txt === '📊 הערכה' ||
+      txt === '📋 מדריך' ||
+      txt === '📋 מדריך המורה';
+    if (hide) btn.style.display = 'none';
+  });
+
+  // Hide any remaining teacher-only elements
+  document.querySelectorAll('.teacher-only').forEach(function(el){
+    el.style.display = 'none';
+  });
+
+  // Activate first visible student tab: theory > text > worksheet
+  var preferOrder = ['th', 'tx', 'tw'];
+  for (var i = 0; i < preferOrder.length; i++) {
+    var pane = document.getElementById(preferOrder[i]);
+    if (pane && pane.style.display !== 'none') {
+      document.querySelectorAll('.tab-pane').forEach(function(p){ p.classList.remove('active'); });
+      pane.classList.add('active');
+      document.querySelectorAll('.tab-btn').forEach(function(b){
+        b.classList.remove('active');
+        var oc2 = b.getAttribute('onclick') || '';
+        if (oc2.indexOf("'" + preferOrder[i] + "'") !== -1 ||
+            oc2.indexOf('"' + preferOrder[i] + '"') !== -1) {
+          b.classList.add('active');
+        }
+      });
+      break;
+    }
+  }
+})();
+// ─── END ROLE=STUDENT SECURITY ──────────────────────────────
+
+</script>
+</body>
+</html>

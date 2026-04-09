@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>שיעור 3 | דרכי תצורה — השוואה | יחידה 2 — מערכת השם | כיתה י׳</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:         #f0f2f5;
+    --surface:    #ffffff;
+    --surface2:   #e8edf3;
+    --border:     #d0d7e3;
+    --navy:       #1a3a6b;
+    --navy-lt:    #2563b8;
+    --ocean:      #1565a8;
+    --ocean-lt:   #2980d4;
+    --teal:       #0d7a6a;
+    --teal-lt:    #16a890;
+    --earth:      #8b5e3c;
+    --sun:        #e8a020;
+    --sun-lt:     #f5c842;
+    --danger:     #c0392b;
+    --danger-lt:  #e74c3c;
+    --purple:     #6b3aed;
+    --purple-lt:  #9b6fee;
+    --text:       #1c2433;
+    --text-mid:   #3e4a5c;
+    --text-muted: #6b7a8d;
+    --white:      #ffffff;
+  }
+
+  * { box-sizing: border-box; margin:0; padding:0; }
+
+  body {
+    font-family: 'Heebo', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    direction: rtl;
+    text-align: right;
+    line-height: 1.7;
+  }
+
+  /* ─── TABS ─── */
+  .tab-btn { transition: all 0.2s; border-bottom: 3px solid transparent; white-space: nowrap; background: transparent; border-top: none; border-right: none; border-left: none; cursor: pointer; }
+  .tab-btn.active { border-bottom-color: var(--navy); color: var(--navy) !important; font-weight: 700; }
+  .tab-pane { display: none; }
+  .tab-pane.active { display: block; }
+
+  /* ─── HERO ─── */
+  .hero { background: linear-gradient(160deg, #0c2040 0%, #1a3a6b 45%, #1a5080 100%); position: relative; overflow: hidden; }
+  .hero::before { content:''; position:absolute; inset:0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+
+  /* ─── TIMER ─── */
+  #timer-display { font-family:'Secular One',sans-serif; font-size:2.1rem; color:#a8d4f0; letter-spacing:0.04em; }
+  #timer-display.warning { color:#ff9f7f; animation: pulse 1s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+
+  /* ─── PROGRESS ─── */
+  .prog-wrap { height:6px; background:rgba(255,255,255,0.15); border-radius:3px; overflow:hidden; }
+  .prog-fill  { height:100%; background:linear-gradient(90deg,#a8d4f0,#6dcbfa); border-radius:3px; transition:width 0.4s; }
+
+  /* ─── CARD ─── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.4rem 1.6rem;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 2px 8px rgba(26,58,107,0.07);
+    transition: box-shadow 0.2s;
+  }
+  .card:hover { box-shadow: 0 4px 20px rgba(26,58,107,0.13); }
+
+  /* ─── ARTICLE BODY ─── */
+  .article-body { font-family:'Heebo',sans-serif; font-size:1rem; line-height:2.0; color:var(--text-mid); }
+  .article-body p { margin-bottom:1.15em; }
+
+  /* ─── THEORY BLOCKS ─── */
+  .theory-block {
+    border-right: 5px solid var(--navy-lt);
+    padding: 1rem 1.25rem;
+    background: #e7f3ff;
+    border-radius: 0 12px 12px 0;
+    margin-bottom: 1rem;
+  }
+  .theory-block .block-title {
+    font-weight: 800; color: var(--navy); font-size: 0.9rem;
+    margin-bottom: 7px; display: flex; align-items: center; gap: 6px;
+  }
+  .theory-block.tip    { border-right-color: var(--sun);    background: #fef9e7; }
+  .theory-block.tip .block-title { color: #7a5200; }
+  .theory-block.earth  { border-right-color: var(--earth);  background: #f7efe8; }
+  .theory-block.earth .block-title { color: var(--earth); }
+  .theory-block.danger { border-right-color: var(--danger); background: #fdecea; }
+  .theory-block.danger .block-title { color: var(--danger); }
+  .theory-block.teal   { border-right-color: var(--teal);   background: #e6f7f5; }
+  .theory-block.teal .block-title { color: var(--teal); }
+  .theory-block.purple { border-right-color: var(--purple); background: #f0ebff; }
+  .theory-block.purple .block-title { color: var(--purple); }
+  .theory-block.sun    { border-right-color: var(--sun);    background: #fef9e7; }
+  .theory-block.sun .block-title { color: #7a5200; }
+
+  /* ─── TABLE ─── */
+  .ctable { width:100%; border-collapse:collapse; border-radius:10px; overflow:hidden; }
+  .ctable th { background:var(--navy); color:#fff; padding:10px 14px; font-size:0.85rem; font-weight:700; }
+  .ctable td { padding:9px 14px; border-bottom:1px solid var(--border); font-size:0.9rem; line-height:1.6; }
+  .ctable tr:nth-child(even) td { background:#f4f7fd; }
+  .ctable tr:hover td { background:#e3ecf8; transition:background 0.15s; }
+
+  /* ─── METHOD BADGES ─── */
+  .m-fusion { background:#e7f3ff; color:var(--navy-lt); border-radius:6px; padding:2px 9px; font-weight:800; font-size:0.85rem; display:inline-block; }
+  .m-glue   { background:#e6f7f5; color:var(--teal);    border-radius:6px; padding:2px 9px; font-weight:800; font-size:0.85rem; display:inline-block; }
+  .m-loan   { background:#f0ebff; color:var(--purple);  border-radius:6px; padding:2px 9px; font-weight:800; font-size:0.85rem; display:inline-block; }
+
+  /* ─── INPUTS ─── */
+  textarea, input[type="text"] {
+    font-family:'Heebo',sans-serif; direction:rtl; text-align:right;
+    background:#fafdff; border:1.5px solid var(--border); border-radius:10px;
+    padding:10px 14px; width:100%; font-size:1rem; line-height:1.7;
+    color:var(--text); transition:border-color 0.2s, box-shadow 0.2s; resize:vertical;
+    min-height:44px;
+  }
+  textarea:focus, input[type="text"]:focus { outline:none; border-color:var(--navy-lt); box-shadow:0 0 0 3px rgba(37,99,184,0.12); }
+  textarea::placeholder, input::placeholder { color:var(--text-muted); }
+  select {
+    font-family:'Heebo',sans-serif; direction:rtl; background:#fafdff;
+    border:1.5px solid var(--border); border-radius:10px; padding:10px 12px;
+    color:var(--text); font-size:1rem; width:100%; transition:border-color 0.2s;
+    min-height:44px;
+  }
+  select:focus { outline:none; border-color:var(--navy-lt); }
+
+  /* ─── ANSWER ITEMS ─── */
+  .ai { border-right:4px solid var(--navy-lt); padding:0.65rem 1rem; margin-bottom:0.75rem; background:#e7f3ff; border-radius:0 10px 10px 0; font-size:0.9rem; line-height:1.7; }
+  .ai.teal   { border-color:var(--teal);   background:#e6f7f5; }
+  .ai.earth  { border-color:var(--earth);  background:#f7efe8; }
+  .ai.danger { border-color:var(--danger); background:#fdecea; }
+  .ai.sun    { border-color:var(--sun);    background:#fef9e7; }
+  .ai.purple { border-color:var(--purple); background:#f0ebff; }
+
+  /* ─── HIGHLIGHTS ─── */
+  .hl-n { background:#c8dff8; padding:1px 4px; border-radius:3px; color:#0d2a6b; font-weight:700; }
+  .hl-t { background:#c2ede8; padding:1px 4px; border-radius:3px; color:#0a4f45; font-weight:700; }
+  .hl-e { background:#f5dfc8; padding:1px 4px; border-radius:3px; color:#5c3000; font-weight:700; }
+  .hl-p { background:#e2d3fc; padding:1px 4px; border-radius:3px; color:#3a1070; font-weight:700; }
+  .hl-s { background:#fdefd4; padding:1px 4px; border-radius:3px; color:#7a4000; font-weight:700; }
+  .hl-g { background:#d4f5e9; padding:1px 4px; border-radius:3px; color:#0a4f30; font-weight:700; }
+
+  /* ─── BADGE ─── */
+  .badge { display:inline-flex; align-items:center; gap:4px; padding:3px 11px; border-radius:100px; font-size:0.75rem; font-weight:700; letter-spacing:0.03em; }
+
+  /* ─── PHASE ROW ─── */
+  .phase-row { display:flex; gap:16px; margin-bottom:22px; align-items:flex-start; }
+  .phase-circle { min-width:46px; height:46px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.84rem; flex-shrink:0; }
+
+  /* ─── SCORE PILL ─── */
+  .score-pill { background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); border-radius:100px; padding:8px 18px; text-align:center; display:inline-block; }
+
+  /* ─── COMPARISON GRID ─── */
+  .comp-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px; }
+  .comp-cell { padding:14px 16px; border-radius:12px; font-size:0.9rem; line-height:1.8; }
+  .comp-cell .comp-label { font-weight:800; font-size:0.83rem; margin-bottom:6px; text-transform:uppercase; letter-spacing:0.04em; }
+
+  /* ─── WORD CHIP ─── */
+  .wchip { display:inline-block; background:#e7f3ff; color:var(--navy); border-radius:6px; padding:1px 8px; font-weight:700; font-size:0.88rem; }
+  .wchip.teal   { background:#e6f7f5; color:var(--teal); }
+  .wchip.earth  { background:#f7efe8; color:var(--earth); }
+  .wchip.sun    { background:#fef9e7; color:#7a5200; }
+  .wchip.purple { background:#f0ebff; color:var(--purple); }
+  .wchip.green  { background:#d4f5e9; color:#0a4f30; }
+
+  .rr td { padding:9px 12px; border-bottom:1px solid var(--border); font-size:0.87rem; }
+  .rr:last-child td { border-bottom:none; }
+
+  .teal-h { font-family:'Secular One',sans-serif; color:var(--navy); font-size:1.25rem; border-bottom:2px solid var(--border); padding-bottom:8px; margin-bottom:18px; }
+  .section-note { font-size:0.82rem; color:var(--text-muted); margin-top:6px; }
+
+  /* ─── MODAL ─── */
+  #modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center; }
+  #modal.show { display:flex; }
+
+  /* ─── PRINT ─── */
+  @media print {
+    .no-print { display:none !important; }
+    .tab-pane { display:block !important; }
+    body { background:#fff; }
+  }
+
+  /* ─── MOBILE ─── */
+  @media (max-width:640px) {
+    textarea, input[type="text"], select { font-size:1rem !important; }
+    .card { padding:1rem !important; }
+    .ctable { font-size:0.8rem; }
+    .ctable th, .ctable td { padding:7px 8px; }
+    #timer-display { font-size:1.5rem; }
+    .phase-row { flex-direction:column; gap:8px; }
+    .phase-circle { width:36px; height:36px; min-width:36px; font-size:0.75rem; }
+    .comp-row { grid-template-columns:1fr; }
+  }
+
+  /* ─── TOUCH TARGETS ─── */
+  button, .tab-btn { min-height:44px; touch-action:manipulation; }
+
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════
+     HERO
+════════════════════════════════════ -->
+<header class="hero text-white py-10 px-5 no-print" style="position:relative;z-index:1;">
+  <div class="max-w-5xl mx-auto relative" style="z-index:2;">
+    <div class="flex items-start justify-between flex-wrap gap-4">
+      <div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">
+          <span class="badge" style="background:rgba(168,212,240,0.2);color:#a8d4f0;border:1px solid rgba(168,212,240,0.4);">כיתה י׳</span>
+          <span class="badge" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.15);">לשון עברית</span>
+          <span class="badge" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.15);">יחידה 2 — מערכת השם</span>
+          <span class="badge" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.15);">שיעור 3 מתוך 4</span>
+          <span class="badge" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.15);">45 דקות</span>
+        </div>
+        <h1 style="font-family:'Secular One',sans-serif;font-size:clamp(1.6rem,4vw,2.7rem);line-height:1.15;margin-bottom:10px;">
+          דרכי תצורה — השוואה
+          <span style="display:block;font-size:clamp(1rem,2.5vw,1.5rem);color:#a8d4f0;margin-top:4px;">שורש+משקל · בסיס+סיומת · מילים לועזיות</span>
+        </h1>
+        <p style="color:rgba(255,255,255,0.65);font-size:0.97rem;max-width:500px;">
+          שלוש שיטות ליצירת מילים — הבחנה, ניתוח ויישום
+        </p>
+      </div>
+      <!-- Timer -->
+      <div style="background:rgba(0,0,0,0.25);border:1px solid rgba(255,255,255,0.15);border-radius:16px;padding:16px 20px;min-width:185px;text-align:center;" class="no-print">
+        <div style="font-size:0.7rem;color:rgba(255,255,255,0.5);margin-bottom:4px;letter-spacing:0.1em;">⏱ טיימר שיעור</div>
+        <div id="timer-display">45:00</div>
+        <div style="display:flex;gap:8px;justify-content:center;margin-top:10px;">
+          <button onclick="startTimer()" style="background:#a8d4f0;color:#0c2040;border:none;border-radius:7px;padding:5px 14px;font-family:'Heebo',sans-serif;font-size:0.78rem;font-weight:700;cursor:pointer;">▶ התחל</button>
+          <button onclick="resetTimer()" style="background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.2);border-radius:7px;padding:5px 10px;font-family:'Heebo',sans-serif;font-size:0.78rem;cursor:pointer;">↺</button>
+        </div>
+        <div id="phase-ind" style="font-size:0.74rem;color:#a8d4f0;margin-top:8px;min-height:1.2em;"></div>
+      </div>
+    </div>
+    <!-- progress -->
+    <div style="margin-top:22px;" class="no-print">
+      <div style="display:flex;justify-content:space-between;font-size:0.71rem;color:rgba(255,255,255,0.45);margin-bottom:5px;">
+        <span>התקדמות השיעור</span><span id="prog-pct">0%</span>
+      </div>
+      <div class="prog-wrap"><div class="prog-fill" id="prog-fill" style="width:0%;"></div></div>
+      <div style="display:flex;justify-content:space-between;font-size:0.67rem;color:rgba(255,255,255,0.3);margin-top:4px;">
+        <span>פתיחה (5׳)</span><span>רכישה (10׳)</span><span>הדגמה (10׳)</span><span>תרגול (15׳)</span><span>סיכום (5׳)</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ════════════════════════════════════
+     NAV
+════════════════════════════════════ -->
+<nav class="no-print sticky top-0 z-50" style="background:var(--surface);border-bottom:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+  <div class="max-w-5xl mx-auto px-4" style="display:flex;gap:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;">
+    <button class="tab-btn px-4 py-3 text-sm teacher-only" onclick="showTab('tt',this)" style="display:none !important;">📋 מדריך המורה</button>
+    <button class="tab-btn active px-4 py-3 text-sm" onclick="showTab('th',this)" style="color:var(--navy);">📚 הלכה</button>
+    <button class="tab-btn px-4 py-3 text-sm" onclick="showTab('tw',this)" style="color:var(--text-muted);">✏️ דף עבודה</button>
+    <button class="tab-btn px-4 py-3 text-sm teacher-only" onclick="showTab('ta',this)" style="display:none !important;">🔑 פתרונות</button>
+    <button class="tab-btn px-4 py-3 text-sm teacher-only" onclick="showTab('tq',this)" style="display:none !important;">📊 Dashboard</button>
+    <button onclick="window.location.href='index.html'" style="padding:6px 14px;font-size:0.78rem;color:var(--text-muted);background:transparent;border:1px solid var(--border);border-radius:8px;cursor:pointer;white-space:nowrap;font-family:'Heebo',sans-serif;min-height:44px;" class="no-print">🏠 תפריט</button>
+    <button onclick="window.print()" style="margin-right:auto;padding:8px 16px;font-size:0.8rem;color:var(--text-muted);background:transparent;border:none;cursor:pointer;white-space:nowrap;" class="no-print">🖨️ הדפס</button>
+  </div>
+</nav>
+
+<main class="max-w-5xl mx-auto px-4 py-8">
+
+<!-- ════════════════════════════════════
+     TAB 1 — TEACHER GUIDE
+════════════════════════════════════ -->
+<div id="tt" class="tab-pane teacher-only" style="display:none !important;">
+
+  <!-- At a Glance -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+    <div class="card text-center" style="border-top:3px solid var(--navy-lt);">
+      <div style="font-size:1.7rem;margin-bottom:4px;">🔀</div>
+      <div style="font-size:0.82rem;font-weight:700;color:var(--navy-lt);">מטרה</div>
+      <div style="font-size:0.78rem;color:var(--text-muted);margin-top:3px;">הבחנה בין שלוש דרכי תצורה; שילוב עם מילים לועזיות</div>
+    </div>
+    <div class="card text-center" style="border-top:3px solid var(--ocean);">
+      <div style="font-size:1.7rem;margin-bottom:4px;">🔗</div>
+      <div style="font-size:0.82rem;font-weight:700;color:var(--ocean);">קודם לשיעור</div>
+      <div style="font-size:0.78rem;color:var(--text-muted);margin-top:3px;">שיעור 1 — שורש ומשקל; שיעור 2 — בסיס וסיומת</div>
+    </div>
+    <div class="card text-center" style="border-top:3px solid var(--teal);">
+      <div style="font-size:1.7rem;margin-bottom:4px;">🛠️</div>
+      <div style="font-size:0.82rem;font-weight:700;color:var(--teal);">כלים</div>
+      <div style="font-size:0.78rem;color:var(--text-muted);margin-top:3px;">מילון אבן-שושן, לוח, כרטיסי מילים דו-צדדיים</div>
+    </div>
+    <div class="card text-center" style="border-top:3px solid var(--sun);">
+      <div style="font-size:1.7rem;margin-bottom:4px;">📐</div>
+      <div style="font-size:0.82rem;font-weight:700;color:var(--sun);">מיצ"ב</div>
+      <div style="font-size:0.78rem;color:var(--text-muted);margin-top:3px;">L3.1, L3.2, L3.4, W2.3</div>
+    </div>
+  </div>
+
+  <h2 class="teal-h">📍 מהלך השיעור</h2>
+
+  <div class="phase-row">
+    <div class="phase-circle" style="background:var(--danger-lt);color:#fff;">5׳</div>
+    <div style="flex:1;">
+      <span class="badge" style="background:#fdecea;color:var(--danger);border:1px solid var(--danger);margin-bottom:8px;">🔥 פתיחה — מאיפה באה "אינטרנט"?</span>
+      <h3 style="font-weight:700;font-size:1rem;margin-bottom:7px;">חידת המקור — שלוש ערימות</h3>
+      <p style="font-size:0.9rem;color:var(--text-mid);">כתבו על הלוח שש מילים ובקשו מהתלמידים למיין לשלוש ערימות: <strong>מַחְשֵׁב</strong>, <strong>סְפָרִיָּה</strong>, <strong>טֶלֶפוֹן</strong>, <strong>מַדְפֶּסֶת</strong>, <strong>כַּדּוּרְגְּלָן</strong>, <strong>רָדִיוֹ</strong>. שאלו: "לפי מה חילקתם?" — זו הפתיחה המושלמת לשלוש השיטות.</p>
+      <div class="theory-block tip" style="margin-top:10px;">
+        <div class="block-title">💡 טיפ הוראה</div>
+        <p style="font-size:0.88rem;">תלמידים לרוב מצליחים לזהות שטֶלֶפוֹן ורָדִיוֹ "שונות" — פתחו בכך: "מה מיוחד בהן?" ← "הן לא עברית מקורית — הן הושאלו!" ← כניסה טבעית לשיטה השלישית.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase-row">
+    <div class="phase-circle" style="background:var(--navy-lt);color:#fff;">10׳</div>
+    <div style="flex:1;">
+      <span class="badge" style="background:#e7f3ff;color:var(--navy-lt);border:1px solid var(--navy-lt);margin-bottom:8px;">📚 רכישה — שלוש השיטות</span>
+      <h3 style="font-weight:700;font-size:1rem;margin-bottom:7px;">הסבר ישיר + דיאגרמה על הלוח</h3>
+      <p style="font-size:0.9rem;color:var(--text-mid);">עברו על לשונית "הלכה". ציירו על הלוח שלוש "כלים" — <strong>תבנית יציקה</strong> (שורש+משקל), <strong>הדבקת לגו</strong> (בסיס+סיומת), <strong>ייבוא חיצוני</strong> (השאלה). הדגישו: מילה לועזית מגיעה מחוץ למערכת השורשים, ולעיתים מותאמת לבניין עברי.</p>
+    </div>
+  </div>
+
+  <div class="phase-row">
+    <div class="phase-circle" style="background:var(--teal);color:#fff;">10׳</div>
+    <div style="flex:1;">
+      <span class="badge" style="background:#e6f7f5;color:var(--teal);border:1px solid var(--teal);margin-bottom:8px;">🎬 הדגמה — ניתוח השוואתי</span>
+      <h3 style="font-weight:700;font-size:1rem;margin-bottom:7px;">שלוש מילים על "טכנולוגיה" — ניתוח חי</h3>
+      <p style="font-size:0.9rem;color:var(--text-mid);">נתחו יחד: <strong>מַחְשֵׁב</strong> (שורש: ח-ש-ב + משקל: מַקְטֵל — היתוך), <strong>מַדְפֶּסֶת</strong> (שורש: ד-פ-ס + משקל: מַקְטֶלֶת — היתוך), <strong>תַּקְלִיטִיָּה</strong> (בסיס: תַּקְלִיט + -ִיָּה — הדבקה), <strong>קוֹמְפְּיוּטֶר</strong> (השאלה מאנגלית — computer). שאלו: "מה עדיף — להמציא מילה עברית חדשה, או לשאול מלועזית?"</p>
+    </div>
+  </div>
+
+  <div class="phase-row">
+    <div class="phase-circle" style="background:var(--sun);color:#fff;">15׳</div>
+    <div style="flex:1;">
+      <span class="badge" style="background:#fef9e7;color:#7a5200;border:1px solid var(--sun);margin-bottom:8px;">✏️ תרגול — דף עבודה</span>
+      <h3 style="font-weight:700;font-size:1rem;margin-bottom:7px;">18 שאלות — עצמאי + בזוגות</h3>
+      <p style="font-size:0.9rem;color:var(--text-mid);">שאלה 1 (טבלת זיהוי, 15 מילים) — עצמאי. שאלה 2 (גזירה, 5 מילים) — בזוגות. שאלות 3א-3ג (אמריקאיות) — עצמאי. שאלה 4 (כתיבה) — עצמאי. שאלת הטבלה היא ה<em>לב</em> — הקצו לה 8 דקות.</p>
+    </div>
+  </div>
+
+  <div class="phase-row" style="margin-bottom:0;">
+    <div class="phase-circle" style="background:var(--text-muted);color:#fff;">5׳</div>
+    <div style="flex:1;">
+      <span class="badge" style="background:var(--surface2);color:var(--text-muted);border:1px solid var(--border);margin-bottom:8px;">🔚 סיכום</span>
+      <h3 style="font-weight:700;font-size:1rem;margin-bottom:7px;">כרטיס יציאה — "3 מילים, 3 שיטות"</h3>
+      <p style="font-size:0.9rem;color:var(--text-mid);">כל תלמיד/ה כותב/ת שלוש מילים — אחת לכל שיטה — ומסמן/ת מה השיטה. הכרטיסים הם גם משוב ים לכם.</p>
+    </div>
+  </div>
+
+  <h2 class="teal-h" style="margin-top:32px;">⚠️ שגיאות נפוצות</h2>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+    <div class="card" style="border-right:4px solid var(--danger);">
+      <div style="font-weight:700;color:var(--danger);margin-bottom:6px;">1. בלבול מילה לועזית עם היתוך</div>
+      <p style="font-size:0.88rem;color:var(--text-mid);">תלמידים ינסו לנתח <strong>טֶלֶפוֹן</strong> כשורש+משקל. הסבירו: מילה לועזית מגיעה מחוץ למערכת השורשים העבריים — היא "אורחת". אין לה שורש עיצורי עברי. כלל: "האם ניתן להציב ט-ל-פ-ן בתבנית פ-ע-ל?" — לא באופן עקבי ← לועזית.</p>
+    </div>
+    <div class="card" style="border-right:4px solid var(--danger);">
+      <div style="font-weight:700;color:var(--danger);margin-bottom:6px;">2. מילה לועזית שהועברתה לבניין</div>
+      <p style="font-size:0.88rem;color:var(--text-mid);">כגון <strong>טִלְפֵּן</strong> — השתמש בטלפון. כאן המילה הלועזית "טלפון" הפכה לבסיס, ונכנסה לבניין פִּיעֵל כפועל עברי. זוהי הגברה: גם השאלה וגם היתוך (בסיס לועזי + בניין עברי). ← שאלה מעמיקה לדיון!</p>
+    </div>
+    <div class="card" style="border-right:4px solid var(--danger);">
+      <div style="font-weight:700;color:var(--danger);margin-bottom:6px;">3. בלבול בין "מַ" כמשקל לבין "מַ" כבסיס</div>
+      <p style="font-size:0.88rem;color:var(--text-mid);"><strong>מַחְשֵׁב</strong> — ה-מַ היא חלק ממשקל מַקְטֵל (היתוך). <strong>מִכְתָּב</strong> — מִ היא חלק ממשקל מִקְטָל. הכלל: כשאין מילה עצמאית לפני ה"סיומת", זה היתוך. תמיד שאלו: "מה הבסיס הנפרד?"</p>
+    </div>
+    <div class="card" style="border-right:4px solid var(--danger);">
+      <div style="font-weight:700;color:var(--danger);margin-bottom:6px;">4. שכחה של אינטגרציה עברית ללועזי</div>
+      <p style="font-size:0.88rem;color:var(--text-mid);">יש מילים לועזיות שהשתלבו כל כך ש"מרגישות עבריות": <strong>בָּלֶט</strong>, <strong>פִּיגּוּם</strong>. חשוב לבדוק: "האם ניתן לנתח שורש עברי?" — לא → לועזית. אפשר גם לבדוק במילון: מה מקורה?</p>
+    </div>
+  </div>
+
+</div><!-- /teacher -->
+
+
+<!-- ════════════════════════════════════
+     TAB 2 — THEORY
+════════════════════════════════════ -->
+<div id="th" class="tab-pane active">
+
+  <h2 class="teal-h" style="font-size:1.35rem;">📚 דרכי תצורה — שלוש שיטות מרכזיות</h2>
+
+  <!-- Method 1: Fusion -->
+  <div class="theory-block" style="margin-bottom:1.5rem;">
+    <div class="block-title">ℹ️ שיטה א׳ — שורש ומשקל (היתוך)</div>
+    <div class="article-body">
+      <p>בשיטה זו השורש העיצורי (לרוב שלושה עיצורים) <em>נבלע</em> בתוך תבנית המשקל. השורש לכשעצמו אינו מילה עצמאית — הוא רק "חומר הגלם" שנוצק לתוך "תבנית". כך, שורש <strong>כ-ת-ב</strong> נכנס אל משקל <strong>מַקְטֵל</strong> ויוצר את <strong>מַכְתֵּב</strong> (שורש: כ.ת.ב, משקל: מַקְטֵל — שולחן כתיבה / כלי), שבו עיצורי השורש פזורים בין תנועות המשקל. שימו לב: ה-"מַ" אינה מילה עצמאית, ה-"כְ" לבדה אינה מילה — ויחד הם יוצרים ישות חדשה לחלוטין.</p>
+      <p>דוגמאות נוספות: <strong>מַחְשֵׁב</strong> (שורש: ח.ש.ב, משקל: מַקְטֵל — כלי חישוב), <strong>מַדְפֶּסֶת</strong> (שורש: ד.פ.ס, משקל: מַקְטֶלֶת — כלי הדפסה), <strong>מִסְפָּר</strong> (שורש: ס.פ.ר, משקל: מִקְטָל — ישות מופשטת), <strong>כְּתִיבָה</strong> (שורש: כ.ת.ב, משקל: קְטִילָה — שם פעולה). בכל אלה — אין "בסיס" שאפשר לזהות כמילה עצמאית.</p>
+    </div>
+  </div>
+
+  <!-- Method 2: Gluing -->
+  <div class="theory-block teal" style="margin-bottom:1.5rem;">
+    <div class="block-title">ℹ️ שיטה ב׳ — בסיס וסיומת (הדבקה)</div>
+    <div class="article-body">
+      <p>בשיטה זו מוצמדת סיומת (צורן סופי) אל מילה שלמה וקיימת, הנקראת <strong>בסיס</strong>. הבסיס ממשיך להתקיים כמילה עצמאית, והסיומת מוסיפה לה שכבת משמעות. <strong>סְפָרִיָּה</strong> (בסיס: <span class="hl-t">סֵפֶר</span> + סיומת: <span class="hl-n">-ִיָּה</span> — מקום שבו שוכנים ספרים): המילה "סֵפֶר" קיימת כמילה עצמאית גם ללא הסיומת. <strong>כַּדּוּרְגְּלָן</strong> (בסיס: <span class="hl-t">כַּדּוּרֶגֶל</span> + סיומת: <span class="hl-n">-ָן</span> — מי שמשחק כדורגל): "כַּדּוּרֶגֶל" עומדת לבד בשלמות.</p>
+      <p>הסיומות הנפוצות: <strong>-וֹן</strong> (הקטנה / כתב-עת): <strong>שִׁירוֹן</strong> (בסיס: שִׁיר + -וֹן — חוברת שירים קטנה); <strong>-ָן</strong> (בעל מקצוע/תכונה): <strong>פַּסְנְתְּרָן</strong> (בסיס: פַּסְנְתֵּר + -ָן — מי שמנגן בפסנתר); <strong>-ִיָּה</strong> (מקום/אוסף): <strong>תַּקְלִיטִיָּה</strong> (בסיס: תַּקְלִיט + -ִיָּה — מקום לתקליטים); <strong>-ִי</strong> (שייכות): <strong>מַדָּעִי</strong> (בסיס: מַדָּע + -ִי — הקשור למדע).</p>
+    </div>
+  </div>
+
+  <!-- Method 3: Borrowing -->
+  <div class="theory-block purple" style="margin-bottom:1.5rem;">
+    <div class="block-title">ℹ️ שיטה ג׳ — מילים לועזיות (השאלה)</div>
+    <div class="article-body">
+      <p>בשיטה זו מילה נלקחת מלשון זרה ומשולבת בעברית — לרוב ללא שינוי מהותי בצורתה. <strong>טֶלֶפוֹן</strong> (מיוונית: tele = מרחוק + phone = קול), <strong>רָדִיוֹ</strong> (מלטינית: radius = קרן), <strong>קוֹמְפְּיוּטֶר</strong> (מאנגלית: computer), <strong>אִינְטֶרְנֶט</strong> (מאנגלית: internet). למילות השאלה אין שורש עיצורי עברי — הן "אורחות" במערכת.</p>
+      <p>לעיתים מילה לועזית מקבלת "עיבוד עברי": <strong>טִלְפֵּן</strong> (בסיס לועזי: טֶלֶפוֹן + בניין פִּיעֵל עברי — השתמש בטלפון), <strong>פִּקְסֵד</strong> (בסיס לועזי: fax + בניין פִּיעֵל), <strong>סְרַקְתִּי</strong> (מ-scan + בניין קַל). כאן מתקיים שילוב: מקור לועזי + מבנה דקדוקי עברי.</p>
+    </div>
+  </div>
+
+  <!-- Comparison visual -->
+  <h3 style="font-weight:700;font-size:1.05rem;margin:24px 0 14px;">השוואה בין שלוש השיטות</h3>
+  <div class="overflow-x-auto my-4" style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+    <table class="ctable" style="min-width:560px;">
+      <thead>
+        <tr>
+          <th>קריטריון</th>
+          <th style="color:#a8d4f0;">שורש + משקל</th>
+          <th style="background:#0a5040;color:#a8e8df;">בסיס + סיומת</th>
+          <th style="background:#3a1080;color:#d4b8fc;">מילה לועזית</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="font-weight:700;">מקור</td>
+          <td>עברי מקורי</td>
+          <td>עברי (בסיס קיים)</td>
+          <td>שפה זרה</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;">בסיס עצמאי?</td>
+          <td>לא (שורש בלבד)</td>
+          <td>כן (מילה שלמה)</td>
+          <td>לא / בשפה זרה</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;">כלי זיהוי</td>
+          <td>מצא שורש + שם משקל</td>
+          <td>מצא מילה עצמאית + סיומת</td>
+          <td>בדוק: יש שורש עברי?</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;">דוגמה</td>
+          <td><strong>מַחְשֵׁב</strong> (ח.ש.ב + מַקְטֵל)</td>
+          <td><strong>סְפָרִיָּה</strong> (סֵפֶר + -ִיָּה)</td>
+          <td><strong>טֶלֶפוֹן</strong> (מיוונית)</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;">עוד דוגמה</td>
+          <td><strong>מַדְפֶּסֶת</strong> (ד.פ.ס + מַקְטֶלֶת)</td>
+          <td><strong>כַּדּוּרְגְּלָן</strong> (כַּדּוּרֶגֶל + -ָן)</td>
+          <td><strong>רָדִיוֹ</strong> (מלטינית)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Key rules -->
+  <div class="theory-block tip" style="margin-bottom:1rem;">
+    <div class="block-title">💡 כלל הבחינה — סדר בדיקה מומלץ</div>
+    <div class="article-body">
+      <p><strong>שלב 1:</strong> שאלו "האם המילה קיימת בשפה זרה ידועה?" — אם כן, ייתכן שמדובר בהשאלה.</p>
+      <p><strong>שלב 2:</strong> שאלו "האם ניתן לזהות בסיס עצמאי (מילה שלמה) לפני הסיומת?" — אם כן, זו הדבקה. לדוגמה: <strong>חַצּוֹצְרָן</strong> (בסיס: <span class="wchip">חַצּוֹצְרָה</span> — מילה עצמאית ✓ + סיומת -ָן).</p>
+      <p><strong>שלב 3:</strong> אם לא זוהה בסיס עצמאי — חפשו שורש עיצורי + שם משקל. לדוגמה: <strong>מִסְפָּר</strong> — "מִסְ" אינה מילה ✗ ← שורש ס.פ.ר + משקל מִקְטָל.</p>
+    </div>
+  </div>
+
+  <div class="theory-block danger" style="margin-bottom:1rem;">
+    <div class="block-title">⚠️ שימו לב — מקרים מיוחדים</div>
+    <div class="article-body">
+      <p>יש מילים שנראות כ"בסיס + סיומת" אך הן היתוך: <strong>מַדְפֶּסֶת</strong> — "מַד" נשמע כמו בסיס, אך אינה מילה עצמאית ✗ — זהו היתוך (שורש ד.פ.ס + משקל מַקְטֶלֶת). לעומתה, <strong>מַדָּעִי</strong> — "מַדָּע" <em>היא</em> מילה עצמאית ✓ — זו הדבקה (בסיס מַדָּע + -ִי).</p>
+      <p>מילה לועזית שעוברת "עיברות" לבניין: <strong>טִלְפֵּן</strong> (שורש כביכול ט.ל.פ.נ + בניין פִּיעֵל) — זו שיטה מעורבת: מקור לועזי + מסגרת דקדוקית עברית. בדיקת מבחן: "האם ניתן לנתח בפ-ע-ל עברי?" — לעיתים כן, לעיתים לא.</p>
+    </div>
+  </div>
+
+</div><!-- /theory -->
+
+
+<!-- ════════════════════════════════════
+     TAB 3 — WORKSHEET
+════════════════════════════════════ -->
+<div id="tw" class="tab-pane">
+
+  <!-- Student Info -->
+  <div class="card" style="background:linear-gradient(135deg,var(--surface2),var(--surface));margin-bottom:20px;">
+    <h2 style="font-family:'Secular One',sans-serif;font-size:1.2rem;color:var(--navy);margin-bottom:16px;">✏️ דף עבודה — שיעור 3: דרכי תצורה</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div>
+        <label style="font-size:0.82rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:4px;">שם מלא</label>
+        <input type="text" id="sname" placeholder="הקלד/י שם...">
+      </div>
+      <div>
+        <label style="font-size:0.82rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:4px;">כיתה</label>
+        <input type="text" id="sclass" placeholder="לדוגמה: י׳3">
+      </div>
+      <div>
+        <label style="font-size:0.82rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:4px;">תאריך</label>
+        <input type="text" id="sdate" placeholder="יום/חודש/שנה">
+      </div>
+    </div>
+  </div>
+
+  <!-- Q1 — Identification table (15 words) -->
+  <div class="card" style="border-right:4px solid var(--navy-lt);">
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;">
+      <div style="background:var(--navy-lt);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.88rem;flex-shrink:0;">1</div>
+      <div>
+        <div style="font-weight:700;font-size:1rem;color:var(--text);">זיהוי דרך התצורה — 15 מילים</div>
+        <div style="font-size:0.84rem;color:var(--text-muted);">(45 נקודות — 3 נקודות לכל מילה)</div>
+      </div>
+    </div>
+    <p style="font-size:0.91rem;margin-bottom:14px;color:var(--text-mid);">לכל מילה — בחרו את <strong>דרך התצורה</strong> וכתבו ניתוח קצר (שורש / בסיס / מקור):</p>
+    <div class="overflow-x-auto my-4" style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+      <table style="width:100%;border-collapse:collapse;font-size:0.87rem;min-width:560px;">
+        <thead>
+          <tr style="background:var(--navy);">
+            <th style="padding:10px 12px;text-align:right;color:#fff;font-weight:700;">#</th>
+            <th style="padding:10px 12px;text-align:right;color:#fff;font-weight:700;">מילה</th>
+            <th style="padding:10px 12px;text-align:right;color:#a8d4f0;font-weight:700;">דרך התצורה</th>
+            <th style="padding:10px 12px;text-align:right;color:#a8d4f0;font-weight:700;">ניתוח קצר</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:9px 12px;font-weight:700;color:var(--text-muted);">א</td>
+            <td style="padding:9px 12px;font-weight:800;font-size:1.05rem;">מַחְשֵׁב</td>
+            <td style="padding:5px 8px;"><select id="q1a_d"><option value="">— בחר/י —</option><option>היתוך (שורש+משקל)</option><option>הדבקה (בסיס+סיומת)</option><option>מילה לועזית</option></select></td>
+            <td style="padding:5px 8px;"><input type="text" id="q1a_n" placeholder="שורש: ___ + משקל: ___"></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:9px 12px;font-weight:700;color:var(--text-muted);">ב</td>
+            <td style="padding:9px 12px;font-weight:800;font-size:1.05rem;">טֶלֶפוֹן</td>
+            <td style="padding:5px 8px;"><select id="q1b_d"><option value="">— בחר/י —</option><option>היתוך (שורש+משקל)</option><option>הדבקה (בסיס+סיומת)</option><option>מילה לועזית</option></select></td>
+            <td style="padding:5px 8px;"><input type="text" id="q1b_n" placeholder="מקור: שפה ___"></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:9px 12px;font-weight:700;color:var(--text-muted);">ג</td>
+            <td style="padding:9px 12px;font-weight:800;font-size:1.05rem;">סְפָרִיָּה</td>
+            <td style="padding:5px 8px;"><select id="q1c_d"><option value="">— בחר/י —</option><option>היתוך (שורש+משקל)</option><option>הדבקה (בסיס+סיומת)</option><option>מילה לועזית</option></select></td>
+            <td style="padding:5px 8px;"><input type="text" id="q1c_n" placeholder="בסיס: ___ + סיומת: ___"></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:9px 12px;font-weight:700;color:var(--text-muted);">ד</td>
+            <td style="padding:9px 12px;font-weight:800;font-size:1.05rem;">מִסְפָּר</td>
+            <td style="padding:5px 8px;"><select id="q1d_d"><option value="">— בחר/י —</option><option>היתוך (שורש+משקל)</option><option>הדבקה (בסיס+סיומת)</option><option>מילה לועזית</option></select></td>
+            <td style="padding:5px 8px;"><input type="text" id="q1d_n" placeholder="שורש: ___ + משקל: ___"></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:9px 12px;font-weight:700;color:var(--text-muted);">ה</td>
+            <td style="padding:9px 12px;font-weight:800;font-size:1.05rem;">כַּדּוּרְגְּלָן</td>
+            <td style="padding:5px 8px;"><select id="q1e_d"><option value="">— בחר/י —</option><option>היתוך (שורש+משקל)</option><option>הדבקה (בסיס+סיומת)</option><option>מילה לועזית</option></select></td>
+            <td style="padding:5px 8px;"><input type="text" id="q1e_n" placeholder="בסיס: ___ + סיומת: ___"></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:9px 12px;font-weight:700;color:var(--text-muted);">ו</td>
+            <td style="padding:9px 12px;font-weight:800;font-size:1.05rem;">רָדִיוֹ</td>
+            <td style="padding:5px 8px;"><select id="q1f_d"><option value="">— בחר/י —</option><option>היתוך (שורש+משקל)</option><option>הדבקה (בסיס+סיומת)</option><option>מילה לועזית</option></select></td>
+            <td style="padding:5px 8px;"><input type="text" id="q1f_n" placeholder="מקור: שפה ___"></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:9px 12px;font-weight:700;color:var(--text-muted);">ז</td>
+            <td style="padding:9px 12px;font-weight:800;font-size:1.05rem;">מַדְפֶּסֶת</td>
+            <td style="padding:5px 8px;"><select id="q1g_d"><option value="">— בחר/י —</option><option>היתוך (שורש+משקל)</option><option>הדבקה (בסיס+סיומת)</option><option>מילה לועזית</option></select></td>
+            <td style="padding:5px 8px;"><input type="text" id="q1g_n" placeholder="שורש: ___ + משקל: ___"></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:9px 12px;font-weight:700;color:var(--text-muted);">ח</td>
+            <td style="padding:9px 12px;font-weight:800;font-size:1.05rem;">מַדָּעִי</td>
+            <td style="padding:5px 8px;"><select id="q1h_d"><option value="">— בחר/י —</option><option>היתוך (שורש+משקל)</option><option>הדבקה (בסיס+סיומת)</option><option>מילה לועזית</option></select></td>
+            <td style="padding:5px 8px;"><input type="text" id="q1h_n" placeholder="בסיס: ___ + סיומת: ___"></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:9px 12px;font-weight:700;color:var(--text-muted);">ט</td>
+            <td style="padding:9px 12px;font-weight:800;font-size:1.05rem;">אִינְטֶרְנֶט</td>
+            <td style="padding:5px 8px;"><select id="q1i_d"><option value="">— בחר/י —</option><option>היתוך (שורש+משקל)</option><option>הדבקה (בסיס+סיומת)</option><option>מילה לועזית</option></select></td>
+            <td style="padding:5px 8px;"><input type="text" id="q1i_n" placeholder="מקור: שפה ___"></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:9px 12px;font-weight:700;color:var(--text-muted);">י</td>
+            <td style="padding:9px 12px;font-weight:800;font-size:1.05rem;">פַּסְנְתְּרָן</td>
+            <td style="padding:5px 8px;"><select id="q1j_d"><option value="">— בחר/י —</option><option>היתוך (שורש+משקל)</option><option>הדבקה (בסיס+סיומת)</option><option>מילה לועזית</option></select></td>
+            <td style="padding:5px 8px;"><input type="text" id="q1j_n" placeholder="בסיס: ___ + סיומת: ___"></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:9px 12px;font-weight:700;color:var(--text-muted);">יא</td>
+            <td style="padding:9px 12px;font-weight:800;font-size:1.05rem;">כְּתִיבָה</td>
+            <td style="padding:5px 8px;"><select id="q1k_d"><option value="">— בחר/י —</option><option>היתוך (שורש+משקל)</option><option>הדבקה (בסיס+סיומת)</option><option>מילה לועזית</option></select></td>
+            <td style="padding:5px 8px;"><input type="text" id="q1k_n" placeholder="שורש: ___ + משקל: ___"></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:9px 12px;font-weight:700;color:var(--text-muted);">יב</td>
+            <td style="padding:9px 12px;font-weight:800;font-size:1.05rem;">טִלְפֵּן</td>
+            <td style="padding:5px 8px;"><select id="q1l_d"><option value="">— בחר/י —</option><option>היתוך (שורש+משקל)</option><option>הדבקה (בסיס+סיומת)</option><option>מילה לועזית מעובדת לבניין</option></select></td>
+            <td style="padding:5px 8px;"><input type="text" id="q1l_n" placeholder="מקור לועזי + בניין: ___"></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:9px 12px;font-weight:700;color:var(--text-muted);">יג</td>
+            <td style="padding:9px 12px;font-weight:800;font-size:1.05rem;">תַּקְלִיטִיָּה</td>
+            <td style="padding:5px 8px;"><select id="q1m_d"><option value="">— בחר/י —</option><option>היתוך (שורש+משקל)</option><option>הדבקה (בסיס+סיומת)</option><option>מילה לועזית</option></select></td>
+            <td style="padding:5px 8px;"><input type="text" id="q1m_n" placeholder="בסיס: ___ + סיומת: ___"></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:9px 12px;font-weight:700;color:var(--text-muted);">יד</td>
+            <td style="padding:9px 12px;font-weight:800;font-size:1.05rem;">מֵיטַב</td>
+            <td style="padding:5px 8px;"><select id="q1n_d"><option value="">— בחר/י —</option><option>היתוך (שורש+משקל)</option><option>הדבקה (בסיס+סיומת)</option><option>מילה לועזית</option></select></td>
+            <td style="padding:5px 8px;"><input type="text" id="q1n_n" placeholder="שורש: ___ + משקל: ___"></td>
+          </tr>
+          <tr>
+            <td style="padding:9px 12px;font-weight:700;color:var(--text-muted);">טו</td>
+            <td style="padding:9px 12px;font-weight:800;font-size:1.05rem;">שִׁירוֹן</td>
+            <td style="padding:5px 8px;"><select id="q1o_d"><option value="">— בחר/י —</option><option>היתוך (שורש+משקל)</option><option>הדבקה (בסיס+סיומת)</option><option>מילה לועזית</option></select></td>
+            <td style="padding:5px 8px;"><input type="text" id="q1o_n" placeholder="בסיס: ___ + סיומת: ___"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Q2 — Word derivation (5 words) -->
+  <div class="card" style="border-right:4px solid var(--teal);">
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;">
+      <div style="background:var(--teal);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.88rem;flex-shrink:0;">2</div>
+      <div>
+        <div style="font-weight:700;font-size:1rem;color:var(--text);">גזירת מילים — בחרו שיטה ויישמו</div>
+        <div style="font-size:0.84rem;color:var(--text-muted);">(20 נקודות — 4 נקודות לכל שאלה)</div>
+      </div>
+    </div>
+    <p style="font-size:0.91rem;margin-bottom:14px;color:var(--text-mid);">לכל "חומר גלם" — צרו מילה חדשה בשיטה המבוקשת, כתבו אותה ופרשו את משמעותה:</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <div>
+        <label style="font-size:0.83rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:4px;">א. שורש <strong>ח.ש.ב</strong> + משקל <strong>קְטִילָה</strong> (שם פעולה) ← היתוך</label>
+        <input type="text" id="q2a" placeholder="המילה: ___ | משמעות: ___">
+      </div>
+      <div>
+        <label style="font-size:0.83rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:4px;">ב. בסיס <strong>גִּיטָרָה</strong> + סיומת <strong>-ָן</strong> ← הדבקה</label>
+        <input type="text" id="q2b" placeholder="המילה: ___ | משמעות: ___">
+      </div>
+      <div>
+        <label style="font-size:0.83rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:4px;">ג. שורש <strong>כ.ת.ב</strong> + משקל <strong>מַקְטֵל</strong> (כלי) ← היתוך</label>
+        <input type="text" id="q2c" placeholder="המילה: ___ | משמעות: ___">
+      </div>
+      <div>
+        <label style="font-size:0.83rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:4px;">ד. בסיס <strong>כַּלְכָּלָה</strong> + סיומת <strong>-ִי</strong> ← הדבקה</label>
+        <input type="text" id="q2d" placeholder="המילה: ___ | משמעות: ___">
+      </div>
+      <div style="grid-column: 1 / -1;">
+        <label style="font-size:0.83rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:4px;">ה. ⭐ אתגר — המילה הלועזית <strong>סקנר</strong> (scanner). כיצד תשלבו אותה בעברית? כתבו פועל עברי שייגזר ממנה + ניתוח:</label>
+        <input type="text" id="q2e" placeholder="הפועל: ___ | ניתוח: מקור לועזי + בניין ___">
+      </div>
+    </div>
+  </div>
+
+  <!-- Q3 — Multiple choice (3 questions) -->
+  <div class="card" style="border-right:4px solid var(--purple);">
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;">
+      <div style="background:var(--purple);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.88rem;flex-shrink:0;">3</div>
+      <div>
+        <div style="font-weight:700;font-size:1rem;color:var(--text);">שאלות אמריקאיות — בחירה מרובה</div>
+        <div style="font-size:0.84rem;color:var(--text-muted);">(15 נקודות — 5 נקודות לכל שאלה)</div>
+      </div>
+    </div>
+
+    <!-- 3.1 -->
+    <div style="background:var(--surface2);border-radius:10px;padding:14px 16px;margin-bottom:12px;border:1px solid var(--border);">
+      <p style="font-weight:700;font-size:0.95rem;margin-bottom:10px;color:var(--text);">3.1 &nbsp; איזו קביעה נכונה לגבי המילה <strong>מַדְפֶּסֶת</strong>?</p>
+      <div style="display:flex;flex-direction:column;gap:7px;">
+        <label style="display:flex;align-items:flex-start;gap:9px;cursor:pointer;font-size:0.9rem;padding:8px 12px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface);">
+          <input type="radio" name="q3_1" value="a" style="margin-top:3px;flex-shrink:0;"> <span>א. מדובר בהדבקה: בסיס "מַד" + סיומת "-פֶּסֶת"</span>
+        </label>
+        <label style="display:flex;align-items:flex-start;gap:9px;cursor:pointer;font-size:0.9rem;padding:8px 12px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface);">
+          <input type="radio" name="q3_1" value="b" style="margin-top:3px;flex-shrink:0;"> <span>ב. מדובר בהיתוך: שורש ד.פ.ס + משקל מַקְטֶלֶת</span>
+        </label>
+        <label style="display:flex;align-items:flex-start;gap:9px;cursor:pointer;font-size:0.9rem;padding:8px 12px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface);">
+          <input type="radio" name="q3_1" value="c" style="margin-top:3px;flex-shrink:0;"> <span>ג. מדובר במילה לועזית שהושאלה מאנגלית</span>
+        </label>
+        <label style="display:flex;align-items:flex-start;gap:9px;cursor:pointer;font-size:0.9rem;padding:8px 12px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface);">
+          <input type="radio" name="q3_1" value="d" style="margin-top:3px;flex-shrink:0;"> <span>ד. ניתן לנתחה גם כהיתוך וגם כהדבקה</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- 3.2 -->
+    <div style="background:var(--surface2);border-radius:10px;padding:14px 16px;margin-bottom:12px;border:1px solid var(--border);">
+      <p style="font-weight:700;font-size:0.95rem;margin-bottom:10px;color:var(--text);">3.2 &nbsp; מה ההבדל בין <strong>מַחְשֵׁב</strong> ל<strong>תַּקְלִיטִיָּה</strong> מבחינת דרך תצורה?</p>
+      <div style="display:flex;flex-direction:column;gap:7px;">
+        <label style="display:flex;align-items:flex-start;gap:9px;cursor:pointer;font-size:0.9rem;padding:8px 12px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface);">
+          <input type="radio" name="q3_2" value="a" style="margin-top:3px;flex-shrink:0;"> <span>א. שתיהן נבנות בשיטת ההיתוך</span>
+        </label>
+        <label style="display:flex;align-items:flex-start;gap:9px;cursor:pointer;font-size:0.9rem;padding:8px 12px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface);">
+          <input type="radio" name="q3_2" value="b" style="margin-top:3px;flex-shrink:0;"> <span>ב. מַחְשֵׁב — היתוך (שורש+משקל); תַּקְלִיטִיָּה — הדבקה (בסיס+סיומת)</span>
+        </label>
+        <label style="display:flex;align-items:flex-start;gap:9px;cursor:pointer;font-size:0.9rem;padding:8px 12px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface);">
+          <input type="radio" name="q3_2" value="c" style="margin-top:3px;flex-shrink:0;"> <span>ג. מַחְשֵׁב — הדבקה; תַּקְלִיטִיָּה — היתוך</span>
+        </label>
+        <label style="display:flex;align-items:flex-start;gap:9px;cursor:pointer;font-size:0.9rem;padding:8px 12px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface);">
+          <input type="radio" name="q3_2" value="d" style="margin-top:3px;flex-shrink:0;"> <span>ד. שתיהן מילים לועזיות שהושאלו</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- 3.3 -->
+    <div style="background:var(--surface2);border-radius:10px;padding:14px 16px;border:1px solid var(--border);">
+      <p style="font-weight:700;font-size:0.95rem;margin-bottom:10px;color:var(--text);">3.3 &nbsp; המילה <strong>טִלְפֵּן</strong> היא דוגמה ל:</p>
+      <div style="display:flex;flex-direction:column;gap:7px;">
+        <label style="display:flex;align-items:flex-start;gap:9px;cursor:pointer;font-size:0.9rem;padding:8px 12px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface);">
+          <input type="radio" name="q3_3" value="a" style="margin-top:3px;flex-shrink:0;"> <span>א. מילה עברית מקורית בהיתוך שורש ט.ל.פ.נ + משקל פִּיעֵל</span>
+        </label>
+        <label style="display:flex;align-items:flex-start;gap:9px;cursor:pointer;font-size:0.9rem;padding:8px 12px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface);">
+          <input type="radio" name="q3_3" value="b" style="margin-top:3px;flex-shrink:0;"> <span>ב. מילה לועזית טהורה ללא כל שינוי</span>
+        </label>
+        <label style="display:flex;align-items:flex-start;gap:9px;cursor:pointer;font-size:0.9rem;padding:8px 12px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface);">
+          <input type="radio" name="q3_3" value="c" style="margin-top:3px;flex-shrink:0;"> <span>ג. מילה לועזית (טלפון) שהוטמעה בבניין פִּיעֵל העברי</span>
+        </label>
+        <label style="display:flex;align-items:flex-start;gap:9px;cursor:pointer;font-size:0.9rem;padding:8px 12px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface);">
+          <input type="radio" name="q3_3" value="d" style="margin-top:3px;flex-shrink:0;"> <span>ד. הדבקה של בסיס "טֶלֶפוֹן" + סיומת "-ן"</span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q4 — Creative writing -->
+  <div class="card" style="border:1.5px dashed var(--sun);background:rgba(232,160,32,0.04);">
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;">
+      <div style="background:var(--sun);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.88rem;flex-shrink:0;">4</div>
+      <div>
+        <div style="font-weight:700;font-size:1rem;color:var(--sun);">⭐ אתגר — עיצוב מילון טכנולוגיה</div>
+        <div style="font-size:0.84rem;color:var(--text-muted);">(20 נקודות | הרחבה)</div>
+      </div>
+    </div>
+    <p style="font-size:0.91rem;margin-bottom:10px;color:var(--text-mid);">בחרו <strong>תחום טכנולוגי</strong> (רובוטיקה, בינה מלאכותית, רשתות חברתיות...) ויצרו עבורו "ערך מילוני" עם:</p>
+    <ul style="padding-right:18px;font-size:0.87rem;color:var(--text-mid);margin-bottom:14px;line-height:2.2;">
+      <li>מילה בהיתוך (שורש+משקל) + ניתוח</li>
+      <li>מילה בהדבקה (בסיס+סיומת) + ניתוח</li>
+      <li>מילה לועזית + מקורה</li>
+      <li>שלושה משפטים שמשתמשים בשלוש המילים</li>
+    </ul>
+    <textarea id="q4" rows="8" placeholder="תחום: ___&#10;&#10;מילה בהיתוך: ___ (שורש: ___ + משקל: ___)&#10;מילה בהדבקה: ___ (בסיס: ___ + סיומת: ___)&#10;מילה לועזית: ___ (מקור: ___)&#10;&#10;משפטים:&#10;1. ___&#10;2. ___&#10;3. ___"></textarea>
+    <div class="section-note">💡 דוגמה: תחום רובוטיקה — <strong>מַבְצֵעַ</strong> (שורש: ב.צ.ע + מַקְטֵל), <strong>רוֹבּוֹטַאי</strong> (בסיס: רוֹבּוֹט + -ָאי), <strong>סֵנְסוֹר</strong> (מאנגלית: sensor)</div>
+  </div>
+
+  <!-- Submit -->
+  <div class="card no-print" style="background:linear-gradient(135deg,var(--surface2),var(--surface));border:1.5px solid var(--navy-lt);text-align:center;">
+    <div style="font-size:2rem;margin-bottom:8px;">📤</div>
+    <h3 style="font-weight:700;font-size:1.05rem;color:var(--text);margin-bottom:6px;">שליחה למורה</h3>
+    <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:16px;">לחצו לשליחת דף העבודה המלא</p>
+    <button onclick="submitWS()" style="background:var(--navy-lt);color:#fff;border:none;padding:12px 36px;border-radius:10px;font-family:'Heebo',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;transition:all 0.2s;">
+      שלח/י דף עבודה ✓
+    </button>
+  </div>
+
+</div><!-- /worksheet -->
+
+
+<!-- ════════════════════════════════════
+     TAB 4 — ANSWERS
+════════════════════════════════════ -->
+<div id="ta" class="tab-pane teacher-only" style="display:none !important;">
+
+  <div style="background:linear-gradient(135deg,var(--surface2),var(--surface));border:1.5px solid var(--navy-lt);border-radius:14px;padding:18px 20px;margin-bottom:24px;">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div style="font-size:2rem;">🔑</div>
+      <div>
+        <div style="font-weight:800;font-size:1rem;color:var(--text);">מדריך פתרונות מלא — לשימוש מורה בלבד</div>
+        <div style="font-size:0.82rem;color:var(--text-muted);">כולל הסברים, שגיאות נפוצות ודוגמות מצוינות</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q1 answers -->
+  <h3 style="font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--navy);margin-bottom:12px;">שאלה 1 — זיהוי דרך התצורה (45 נקודות)</h3>
+  <div class="ai"><strong>א. מַחְשֵׁב</strong> — <span class="m-fusion">היתוך</span> | שורש: ח.ש.ב + משקל: מַקְטֵל | "מַחְ" אינה מילה עצמאית ✗</div>
+  <div class="ai purple"><strong>ב. טֶלֶפוֹן</strong> — <span class="m-loan">לועזית</span> | מיוונית: tele (מרחוק) + phone (קול) | אין שורש עברי</div>
+  <div class="ai teal"><strong>ג. סְפָרִיָּה</strong> — <span class="m-glue">הדבקה</span> | בסיס: סֵפֶר (מילה עצמאית ✓) + -ִיָּה | מקום שבו שוכנים ספרים</div>
+  <div class="ai"><strong>ד. מִסְפָּר</strong> — <span class="m-fusion">היתוך</span> | שורש: ס.פ.ר + משקל: מִקְטָל | "מִסְ" אינה מילה ✗ | ⚠️ שגיאה נפוצה: לבלבל עם "ספר"</div>
+  <div class="ai teal"><strong>ה. כַּדּוּרְגְּלָן</strong> — <span class="m-glue">הדבקה</span> | בסיס: כַּדּוּרֶגֶל (מילה שלמה ✓) + -ָן | בעל עיסוק</div>
+  <div class="ai purple"><strong>ו. רָדִיוֹ</strong> — <span class="m-loan">לועזית</span> | מלטינית: radius (קרן) | אין שורש עברי ✗</div>
+  <div class="ai"><strong>ז. מַדְפֶּסֶת</strong> — <span class="m-fusion">היתוך</span> | שורש: ד.פ.ס + משקל: מַקְטֶלֶת | ⚠️ "מַד" אינה מילה! — טעות נפוצה מאוד</div>
+  <div class="ai teal"><strong>ח. מַדָּעִי</strong> — <span class="m-glue">הדבקה</span> | בסיס: מַדָּע (מילה שלמה ✓) + -ִי | שייכות למדע</div>
+  <div class="ai purple"><strong>ט. אִינְטֶרְנֶט</strong> — <span class="m-loan">לועזית</span> | מאנגלית: internet | מילה מודרנית ללא שורש עברי</div>
+  <div class="ai teal"><strong>י. פַּסְנְתְּרָן</strong> — <span class="m-glue">הדבקה</span> | בסיס: פַּסְנְתֵּר (מילה שלמה ✓) + -ָן | מי שמנגן בפסנתר | ⚠️ "פסנתר" עצמה — לועזית (pianoforte) ← בסיס לועזי + סיומת עברית</div>
+  <div class="ai"><strong>יא. כְּתִיבָה</strong> — <span class="m-fusion">היתוך</span> | שורש: כ.ת.ב + משקל: קְטִילָה | שם פעולה</div>
+  <div class="ai purple"><strong>יב. טִלְפֵּן</strong> — <span class="m-loan">מילה לועזית מעובדת לבניין</span> | מקור: טֶלֶפוֹן (יוונית) + בניין פִּיעֵל | ← השתמש בטלפון | שיטה מעורבת: לועזי + עברי</div>
+  <div class="ai teal"><strong>יג. תַּקְלִיטִיָּה</strong> — <span class="m-glue">הדבקה</span> | בסיס: תַּקְלִיט (מילה שלמה ✓) + -ִיָּה | מקום לתקליטים</div>
+  <div class="ai"><strong>יד. מֵיטַב</strong> — <span class="m-fusion">היתוך</span> | שורש: י.ט.ב + משקל: מֵיקַל | "מֵי" אינה מילה ✗</div>
+  <div class="ai teal"><strong>טו. שִׁירוֹן</strong> — <span class="m-glue">הדבקה</span> | בסיס: שִׁיר (מילה שלמה ✓) + -וֹן | חוברת שירים קטנה (הקטנה)</div>
+
+  <!-- Q2 answers -->
+  <h3 style="font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--teal);margin:24px 0 12px;">שאלה 2 — גזירת מילים (20 נקודות)</h3>
+  <div class="ai teal"><strong>א.</strong> <strong>חֲשִׁיבָה</strong> (שורש: ח.ש.ב + משקל: קְטִילָה) — פעולת החשיבה | ⚠️ שגיאה: לבלבל עם מַחְשֵׁב (מַקְטֵל — כלי)</div>
+  <div class="ai teal"><strong>ב.</strong> <strong>גִּיטָרָן</strong> (בסיס: גִּיטָרָה + -ָן) — מי שמנגן בגיטרה | שימו לב: ה-ָה הסופית של הבסיס נשמטת</div>
+  <div class="ai teal"><strong>ג.</strong> <strong>מַכְתֵּב</strong> (שורש: כ.ת.ב + משקל: מַקְטֵל) — שולחן כתיבה / כלי כתיבה</div>
+  <div class="ai teal"><strong>ד.</strong> <strong>כַּלְכָּלִי</strong> (בסיס: כַּלְכָּלָה + -ִי) — הקשור לכלכלה, תואר שם | ⚠️ לא לכתוב כַּלְכָּלָתִי</div>
+  <div class="ai sun"><strong>ה. אתגר:</strong> <strong>סָרַקְתִּי / סְרַקְתִּי</strong> (מ-scan, בניין קַל / פִּיעֵל) | קבלו: <strong>סִרְקֵן</strong> (בניין פִּיעֵל מרובע: ס.ר.ק.נ) | עיקר הניקוד: זיהוי מקור לועזי + בניין עברי</div>
+
+  <!-- Q3 answers -->
+  <h3 style="font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--purple);margin:24px 0 12px;">שאלה 3 — אמריקאיות (15 נקודות)</h3>
+  <div class="ai purple"><strong>3.1 — תשובה ב׳:</strong> מַדְפֶּסֶת — <strong>היתוך</strong>. שורש: ד.פ.ס + משקל: מַקְטֶלֶת. ה-"מַד" אינה מילה עצמאית ✗ — לכן אין זו הדבקה.</div>
+  <div class="ai purple"><strong>3.2 — תשובה ב׳:</strong> מַחְשֵׁב = היתוך (ח.ש.ב + מַקְטֵל, אין בסיס עצמאי); תַּקְלִיטִיָּה = הדבקה (תַּקְלִיט = מילה שלמה ✓ + -ִיָּה).</div>
+  <div class="ai purple"><strong>3.3 — תשובה ג׳:</strong> טִלְפֵּן = מקור לועזי (טֶלֶפוֹן / telephone) שהוטמע בבניין פִּיעֵל העברי. זוהי שיטה מעורבת — לא היתוך טהור (אין שורש עברי מקורי) ולא הדבקה.</div>
+
+  <!-- Q4 rubric -->
+  <h3 style="font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--sun);margin:24px 0 12px;">שאלה 4 — מילון טכנולוגיה (20 נקודות)</h3>
+  <div class="overflow-x-auto my-4" style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+    <table style="width:100%;border-collapse:collapse;font-size:0.87rem;min-width:440px;">
+      <thead><tr style="background:var(--surface2);">
+        <th style="padding:9px;text-align:right;color:var(--sun);border-bottom:1px solid var(--border);">קריטריון</th>
+        <th style="padding:9px;text-align:center;color:var(--teal);border-bottom:1px solid var(--border);">מלא</th>
+        <th style="padding:9px;text-align:center;color:var(--sun);border-bottom:1px solid var(--border);">חלקי</th>
+        <th style="padding:9px;text-align:center;color:var(--danger);border-bottom:1px solid var(--border);">לא</th>
+      </tr></thead>
+      <tbody>
+        <tr class="rr"><td>מילה בהיתוך — שורש + משקל נכון, מנותח</td><td style="text-align:center;">5</td><td style="text-align:center;">2</td><td style="text-align:center;">0</td></tr>
+        <tr class="rr"><td>מילה בהדבקה — בסיס + סיומת נכון, מנותח</td><td style="text-align:center;">5</td><td style="text-align:center;">2</td><td style="text-align:center;">0</td></tr>
+        <tr class="rr"><td>מילה לועזית + ציון מקור</td><td style="text-align:center;">3</td><td style="text-align:center;">1</td><td style="text-align:center;">0</td></tr>
+        <tr class="rr"><td>3 משפטים עם שלוש המילים</td><td style="text-align:center;">6</td><td style="text-align:center;">3</td><td style="text-align:center;">0</td></tr>
+        <tr class="rr"><td>כתיבה קוהרנטית, ניסוח ברור</td><td style="text-align:center;">1</td><td style="text-align:center;">0</td><td style="text-align:center;">0</td></tr>
+      </tbody>
+      <tfoot><tr style="background:var(--surface2);font-weight:700;"><td style="padding:9px;">סה"כ</td><td style="text-align:center;padding:9px;">20</td><td></td><td></td></tr></tfoot>
+    </table>
+  </div>
+  <div style="background:var(--surface2);border:1px solid var(--navy-lt);border-radius:12px;padding:14px 16px;font-size:0.87rem;margin-bottom:24px;">
+    <strong style="color:var(--navy);">דוגמת תשובה מצוינת (תחום: בינה מלאכותית):</strong><br>
+    "היתוך: <strong>מַשְׁכֵּל</strong> (שורש: ש.כ.ל + משקל: מַקְטֵל — כלי הנוהג בשכל) | הדבקה: <strong>מְכוֹנָאִי</strong> (בסיס: מְכוֹנָה + -ָאי — בעל מקצוע המכונות) | לועזית: <strong>אַלְגּוֹרִיתְם</strong> (מערבית: al-Khwarizmi)<br>
+    ה<u>מַשְׁכֵּל</u> [היתוך] ניתח את הנתונים בשניות. המ<u>כוֹנָאִי</u> [הדבקה] שבדק את המערכת הכיר כל <u>אַלְגּוֹרִיתְם</u> [לועזית]."
+  </div>
+
+  <!-- Score card -->
+  <div class="card" style="background:linear-gradient(135deg,#0c2040,#1a3a6b);color:#fff;text-align:center;">
+    <div style="font-family:'Secular One',sans-serif;font-size:1.2rem;margin-bottom:16px;">סה"כ ניקוד שיעור 3 — דרכי תצורה</div>
+    <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;">
+      <div class="score-pill"><div style="font-size:1.4rem;font-weight:900;color:#a8d4f0;">45</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.6);">שאלה 1</div></div>
+      <div class="score-pill"><div style="font-size:1.4rem;font-weight:900;color:#a8d4f0;">20</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.6);">שאלה 2</div></div>
+      <div class="score-pill"><div style="font-size:1.4rem;font-weight:900;color:#a8d4f0;">15</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.6);">שאלה 3</div></div>
+      <div class="score-pill" style="border-color:rgba(247,185,40,0.5);"><div style="font-size:1.4rem;font-weight:900;color:#f5c842;">20</div><div style="font-size:0.7rem;color:rgba(255,255,255,0.6);">שאלה 4</div></div>
+      <div style="background:rgba(255,255,255,0.15);border-radius:100px;padding:10px 22px;display:inline-block;">
+        <div style="font-size:1.9rem;font-weight:900;color:#fff;font-family:'Secular One',sans-serif;">100</div>
+        <div style="font-size:0.7rem;color:rgba(255,255,255,0.6);">סה"כ</div>
+      </div>
+    </div>
+    <div style="font-size:0.76rem;color:rgba(255,255,255,0.45);">שאלות 1–3 = 80 נק׳ (ליבה) | שאלה 4 = 20 נק׳ (הרחבה)</div>
+  </div>
+
+</div><!-- /answers -->
+
+
+<!-- ════════════════════════════════════
+     TAB 5 — DASHBOARD
+════════════════════════════════════ -->
+<div id="tq" class="tab-pane teacher-only" style="display:none !important;">
+  <div style="background:linear-gradient(135deg,#0c2040,#1a3a6b);border-radius:16px;padding:22px 24px;margin-bottom:20px;display:flex;align-items:center;gap:16px;color:#fff;">
+    <div style="font-size:2.8rem;">📊</div>
+    <div>
+      <div style="font-family:'Secular One',sans-serif;font-size:1.15rem;">לוח בקרה — Dashboard</div>
+      <div style="font-size:0.82rem;color:rgba(255,255,255,0.6);">סיכום מילוי דף העבודה</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div style="font-weight:700;font-size:1rem;margin-bottom:8px;">📋 סיכום מילוי</div>
+    <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:16px;">לחצו לקריאת נתוני דף העבודה הנוכחי</p>
+    <div id="assessment-content" style="display:none;"></div>
+    <button onclick="if(window.calcAssessment)window.calcAssessment()"
+      style="background:var(--navy-lt);color:#fff;border:none;padding:12px 28px;border-radius:10px;font-family:'Heebo',sans-serif;font-size:0.95rem;font-weight:700;cursor:pointer;width:100%;margin-top:14px;transition:all 0.2s;">
+      חשב סיכום מילוי ⇩
+    </button>
+  </div>
+</div><!-- /dashboard -->
+
+
+<!-- ─── NEXT LESSON BAR ─── -->
+<div class="no-print" style="max-width:860px;margin:32px auto 0;padding:0 16px 8px;">
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 20px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+    <div style="font-size:0.88rem;color:var(--text-muted);">
+      שיעור 3 מתוך 4
+    </div>
+    <a href="unit2_lesson4_meanings_v3.html" style="display:inline-flex;align-items:center;gap:8px;background:#1877f2;color:#fff;border:none;padding:10px 22px;border-radius:10px;font-family:'Heebo',sans-serif;font-size:0.9rem;font-weight:700;cursor:pointer;text-decoration:none;min-height:44px;">
+      משמעויות ותפקודים ⬅️
+    </a>
+  </div>
+</div>
+<!-- ─── END NEXT LESSON BAR ─── -->
+
+</main>
+
+<!-- ════════════════════════════════════
+     MODAL
+════════════════════════════════════ -->
+<div id="modal">
+  <div style="background:var(--surface);border:1.5px solid var(--navy-lt);border-radius:20px;padding:36px;max-width:420px;width:90%;text-align:center;">
+    <div style="font-size:3rem;margin-bottom:10px;">✅</div>
+    <h2 style="font-family:'Secular One',sans-serif;font-size:1.4rem;color:var(--text);margin-bottom:8px;">נשלח בהצלחה!</h2>
+    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:18px;">דף העבודה נשלח למורה. כל הכבוד!</p>
+    <div id="modal-sum" style="background:var(--surface2);border-radius:10px;padding:14px;text-align:right;margin-bottom:18px;font-size:0.87rem;color:var(--text-mid);"></div>
+    <button onclick="closeModal()" style="background:var(--navy-lt);color:#fff;border:none;padding:10px 28px;border-radius:10px;font-family:'Heebo',sans-serif;font-size:0.95rem;font-weight:700;cursor:pointer;">סגור</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     FOOTER
+════════════════════════════════════ -->
+<footer class="no-print" style="background:var(--navy);color:rgba(255,255,255,0.55);text-align:center;padding:20px;font-size:0.78rem;margin-top:60px;">
+  פלטפורמת לשון עברית — כיתה י׳ | יחידה 2: מערכת השם | שיעור 3 מתוך 3<br>
+  תואם תכנית המפמ"ר ומיצ"ב 2026 | © כל הזכויות שמורות
+</footer>
+
+
+<script>
+// ─── Tabs ───
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.style.color = 'var(--text-muted)'; });
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  btn.style.color = '';
+}
+
+// ─── Timer ───
+let tInt=null, tSec=2700, elapsed=0;
+const phases=[{end:300,label:'🔥 פתיחה'},{end:900,label:'📚 רכישה'},{end:1500,label:'🎬 הדגמה'},{end:2400,label:'✏️ תרגול'},{end:2700,label:'🔚 סיכום'}];
+function startTimer(){
+  if(tInt) return;
+  tInt=setInterval(()=>{
+    elapsed++;
+    const rem=tSec-elapsed;
+    if(rem<=0){clearInterval(tInt);document.getElementById('timer-display').textContent='00:00';return;}
+    const m=Math.floor(rem/60),s=rem%60;
+    const d=document.getElementById('timer-display');
+    d.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    d.classList.toggle('warning',rem<=120);
+    const pct=Math.round(elapsed/tSec*100);
+    document.getElementById('prog-fill').style.width=pct+'%';
+    document.getElementById('prog-pct').textContent=pct+'%';
+    const ph=phases.find(p=>elapsed<=p.end);
+    if(ph) document.getElementById('phase-ind').textContent=ph.label;
+  },1000);
+}
+function resetTimer(){
+  clearInterval(tInt);tInt=null;elapsed=0;
+  document.getElementById('timer-display').textContent='45:00';
+  document.getElementById('timer-display').classList.remove('warning');
+  document.getElementById('prog-fill').style.width='0%';
+  document.getElementById('prog-pct').textContent='0%';
+  document.getElementById('phase-ind').textContent='';
+}
+
+// ─── Submit ───
+function submitWS(){
+  const name=(document.getElementById('sname')||{}).value||'לא הוזן';
+  const cls=(document.getElementById('sclass')||{}).value||'לא הוזנה';
+  const date=(document.getElementById('sdate')||{}).value||new Date().toLocaleDateString('he-IL');
+  const q1len=(document.getElementById('q1a_n')||{}).value||'';
+  const q4len=(document.getElementById('q4')||{}).value||'';
+  document.getElementById('modal-sum').innerHTML=`
+    <div style="margin-bottom:6px;"><strong>תלמיד/ה:</strong> ${name}</div>
+    <div style="margin-bottom:6px;"><strong>כיתה:</strong> ${cls}</div>
+    <div style="margin-bottom:6px;"><strong>תאריך:</strong> ${date}</div>
+    <div style="margin-bottom:6px;"><strong>שאלה 1:</strong> ${q1len?'הוזנה':'ריקה'}</div>
+    <div><strong>שאלה 4 (יצירה):</strong> ${q4len.length} תווים</div>
+  `;
+  document.getElementById('modal').classList.add('show');
+  if(window.calcAssessment) window.calcAssessment();
+}
+function closeModal(){document.getElementById('modal').classList.remove('show');}
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+// ─── calcAssessment — Dashboard ───
+window.calcAssessment = function() {
+  const ac = document.getElementById('assessment-content');
+  if (!ac) return;
+
+  const sname  = (document.getElementById('sname') ||{}).value||'';
+  const sclass = (document.getElementById('sclass')||{}).value||'';
+  const sdate  = (document.getElementById('sdate') ||{}).value||new Date().toLocaleDateString('he-IL');
+
+  let filled=0, total=0;
+  const qData=[];
+
+  function chk(id, label) {
+    total++;
+    const el=document.getElementById(id);
+    const ok=!!(el&&el.value&&el.value.trim().length>0);
+    if(ok) filled++;
+    qData.push({label,ok,val:el?el.value.trim().substring(0,40):''});
+  }
+  function chkSel(id, label) {
+    total++;
+    const el=document.getElementById(id);
+    const ok=!!(el&&el.value&&el.value!='');
+    if(ok) filled++;
+    qData.push({label,ok,val:ok?el.value.substring(0,30):'—'});
+  }
+  function chkRadio(name, label) {
+    total++;
+    const checked=document.querySelector(`input[name="${name}"]:checked`);
+    const ok=!!checked;
+    if(ok) filled++;
+    qData.push({label,ok,val:ok?checked.value:'—'});
+  }
+
+  // שאלה 1 — 15 מילים
+  ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o'].forEach((ch,i) => {
+    const labels=['מַחְשֵׁב','טֶלֶפוֹן','סְפָרִיָּה','מִסְפָּר','כַּדּוּרְגְּלָן','רָדִיוֹ','מַדְפֶּסֶת','מַדָּעִי','אִינְטֶרְנֶט','פַּסְנְתְּרָן','כְּתִיבָה','טִלְפֵּן','תַּקְלִיטִיָּה','מֵיטַב','שִׁירוֹן'];
+    chkSel(`q1${ch}_d`,`שאלה 1${['א','ב','ג','ד','ה','ו','ז','ח','ט','י','יא','יב','יג','יד','טו'][i]} — ${labels[i]} (שיטה)`);
+  });
+
+  // שאלה 2
+  chk('q2a','שאלה 2א — חֲשִׁיבָה');
+  chk('q2b','שאלה 2ב — גִּיטָרָן');
+  chk('q2c','שאלה 2ג — מַכְתֵּב');
+  chk('q2d','שאלה 2ד — כַּלְכָּלִי');
+  chk('q2e','שאלה 2ה — אתגר סקנר');
+
+  // שאלה 3
+  chkRadio('q3_1','שאלה 3.1 — מַדְפֶּסֶת');
+  chkRadio('q3_2','שאלה 3.2 — מַחְשֵׁב / תַּקְלִיטִיָּה');
+  chkRadio('q3_3','שאלה 3.3 — טִלְפֵּן');
+
+  // שאלה 4
+  chk('q4','שאלה 4 — מילון טכנולוגיה');
+
+  const pct = total>0 ? Math.round(filled/total*100) : 0;
+  const bc  = pct>=80 ? '#2ecc71' : pct>=50 ? '#f39c12' : '#e74c3c';
+  const bg  = pct>=80 ? '#e8f8f0' : pct>=50 ? '#fef9e7' : '#fdecea';
+  const em  = pct>=80 ? '⭐' : pct>=50 ? '💪' : '📝';
+
+  let h='';
+  h+=`<div style="background:#e7f3ff;border-radius:8px;padding:10px 14px;margin-bottom:13px;font-size:.85rem;direction:rtl;line-height:1.8;border:1px solid rgba(37,99,184,.2);">
+    <strong>תלמיד/ה:</strong> ${sname||'<span style="color:#aaa">לא הוזן</span>'}`;
+  if(sclass) h+=` · <strong>כיתה:</strong> ${sclass}`;
+  h+=` · <strong>תאריך:</strong> ${sdate}</div>`;
+  h+=`<div style="background:${bg};color:${bc};padding:12px 16px;border-radius:8px;text-align:center;font-weight:900;font-size:1.05rem;margin-bottom:12px;border:1px solid ${bc}33">
+    ${em} ${filled} / ${total} שדות מולאו — ${pct}%</div>
+  <div style="height:9px;background:var(--border);border-radius:100px;margin-bottom:15px;overflow:hidden">
+    <div style="height:100%;width:${pct}%;background:${bc};border-radius:100px;transition:width .5s ease"></div></div>`;
+  h+=`<div style="font-size:.8rem;direction:rtl">`;
+  let lastSection='';
+  qData.forEach(q=>{
+    const sec=q.label.split(' ')[0]+' '+q.label.split(' ')[1];
+    if(sec!==lastSection){
+      h+=`<div style="font-weight:700;font-size:.78rem;color:var(--navy-lt);padding:8px 0 4px;border-top:1px solid var(--border);margin-top:4px;">${sec}</div>`;
+      lastSection=sec;
+    }
+    const icon=q.ok?'✅':'○', clr=q.ok?'#1d7a34':'#90949c';
+    h+=`<div style="display:flex;align-items:baseline;gap:8px;padding:4px 0;border-bottom:1px solid var(--surface2)">
+      <span>${icon}</span>
+      <span style="flex:1;color:${clr};font-size:.81rem">${q.label}</span>`;
+    if(q.val&&q.ok) h+=`<span style="color:#aaa;font-size:.75rem;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${q.val}</span>`;
+    h+=`</div>`;
+  });
+  h+=`</div>`;
+  ac.innerHTML=h;
+  ac.style.display='block';
+};
+
+// ─── AUTO-INJECT STUDENT NAME FROM URL/LS ───
+// ─── END AUTO-INJECT ───
+
+// ─── ROLE=TEACHER SECURITY (v4) ─────────────────────────────────────────
+(function applyTeacherRole() {
+  var params = new URLSearchParams(window.location.search);
+  var isTeacher = params.get('role') === 'teacher';
+
+  if (!isTeacher) {
+    document.querySelectorAll('.tab-pane').forEach(function(p){ p.classList.remove('active'); });
+    document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); b.style.color='var(--text-muted)'; });
+    var defPane = document.getElementById('th') || document.getElementById('tw');
+    if (defPane) { defPane.classList.add('active'); }
+    var defBtn = document.querySelector('[onclick*="\'th\'"],[onclick*="\'tw\'"]');
+    if (defBtn) { defBtn.classList.add('active'); defBtn.style.color='var(--navy)'; }
+    return;
+  }
+
+  // Teacher mode: reveal all teacher elements
+  ['tt','ta','tq','tab-teacher','tab-answers','tab-assess','tab-dashboard'].forEach(function(id){
+    var el = document.getElementById(id);
+    if (el) { el.style.removeProperty('display'); el.classList.remove('teacher-only'); }
+  });
+  document.querySelectorAll('.teacher-only').forEach(function(el){
+    el.style.removeProperty('display');
+  });
+  // Activate teacher guide tab
+  document.querySelectorAll('.tab-pane').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+  var tPane = document.getElementById('tt') || document.getElementById('tab-teacher');
+  if (tPane) { tPane.classList.add('active'); tPane.style.removeProperty('display'); }
+  var tBtn = document.querySelector('[onclick*="\'tt\'"],[onclick*="\'tab-teacher\'"]');
+  if (tBtn) { tBtn.classList.add('active'); tBtn.style.color='var(--navy)'; }
+})();
+// ─── END ROLE=TEACHER SECURITY ──────────────────────────────────────────
+
+
+</script>
+</body>
+</html>

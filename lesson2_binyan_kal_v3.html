@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>שיעור 2 | בניין קַל | כיתה י׳</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f0f2f5;--surface:#ffffff;--surface2:#e8edf3;--border:#d0d7e3;
+  --navy:#1a3a6b;--navy-lt:#2563b8;--teal:#0d7a6a;--sun:#e8a020;
+  --danger:#c0392b;--purple:#6b3aed;--text:#1c2433;--text-mid:#3e4a5c;--text-muted:#6b7a8d;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);direction:rtl;text-align:right;line-height:1.7;}
+.tab-btn{flex-shrink:0;padding:7px 16px;border-radius:.625rem;border:none;background:transparent;color:rgba(255,255,255,.7);font-family:'Heebo',sans-serif;font-size:.83rem;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap;}
+.tab-btn:hover{background:rgba(255,255,255,.15);color:#fff}
+.tab-btn.active{background:rgba(255,255,255,.2);color:#fff;font-weight:800}
+.tab-pane{display:none}.tab-pane.active{display:block}
+.hero{background:linear-gradient(160deg,#0c2040 0%,#1a3a6b 45%,#1a5080 100%);position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");}
+#timer-display{font-family:'Secular One',sans-serif;font-size:2.1rem;color:#a8d4f0;letter-spacing:.04em;}
+#timer-display.warning{color:#ff9f7f;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.prog-wrap{height:6px;background:rgba(255,255,255,.15);border-radius:3px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,#a8d4f0,#6dcbfa);border-radius:3px;transition:width .4s;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.4rem 1.6rem;margin-bottom:1.25rem;box-shadow:0 2px 8px rgba(26,58,107,.07);}
+.theory-block{border-right:5px solid var(--navy-lt);padding:1rem 1.25rem;background:#e7f3ff;border-radius:0 10px 10px 0;margin-bottom:1rem;}
+.theory-block .block-title{font-weight:800;color:var(--navy);font-size:.9rem;margin-bottom:7px;display:flex;align-items:center;gap:6px;}
+.theory-block.tip{border-right-color:var(--sun);background:#fef9e7;}
+.theory-block.tip .block-title{color:#7a5200;}
+.theory-block.danger{border-right-color:var(--danger);background:#fdecea;}
+.theory-block.danger .block-title{color:var(--danger);}
+.theory-block.teal{border-right-color:var(--teal);background:#e6f7f5;}
+.theory-block.teal .block-title{color:var(--teal);}
+.article-body{font-size:1rem;line-height:2.0;color:var(--text-mid);}
+.article-body p{margin-bottom:1.15em;}
+.ctable{width:100%;border-collapse:collapse;border-radius:10px;overflow:hidden;}
+.ctable th{background:var(--navy);color:#fff;padding:10px 14px;font-size:.85rem;font-weight:700;}
+.ctable td{padding:9px 14px;border-bottom:1px solid var(--border);font-size:.9rem;line-height:1.6;}
+.ctable tr:nth-child(even) td{background:#f4f7fd;}
+.ctable tr:hover td{background:#e3ecf8;}
+.ctable .note{font-size:.78rem;color:var(--text-muted);}
+textarea,input[type="text"],select{font-family:'Heebo',sans-serif;direction:rtl;text-align:right;background:#fafdff;border:1.5px solid var(--border);border-radius:8px;padding:10px 14px;width:100%;font-size:.95rem;line-height:1.7;color:var(--text);transition:border-color .2s,box-shadow .2s;resize:vertical;}
+textarea:focus,input[type="text"]:focus,select:focus{outline:none;border-color:var(--navy-lt);box-shadow:0 0 0 3px rgba(37,99,184,.12);}
+textarea::placeholder,input::placeholder{color:var(--text-muted);}
+.ai{border-right:4px solid var(--navy-lt);padding:.65rem 1rem;margin-bottom:.75rem;background:#e7f3ff;border-radius:0 8px 8px 0;font-size:.9rem;line-height:1.7;}
+.ai.teal{border-color:var(--teal);background:#e6f7f5;}
+.ai.danger{border-color:var(--danger);background:#fdecea;}
+.ai.sun{border-color:var(--sun);background:#fef9e7;}
+.ai.purple{border-color:var(--purple);background:#f0ebff;}
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 11px;border-radius:100px;font-size:.75rem;font-weight:700;}
+.phase-row{display:flex;gap:16px;margin-bottom:22px;align-items:flex-start;}
+.phase-circle{min-width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.84rem;flex-shrink:0;}
+.score-pill{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:8px 18px;text-align:center;display:inline-block;}
+#modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;align-items:center;justify-content:center;}
+#modal.show{display:flex;}
+.q-num{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.85rem;flex-shrink:0;color:#fff;background:var(--navy-lt);}
+.teal-h{font-family:'Secular One',sans-serif;color:var(--navy);font-size:1.25rem;border-bottom:2px solid var(--border);padding-bottom:8px;margin-bottom:18px;}
+.rr td{padding:9px 12px;border-bottom:1px solid var(--border);font-size:.87rem;}
+.rr:last-child td{border-bottom:none;}
+.hl-kal{background:#c8dff8;padding:1px 5px;border-radius:3px;color:#0d2a6b;font-weight:700;}
+.hl-nif{background:#c8e8d8;padding:1px 5px;border-radius:3px;color:#0a4030;font-weight:700;}
+@media print{.no-print{display:none!important}.tab-pane{display:block!important}body{background:#fff}}
+@media(max-width:640px){textarea,input[type="text"],select{font-size:1rem!important}.card{padding:1rem!important}}
+
+/* ─── v4 MOBILE ENHANCEMENTS ─── */
+/* Touch-target minimum size */
+button, .tab-btn, .lc-btn, .bp, .bok, .bghost, .mc-opt, .btn-primary, .btn-submit {
+  min-height: 44px;
+  touch-action: manipulation;
+}
+input[type="text"], input[type="password"], input[type="tel"],
+input[type="number"], textarea, select {
+  min-height: 44px;
+  font-size: 16px !important; /* prevents iOS zoom on focus */
+  border-radius: 10px;
+}
+/* Scrollable tables on mobile */
+.mobile-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.mobile-scroll table { min-width: 460px; }
+/* Consistent border-radius */
+.card { border-radius: 14px; }
+.q-card { border-radius: 14px; }
+/* ─── END v4 MOBILE ─── */
+
+
+/* v3: 44px touch targets */
+button,.tab-btn,.lc-btn,.neon-btn,.btn-primary,.btn-submit,.bp,.bok,.bghost,.bdanger {
+  min-height: 44px;
+  touch-action: manipulation;
+}
+input[type="text"],input[type="password"],input[type="tel"],
+input[type="number"],textarea,select {
+  min-height: 44px;
+  font-size: 16px !important;
+}
+/* end v3 touch */
+
+</style>
+</head>
+<body>
+
+<header class="hero text-white py-10 px-5 no-print" style="position:relative;z-index:1;">
+  <div class="max-w-5xl mx-auto relative" style="z-index:2;">
+    <div class="flex items-start justify-between flex-wrap gap-4">
+      <div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">
+          <span class="badge" style="background:rgba(168,212,240,.2);color:#a8d4f0;border:1px solid rgba(168,212,240,.4);">כיתה י׳</span>
+          <span class="badge" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.15);">לשון עברית</span>
+          <span class="badge" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.15);">יחידה 1 — מערכת הפועל</span>
+          <span class="badge" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.15);">שיעור 2 מתוך 6</span>
+          <span class="badge" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.15);">45 דקות</span>
+        </div>
+        <h1 style="font-family:'Secular One',sans-serif;font-size:clamp(1.6rem,4vw,2.7rem);line-height:1.15;margin-bottom:10px;">
+          בניין קַל (פָּעַל)
+          <span style="display:block;font-size:clamp(1rem,2.5vw,1.5rem);color:#a8d4f0;margin-top:4px;">עבר · הווה · עתיד · ניקוד ומשמעות</span>
+        </h1>
+        <p style="color:rgba(255,255,255,.65);font-size:.97rem;max-width:500px;">הבניין הבסיסי ביותר בעברית — שלמות מוחלטת בשלושה זמנים</p>
+      </div>
+      <div style="background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.15);border-radius:16px;padding:16px 20px;min-width:185px;text-align:center;" class="no-print">
+        <div style="font-size:.7rem;color:rgba(255,255,255,.5);margin-bottom:4px;letter-spacing:.1em;">⏱ טיימר שיעור</div>
+        <div id="timer-display">45:00</div>
+        <div style="display:flex;gap:8px;justify-content:center;margin-top:10px;">
+          <button onclick="startTimer()" style="background:#a8d4f0;color:#0c2040;border:none;border-radius:7px;padding:5px 14px;font-family:'Heebo',sans-serif;font-size:.78rem;font-weight:700;cursor:pointer;">▶ התחל</button>
+          <button onclick="resetTimer()" style="background:rgba(255,255,255,.12);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.2);border-radius:7px;padding:5px 10px;font-family:'Heebo',sans-serif;font-size:.78rem;cursor:pointer;">↺</button>
+        </div>
+        <div id="phase-ind" style="font-size:.74rem;color:#a8d4f0;margin-top:8px;min-height:1.2em;"></div>
+      </div>
+    </div>
+    <div style="margin-top:22px;" class="no-print">
+      <div style="display:flex;justify-content:space-between;font-size:.71rem;color:rgba(255,255,255,.45);margin-bottom:5px;"><span>התקדמות השיעור</span><span id="prog-pct">0%</span></div>
+      <div class="prog-wrap"><div class="prog-fill" id="prog-fill" style="width:0%;"></div></div>
+      <div style="display:flex;justify-content:space-between;font-size:.67rem;color:rgba(255,255,255,.3);margin-top:4px;">
+        <span>פתיחה (5׳)</span><span>רכישה (10׳)</span><span>הדגמה (10׳)</span><span>תרגול (15׳)</span><span>סיכום (5׳)</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="no-print sticky top-0 z-50" style="background:var(--surface);border-bottom:1px solid var(--border);box-shadow:0 2px 8px rgba(0,0,0,.06);">
+  <div class="overflow-x-auto my-4" class="max-w-5xl mx-auto px-4" style="display:flex;gap:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;">
+    <button class="tab-btn active px-4 py-3 text-sm" onclick="showTab('tt',this)" style="color:var(--navy);">📋 מדריך המורה</button>
+    <button class="tab-btn px-4 py-3 text-sm" onclick="showTab('th',this)" style="color:var(--text-muted);">📚 הלכה</button>
+    <button class="tab-btn px-4 py-3 text-sm" onclick="showTab('tw',this)" style="color:var(--text-muted);">✏️ דף עבודה</button>
+    <button class="tab-btn px-4 py-3 text-sm" onclick="showTab('ta',this)" style="color:var(--text-muted);">🔑 פתרונות</button>
+    <button class="tab-btn px-4 py-3 text-sm" onclick="showTab('tq',this)" style="color:var(--text-muted);">📊 Dashboard</button>
+    <button onclick="window.print()" style="margin-right:auto;padding:8px 16px;font-size:.8rem;color:var(--text-muted);background:transparent;border:none;cursor:pointer;" class="no-print">🖨️ הדפס</button>
+  </div>
+</nav>
+
+<main class="max-w-5xl mx-auto px-4 py-8">
+
+<!-- ═══ TAB 1: TEACHER ═══ -->
+<div id="tt" class="tab-pane active">
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+    <div class="card text-center" style="border-top:3px solid var(--navy-lt);"><div style="font-size:1.7rem;margin-bottom:4px;">🎯</div><div style="font-size:.82rem;font-weight:700;color:var(--navy-lt);">מטרה</div><div style="font-size:.78rem;color:var(--text-muted);margin-top:3px;">נטיית קַל בשלושה זמנים; זיהוי גוף/מין/מספר; ניתוח בהקשר</div></div>
+    <div class="card text-center" style="border-top:3px solid var(--teal);"><div style="font-size:1.7rem;margin-bottom:4px;">🔗</div><div style="font-size:.82rem;font-weight:700;color:var(--teal);">קודם לשיעור</div><div style="font-size:.78rem;color:var(--text-muted);margin-top:3px;">שיעור 1 — שורש ושבעת הבניינים</div></div>
+    <div class="card text-center" style="border-top:3px solid var(--sun);"><div style="font-size:1.7rem;margin-bottom:4px;">🛠️</div><div style="font-size:.82rem;font-weight:700;color:var(--sun);">כלים</div><div style="font-size:.78rem;color:var(--text-muted);margin-top:3px;">טבלת נטייה, לוח, כרטיסי גוף</div></div>
+    <div class="card text-center" style="border-top:3px solid var(--danger);"><div style="font-size:1.7rem;margin-bottom:4px;">📐</div><div style="font-size:.82rem;font-weight:700;color:var(--danger);">מיצ"ב</div><div style="font-size:.78rem;color:var(--text-muted);margin-top:3px;">D2.1, D2.3, R2.2, W1.3</div></div>
+  </div>
+
+  <h2 class="teal-h">📍 מהלך השיעור</h2>
+
+  <div class="phase-row">
+    <div class="phase-circle" style="background:var(--danger);color:#fff;">5׳</div>
+    <div style="flex:1;">
+      <span class="badge" style="background:#fdecea;color:var(--danger);border:1px solid var(--danger);margin-bottom:8px;">🔥 פתיחה</span>
+      <h3 style="font-weight:700;font-size:1rem;margin-bottom:7px;">אתגר "שיר הגופים"</h3>
+      <p style="font-size:.9rem;color:var(--text-mid);">כתבו על הלוח: <strong>כָּתַב</strong> (שורש: כ.ת.ב, בניין: קַל, עבר ג׳ז׳י׳). בקשו מהתלמידים לנייד: "מה הצורה ל-אני? את? אתם?" — מי עונה נכון ראשון "זוכה". מטרה: לחשוף מהיר את מה שנדרש לשיפור.</p>
+    </div>
+  </div>
+
+  <div class="phase-row">
+    <div class="phase-circle" style="background:var(--navy-lt);color:#fff;">10׳</div>
+    <div style="flex:1;">
+      <span class="badge" style="background:#e7f3ff;color:var(--navy-lt);border:1px solid var(--navy-lt);margin-bottom:8px;">📚 רכישה — טבלת נטייה</span>
+      <h3 style="font-weight:700;font-size:1rem;margin-bottom:7px;">שלושת הזמנים — מקביל ומשולב</h3>
+      <p style="font-size:.9rem;color:var(--text-mid);">עברו על לשונית "הלכה". הציגו את טבלאות הנטייה. הדגישו את שלוש "מלכודות הניקוד": (1) <strong>כָּתַבְתְּ</strong> (שורש: כ.ת.ב, בניין: קַל, עבר, את) — ת׳ עם שווא (לא קמץ). (2) <strong>תִּכְתֹּב</strong> (שורש: כ.ת.ב, בניין: קַל, עתיד) — שייך גם לאתה וגם להיא. (3) <strong>כְּתַבְתֶּם</strong> (שורש: כ.ת.ב, בניין: קַל, עבר, אתם) — חיריק בפ"פ (לא קמץ).</p>
+    </div>
+  </div>
+
+  <div class="phase-row">
+    <div class="phase-circle" style="background:var(--teal);color:#fff;">10׳</div>
+    <div style="flex:1;">
+      <span class="badge" style="background:#e6f7f5;color:var(--teal);border:1px solid var(--teal);margin-bottom:8px;">🎬 הדגמה — ניתוח בהקשר</span>
+      <h3 style="font-weight:700;font-size:1rem;margin-bottom:7px;">נתחו משפטים מהטקסט</h3>
+      <p style="font-size:.9rem;color:var(--text-mid);">קראו יחד 3 משפטים מהטקסט. לכל פועל: (1) קבעו שורש, (2) קבעו זמן, (3) קבעו גוף/מין/מספר. לדוגמה: <strong>גָּלְשׁוּ</strong> (שורש: ג.ל.ש, בניין: קַל, עבר, ג׳ז׳ר׳ — "הם גלשו"). <strong>לוֹמֶדֶת</strong> (שורש: ל.מ.ד, בניין: קַל, הווה, נקבה יחיד — "היא לומדת").</p>
+    </div>
+  </div>
+
+  <div class="phase-row">
+    <div class="phase-circle" style="background:var(--sun);color:#fff;">15׳</div>
+    <div style="flex:1;">
+      <span class="badge" style="background:#fef9e7;color:#7a5200;border:1px solid var(--sun);margin-bottom:8px;">✏️ תרגול</span>
+      <h3 style="font-weight:700;font-size:1rem;margin-bottom:7px;">שאלות 1–5 — עצמאי</h3>
+      <p style="font-size:.9rem;color:var(--text-mid);">קבוצות חלשות — שאלות 1–3 בלבד. קבוצות חזקות — שאלות 4–5 גם. שאלה 2 (טבלת נטייה) — ניתן לעבוד בזוגות.</p>
+    </div>
+  </div>
+
+  <div class="phase-row" style="margin-bottom:0;">
+    <div class="phase-circle" style="background:var(--text-muted);color:#fff;">5׳</div>
+    <div style="flex:1;">
+      <span class="badge" style="background:var(--surface2);color:var(--text-muted);border:1px solid var(--border);margin-bottom:8px;">🔚 סיכום</span>
+      <h3 style="font-weight:700;font-size:1rem;margin-bottom:7px;">דיון מסכם</h3>
+      <p style="font-size:.9rem;color:var(--text-mid);">שאלה: "מה ההבדל בין לָמַד לבין כָּתַב — ניקוד הווה?" — פתיחה לשיעור 3.</p>
+    </div>
+  </div>
+
+  <h2 class="teal-h" style="margin-top:32px;">⚠️ שגיאות נפוצות</h2>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+    <div class="card" style="border-right:4px solid var(--danger);"><div style="font-weight:700;color:var(--danger);margin-bottom:6px;">1. בלבול גוף שני בעבר</div><p style="font-size:.88rem;color:var(--text-mid);"><strong>כָּתַבְתָּ</strong> (שורש: כ.ת.ב, אתה) לעומת <strong>כָּתַבְתְּ</strong> (שורש: כ.ת.ב, את). כלל: בלי ת"א = "הוא"; עם ת"א קמץ = "אתה"; עם ת"א שווא = "את".</p></div>
+    <div class="card" style="border-right:4px solid var(--danger);"><div style="font-weight:700;color:var(--danger);margin-bottom:6px;">2. הווה — זכר/נקבה רבים</div><p style="font-size:.88rem;color:var(--text-mid);"><strong>כּוֹתְבִים</strong> (שורש: כ.ת.ב, זכר רבים) לעומת <strong>כּוֹתְבוֹת</strong> (שורש: כ.ת.ב, נקבה רבות). בטקסטים ללא ניקוד — הסיומת קובעת.</p></div>
+    <div class="card" style="border-right:4px solid var(--danger);"><div style="font-weight:700;color:var(--danger);margin-bottom:6px;">3. עתיד: ת׳ — איזו ת׳?</div><p style="font-size:.88rem;color:var(--text-mid);"><strong>תִּכְתְּבִי</strong> (שורש: כ.ת.ב, את בעתיד) לעומת <strong>תִּכְתֹּב</strong> (שורש: כ.ת.ב, אתה/היא בעתיד). ת + י בסוף = גוף שני נקבה.</p></div>
+    <div class="card" style="border-right:4px solid var(--danger);"><div style="font-weight:700;color:var(--danger);margin-bottom:6px;">4. ניקוד "אתם" בעבר</div><p style="font-size:.88rem;color:var(--text-mid);"><strong>כְּתַבְתֶּם</strong> — שימו לב: חיריק תחת פ"פ (לא קמץ כמו בגוף שלישי). שינוי הניקוד בפ"פ הוא מאפיין ייחודי של "אתם/אתן".</p></div>
+  </div>
+</div><!-- /teacher -->
+
+
+<!-- ═══ TAB 2: THEORY ═══ -->
+<div id="th" class="tab-pane">
+
+  <h2 class="teal-h" style="font-size:1.35rem;">📚 בניין קַל (פָּעַל) — הלכה מלאה</h2>
+
+  <div class="theory-block" style="margin-bottom:1.5rem;">
+    <div class="block-title">ℹ️ מאפייני הבניין</div>
+    <div class="article-body">
+      <p>בניין קַל הוא הפשוט והנפוץ ביותר בעברית — ה"בסיס" שממנו נגזרים שאר הבניינים. שמו "קַל" מרמז על כך שאין בו תוספות "כבדות" (דגשים מיוחדים, תחיליות). כאשר השורש כ.ת.ב מוטה בבניין קַל בזמן עבר, נקבל <strong>כָּתַב</strong> (שורש: כ.ת.ב, בניין: קַל, עבר, גוף שלישי זכר יחיד — תבנית: פָּעַל). בהווה: <strong>כּוֹתֵב</strong> (שורש: כ.ת.ב, בניין: קַל, הווה, זכר יחיד — תבנית: פּוֹעֵל). בעתיד: <strong>יִכְתֹּב</strong> (שורש: כ.ת.ב, בניין: קַל, עתיד, גוף שלישי זכר יחיד — תבנית: יִפְעֹל). שלוש תבניות אלה הן "שלד" הבניין שיש לשנן.</p>
+    </div>
+  </div>
+
+  <h3 style="font-weight:700;font-size:1.05rem;margin:20px 0 12px;">זמן עבר — שורש כ.ת.ב</h3>
+  <div class="overflow-x-auto my-4" style="overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:20px;">
+    <table class="ctable">
+      <thead><tr><th>גוף</th><th>צורת הפועל</th><th>ניתוח הסיומת</th><th>הערה</th></tr></thead>
+      <tbody>
+        <tr><td>אני</td><td style="font-weight:700;color:var(--navy-lt);">כָּתַבְתִּי</td><td>–תִּי</td><td class="note">תִּי = אני; הדגש בת׳</td></tr>
+        <tr><td>אתה</td><td style="font-weight:700;color:var(--navy-lt);">כָּתַבְתָּ</td><td>–תָּ</td><td class="note">ת + קמץ = אתה ז׳</td></tr>
+        <tr><td>את</td><td style="font-weight:700;color:var(--danger);">כָּתַבְתְּ</td><td>–תְּ</td><td class="note">ת + שווא = את נ׳ ⚠️</td></tr>
+        <tr><td>הוא</td><td style="font-weight:700;color:var(--navy-lt);">כָּתַב</td><td>—</td><td class="note">ללא סיומת = הוא</td></tr>
+        <tr><td>היא</td><td style="font-weight:700;color:var(--navy-lt);">כָּתְבָה</td><td>–ה</td><td class="note">ה + שווא תחת ע"פ</td></tr>
+        <tr><td>אנחנו</td><td style="font-weight:700;color:var(--navy-lt);">כָּתַבְנוּ</td><td>–נוּ</td><td class="note">נוּ = אנחנו</td></tr>
+        <tr><td>אתם</td><td style="font-weight:700;color:var(--danger);">כְּתַבְתֶּם</td><td>–תֶּם</td><td class="note">⚠️ חיריק בפ"פ (לא קמץ)</td></tr>
+        <tr><td>אתן</td><td style="font-weight:700;color:var(--navy-lt);">כְּתַבְתֶּן</td><td>–תֶּן</td><td class="note">תֶּן = אתן נ׳ רבות</td></tr>
+        <tr><td>הם/הן</td><td style="font-weight:700;color:var(--navy-lt);">כָּתְבוּ</td><td>–וּ</td><td class="note">וּ = הם / הן (זהה)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-weight:700;font-size:1.05rem;margin:20px 0 12px;">זמן הווה — ארבע צורות</h3>
+  <div class="overflow-x-auto my-4" style="overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:20px;">
+    <table class="ctable">
+      <thead><tr><th>גוף</th><th>צורת הפועל</th><th>תבנית</th><th>הערה</th></tr></thead>
+      <tbody>
+        <tr><td>זכר יחיד</td><td style="font-weight:700;color:var(--navy-lt);">כּוֹתֵב</td><td>פּוֹעֵל</td><td class="note">וּ + צֵרֵה = מאפיין הווה קַל</td></tr>
+        <tr><td>נקבה יחיד</td><td style="font-weight:700;color:var(--navy-lt);">כּוֹתֶבֶת</td><td>פּוֹעֶלֶת</td><td class="note">סיומת –ת + שגולים</td></tr>
+        <tr><td>זכר רבים</td><td style="font-weight:700;color:var(--navy-lt);">כּוֹתְבִים</td><td>פּוֹעֲלִים</td><td class="note">–ים; שווא תחת ע"פ</td></tr>
+        <tr><td>נקבה רבות</td><td style="font-weight:700;color:var(--navy-lt);">כּוֹתְבוֹת</td><td>פּוֹעֲלוֹת</td><td class="note">–ות; ניקוד כרבים זכר</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-weight:700;font-size:1.05rem;margin:20px 0 12px;">זמן עתיד — תחיליות וסיומות</h3>
+  <div class="overflow-x-auto my-4" style="overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:20px;">
+    <table class="ctable">
+      <thead><tr><th>גוף</th><th>צורת הפועל</th><th>תחילית</th><th>סיומת</th></tr></thead>
+      <tbody>
+        <tr><td>אני</td><td style="font-weight:700;color:var(--navy-lt);">אֶכְתֹּב</td><td>א–</td><td>—</td></tr>
+        <tr><td>אתה</td><td style="font-weight:700;color:var(--danger);">תִּכְתֹּב</td><td>ת–</td><td>— ⚠️ זהה להיא</td></tr>
+        <tr><td>את</td><td style="font-weight:700;color:var(--navy-lt);">תִּכְתְּבִי</td><td>ת–</td><td>–ִי</td></tr>
+        <tr><td>הוא</td><td style="font-weight:700;color:var(--navy-lt);">יִכְתֹּב</td><td>י–</td><td>—</td></tr>
+        <tr><td>היא</td><td style="font-weight:700;color:var(--danger);">תִּכְתֹּב</td><td>ת–</td><td>— ⚠️ זהה לאתה</td></tr>
+        <tr><td>אנחנו</td><td style="font-weight:700;color:var(--navy-lt);">נִכְתֹּב</td><td>נ–</td><td>—</td></tr>
+        <tr><td>אתם</td><td style="font-weight:700;color:var(--navy-lt);">תִּכְתְּבוּ</td><td>ת–</td><td>–וּ</td></tr>
+        <tr><td>הם</td><td style="font-weight:700;color:var(--navy-lt);">יִכְתְּבוּ</td><td>י–</td><td>–וּ</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="theory-block tip">
+    <div class="block-title">💡 שלוש "מלכודות ניקוד" בבניין קַל</div>
+    <div class="article-body">
+      <p><strong>מלכודת א׳:</strong> <strong>כָּתַבְתְּ</strong> (שורש: כ.ת.ב, בניין: קַל, עבר, את) — ת׳ עם שווא. תלמידים רבים קוראים כ"אתה" ומנקדים עם קמץ. הכלל: ת + שווא = "את" (גוף שני נקבה יחיד).</p>
+      <p><strong>מלכודת ב׳:</strong> <strong>תִּכְתֹּב</strong> (שורש: כ.ת.ב, בניין: קַל, עתיד) — שייך גם ל"אתה" (גוף שני זכר) וגם ל"היא" (גוף שלישי נקבה). ההקשר הוא שקובע מי הנושא.</p>
+      <p><strong>מלכודת ג׳:</strong> <strong>כְּתַבְתֶּם</strong> (שורש: כ.ת.ב, בניין: קַל, עבר, אתם) — חיריק תחת פ"פ! שינוי הניקוד הזה שוכח תמיד. כאשר הסיומת היא –תֶּם/תֶּן, הפ"פ משנה את ניקודו לחיריק.</p>
+    </div>
+  </div>
+
+</div><!-- /theory -->
+
+
+<!-- ═══ TAB 3: WORKSHEET ═══ -->
+<div id="tw" class="tab-pane">
+
+  <div class="card" style="background:linear-gradient(135deg,var(--surface2),var(--surface));margin-bottom:20px;">
+    <h2 style="font-family:'Secular One',sans-serif;font-size:1.2rem;color:var(--text);margin-bottom:16px;">✏️ דף עבודה — שיעור 2: בניין קַל</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div><label style="font-size:.8rem;font-weight:600;color:var(--text-muted);display:block;margin-bottom:4px;">שם מלא</label><input type="text" id="sname" placeholder="הקלד/י שם..."></div>
+      <div><label style="font-size:.8rem;font-weight:600;color:var(--text-muted);display:block;margin-bottom:4px;">כיתה</label><input type="text" id="sclass" placeholder="לדוגמה: י׳3"></div>
+      <div><label style="font-size:.8rem;font-weight:600;color:var(--text-muted);display:block;margin-bottom:4px;">תאריך</label><input type="text" id="sdate" placeholder="יום/חודש/שנה"></div>
+    </div>
+  </div>
+
+  <!-- Q1 -->
+  <div class="card" style="border-right:4px solid var(--navy-lt);">
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;">
+      <div class="q-num">1</div>
+      <div><div style="font-weight:700;font-size:1rem;">זיהוי פעלים בבניין קַל</div><div style="font-size:.84rem;color:var(--text-muted);">16 נקודות — 2 נקודות לכל פועל</div></div>
+    </div>
+    <p style="font-size:.91rem;margin-bottom:14px;color:var(--text-mid);">מהמשפטים הבאים — זהו פעלים בבניין קַל בלבד. לכל פועל: ציינו שורש, זמן, גוף+מין+מספר.</p>
+    <div style="background:#f4f7fd;border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:14px;font-size:.95rem;line-height:2.2;">
+      <p style="margin-bottom:8px;"><strong>א.</strong> "הם <span class="hl-kal">גָּלְשׁוּ</span> שעתיים ברצף ולא <span class="hl-kal">שָׂמוּ</span> לב לזמן."</p>
+      <p style="margin-bottom:8px;"><strong>ב.</strong> "ליאב <span class="hl-kal">פָּתַח</span> את האפליקציה ו<span class="hl-kal">עָלָה</span> הסרטון."</p>
+      <p style="margin-bottom:8px;"><strong>ג.</strong> "נועה <span class="hl-kal">לוֹמֶדֶת</span> עריכת וידאו ו<span class="hl-kal">כּוֹתֶבֶת</span> תסריטים."</p>
+      <p><strong>ד.</strong> "הוועדה תַּגְבִּיל שימוש בטלפון, ואנחנו <span class="hl-kal">נִשְׁאַר</span> עם יותר זמן פנוי."</p>
+    </div>
+    <p style="font-size:.84rem;color:var(--danger);margin-bottom:10px;">⚠️ שימו לב: לא כל הפעלים המסומנים הם בניין קַל — בחרו רק את השייכים לו!</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <div><label style="font-size:.8rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:4px;">פועל 1:</label><input type="text" id="q1p1" placeholder="פועל: ___ | שורש: _-_-_ | זמן: ___ | גוף: ___"></div>
+      <div><label style="font-size:.8rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:4px;">פועל 2:</label><input type="text" id="q1p2" placeholder="פועל: ___ | שורש: _-_-_ | זמן: ___ | גוף: ___"></div>
+      <div><label style="font-size:.8rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:4px;">פועל 3:</label><input type="text" id="q1p3" placeholder="פועל: ___ | שורש: _-_-_ | זמן: ___ | גוף: ___"></div>
+      <div><label style="font-size:.8rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:4px;">פועל 4:</label><input type="text" id="q1p4" placeholder="פועל: ___ | שורש: _-_-_ | זמן: ___ | גוף: ___"></div>
+      <div><label style="font-size:.8rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:4px;">פועל 5:</label><input type="text" id="q1p5" placeholder="פועל: ___ | שורש: _-_-_ | זמן: ___ | גוף: ___"></div>
+      <div style="grid-column:1/-1;"><label style="font-size:.8rem;font-weight:700;color:var(--danger);display:block;margin-bottom:4px;">אילו פעלים אינם קַל? נמקו:</label><textarea id="q1not" rows="2" placeholder="הפועל ___ אינו קַל כי... בניינו הוא ___"></textarea></div>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="card" style="border-right:4px solid var(--teal);">
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;">
+      <div class="q-num" style="background:var(--teal);">2</div>
+      <div><div style="font-weight:700;font-size:1rem;">השלמת טבלת נטייה — שורש ש.מ.ע</div><div style="font-size:.84rem;color:var(--text-muted);">20 נקודות — 2 נקודות לכל תא</div></div>
+    </div>
+    <p style="font-size:.91rem;margin-bottom:14px;color:var(--text-mid);">השלימו את טבלת הנטייה של השורש <strong>ש.מ.ע</strong> בבניין קַל. ציינו ניקוד מלא:</p>
+    <div class="overflow-x-auto my-4" style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+      <table class="ctable">
+        <thead><tr><th>גוף</th><th style="color:#a8d4f0;">עבר</th><th style="color:#a8d4f0;">הווה</th><th style="color:#a8d4f0;">עתיד</th></tr></thead>
+        <tbody>
+          <tr><td>אני</td><td><input type="text" id="t1" placeholder="___"></td><td><input type="text" id="t2" placeholder="—" readonly style="background:#f0f2f5;cursor:not-allowed;"></td><td><input type="text" id="t3" placeholder="___"></td></tr>
+          <tr><td>אתה</td><td><input type="text" id="t4" placeholder="___"></td><td><input type="text" id="t5" placeholder="___"></td><td><input type="text" id="t6" placeholder="___"></td></tr>
+          <tr><td>את</td><td><input type="text" id="t7" placeholder="___"></td><td><input type="text" id="t8" placeholder="___"></td><td><input type="text" id="t9" placeholder="___"></td></tr>
+          <tr><td>הוא</td><td><input type="text" id="t10" value="שָׁמַע" style="background:rgba(13,122,106,.05);"></td><td><input type="text" id="t11" placeholder="___"></td><td><input type="text" id="t12" placeholder="___"></td></tr>
+          <tr><td>היא</td><td><input type="text" id="t13" placeholder="___"></td><td><input type="text" id="t14" placeholder="___"></td><td><input type="text" id="t15" placeholder="___"></td></tr>
+          <tr><td>אנחנו</td><td><input type="text" id="t16" placeholder="___"></td><td><input type="text" id="t17" placeholder="___"></td><td><input type="text" id="t18" placeholder="___"></td></tr>
+          <tr><td>אתם</td><td><input type="text" id="t19" placeholder="___"></td><td><input type="text" id="t20" placeholder="___"></td><td><input type="text" id="t21" placeholder="___"></td></tr>
+          <tr><td>הם</td><td><input type="text" id="t22" placeholder="___"></td><td><input type="text" id="t23" placeholder="___"></td><td><input type="text" id="t24" placeholder="___"></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="font-size:.78rem;color:var(--text-muted);margin-top:8px;">💡 ניקוד מלא — גם פתחות וקמצות יש לציין.</div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="card" style="border-right:4px solid var(--sun);">
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;">
+      <div class="q-num" style="background:var(--sun);">3</div>
+      <div><div style="font-weight:700;font-size:1rem;">הטיית פועל בהקשר — שורש פ.ת.ח</div><div style="font-size:.84rem;color:var(--text-muted);">14 נקודות — 2 נקודות לכל משפט</div></div>
+    </div>
+    <p style="font-size:.91rem;margin-bottom:14px;color:var(--text-mid);">הכניסו את הפועל מהשורש <strong>פ.ת.ח</strong> בבניין קַל בצורה הנכונה לפי ההקשר:</p>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div><label style="font-size:.86rem;font-weight:700;color:var(--sun);display:block;margin-bottom:5px;">א. "אני _____ את האפליקציה שלשום בשמונה." (עבר)</label><input type="text" id="q3a" placeholder="צורת הפועל + גוף: ___"></div>
+      <div><label style="font-size:.86rem;font-weight:700;color:var(--sun);display:block;margin-bottom:5px;">ב. "הבנות _____ את הפיד כל ערב לפני שינה." (הווה)</label><input type="text" id="q3b" placeholder="צורת הפועל + גוף: ___"></div>
+      <div><label style="font-size:.86rem;font-weight:700;color:var(--sun);display:block;margin-bottom:5px;">ג. "אם החוק יעבור, הילדים לא _____ טלפון בשיעורים." (עתיד, ג׳ זכר רבים)</label><input type="text" id="q3c" placeholder="צורת הפועל + גוף: ___"></div>
+      <div><label style="font-size:.86rem;font-weight:700;color:var(--sun);display:block;margin-bottom:5px;">ד. "נועה _____ קריירה חדשה בעריכת וידאו." (עבר, ג׳ נקבה יחיד)</label><input type="text" id="q3d" placeholder="צורת הפועל + גוף: ___"></div>
+      <div><label style="font-size:.86rem;font-weight:700;color:var(--sun);display:block;margin-bottom:5px;">ה. "אנחנו _____ ויכוח על נושא זה כבר שנה." (הווה, רבים)</label><input type="text" id="q3e" placeholder="צורת הפועל + גוף: ___"></div>
+      <div><label style="font-size:.86rem;font-weight:700;color:var(--sun);display:block;margin-bottom:5px;">ו. "את _____ הודעה אחרי שתיים עשרה?" (עתיד, שני נקבה)</label><input type="text" id="q3f" placeholder="צורת הפועל + גוף: ___"></div>
+      <div><label style="font-size:.86rem;font-weight:700;color:var(--sun);display:block;margin-bottom:5px;">ז. "הם _____ את ממצאי הדוח לציבור אתמול." (עבר, ג׳ זכר רבים)</label><input type="text" id="q3g" placeholder="צורת הפועל + גוף: ___"></div>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="card" style="border-right:4px solid var(--purple);">
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;">
+      <div class="q-num" style="background:var(--purple);">4</div>
+      <div><div style="font-weight:700;font-size:1rem;">דיוק בניקוד — שני פירושים</div><div style="font-size:.84rem;color:var(--text-muted);">12 נקודות — 4 נקודות לכל שאלה</div></div>
+    </div>
+    <p style="font-size:.91rem;margin-bottom:14px;color:var(--text-mid);">לכל מילה — כתבו שתי קריאות שונות עם ניקוד, ציינו לכל אחת: גוף + זמן.</p>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div><label style="font-size:.88rem;font-weight:700;color:var(--purple);display:block;margin-bottom:5px;">א. "כתבת" — שתי קריאות:</label><input type="text" id="q4a1" placeholder="קריאה 1: ___ (גוף: ___, זמן: ___)"><input type="text" id="q4a2" style="margin-top:8px;" placeholder="קריאה 2: ___ (גוף: ___, זמן: ___)"></div>
+      <div><label style="font-size:.88rem;font-weight:700;color:var(--purple);display:block;margin-bottom:5px;">ב. "תכתוב" — שתי קריאות:</label><input type="text" id="q4b1" placeholder="קריאה 1: ___ (גוף: ___, זמן: ___)"><input type="text" id="q4b2" style="margin-top:8px;" placeholder="קריאה 2: ___ (גוף: ___, זמן: ___)"></div>
+      <div><label style="font-size:.88rem;font-weight:700;color:var(--purple);display:block;margin-bottom:5px;">ג. "שלח" — שתי קריאות:</label><input type="text" id="q4c1" placeholder="קריאה 1: ___ (גוף: ___, זמן: ___)"><input type="text" id="q4c2" style="margin-top:8px;" placeholder="קריאה 2: ___ (גוף: ___, זמן: ___)"></div>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="card" style="border:1.5px dashed var(--sun);background:rgba(232,160,32,.04);">
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;">
+      <div class="q-num" style="background:var(--sun);">5</div>
+      <div><div style="font-weight:700;font-size:1rem;color:var(--sun);">⭐ כתיבה עצמאית — בניין קַל בשלושה זמנים</div><div style="font-size:.84rem;color:var(--text-muted);">20 נקודות | הרחבה</div></div>
+    </div>
+    <p style="font-size:.91rem;margin-bottom:10px;color:var(--text-mid);">כתבו פסקה (5–6 משפטים) בנושא: <strong>"הרגלי הרשתות שלי"</strong>. השתמשו ב<strong>לפחות 6 פעלים בקַל — בשלושה זמנים שונים ושני גופים נוספים מ"אני"</strong>. סמנו כל פועל ורשמו [שורש + זמן + גוף].</p>
+    <textarea id="q7" rows="7" placeholder="כתבו כאן. לדוגמה: &#34;כל ערב אני פּוֹתֵחַ [כ.ת.ב, הווה, ז׳י׳] את האפליקציה...&#34;"></textarea>
+    <div style="font-size:.81rem;color:var(--text-muted);margin-top:7px;">💡 דוגמה: "הפסיכולוגית <u>הִסְבִּירָה</u> [ה.ס.ב.ר, הִפְעִיל, עבר, ג׳נ׳י׳] את המנגנון." — שימו לב: זה הִפְעִיל, לא קַל!</div>
+  </div>
+
+  <!-- Submit -->
+  <div class="card no-print" style="background:linear-gradient(135deg,var(--surface2),var(--surface));border:1.5px solid var(--navy-lt);text-align:center;">
+    <div style="font-size:2rem;margin-bottom:8px;">📤</div>
+    <h3 style="font-weight:700;font-size:1.05rem;color:var(--text);margin-bottom:6px;">שליחה למורה</h3>
+    <p style="font-size:.85rem;color:var(--text-muted);margin-bottom:16px;">לחצו לאחר מילוי דף העבודה המלא</p>
+    <button onclick="submitWS()" style="background:var(--navy-lt);color:#fff;border:none;padding:12px 36px;border-radius:10px;font-family:'Heebo',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;">שלח/י דף עבודה ✓</button>
+  </div>
+
+</div><!-- /worksheet -->
+
+
+<!-- ═══ TAB 4: ANSWERS ═══ -->
+<div id="ta" class="tab-pane">
+
+  <div style="background:linear-gradient(135deg,var(--surface2),var(--surface));border:1.5px solid var(--navy-lt);border-radius:14px;padding:18px 20px;margin-bottom:24px;">
+    <div style="display:flex;align-items:center;gap:10px;"><div style="font-size:2rem;">🔑</div><div><div style="font-weight:800;font-size:1rem;">מדריך פתרונות מלא — לשימוש מורה בלבד</div><div style="font-size:.82rem;color:var(--text-muted);">כולל שגיאות נפוצות ורובריקה</div></div></div>
+  </div>
+
+  <h3 style="font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--navy);margin-bottom:12px;">שאלה 1 — זיהוי פעלים (16 נקודות)</h3>
+  <div class="ai"><strong>גָּלְשׁוּ</strong> — שורש: ג.ל.ש | בניין: קַל | עבר, ג׳ זכר רבים | תבנית: פָּעֲלוּ</div>
+  <div class="ai"><strong>שָׂמוּ</strong> — שורש: ש.ו.מ (ע"ו) | בניין: קַל | עבר, ג׳ זכר רבים | שורש ע"ו — שווא"ו משמיטה</div>
+  <div class="ai"><strong>פָּתַח</strong> — שורש: פ.ת.ח | בניין: קַל | עבר, ג׳ זכר יחיד</div>
+  <div class="ai"><strong>לוֹמֶדֶת / כּוֹתֶבֶת</strong> — שורש: ל.מ.ד / כ.ת.ב | בניין: קַל | הווה, נקבה יחיד</div>
+  <div class="ai danger">⚠️ <strong>תַּגְבִּיל</strong> — הִפְעִיל (לא קַל). מַ בהווה / ה בעבר = מאפיין הִפְעִיל.</div>
+
+  <h3 style="font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--teal);margin:24px 0 12px;">שאלה 3 — שורש פ.ת.ח (14 נקודות)</h3>
+  <div class="ai teal"><strong>א.</strong> פָּתַחְתִּי — עבר, אני (גוף ראשון)</div>
+  <div class="ai teal"><strong>ב.</strong> פּוֹתְחוֹת — הווה, נקבה רבות ("הבנות")</div>
+  <div class="ai teal"><strong>ג.</strong> יִפְתְּחוּ — עתיד, ג׳ זכר רבים</div>
+  <div class="ai teal"><strong>ד.</strong> פָּתְחָה — עבר, ג׳ נקבה יחיד ("נועה")</div>
+  <div class="ai teal"><strong>ה.</strong> פּוֹתְחִים — הווה, זכר רבים ("אנחנו")</div>
+  <div class="ai teal"><strong>ו.</strong> תִּפְתְּחִי — עתיד, שני נקבה | ⚠️ לא לבלבל עם תִּפְתַּח (אתה / היא)</div>
+  <div class="ai teal"><strong>ז.</strong> פָּתְחוּ — עבר, ג׳ זכר רבים</div>
+
+  <h3 style="font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--purple);margin:24px 0 12px;">שאלה 4 — שתי קריאות (12 נקודות)</h3>
+  <div class="ai purple"><strong>"כתבת":</strong> קריאה 1: <strong>כָּתַבְתָּ</strong> (שורש: כ.ת.ב, בניין: קַל, עבר, אתה — ת + קמץ) | קריאה 2: <strong>כָּתַבְתְּ</strong> (שורש: כ.ת.ב, בניין: קַל, עבר, את — ת + שווא ⚠️)</div>
+  <div class="ai purple"><strong>"תכתוב":</strong> קריאה 1: <strong>תִּכְתֹּב</strong> (שורש: כ.ת.ב, בניין: קַל, עתיד, אתה — גוף שני זכר) | קריאה 2: <strong>תִּכְתֹּב</strong> (שורש: כ.ת.ב, בניין: קַל, עתיד, היא — גוף שלישי נקבה) ⚠️ צורה זהה!</div>
+  <div class="ai purple"><strong>"שלח":</strong> קריאה 1: <strong>שָׁלַח</strong> (שורש: ש.ל.ח, בניין: קַל, עבר, הוא) | קריאה 2: <strong>שְׁלַח</strong> (שורש: ש.ל.ח, בניין: קַל, ציווי, אתה)</div>
+
+  <h3 style="font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--sun);margin:24px 0 12px;">שאלה 5 — כתיבה עצמאית (20 נקודות)</h3>
+  <div class="overflow-x-auto my-4" style="overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:12px;">
+    <table class="ctable">
+      <thead><tr><th>קריטריון</th><th style="text-align:center;">מלא</th><th style="text-align:center;">חלקי</th><th style="text-align:center;">לא</th></tr></thead>
+      <tbody>
+        <tr class="rr"><td>6 פעלים בקַל — סומנו ונותחו</td><td style="text-align:center;">8</td><td style="text-align:center;">4</td><td style="text-align:center;">0</td></tr>
+        <tr class="rr"><td>3 זמנים שונים לפחות</td><td style="text-align:center;">5</td><td style="text-align:center;">2</td><td style="text-align:center;">0</td></tr>
+        <tr class="rr"><td>שני גופים נוספים מ"אני"</td><td style="text-align:center;">4</td><td style="text-align:center;">2</td><td style="text-align:center;">0</td></tr>
+        <tr class="rr"><td>פסקה קוהרנטית, ניסוח תקין</td><td style="text-align:center;">3</td><td style="text-align:center;">1</td><td style="text-align:center;">0</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="background:var(--surface2);border:1px solid var(--navy-lt);border-radius:10px;padding:14px 16px;font-size:.87rem;margin-bottom:16px;">
+    <strong style="color:var(--navy);">דוגמת תשובה מצוינת:</strong><br>
+    "כל ערב אני <u>פּוֹתֵחַ</u> [שורש: פ.ת.ח, קַל, הווה, אני] את הטלפון. אתמול <u>גָּלַשְׁתִּי</u> [שורש: ג.ל.ש, קַל, עבר, אני] שעה שלמה. גם חברי <u>שָׁלַח</u> [שורש: ש.ל.ח, קַל, עבר, הוא] עשרים הודעות. מחר אני <u>אֲנַסֶּה</u> [פִּיעֵל, עתיד, אני] להגביל את עצמי. המשפחה שלי <u>תִּשְׂמַח</u> [שורש: ש.מ.ח, קַל, עתיד, היא] לראות אותי בלי הטלפון."
+  </div>
+
+  <div class="card" style="background:linear-gradient(135deg,#0c2040,#1a3a6b);color:#fff;text-align:center;">
+    <div style="font-family:'Secular One',sans-serif;font-size:1.2rem;margin-bottom:16px;">סה"כ ניקוד שיעור 2</div>
+    <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;">
+      <div class="score-pill"><div style="font-size:1.4rem;font-weight:900;color:#a8d4f0;">16</div><div style="font-size:.7rem;color:rgba(255,255,255,.6);">שאלה 1</div></div>
+      <div class="score-pill"><div style="font-size:1.4rem;font-weight:900;color:#a8d4f0;">20</div><div style="font-size:.7rem;color:rgba(255,255,255,.6);">שאלה 2</div></div>
+      <div class="score-pill"><div style="font-size:1.4rem;font-weight:900;color:#a8d4f0;">14</div><div style="font-size:.7rem;color:rgba(255,255,255,.6);">שאלה 3</div></div>
+      <div class="score-pill"><div style="font-size:1.4rem;font-weight:900;color:#a8d4f0;">12</div><div style="font-size:.7rem;color:rgba(255,255,255,.6);">שאלה 4</div></div>
+      <div class="score-pill"><div style="font-size:1.4rem;font-weight:900;color:#ffd93d;">20</div><div style="font-size:.7rem;color:rgba(255,255,255,.6);">שאלה 5</div></div>
+      <div style="background:#a8d4f0;border-radius:100px;padding:10px 22px;display:inline-block;"><div style="font-size:1.9rem;font-weight:900;color:#0c2040;">82</div><div style="font-size:.7rem;color:#0c2040;">סה"כ</div></div>
+    </div>
+    <div style="font-size:.77rem;color:rgba(255,255,255,.45);">שאלות 1–4 = 62 נק׳ | שאלה 5 = 20 נק׳ (הרחבה) | טבלת נטייה = 20 נק׳ נוספות</div>
+  </div>
+
+</div><!-- /answers -->
+
+
+<!-- ═══ TAB 5: DASHBOARD ═══ -->
+<div id="tq" class="tab-pane">
+  <div class="card" style="background:linear-gradient(135deg,#0c2040,#1a3a6b);color:#fff;margin-bottom:20px;">
+    <div style="display:flex;align-items:center;gap:14px;"><div style="font-size:2.5rem;">📊</div><div><div style="font-family:'Secular One',sans-serif;font-size:1.15rem;">לוח בקרה — Dashboard</div><div style="font-size:.82rem;color:rgba(255,255,255,.6);">סיכום מילוי דף העבודה</div></div></div>
+  </div>
+  <div class="card">
+    <div style="font-weight:700;font-size:1rem;margin-bottom:8px;">📋 סיכום מילוי</div>
+    <div id="assessment-content" style="display:none;"><p style="color:var(--text-muted);font-size:.85rem;text-align:center;padding:6px 0;">לחצו "חשב סיכום" לצפייה</p></div>
+    <button onclick="if(window.calcAssessment)window.calcAssessment()" style="background:var(--navy-lt);color:#fff;border:none;padding:12px 28px;border-radius:10px;font-family:'Heebo',sans-serif;font-size:.95rem;font-weight:700;cursor:pointer;width:100%;margin-top:14px;">חשב סיכום מילוי ⇩</button>
+  </div>
+</div>
+
+</main>
+
+<div id="modal">
+  <div style="background:var(--surface);border:1.5px solid var(--navy-lt);border-radius:20px;padding:36px;max-width:420px;width:90%;text-align:center;">
+    <div style="font-size:3rem;margin-bottom:10px;">✅</div>
+    <h2 style="font-family:'Secular One',sans-serif;font-size:1.4rem;color:var(--text);margin-bottom:8px;">נשלח בהצלחה!</h2>
+    <p style="color:var(--text-muted);font-size:.9rem;margin-bottom:18px;">דף העבודה נשלח למורה.</p>
+    <div id="modal-sum" style="background:var(--surface2);border-radius:10px;padding:14px;text-align:right;margin-bottom:18px;font-size:.87rem;color:var(--text-mid);"></div>
+    <button onclick="closeModal()" style="background:var(--navy-lt);color:#fff;border:none;padding:10px 28px;border-radius:10px;font-family:'Heebo',sans-serif;font-size:.95rem;font-weight:700;cursor:pointer;">סגור</button>
+  </div>
+</div>
+
+<footer class="no-print" style="background:var(--navy);color:rgba(255,255,255,.55);text-align:center;padding:20px;font-size:.78rem;margin-top:60px;">
+  פלטפורמת לשון עברית — כיתה י׳ | יחידה 1: מערכת הפועל | שיעור 2 מתוך 6<br>
+  תואם תכנית המפמ"ר ומיצ"ב 2026 | © כל הזכויות שמורות
+</footer>
+
+<script>
+function showTab(id,btn){
+  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>{b.classList.remove('active');b.style.color='var(--text-muted)';});
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');btn.style.color='';
+}
+let tInt=null,tSec=2700,elapsed=0;
+const phases=[{end:300,label:'🔥 פתיחה'},{end:900,label:'📚 רכישה'},{end:1500,label:'🎬 הדגמה'},{end:2400,label:'✏️ תרגול'},{end:2700,label:'🔚 סיכום'}];
+function startTimer(){
+  if(tInt)return;
+  tInt=setInterval(()=>{
+    elapsed++;const rem=tSec-elapsed;
+    if(rem<=0){clearInterval(tInt);document.getElementById('timer-display').textContent='00:00';return;}
+    const m=Math.floor(rem/60),s=rem%60;
+    const d=document.getElementById('timer-display');
+    d.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    d.classList.toggle('warning',rem<=120);
+    const pct=Math.round(elapsed/tSec*100);
+    document.getElementById('prog-fill').style.width=pct+'%';
+    document.getElementById('prog-pct').textContent=pct+'%';
+    const ph=phases.find(p=>elapsed<=p.end);
+    if(ph)document.getElementById('phase-ind').textContent=ph.label;
+  },1000);
+}
+function resetTimer(){
+  clearInterval(tInt);tInt=null;elapsed=0;
+  document.getElementById('timer-display').textContent='45:00';
+  document.getElementById('timer-display').classList.remove('warning');
+  document.getElementById('prog-fill').style.width='0%';
+  document.getElementById('prog-pct').textContent='0%';
+  document.getElementById('phase-ind').textContent='';
+}
+function submitWS(){
+  const name=(document.getElementById('sname')||{}).value||'לא הוזן';
+  const cls=(document.getElementById('sclass')||{}).value||'לא הוזנה';
+  const date=(document.getElementById('sdate')||{}).value||new Date().toLocaleDateString('he-IL');
+  document.getElementById('modal-sum').innerHTML=`<div style="margin-bottom:6px;"><strong>תלמיד/ה:</strong> ${name}</div><div style="margin-bottom:6px;"><strong>כיתה:</strong> ${cls}</div><div><strong>תאריך:</strong> ${date}</div>`;
+  document.getElementById('modal').classList.add('show');
+  if(window.calcAssessment)window.calcAssessment();
+}
+function closeModal(){document.getElementById('modal').classList.remove('show');}
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+window.calcAssessment = function(){
+  var ac=document.getElementById('assessment-content');if(!ac)return;
+  var sname=((document.getElementById('sname')||{value:''}).value||'').trim();
+  var sclass=((document.getElementById('sclass')||{value:''}).value||'').trim();
+  var sdate=((document.getElementById('sdate')||{value:''}).value||'').trim()||new Date().toLocaleDateString('he-IL');
+  var filled=0,total=0,qData=[];
+  function chk(id,label){total++;var el=document.getElementById(id);var ok=!!(el&&el.value&&el.value.trim().length>0&&el.value!=='שָׁמַע');if(ok)filled++;qData.push({label:label,ok:ok,val:el?el.value.trim().substring(0,40):''});}
+  chk('q1p1','שאלה 1 — פועל 1');chk('q1p2','שאלה 1 — פועל 2');
+  chk('q1p3','שאלה 1 — פועל 3');chk('q1p4','שאלה 1 — פועל 4');
+  chk('q1p5','שאלה 1 — פועל 5');chk('q1not','שאלה 1 — הערה על פועל שאינו קַל');
+  // Conjugation table (skip pre-filled t10)
+  ['t1','t3','t4','t5','t6','t7','t8','t9','t11','t12','t13','t14','t15','t16','t17','t18','t19','t20','t21','t22','t23','t24'].forEach(function(id,i){chk(id,'טבלת נטייה — תא '+(i+1));});
+  chk('q3a','שאלה 3א');chk('q3b','שאלה 3ב');chk('q3c','שאלה 3ג');
+  chk('q3d','שאלה 3ד');chk('q3e','שאלה 3ה');chk('q3f','שאלה 3ו');chk('q3g','שאלה 3ז');
+  chk('q4a1','שאלה 4א — קריאה 1');chk('q4a2','שאלה 4א — קריאה 2');
+  chk('q4b1','שאלה 4ב — קריאה 1');chk('q4b2','שאלה 4ב — קריאה 2');
+  chk('q4c1','שאלה 4ג — קריאה 1');chk('q4c2','שאלה 4ג — קריאה 2');
+  chk('q7','שאלה 5 — כתיבה');
+  var pct=total>0?Math.round(filled/total*100):0;
+  var bc=pct>=80?'#42b72a':pct>=50?'#f7b928':'#fa3e3e';
+  var bg=pct>=80?'#e6f4ea':pct>=50?'#fef9e7':'#fdecea';
+  var em=pct>=80?'⭐':pct>=50?'💪':'📝';
+  var h='';
+  h+="<div style='background:#e7f3ff;border-radius:8px;padding:10px 14px;margin-bottom:13px;font-size:.85rem;direction:rtl;line-height:1.8;border:1px solid rgba(37,99,184,.2)'>";
+  h+="<strong>תלמיד/ה:</strong> "+(sname||'<span style="color:#aaa">לא הוזן</span>');
+  if(sclass)h+=" · <strong>כיתה:</strong> "+sclass;
+  h+=" · <strong>תאריך:</strong> "+sdate+"</div>";
+  h+="<div style='background:"+bg+";color:"+bc+";padding:12px 16px;border-radius:8px;text-align:center;font-weight:900;font-size:1.05rem;margin-bottom:12px;border:1px solid "+bc+"33'>";
+  h+=em+" "+filled+" / "+total+" שדות מולאו — "+pct+"%</div>";
+  h+="<div style='height:9px;background:var(--border);border-radius:100px;margin-bottom:15px;overflow:hidden'>";
+  h+="<div style='height:100%;width:"+pct+"%;background:"+bc+";border-radius:100px;transition:width .5s ease'></div></div>";
+  h+="<div style='font-size:.8rem;direction:rtl'>";
+  qData.forEach(function(q){
+    var icon=q.ok?'✅':'○';var clr=q.ok?'#1d7a34':'#90949c';
+    h+="<div style='display:flex;align-items:baseline;gap:8px;padding:5px 0;border-bottom:1px solid #f0f3ff'>";
+    h+="<span>"+icon+"</span><span style='flex:1;color:"+clr+";font-size:.82rem'>"+q.label+"</span>";
+    if(q.val&&q.ok)h+="<span style='color:#aaa;font-size:.76rem;max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'>"+q.val+"</span>";
+    h+="</div>";
+  });
+  h+="</div>";
+  ac.innerHTML=h;ac.style.display='block';
+};
+
+(function injectStudentName(){
+  var params=new URLSearchParams(window.location.search);
+  var urlName=params.get('student')?decodeURIComponent(params.get('student')):null;
+  var lsName=null;try{lsName=JSON.parse(localStorage.getItem('lashon_current_student'));}catch(e){}
+  var studentName=urlName||lsName||'';
+  if(!studentName)return;
+  ['sname','student-name','s_name','studentname'].forEach(function(id){var el=document.getElementById(id);if(el&&!el.value)el.value=studentName;});
+  var dt=document.getElementById('sdate')||document.getElementById('student-date');if(dt&&!dt.value)dt.value=new Date().toLocaleDateString('he-IL');
+  try{localStorage.setItem('lashon_current_student',JSON.stringify(studentName));}catch(e){}
+})();
+
+// ─── ROLE=STUDENT SECURITY (v4) ─────────────────────────────────────────
+(function applyStudentRole() {
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('role') !== 'student') return;
+
+  // IDs to hide — covers all naming conventions across all lesson files
+  var hideIds = [
+    'tq',            // Dashboard pane (L1/L2/unit2)
+    'tab-dashboard', // Dashboard pane (L3-L6)
+    'tt',            // Teacher guide pane
+    'tab-teacher',
+    'ta',            // Answers pane
+    'tab-answers',
+    'tab-assess',    // Assessment tab
+    'assessment-drawer'
+  ];
+  hideIds.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) { el.style.display = 'none'; el.setAttribute('data-student-hidden','1'); }
+  });
+
+  // Hide tab buttons pointing to those panes + teacher-only buttons
+  document.querySelectorAll('.tab-btn, button').forEach(function(btn) {
+    var oc  = (btn.getAttribute('onclick') || '').toLowerCase();
+    var txt = (btn.textContent || '').trim();
+    var cls = btn.className || '';
+    var shouldHide =
+      /['"](tq|tab-dashboard|tt|tab-teacher|ta|tab-answers|tab-assess)['"]/.test(oc) ||
+      cls.indexOf('teacher-only') !== -1 ||
+      txt === '🔑 פתרונות' || txt === '📊 Dashboard' ||
+      txt === '📋 מדריך המורה' || txt === '📋 מדריך' ||
+      txt === '📊 הערכה';
+    if (shouldHide) { btn.style.display = 'none'; btn.setAttribute('data-student-hidden','1'); }
+  });
+
+  // Hide any element with class teacher-only
+  document.querySelectorAll('.teacher-only').forEach(function(el) {
+    el.style.display = 'none';
+  });
+
+  // Activate first visible tab pane (theory or worksheet)
+  var preferOrder = ['th', 'tab-theory', 'tw', 'tab-worksheet'];
+  var activated = false;
+  for (var i = 0; i < preferOrder.length; i++) {
+    var pane = document.getElementById(preferOrder[i]);
+    if (pane && pane.getAttribute('data-student-hidden') !== '1') {
+      document.querySelectorAll('.tab-pane').forEach(function(p){ p.classList.remove('active'); });
+      pane.classList.add('active');
+      // Activate matching button
+      document.querySelectorAll('.tab-btn, button').forEach(function(btn) {
+        var oc2 = btn.getAttribute('onclick') || '';
+        if (oc2.indexOf("'" + preferOrder[i] + "'") !== -1 ||
+            oc2.indexOf('"' + preferOrder[i] + '"') !== -1) {
+          btn.classList.add('active');
+        }
+      });
+      activated = true;
+      break;
+    }
+  }
+  // Fallback: first visible pane
+  if (!activated) {
+    var panes = document.querySelectorAll('.tab-pane');
+    for (var j = 0; j < panes.length; j++) {
+      if (panes[j].getAttribute('data-student-hidden') !== '1') {
+        panes[j].classList.add('active'); break;
+      }
+    }
+  }
+})();
+// ─── END ROLE=STUDENT SECURITY ──────────────────────────────────────────
+
+</script>
+</body>
+</html>

@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>שיעור 4 | הִפְעִיל וְהֻפְעַל | כיתה י׳</title>
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+/* ═══════════════════════════════════════════════════
+   DESIGN TOKENS — Facebook-precise
+═══════════════════════════════════════════════════ */
+:root {
+  --bg:         #f0f2f5;
+  --surface:    #ffffff;
+  --surface2:   #f0f2f5;
+  --border:     #dadde1;
+  --border-lt:  #e4e6ea;
+  --ink:        #1c1e21;
+  --ink-mid:    #3e4042;
+  --muted:      #606770;
+  --dim:        #90949c;
+  --primary:    #1877f2;
+  --primary-lt: #e7f3ff;
+  --primary-dk: #166fe5;
+  --green:      #42b72a;
+  --green-lt:   #e6f4ea;
+  --red:        #fa3e3e;
+  --red-lt:     #fdecea;
+  --gold:       #f7b928;
+  --gold-lt:    #fff8e1;
+  --radius:     1rem;
+  --radius-sm:  .625rem;
+  --shadow:     0 2px 12px rgba(0,0,0,.09);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family:'Heebo',-apple-system,BlinkMacSystemFont,sans-serif;
+  background:var(--bg);color:var(--ink);
+  direction:rtl;text-align:right;line-height:1.6;font-size:15px;
+}
+
+
+/* ── GOLD-STANDARD THEORY BLOCKS ── */
+.tb-info{border-right:5px solid #2563b8;padding:1rem 1.25rem;background:#e7f3ff;border-radius:0 10px 10px 0;margin-bottom:1rem;}
+.tb-info .bt{font-weight:800;color:#1a3a6b;font-size:.9rem;margin-bottom:7px;display:flex;align-items:center;gap:6px;}
+.tb-tip{border-right:5px solid #e8a020;padding:1rem 1.25rem;background:#fef9e7;border-radius:0 10px 10px 0;margin-bottom:1rem;}
+.tb-tip .bt{font-weight:800;color:#7a5200;font-size:.9rem;margin-bottom:7px;display:flex;align-items:center;gap:6px;}
+.tb-warn{border-right:5px solid #c0392b;padding:1rem 1.25rem;background:#fdecea;border-radius:0 10px 10px 0;margin-bottom:1rem;}
+.tb-warn .bt{font-weight:800;color:#c0392b;font-size:.9rem;margin-bottom:7px;display:flex;align-items:center;gap:6px;}
+.ab{font-size:.97rem;line-height:2.0;color:#3e4a5c;}
+.ab p{margin-bottom:1.1em;}
+/* Dashboard tab */
+.dash-hero{background:linear-gradient(135deg,#0c2040,#1a3a6b);color:#fff;border-radius:14px;padding:18px 20px;margin-bottom:18px;display:flex;align-items:center;gap:14px;}
+/* ── TOPBAR / NAV ── */
+nav{
+  position:sticky;top:0;z-index:50;
+  background:var(--primary);
+  box-shadow:0 2px 8px rgba(24,119,242,.35);
+}
+.nav-inner{
+  max-width:860px;margin:0 auto;padding:0 16px;
+  display:flex;align-items:center;gap:4px;
+  overflow-x:auto;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none;height:50px;
+}
+.nav-inner::-webkit-scrollbar{display:none}
+.tab-btn{
+  flex-shrink:0;padding:7px 16px;border-radius:var(--radius-sm);border:none;
+  background:transparent;color:rgba(255,255,255,.7);
+  font-family:'Heebo',sans-serif;font-size:.83rem;font-weight:600;
+  cursor:pointer;transition:all .15s;white-space:nowrap;touch-action:manipulation;
+}
+.tab-btn:hover{background:rgba(255,255,255,.15);color:#fff}
+.tab-btn.active{background:rgba(255,255,255,.2);color:#fff;font-weight:800}
+
+.tab-pane{display:none}
+.tab-pane.active{display:block}
+
+/* ── HERO BANNER ── */
+.lesson-hero{
+  background:var(--primary);
+  padding:22px 20px 0;
+}
+.lesson-hero-inner{max-width:860px;margin:0 auto;padding-bottom:18px}
+#greeting-bar{
+  display:none;align-items:center;gap:8px;
+  background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);
+  border-radius:100px;padding:4px 14px;font-size:.83rem;font-weight:700;
+  color:#fff;width:fit-content;margin-bottom:12px;
+}
+
+/* ── MAIN LAYOUT ── */
+main{max-width:860px;margin:0 auto;padding:20px 16px}
+
+/* ── CARDS ── */
+.card{
+  background:var(--surface);border-radius:var(--radius);
+  padding:20px;margin-bottom:14px;
+  box-shadow:var(--shadow);border:1px solid var(--border);
+}
+.q-card{
+  background:var(--surface);border-radius:var(--radius);
+  padding:20px;margin-bottom:14px;
+  box-shadow:var(--shadow);border:1px solid var(--border);
+}
+
+/* ── QUESTION NUMBER BADGE ── */
+.q-num{
+  width:34px;height:34px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:.85rem;flex-shrink:0;
+  color:#fff;background:var(--primary);
+}
+
+/* ── INPUTS — clean and spacious ── */
+input[type="text"],textarea,select{
+  font-family:'Heebo',sans-serif;direction:rtl;text-align:right;
+  width:100%;background:var(--surface);
+  border:1.5px solid var(--border);border-radius:var(--radius-sm);
+  padding:10px 14px;font-size:.9rem;color:var(--ink);
+  transition:border-color .15s,box-shadow .15s;-webkit-appearance:none;
+}
+input:focus,textarea:focus,select:focus{
+  outline:none;border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(24,119,242,.12);background:#fff;
+}
+textarea{resize:vertical;line-height:1.6}
+@media(max-width:640px){input[type="text"],textarea,select{font-size:1rem!important}}
+
+/* ── WEIGHT TAG BADGES ── */
+.wt-maqtel{background:#e7f3ff;color:var(--primary);padding:2px 8px;border-radius:6px;font-weight:700;font-size:.85rem}
+.wt-kattal{background:#e6f4ea;color:#1d7a34;padding:2px 8px;border-radius:6px;font-weight:700;font-size:.85rem}
+.wt-tiqtal{background:#f3e8ff;color:#6b21a8;padding:2px 8px;border-radius:6px;font-weight:700;font-size:.85rem}
+.wt-qitla{background:var(--gold-lt);color:#92400e;padding:2px 8px;border-radius:6px;font-weight:700;font-size:.85rem}
+.wt-misc{background:var(--red-lt);color:#c0392b;padding:2px 8px;border-radius:6px;font-weight:700;font-size:.85rem}
+
+/* ── TABLE ── */
+.wt-table{width:100%;border-collapse:collapse}
+.wt-table th{background:var(--primary);color:#fff;padding:11px 14px;font-size:.8rem;font-weight:700;text-align:right}
+.wt-table td{padding:10px 14px;font-size:.88rem;border-bottom:1px solid var(--border-lt)}
+.wt-table tr:last-child td{border-bottom:none}
+.wt-table tr:hover td{background:var(--surface2)}
+
+/* ── TIMELINE ── */
+.timeline-row{display:flex;gap:14px;margin-bottom:20px;align-items:flex-start}
+.timeline-bubble{min-width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.82rem;color:#fff;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+
+/* ── ANSWER ITEMS ── */
+.answer-item{
+  padding:11px 14px;border-radius:var(--radius-sm);
+  background:var(--surface2);font-size:.87rem;margin-bottom:9px;
+  color:var(--ink-mid);border-right:3px solid var(--primary);
+  border:1px solid var(--border);border-right-width:3px;
+}
+
+/* ── BUTTONS — only Facebook Blue ── */
+.btn-primary{
+  background:var(--primary);color:#fff;border:none;
+  border-radius:var(--radius-sm);padding:11px 26px;
+  font-family:'Heebo',sans-serif;font-size:.92rem;font-weight:700;
+  cursor:pointer;touch-action:manipulation;
+  box-shadow:0 1px 4px rgba(24,119,242,.3);
+  transition:background .15s,box-shadow .15s;
+}
+.btn-primary:hover{background:var(--primary-dk);box-shadow:0 2px 10px rgba(24,119,242,.35)}
+
+.btn-submit{
+  background:var(--primary);color:#fff;border:none;
+  border-radius:var(--radius-sm);padding:13px 32px;
+  font-family:'Heebo',sans-serif;font-size:1rem;font-weight:800;
+  cursor:pointer;touch-action:manipulation;
+  box-shadow:0 2px 10px rgba(24,119,242,.3);
+  transition:background .15s;
+}
+.btn-submit:hover{background:var(--primary-dk)}
+
+/* ── MULTIPLE CHOICE ── */
+.mc-opts{display:flex;flex-direction:column;gap:9px;margin-top:12px}
+.mc-opt{
+  border:1.5px solid var(--border);border-radius:var(--radius-sm);
+  padding:12px 16px;cursor:pointer;background:var(--surface);
+  font-size:.9rem;text-align:right;font-family:'Heebo',sans-serif;
+  width:100%;transition:all .15s;color:var(--ink-mid);
+}
+.mc-opt:hover{border-color:var(--primary);background:var(--primary-lt);color:var(--primary)}
+.mc-opt.chosen{border-color:var(--primary);background:var(--primary-lt);color:var(--primary);font-weight:700}
+.mc-opt.correct{}
+.mc-opt.wrong{}
+
+/* ── ASSESSMENT ── */
+#assessment-content{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:var(--radius-sm);padding:16px;
+  direction:rtl;text-align:right;min-height:56px;
+}
+
+/* ── SUCCESS MODAL ── */
+#success-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(2px)}
+#success-modal.open{display:flex}
+
+/* ── SECTION DIVIDER ── */
+.section-title{
+  font-weight:800;font-size:1rem;color:var(--ink);
+  margin-bottom:14px;padding-bottom:10px;
+  border-bottom:2px solid var(--border);
+}
+
+/* ── INFO BOX ── */
+.info-box{
+  background:var(--primary-lt);border-right:3px solid var(--primary);
+  padding:10px 14px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  font-size:.88rem;color:var(--primary);margin-top:10px;
+}
+.info-box-gold{
+  background:var(--gold-lt);border-right:3px solid var(--gold);
+  padding:8px 12px;border-radius:0 6px 6px 0;
+  margin-top:8px;font-size:.84rem;color:#92400e;
+}
+
+@media print{nav,.no-print{display:none!important}.tab-pane{display:block!important;page-break-after:always}body{background:#fff}}
+
+
+/* ─── v3: border-radius 12px enforcement ─── */
+:root { --radius: 0.75rem; --radius-sm: 0.625rem; }
+.card, .q-card { border-radius: 12px; }
+.tb-info, .tb-tip, .tb-warn {
+  border-radius: 0 12px 12px 0 !important;
+}
+.theory-block, .theory-block-gs {
+  border-radius: 0 12px 12px 0 !important;
+}
+.neon-btn, .btn-submit, .btn-primary,
+button.bp, button.bok, button.bghost, button.bdanger {
+  border-radius: 12px;
+}
+input[type="text"], input[type="password"],
+input[type="tel"], input[type="number"],
+textarea, select {
+  border-radius: 10px;
+  font-size: 16px;   /* prevent iOS zoom */
+}
+.tab-btn { border-radius: 8px; }
+/* overflow wrapper for all tables */
+.overflow-x-auto { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+/* ─── end v3 border-radius ─── */
+
+</style>
+
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- HERO -->
+<div class="lesson-hero">
+  <div class="lesson-hero-inner">
+    <div id="greeting-bar" style="display:none;align-items:center;gap:8px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:100px;padding:4px 14px;font-size:.82rem;font-weight:700;color:#fff;width:fit-content;margin-bottom:10px">
+      <span>👋</span><span id="greeting-name">שלום!</span>
+    </div>
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:10px">
+      <div>
+        <div style="display:inline-block;background:rgba(255,255,255,.2);border-radius:100px;padding:3px 12px;font-size:.72rem;font-weight:700;color:#fff;letter-spacing:.06em;margin-bottom:8px">🔮 לשון עברית · כיתה י׳ · יחידה 1 · שיעור 4 מתוך 6</div>
+        <h1 style="font-family:'Heebo',sans-serif;font-size:clamp(1.4rem,3.5vw,2rem);font-weight:800;color:#fff;line-height:1.2;margin-bottom:6px">הִפְעִיל וְהֻפְעַל</h1>
+        <p style="font-size:.88rem;color:rgba(255,255,255,.75);max-width:500px">בנייני הגורם · פעיל וסביל · גרימה</p>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:7px;padding-top:4px">
+        <span style="display:inline-flex;padding:3px 10px;border-radius:100px;font-size:.73rem;font-weight:700;background:rgba(255,255,255,.2);color:#fff">⏱ 45 דקות</span>
+        <span style="display:inline-flex;padding:3px 10px;border-radius:100px;font-size:.73rem;font-weight:700;background:rgba(255,255,255,.2);color:#fff">📐 מיצ"ב</span>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <button class="tab-btn" onclick="showTab('tt',this)">📋 מדריך</button>
+    <button class="tab-btn" onclick="showTab('tx',this)">📰 הטקסט</button>
+    <button class="tab-btn" onclick="showTab('th',this)">📚 הלכה</button>
+    <button class="tab-btn" onclick="showTab('tw',this)">✏️ דף עבודה</button>
+    <button class="tab-btn teacher-only" onclick="showTab('ta',this)">🔑 פתרונות</button>
+    <button class="tab-btn" onclick="showTab('tab-assess',this);if(window.calcAssessment)window.calcAssessment()">📊 הערכה</button>
+    <button class="tab-btn" onclick="showTab('tab-dashboard',this)">🖥️ Dashboard</button>
+    <button class="tab-btn no-print" onclick="window.print()" style="margin-right:auto">🖨️</button>
+  </div>
+</nav>
+
+<main style="max-width:860px;margin:0 auto;padding:16px">
+
+<!-- ════════════════════════ TAB 1 — TEACHER ════════════════════════ -->
+<div id="tt" class="tab-pane teacher-only active">
+
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+    <div class="card text-center" style="border-top:3px solid var(--neon);">
+      <div style="font-size:1.7rem;margin-bottom:4px;">🎯</div>
+      <div style="font-size:0.8rem;font-weight:700;color:var(--neon);">מטרה</div>
+      <div style="font-size:0.76rem;color:var(--text-mid);margin-top:3px;">זיהוי ונטיית הִפְעִיל/הֻפְעַל; גרימה ופעיל/סביל</div>
+    </div>
+    <div class="card text-center" style="border-top:3px solid var(--cyan);">
+      <div style="font-size:1.7rem;margin-bottom:4px;">🔗</div>
+      <div style="font-size:0.8rem;font-weight:700;color:var(--cyan);">קדם ידע</div>
+      <div style="font-size:0.76rem;color:var(--text-mid);margin-top:3px;">שיעורים 1–3: שורש, קַל, הבניינים הכבדים</div>
+    </div>
+    <div class="card text-center" style="border-top:3px solid var(--magenta);">
+      <div style="font-size:1.7rem;margin-bottom:4px;">🕹️</div>
+      <div style="font-size:0.8rem;font-weight:700;color:var(--magenta);">הקשר</div>
+      <div style="font-size:0.76rem;color:var(--text-mid);margin-top:3px;">גיימינג, eSports, כלכלת תוכן</div>
+    </div>
+    <div class="card text-center" style="border-top:3px solid var(--gold);">
+      <div style="font-size:1.7rem;margin-bottom:4px;">📐</div>
+      <div style="font-size:0.8rem;font-weight:700;color:var(--gold);">מיצ"ב</div>
+      <div style="font-size:0.76rem;color:var(--text-mid);margin-top:3px;">D3.1, D3.2, D3.4, R3.2, W2.1</div>
+    </div>
+  </div>
+
+  <h2 class="sec-h">📍 מהלך השיעור</h2>
+
+  <div class="phase-row">
+    <div class="phase-circle" style="background:var(--magenta-dim);color:var(--magenta);border-color:var(--magenta);">5׳</div>
+    <div style="flex:1;">
+      <span class="badge" style="background:var(--magenta-dim);color:var(--magenta);border:1px solid var(--magenta);margin-bottom:8px;">🔥 פתיחה — "מי גרם למה?"</span>
+      <h3 style="font-weight:700;font-size:1rem;color:var(--text);margin-bottom:7px;">אתגר ה-Causative — "הופך" או "גורם"?</h3>
+      <p style="font-size:0.88rem;color:var(--text-mid);">כתבו על הלוח שני עמודות: <strong>קַל</strong> | <strong>הִפְעִיל</strong>. הכניסו את הזוגות: <em>יָשַׁן / הֵשִׁין, רָץ / הֵרִיץ, אָכַל / הֶאֱכִיל</em>. שאלו: "מה ההבדל? מי 'גורם' ומי 'פועל'?"</p>
+      <div style="background:var(--surface2);border-right:3px solid var(--neon);padding:10px 14px;border-radius:0 8px 8px 0;margin-top:10px;font-size:0.85rem;">
+        <strong style="color:var(--neon);">💡 הרעיון המרכזי:</strong> הִפְעִיל = <em>גורם</em> לאחר לבצע פעולה, או מכניס נושא <em>למצב</em> חדש. זה לב הבניין.
+      </div>
+    </div>
+  </div>
+
+  <div class="phase-row">
+    <div class="phase-circle" style="background:var(--neon-dim);color:var(--neon);border-color:var(--neon);">10׳</div>
+    <div style="flex:1;">
+      <span class="badge" style="background:var(--neon-dim);color:var(--neon);border:1px solid var(--neon);margin-bottom:8px;">📚 רכישה — הוראה ישירה</span>
+      <h3 style="font-weight:700;font-size:1rem;color:var(--text);margin-bottom:7px;">שני הבניינים: מבנה, ניקוד, ה"א תחילית</h3>
+      <p style="font-size:0.88rem;color:var(--text-mid);">הציגו את טבלת הנטייה המלאה (לשונית "הלכה"). הדגישו <strong>3 נקודות מפתח</strong>:</p>
+      <ul style="padding-right:18px;font-size:0.86rem;color:var(--text-mid);margin-top:6px;line-height:2.1;">
+        <li><strong style="color:var(--neon);">ה"א תחילית:</strong> עבר = <em>הִ</em>, הווה = <em>מַ</em>, עתיד = <em>יַ/אַ/תַ/נַ</em></li>
+        <li><strong style="color:var(--cyan);">הֻפְעַל:</strong> קיבוץ תחת ה"א בעבר (<em>הֻ</em>); מַ + קיבוץ בהווה (<em>מֻ</em>)</li>
+        <li><strong style="color:var(--magenta);">השינוי בעתיד:</strong> תחילית י/ת/א/נ + <em>ַ</em> (פתח) — שונה מקַל שיש לו חיריק</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="phase-row">
+    <div class="phase-circle" style="background:var(--cyan-dim);color:var(--cyan);border-color:var(--cyan);">10׳</div>
+    <div style="flex:1;">
+      <span class="badge" style="background:var(--cyan-dim);color:var(--cyan);border:1px solid var(--cyan);margin-bottom:8px;">🎮 הדגמה מודרכת</span>
+      <h3 style="font-weight:700;font-size:1rem;color:var(--text);margin-bottom:7px;">קריאת "כסף גדול, אצבעות מהירות" + ניתוח</h3>
+      <p style="font-size:0.88rem;color:var(--text-mid);">קראו יחד את הטקסט (לשונית "הטקסט"). הדגימו על הלוח ניתוח 3 פעלים — אחד הִפְעִיל, אחד הֻפְעַל, אחד מבניין אחר לצורך השוואה.</p>
+      <div style="background:var(--surface2);border-right:3px solid var(--cyan);padding:10px 14px;border-radius:0 8px 8px 0;margin-top:10px;font-size:0.84rem;">
+        <strong style="color:var(--cyan);">דוגמה:</strong>
+        <span class="vb-hif">הִשִּׁיקוּ</span> ← שורש ש-ו-ק | הִפְעִיל | עבר, ג׳ זכר רבים | <em>גרימה</em>: גרמו למשחק להיכנס לשוק
+      </div>
+    </div>
+  </div>
+
+  <div class="phase-row">
+    <div class="phase-circle" style="background:rgba(157,92,255,0.1);color:var(--neon-lt);border-color:var(--neon-lt);">15׳</div>
+    <div style="flex:1;">
+      <span class="badge" style="background:rgba(157,92,255,0.1);color:var(--neon-lt);border:1px solid var(--neon-lt);margin-bottom:8px;">✏️ תרגול עצמאי</span>
+      <h3 style="font-weight:700;font-size:1rem;color:var(--text);margin-bottom:7px;">דף עבודה — שאלות 1–7</h3>
+      <p style="font-size:0.88rem;color:var(--text-mid);"><strong style="color:var(--text);">שאלה 3</strong> — המרה מקַל להִפְעִיל (לב השיעור). <strong style="color:var(--text);">שאלה 5</strong> — ניתוח נתוני eSports + דקדוק. תנו תשומת לב לשאלה 4 — ניקוד הֻפְעַל.</p>
+    </div>
+  </div>
+
+  <div class="phase-row" style="margin-bottom:0;">
+    <div class="phase-circle" style="background:var(--surface3);color:var(--text-dim);border-color:var(--border);">5׳</div>
+    <div style="flex:1;">
+      <span class="badge" style="background:var(--surface2);color:var(--text-dim);border:1px solid var(--border);margin-bottom:8px;">🔚 Exit Ticket</span>
+      <h3 style="font-weight:700;font-size:1rem;color:var(--text);margin-bottom:7px;">"הגורם נגד המוּגרם" — זוגות מינימליים</h3>
+      <p style="font-size:0.88rem;color:var(--text-mid);">כל תלמיד מציג זוג אחד: משפט עם הִפְעִיל (פעיל) ומשפטו ה"הפוך" עם הֻפְעַל (סביל). מי שמצליח — זכה.</p>
+    </div>
+  </div>
+
+  <!-- Differentiation -->
+  <h2 class="sec-h" style="margin-top:32px;">🎯 התאמות</h2>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+    <div class="card" style="border-right:4px solid var(--magenta);">
+      <div style="font-weight:700;color:var(--magenta);margin-bottom:8px;font-size:0.9rem;">⬇️ תמיכה</div>
+      <ul style="font-size:0.85rem;color:var(--text-mid);padding-right:18px;line-height:2.1;">
+        <li>ספקו כרטיס "ה"א ה-3" — עבר/הווה/עתיד עם ניקוד</li>
+        <li>בשאלה 3 — תנו שורשים מוכנים לצד הפעלים</li>
+        <li>בשאלת הגרף — עבדו בזוגות, אפשרו מחשבון</li>
+      </ul>
+    </div>
+    <div class="card" style="border-right:4px solid var(--neon);">
+      <div style="font-weight:700;color:var(--neon);margin-bottom:8px;font-size:0.9rem;">⬆️ הרחבה</div>
+      <ul style="font-size:0.85rem;color:var(--text-mid);padding-right:18px;line-height:2.1;">
+        <li>כתבו דיאלוג קצר בין גיימר למפיק — 5 פעלי הִפְעִיל ו-3 פעלי הֻפְעַל</li>
+        <li>מצאו 3 שורשים שהוּפְעַל שלהם נדיר ונמקו מדוע</li>
+        <li>חקרו: האם הִפְעִיל תמיד מציין גרימה? מה עם <em>הִרְגִּיש, הֵבִין, הֵשִׂיג</em>?</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Common Mistakes -->
+  <h2 class="sec-h">⚠️ טעויות נפוצות</h2>
+  <div class="mistake-card">
+    <div style="font-weight:700;color:var(--magenta);margin-bottom:5px;font-size:0.9rem;">🔴 טעות 1 — ה"א ה-3: בלבול בין עבר להווה לעתיד</div>
+    <p style="font-size:0.85rem;color:var(--text-mid);">עבר = <em>הִשִּׁיק</em> (ה"א + חיריק), הווה = <em>מַשִּׁיק</em> (מ"ם + פתח), עתיד = <em>יַשִּׁיק</em> (י"וד + פתח). תלמידים מוסיפים ה"א גם בהווה ובעתיד. <strong style="color:var(--text);">כלל:</strong> ה"א = <em>רק בעבר</em>.</p>
+  </div>
+  <div class="mistake-card">
+    <div style="font-weight:700;color:var(--magenta);margin-bottom:5px;font-size:0.9rem;">🔴 טעות 2 — הֻפְעַל: קיבוץ (לא שורוק!)</div>
+    <p style="font-size:0.85rem;color:var(--text-mid);">תלמידים מנקדים <em>הוּשַׁק</em> (שורוק) במקום <em>הֻשַּׁק</em> (קיבוץ). <strong style="color:var(--text);">הבדל ניקוד:</strong> קיבוץ = נקודה מתחת + ו' קטנה ← סימן מובהק להֻפְעַל.</p>
+  </div>
+  <div class="mistake-card">
+    <div style="font-weight:700;color:var(--magenta);margin-bottom:5px;font-size:0.9rem;">🔴 טעות 3 — בלבול הִפְעִיל ↔ פִּיעֵל בתפקיד הגרימה</div>
+    <p style="font-size:0.85rem;color:var(--text-mid);">שני הבניינים יכולים לציין גרימה. הבחנה: פִּיעֵל = עצימות הפעולה עצמה (<em>שִׁבֵּר</em>). הִפְעִיל = גורם חיצוני מכניס נושא למצב (<em>הֵרִיץ</em> = גרם לו לרוץ). <strong style="color:var(--text);">שאלת מבחן:</strong> "האם הנושא פועל על אחר, או גורם לאחר לבצע פעולה?"</p>
+  </div>
+  <div class="mistake-card">
+    <div style="font-weight:700;color:var(--magenta);margin-bottom:5px;font-size:0.9rem;">🔴 טעות 4 — "הִפְעִיל" = רק גרימה — שכחת המשמעויות הנוספות</div>
+    <p style="font-size:0.85rem;color:var(--text-mid);">הִפְעִיל גם מציין: (א) <em>הכנסת מצב</em> — הֶאֱדִים (הפך לאדום); (ב) <em>שימוש בכלי</em> — הִצְלִים (צילם); (ג) <em>ביצוע מופשט</em> — הֵבִין, הֵרִיח. הדגישו: לא "גרם לאחר להבין" — אלא "הגיע להבנה בעצמו".</p>
+  </div>
+  <div class="success-card">
+    <div style="font-weight:700;color:var(--neon);margin-bottom:5px;font-size:0.9rem;">✅ טיפ — "מי עושה? ומה קורה לנושא?"</div>
+    <p style="font-size:0.85rem;color:var(--text-mid);">שאלו תמיד שתי שאלות: (1) מי הנושא? (2) האם הנושא גורם לאחר, נכנס למצב, או מקבל את הפעולה? — זה מספיק לזהות הִפְעִיל או הֻפְעַל ב-90% מהמקרים.</p>
+  </div>
+
+  <!-- Standards -->
+  <h2 class="sec-h" style="margin-top:24px;">📐 יישור לתקנים</h2>
+  <div class="overflow-x-auto my-4" style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+    <table style="width:100%;border-collapse:collapse;font-size:0.86rem;">
+      <thead><tr style="background:var(--surface2);">
+        <th style="padding:10px 14px;text-align:right;color:var(--neon);border-bottom:1px solid var(--border);">תחום</th>
+        <th style="padding:10px 14px;text-align:right;color:var(--neon);border-bottom:1px solid var(--border);">מטרה לפי מפמ"ר</th>
+        <th style="padding:10px 14px;text-align:right;color:var(--neon);border-bottom:1px solid var(--border);">מיצ"ב</th>
+      </tr></thead>
+      <tbody>
+        <tr class="rr"><td>הִפְעִיל — מבנה ותפקיד</td><td>זיהוי, נטייה, גרימה/כניסה למצב/שימוש בכלי</td><td>D3.1</td></tr>
+        <tr class="rr"><td>הֻפְעַל — מבנה ותפקיד</td><td>זיהוי, נטייה, סביל מוחלט</td><td>D3.2</td></tr>
+        <tr class="rr"><td>המרת בניינים</td><td>המרה מקַל להִפְעִיל/הֻפְעַל + הסבר שינוי משמעות</td><td>D3.4</td></tr>
+        <tr class="rr"><td>אוריינות נתונים</td><td>ניתוח נתון השוואתי + ניסוח מסקנה בשפה תקינה</td><td>R3.2</td></tr>
+        <tr class="rr"><td>הבעה בכתב</td><td>שימוש מדויק בהִפְעִיל/הֻפְעַל בכתיבה עצמאית</td><td>W2.1</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div><!-- /teacher -->
+
+
+<!-- ════════════════════════ TAB 2 — TEXT ════════════════════════ -->
+<div id="tx" class="tab-pane">
+<div class="legend-unified no-print" style="margin:12px 0 18px">
+  <span class="lu-i"><span class="lu-d" style="background:#c84b31"></span><span class="vb-kal">קַל&nbsp;/&nbsp;פִּיעֵל</span></span>
+  <span class="lu-i"><span class="lu-d" style="background:#2d3561"></span><span class="vb-nif">נִפְעַל&nbsp;/&nbsp;הֻפְעַל</span></span>
+  <span class="lu-i"><span class="lu-d" style="background:#4a7c59"></span><span class="vb-hif">הִפְעִיל&nbsp;/&nbsp;הִתְפַּעֵל&nbsp;/&nbsp;פֻּעַל</span></span>
+</div>
+
+  <div style="background:linear-gradient(135deg,var(--surface2),var(--surface));border:1px solid var(--border);border-radius:14px;padding:22px 26px;margin-bottom:26px;">
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">
+      <span class="badge" style="background:var(--neon-dim);color:var(--neon-lt);border:1px solid var(--neon);">כתבה כלכלית</span>
+      <span class="badge" style="background:var(--cyan-dim);color:var(--cyan);border:1px solid var(--cyan);">רמה: ג׳ — שאלון 70%</span>
+      <span class="badge" style="background:var(--magenta-dim);color:var(--magenta);border:1px solid var(--magenta);">2026</span>
+    </div>
+    <h1 style="font-family:'Space Grotesk',sans-serif;font-size:clamp(1.3rem,3vw,2rem);font-weight:800;color:var(--text);line-height:1.25;margin-bottom:10px;">
+      כסף גדול, אצבעות מהירות: עולם ה-eSports שמשנה את הכלכלה
+    </h1>
+    <p style="color:var(--text-dim);font-size:0.86rem;">מאת: <strong style="color:var(--text-mid);">גבריאל מזרחי</strong> | <em>כלכליסט טק</em>, פברואר 2026</p>
+  </div>
+
+  <div class="article-body max-w-3xl" style="margin:0 auto 30px;">
+    <p>בינואר 2026 <span class="vb-nif">הושק</span> ה"ליגה הלאומית לגיימינג" בישראל — ואיתו <span class="vb-nif">נפתח</span> פרק חדש בתרבות הנוער. הארגון <span class="vb-hif">הפיק</span> אירוע פתיחה שבו עשרת אלפים צופים <span class="vb-kal">מילאו</span> את היכל מנורה בירושלים. "אנחנו <span class="vb-hif">הפכנו</span> תחביב למקצוע", <span class="vb-hif">הצהיר</span> מנכ"ל הליגה, אמיר לוי.</p>
+
+    <p>שוק הגיימינג העולמי <span class="vb-hif">הגיע</span> ב-2025 ל-220 מיליארד דולר. חברות <span class="vb-hif">השקיעו</span> מיליארדים בפיתוח משחקים, ואולפנים <span class="vb-nif">הופקו</span> בקצב חסר תקדים. ישראל, שמוכרת בעיקר כמדינת סייבר, <span class="vb-hif">הצליחה</span> לבסס עצמה גם כשחקן בשוק: חמש חברות ישראליות <span class="vb-nif">נרשמו</span> השנה בנאסד"ק לאחר שמשחקיהן <span class="vb-hif">הפיצו</span> בעשרות מדינות.</p>
+
+    <p>אחד הגיבורים הבולטים הוא ליאב "LevX" שרון, בן 19 מחיפה, שזכה לאחרונה ב-$120,000 בטורניר בינלאומי. "כשאני משחק, אני <span class="vb-hif">מפעיל</span> את המוח בצורה שמורים בבית הספר לא <span class="vb-hif">הציעו</span>", <span class="vb-kal">אמר</span> בגאווה. סוכנות הניהול שלו <span class="vb-hif">החתימה</span> אותו על חוזה שנתי מול שתי חברות ספונסר. "הם <span class="vb-nif">הֻשְׂגוּ</span> רק לאחר שהסרטונים שלו <span class="vb-hif">הצטברו</span> לחמישה מיליון צפיות", <span class="vb-hif">הסביר</span> סוכנו.</p>
+
+    <p>אך התמונה אינה חד-ממדית. ועדת האתיקה של הליגה <span class="vb-hif">הוציאה</span> כבר שלושה שחקנים מהתחרות לאחר שהוכח כי <span class="vb-nif">הֻשְׁפְּעוּ</span> על תוצאות משחקים. "הֻחְלַט", <span class="vb-kal">מסר</span> דובר הליגה, "ש<span class="vb-hif">נַחְמִיר</span> את הפיקוח ו<span class="vb-hif">נוסיף</span> שכבת ניטור טכנולוגית." גם שאלות הבריאות <span class="vb-nif">הועלו</span>: מחקרים <span class="vb-hif">הראו</span> שגיימרים שמשחקים מעל שש שעות ביום <span class="vb-kal">מפתחים</span> בעיות בגב ובעיניים.</p>
+
+    <p>בסוף היום, אומרים המומחים, גיימינג הוא כלי — <span class="vb-kal">תלוי</span> איך <span class="vb-hif">מפעילים</span> אותו. "הליגה <span class="vb-hif">הקימה</span> מסלול חינוכי שבו <span class="vb-nif">נלמד</span> ניהול זמן, עבודת צוות ואנגלית. יש <span class="vb-hif">להשתמש</span> בכוח הזה בחוכמה", <span class="vb-kal">סיכמה</span> ד"ר מיה כהן-לוי מהמרכז ללימודי מדיה.</p>
+  </div>
+
+  <!-- Legend -->
+  <div class="card max-w-3xl" style="margin:0 auto 22px;">
+    <div style="font-weight:700;margin-bottom:10px;font-size:0.9rem;color:var(--text);">מקרא — פעלים בטקסט</div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;font-size:0.84rem;color:var(--text-mid);">
+      <span>■ הִפְעִיל — עיקר התרגול</span>
+      <span>■ הֻפְעַל / נִפְעַל — סביל</span>
+      <span>■ בניינים אחרים — להשוואה</span>
+    </div>
+    <div class="note">* ההדגשות מיועדות לדיון מודרך בלבד</div>
+  </div>
+
+  <!-- ══ ESPORTS DATA CHART ══ -->
+  <div class="card max-w-3xl neon" style="margin:0 auto 0;background:linear-gradient(135deg,var(--surface),var(--surface2));">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap;">
+      <span style="background:var(--neon);color:#fff;font-size:0.7rem;font-weight:800;padding:4px 12px;border-radius:100px;letter-spacing:0.06em;">נספח — נתון ראמ"ה</span>
+      <span style="font-size:0.79rem;color:var(--text-dim);">מקור: Newzoo Global Esports Report 2025 + נתוני CSO ישראל</span>
+    </div>
+    <h3 style="font-weight:800;font-size:1rem;margin-bottom:4px;color:var(--text);">הכנסות שוק הגיימינג העולמי — השוואה לפי קטגוריות, 2025</h3>
+    <p style="font-size:0.79rem;color:var(--text-dim);margin-bottom:18px;">(יחידות: מיליארד דולר; סה"כ שוק: 220 מיליארד)</p>
+
+    <div id="chart-bars">
+      <div class="chart-bar-wrap">
+        <div class="chart-bar-label">משחקי מובייל</div>
+        <div class="chart-bar-track">
+          <div class="chart-bar-fill" style="width:43%;background:linear-gradient(90deg,#7c3aff,#9d5cff);color:#fff;">$95B</div>
+        </div>
+        <div class="chart-bar-val">43%</div>
+      </div>
+      <div class="chart-bar-wrap">
+        <div class="chart-bar-label">משחקי PC</div>
+        <div class="chart-bar-track">
+          <div class="chart-bar-fill" style="width:32%;background:linear-gradient(90deg,#00c5e8,#00e5ff);color:#000;">$70B</div>
+        </div>
+        <div class="chart-bar-val">32%</div>
+      </div>
+      <div class="chart-bar-wrap">
+        <div class="chart-bar-label">קונסולות</div>
+        <div class="chart-bar-track">
+          <div class="chart-bar-fill" style="width:19%;background:linear-gradient(90deg,#d4218a,#ff2d78);color:#fff;">$42B</div>
+        </div>
+        <div class="chart-bar-val">19%</div>
+      </div>
+      <div class="chart-bar-wrap">
+        <div class="chart-bar-label">eSports (תחרותי)</div>
+        <div class="chart-bar-track">
+          <div class="chart-bar-fill" style="width:6%;background:linear-gradient(90deg,#b8860b,#ffd700);color:#000;">$13B</div>
+        </div>
+        <div class="chart-bar-val">6%</div>
+      </div>
+    </div>
+
+    <div style="margin-top:16px;padding:12px 14px;background:var(--neon-dim);border-right:3px solid var(--neon);border-radius:0 8px 8px 0;font-size:0.83rem;color:var(--text-mid);">
+      <strong style="color:var(--neon);">📌 נתון ישראלי:</strong> ישראל <span class="vb-hif">הגיעה</span> למקום ה-14 בעולם בהוצאה לנפש על גיימינג — $287 לשנה בממוצע.<br>
+      <strong style="color:var(--cyan);">📌 גידול:</strong> שוק ה-eSports התחרותי <span class="vb-kal">גדל</span> ב-18% בשנת 2025 — הקטגוריה הצומחת ביותר.
+    </div>
+  </div>
+
+</div><!-- /text -->
+
+
+<!-- ════════════════════════ TAB 3 — THEORY ════════════════════════ -->
+<div id="th" class="tab-pane">
+
+  <h2 class="sec-h" style="font-size:1.3rem;">📚 הִפְעִיל וְהֻפְעַל — הלכה מלאה</h2>
+
+  <div class="tb-info" style="margin-bottom:1.5rem;">
+    <div class="bt">ℹ️ מהו בניין הִפְעִיל?</div>
+    <div class="ab">
+      <p>בניין <strong>הִפְעִיל</strong> הוא אחד הבניינים הפעילים ביותר בעברית המודרנית, ומציין שלושה תפקידים מרכזיים. <strong>גרימה:</strong> הנושא גורם לאחר לבצע פעולה — <strong>הֵרִיץ</strong> (שורש: ר.ו.ץ, בניין: הִפְעִיל — גרם לו לרוץ), <strong>הִלְבִּישׁ</strong> (שורש: ל.ב.ש, בניין: הִפְעִיל — גרם לו ללבוש). <strong>כניסה למצב:</strong> הנושא עצמו נכנס למצב חדש — <strong>הֶאֱדִים</strong> (שורש: א.ד.מ, בניין: הִפְעִיל — נהפך לאדום), <strong>הֵבִין</strong> (שורש: ב.י.נ, בניין: הִפְעִיל — הגיע להבנה). <strong>שימוש בכלי:</strong> — <strong>הִצְלִים</strong> (שורש: צ.ל.מ, בניין: הִפְעִיל — השתמש במצלמה), <strong>הִדְלִיק</strong> (שורש: ד.ל.ק, בניין: הִפְעִיל — הפעיל את מנגנון האור). <strong>ה"א התחילית</strong> — בעבר: הִ (חיריק). בהווה: מַ (מ"ם + פתח). בעתיד: יַ/תַ/אַ/נַ (תחילית + פתח).</p>
+    </div>
+  </div>
+  <div class="tb-warn" style="margin-bottom:1.5rem;">
+    <div class="bt">ℹ️ מהו בניין הֻפְעַל?</div>
+    <div class="ab">
+      <p>בניין <strong>הֻפְעַל</strong> הוא הסביל של הִפְעִיל — הנושא <em>מקבל</em> את הפעולה, לא מבצע אותה. הגורם לרוב לא נאמר כלל. סימן ההיכר: <strong>קיבוץ</strong> (לא שורוק!) תחת ה"א בעבר (<strong>הֻ</strong>) ותחת מ"ם בהווה (<strong>מֻ</strong>). לדוגמה: <strong>הֻשַּׁק</strong> (שורש: ש.ו.ק, בניין: הֻפְעַל, עבר ג׳ז׳י׳ — מוצר שאולשק לשוק), <strong>הֻשְׁפַּע</strong> (שורש: ש.פ.ע, בניין: הֻפְעַל — קיבל השפעה מגורם חיצוני), <strong>הֻחְלַט</strong> (שורש: ח.ל.ט, בניין: הֻפְעַל — ההחלטה נקבלה, הגורם נעלם).</p>
+    </div>
+  </div>
+
+  <div class="tb-tip" style="margin-bottom:1.5rem;">
+    <div class="bt">⭐ כלל ה"א ה-3 — עמוד השדרה של הִפְעִיל</div>
+    <div class="ab">
+      <p>כלל "ה"א ה-3" הוא הכלי המהיר לזיהוי הִפְעִיל בכל הזמנים. <strong>עבר:</strong> <strong>הִשִּׁיק</strong> (שורש: ש.ו.ק, בניין: הִפְעִיל, עבר) — ה"א + חיריק. <strong>הווה:</strong> <strong>מַשִּׁיק</strong> (שורש: ש.ו.ק, בניין: הִפְעִיל, הווה) — מ"ם + פתח (לא ה"א!). <strong>עתיד:</strong> <strong>יַשִּׁיק</strong> (שורש: ש.ו.ק, בניין: הִפְעִיל, עתיד, גוף שלישי) — תחילית י/ת/א/נ + פתח. <em>שגיאה נפוצה:</em> תלמידים מוסיפים ה"א גם בהווה ("הַמַּשִּׁיק") — זה שגוי. ה"א קיימת <strong>רק בעבר</strong>.</p>
+    </div>
+  </div>
+
+  <!-- Full conjugation הִפְעִיל -->
+  <h3 style="font-weight:700;font-size:1.03rem;margin:22px 0 10px;color:var(--text);">הִפְעִיל — נטייה מלאה | שורש ש-ו-ק (השיק)</h3>
+  <div class="overflow-x-auto my-4" style="overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:20px;">
+    <table class="ctable">
+      <thead><tr><th>גוף</th><th>עבר</th><th>הווה</th><th>עתיד</th><th>ציווי</th></tr></thead>
+      <tbody>
+        <tr><td>אני</td><td class="hif">הִשַּׁקְתִּי</td><td rowspan="2" class="hif" style="text-align:center;vertical-align:middle;">מַשִּׁיק</td><td class="hif">אַשִּׁיק</td><td>—</td></tr>
+        <tr><td>אתה</td><td class="hif">הִשַּׁקְתָּ</td><td class="hif">תַּשִּׁיק</td><td class="hif">הַשֵּׁק!</td></tr>
+        <tr><td>את</td><td class="hif">הִשַּׁקְתְּ</td><td class="hif">מַשִּׁיקָה</td><td class="hif">תַּשִּׁיקִי</td><td class="hif">הַשִּׁיקִי!</td></tr>
+        <tr><td>הוא</td><td class="hif">הִשִּׁיק</td><td class="hif">מַשִּׁיק</td><td class="hif">יַשִּׁיק</td><td>—</td></tr>
+        <tr><td>היא</td><td class="hif">הִשִּׁיקָה</td><td class="hif">מַשִּׁיקָה</td><td class="hif">תַּשִּׁיק</td><td>—</td></tr>
+        <tr><td>אנחנו</td><td class="hif">הִשַּׁקְנוּ</td><td class="hif">מַשִּׁיקִים/ות</td><td class="hif">נַשִּׁיק</td><td>—</td></tr>
+        <tr><td>אתם</td><td class="hif">הִשַּׁקְתֶּם</td><td class="hif">מַשִּׁיקִים</td><td class="hif">תַּשִּׁיקוּ</td><td class="hif">הַשִּׁיקוּ!</td></tr>
+        <tr><td>הם</td><td class="hif">הִשִּׁיקוּ</td><td class="hif">מַשִּׁיקִים</td><td class="hif">יַשִּׁיקוּ</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- הֻפְעַל condensed -->
+  <h3 style="font-weight:700;font-size:1.03rem;margin:20px 0 10px;color:var(--text);">הֻפְעַל — עיקרי הצורות | שורש ש-ו-ק (הֻשַּׁק)</h3>
+  <div class="overflow-x-auto my-4" style="overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:20px;">
+    <table class="ctable">
+      <thead><tr><th>גוף</th><th>עבר</th><th>הווה</th><th>עתיד</th></tr></thead>
+      <tbody>
+        <tr><td>הוא</td><td class="huf">הֻשַּׁק</td><td class="huf">מֻשָּׁק</td><td class="huf">יֻשַּׁק</td></tr>
+        <tr><td>היא</td><td class="huf">הֻשְּׁקָה</td><td class="huf">מֻשֶּׁקֶת</td><td class="huf">תֻּשַּׁק</td></tr>
+        <tr><td>הם</td><td class="huf">הֻשְּׁקוּ</td><td class="huf">מֻשָּׁקִים</td><td class="huf">יֻשְּׁקוּ</td></tr>
+        <tr><td>אני</td><td class="huf">הֻשַּׁקְתִּי</td><td>—</td><td class="huf">אֻשַּׁק</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Semantic explanation - rich annotated -->
+  <div class="tb-info" style="margin-top:16px;">
+    <div class="bt">ℹ️ ארבע קטגוריות של הִפְעִיל — עם דוגמאות מנותחות</div>
+    <div class="ab">
+      <p><strong>1. גרימה:</strong> הנושא גורם לאחר לבצע פעולה — <strong>הֵרִיץ</strong> (שורש: ר.ו.ץ, בניין: הִפְעִיל — גרם לו לרוץ), <strong>הִלְבִּישׁ</strong> (שורש: ל.ב.ש, בניין: הִפְעִיל — גרם לו ללבוש), <strong>הִשְׁמִיעַ</strong> (שורש: ש.מ.ע, בניין: הִפְעִיל — גרם שיישמע, הוציא קול).</p>
+      <p><strong>2. כניסה למצב:</strong> הנושא עצמו נכנס למצב חדש — <strong>הֶאֱדִים</strong> (שורש: א.ד.מ, בניין: הִפְעִיל — נהפך לאדום), <strong>הֵבִין</strong> (שורש: ב.י.נ, בניין: הִפְעִיל — הגיע להבנה עצמאית).</p>
+      <p><strong>3. שימוש בכלי:</strong> הנושא פועל באמצעות כלי — <strong>הִצְלִים</strong> (שורש: צ.ל.מ, בניין: הִפְעִיל — השתמש במצלמה), <strong>הִדְלִיק</strong> (שורש: ד.ל.ק, בניין: הִפְעִיל — הפעיל מנגנון אור).</p>
+      <p><strong>4. הֻפְעַל — סביל:</strong> הנושא מקבל את הפעולה — <strong>הֻשְׁפַּע</strong> (שורש: ש.פ.ע, בניין: הֻפְעַל — קיבל השפעה), <strong>הֻצַּג</strong> (שורש: י.צ.ג, בניין: הֻפְעַל — הוצג לקהל). שימו לב: קיבוץ (<span style="font-weight:700">הֻ</span>) ולא שורוק (<span style="font-weight:700">הוּ</span>)!</p>
+    </div>
+  </div>
+
+</div><!-- /theory -->
+
+
+<!-- ════════════════════════ TAB 4 — WORKSHEET ════════════════════════ -->
+<div id="tw" class="tab-pane student-exercise">
+
+  <div class="card" style="background:linear-gradient(135deg,var(--surface2),var(--surface));margin-bottom:20px;">
+    <h2 style="font-weight:800;font-size:1.2rem;color:var(--text);margin-bottom:16px;">✏️ דף עבודה — שיעור 4: הִפְעִיל וְהֻפְעַל</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div><label style="font-size:0.79rem;font-weight:600;color:var(--text-dim);display:block;margin-bottom:4px;">שם מלא</label><input type="text" id="sname" placeholder="הקלד/י שם..."></div>
+      <div><label style="font-size:0.79rem;font-weight:600;color:var(--text-dim);display:block;margin-bottom:4px;">כיתה</label><input type="text" id="sclass" placeholder="לדוגמה: י׳3"></div>
+      <div><label style="font-size:0.79rem;font-weight:600;color:var(--text-dim);display:block;margin-bottom:4px;">תאריך</label><input type="text" id="sdate" placeholder="יום/חודש/שנה"></div>
+    </div>
+  </div>
+
+  <!-- Q1 — Identification -->
+  <div class="card neon">
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;">
+      <div style="background:var(--neon);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.88rem;flex-shrink:0;">1</div>
+      <div>
+        <div style="font-weight:700;font-size:0.98rem;color:var(--text);">זיהוי וניתוח — הִפְעִיל וְהֻפְעַל בטקסט</div>
+        <div style="font-size:0.83rem;color:var(--text-dim);">(16 נקודות — 2 נקודות לכל פועל)</div>
+      </div>
+    </div>
+    <p style="font-size:0.9rem;color:var(--text-mid);margin-bottom:14px;">
+      להלן 8 פעלים מהטקסט. לכל פועל: (א) קבעו בניין (הִפְעִיל / הֻפְעַל), (ב) רשמו שורש, (ג) ציינו זמן + גוף:
+    </p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <div><label style="font-size:0.82rem;color:var(--text-dim);display:block;margin-bottom:3px;">א. <span class="vb-nif">הֻשַּׁק</span> (הושק)</label><input type="text" id="q1a" placeholder="בניין: ___ | שורש: ___ | זמן+גוף: ___"></div>
+      <div><label style="font-size:0.82rem;color:var(--text-dim);display:block;margin-bottom:3px;">ב. <span class="vb-hif">הִפִּיק</span> (הפיק)</label><input type="text" id="q1b" placeholder="בניין: ___ | שורש: ___ | זמן+גוף: ___"></div>
+      <div><label style="font-size:0.82rem;color:var(--text-dim);display:block;margin-bottom:3px;">ג. <span class="vb-nif">הֻשְׁפְּעוּ</span> (הושפעו)</label><input type="text" id="q1c" placeholder="בניין: ___ | שורש: ___ | זמן+גוף: ___"></div>
+      <div><label style="font-size:0.82rem;color:var(--text-dim);display:block;margin-bottom:3px;">ד. <span class="vb-hif">הֶאֱדִים</span> → כאן: <span class="vb-hif">הֵרִיץ</span> (הריץ)</label><input type="text" id="q1d" placeholder="בניין: ___ | שורש: ___ | זמן+גוף: ___"></div>
+      <div><label style="font-size:0.82rem;color:var(--text-dim);display:block;margin-bottom:3px;">ה. <span class="vb-nif">הֻחְלַט</span> (הוחלט)</label><input type="text" id="q1e" placeholder="בניין: ___ | שורש: ___ | זמן+גוף: ___"></div>
+      <div><label style="font-size:0.82rem;color:var(--text-dim);display:block;margin-bottom:3px;">ו. <span class="vb-hif">הֵשִׂיגוּ</span> (הֻשְׂגוּ — כאן: <span class="vb-nif">הֻשְׂגוּ</span>)</label><input type="text" id="q1f" placeholder="בניין: ___ | שורש: ___ | זמן+גוף: ___"></div>
+      <div><label style="font-size:0.82rem;color:var(--text-dim);display:block;margin-bottom:3px;">ז. <span class="vb-hif">מַשִּׁיק</span> (משיק)</label><input type="text" id="q1g" placeholder="בניין: ___ | שורש: ___ | זמן+גוף: ___"></div>
+      <div><label style="font-size:0.82rem;color:var(--text-dim);display:block;margin-bottom:3px;">ח. <span class="vb-hif">הִצְטַבְּרוּ</span> (הצטברו — ⚠️ לאיזה בניין?)</label><input type="text" id="q1h" placeholder="בניין: ___ | שורש: ___ | זמן+גוף: ___"></div>
+    </div>
+  </div>
+
+  <!-- Q2 — Conjugation table -->
+  <div class="card" style="border-right:4px solid var(--cyan);">
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;">
+      <div style="background:var(--cyan);color:#000;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.88rem;flex-shrink:0;">2</div>
+      <div>
+        <div style="font-weight:700;font-size:0.98rem;color:var(--text);">השלמת טבלת נטייה — שורש פ-ק-ד</div>
+        <div style="font-size:0.83rem;color:var(--text-dim);">(18 נקודות — 2 לכל תא)</div>
+      </div>
+    </div>
+    <p style="font-size:0.9rem;color:var(--text-mid);margin-bottom:14px;">השלימו את הטבלה בניקוד מלא לשני הבניינים:</p>
+    <div class="overflow-x-auto my-4" style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+      <table style="width:100%;border-collapse:collapse;font-size:0.87rem;">
+        <thead>
+          <tr style="background:var(--surface3);">
+            <th style="padding:9px 12px;text-align:right;color:var(--text-dim);border-bottom:1px solid var(--border);">גוף</th>
+            <th style="padding:9px 12px;color:var(--neon);border-bottom:1px solid var(--border);">הִפְעִיל עבר</th>
+            <th style="padding:9px 12px;color:var(--neon);border-bottom:1px solid var(--border);">הִפְעִיל הווה</th>
+            <th style="padding:9px 12px;color:var(--neon);border-bottom:1px solid var(--border);">הִפְעִיל עתיד</th>
+            <th style="padding:9px 12px;color:var(--cyan);border-bottom:1px solid var(--border);">הֻפְעַל עבר</th>
+            <th style="padding:9px 12px;color:var(--cyan);border-bottom:1px solid var(--border);">הֻפְעַל הווה</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 12px;font-weight:600;font-size:0.88rem;">אני</td>
+            <td style="padding:5px 7px;"><input type="text" id="tb1" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+            <td style="padding:5px 7px;background:rgba(255,255,255,0.02);"><input type="text" id="tb2" placeholder="—" style="min-height:36px;font-size:0.85rem;background:transparent;cursor:not-allowed;" readonly></td>
+            <td style="padding:5px 7px;"><input type="text" id="tb3" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+            <td style="padding:5px 7px;"><input type="text" id="tb4" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+            <td style="padding:5px 7px;background:rgba(255,255,255,0.02);"><input type="text" id="tb5" placeholder="—" style="min-height:36px;font-size:0.85rem;background:transparent;cursor:not-allowed;" readonly></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 12px;font-weight:600;font-size:0.88rem;">הוא</td>
+            <td style="padding:5px 7px;"><input type="text" id="tb6" placeholder="הִפְקִיד ✓" value="הִפְקִיד" style="min-height:36px;font-size:0.85rem;background:rgba(124,58,255,0.08);"></td>
+            <td style="padding:5px 7px;"><input type="text" id="tb7" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+            <td style="padding:5px 7px;"><input type="text" id="tb8" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+            <td style="padding:5px 7px;"><input type="text" id="tb9" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+            <td style="padding:5px 7px;"><input type="text" id="tb10" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 12px;font-weight:600;font-size:0.88rem;">היא</td>
+            <td style="padding:5px 7px;"><input type="text" id="tb11" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+            <td style="padding:5px 7px;"><input type="text" id="tb12" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+            <td style="padding:5px 7px;"><input type="text" id="tb13" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+            <td style="padding:5px 7px;"><input type="text" id="tb14" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+            <td style="padding:5px 7px;"><input type="text" id="tb15" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 12px;font-weight:600;font-size:0.88rem;">אתם</td>
+            <td style="padding:5px 7px;"><input type="text" id="tb16" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+            <td style="padding:5px 7px;"><input type="text" id="tb17" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+            <td style="padding:5px 7px;"><input type="text" id="tb18" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+            <td style="padding:5px 7px;"><input type="text" id="tb19" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+            <td style="padding:5px 7px;"><input type="text" id="tb20" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+          </tr>
+          <tr>
+            <td style="padding:8px 12px;font-weight:600;font-size:0.88rem;">הם</td>
+            <td style="padding:5px 7px;"><input type="text" id="tb21" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+            <td style="padding:5px 7px;"><input type="text" id="tb22" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+            <td style="padding:5px 7px;"><input type="text" id="tb23" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+            <td style="padding:5px 7px;"><input type="text" id="tb24" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+            <td style="padding:5px 7px;"><input type="text" id="tb25" placeholder="___" style="min-height:36px;font-size:0.85rem;"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note">💡 הֻפְעַל בינוני = מֻ + שורש (קיבוץ תחת מ"ם). אין הֻפְעַל לגוף ראשון בהווה.</div>
+  </div>
+
+  <!-- Q3 — Conversion (Core) -->
+  <div class="card" style="border-right:4px solid var(--magenta);">
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;">
+      <div style="background:var(--magenta);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.88rem;flex-shrink:0;">3</div>
+      <div>
+        <div style="font-weight:700;font-size:0.98rem;color:var(--text);">המרת בניינים — מקַל להִפְעִיל/הֻפְעַל</div>
+        <div style="font-size:0.83rem;color:var(--text-dim);">(20 נקודות | לב השיעור)</div>
+      </div>
+    </div>
+    <p style="font-size:0.9rem;color:var(--text-mid);margin-bottom:16px;">
+      לכל משפט בבניין קַל — (א) שנו את הפועל המסומן לבניין הִפְעִיל, (ב) כתבו את המשפט מחדש, (ג) הסבירו בשורה אחת כיצד המשמעות משתנה:
+    </p>
+    <div style="display:flex;flex-direction:column;gap:16px;">
+
+      <div style="background:var(--surface2);border-radius:10px;padding:14px 16px;border:1px solid var(--border);">
+        <p style="font-size:0.93rem;margin-bottom:10px;color:var(--text);">1. "ליאב <span style="background:var(--magenta-dim);padding:2px 5px;border-radius:3px;color:var(--magenta);font-weight:600;">רָץ</span> 10 שעות ביום על הגיימינג." <span style="font-size:0.78rem;color:var(--text-dim);">(קַל, שורש ר-ו-ץ)</span></p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div><label style="font-size:0.78rem;color:var(--text-dim);display:block;margin-bottom:3px;">פועל בהִפְעִיל:</label><input type="text" id="q3a1" placeholder="הֵרִיץ → ___"></div>
+          <div><label style="font-size:0.78rem;color:var(--text-dim);display:block;margin-bottom:3px;">המשפט המחודש:</label><input type="text" id="q3a2" placeholder="הסוכן _____ את ליאב..."></div>
+          <div><label style="font-size:0.78rem;color:var(--text-dim);display:block;margin-bottom:3px;">שינוי המשמעות:</label><input type="text" id="q3a3" placeholder="קַל = ליאב בעצמו; הִפְעִיל = ..."></div>
+        </div>
+      </div>
+
+      <div style="background:var(--surface2);border-radius:10px;padding:14px 16px;border:1px solid var(--border);">
+        <p style="font-size:0.93rem;margin-bottom:10px;color:var(--text);">2. "החברה <span style="background:var(--magenta-dim);padding:2px 5px;border-radius:3px;color:var(--magenta);font-weight:600;">יָצְאָה</span> בפרסומת חדשה." <span style="font-size:0.78rem;color:var(--text-dim);">(קַל, שורש י-צ-א)</span></p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div><label style="font-size:0.78rem;color:var(--text-dim);display:block;margin-bottom:3px;">פועל בהִפְעִיל:</label><input type="text" id="q3b1" placeholder="הוֹצִיאָה → ___"></div>
+          <div><label style="font-size:0.78rem;color:var(--text-dim);display:block;margin-bottom:3px;">המשפט המחודש:</label><input type="text" id="q3b2" placeholder="הסוכנות _____ פרסומת..."></div>
+          <div><label style="font-size:0.78rem;color:var(--text-dim);display:block;margin-bottom:3px;">שינוי המשמעות:</label><input type="text" id="q3b3" placeholder="הוציאה = גרמה לפרסומת לצאת..."></div>
+        </div>
+      </div>
+
+      <div style="background:var(--surface2);border-radius:10px;padding:14px 16px;border:1px solid var(--border);">
+        <p style="font-size:0.93rem;margin-bottom:10px;color:var(--text);">3. "השחקן <span style="background:var(--magenta-dim);padding:2px 5px;border-radius:3px;color:var(--magenta);font-weight:600;">שָׁמַע</span> את הביקורת ואז שינה גישה." → הפכו לסביל (הֻפְעַל):</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div><label style="font-size:0.78rem;color:var(--text-dim);display:block;margin-bottom:3px;">פועל בהֻפְעַל:</label><input type="text" id="q3c1" placeholder="הֻשְׁמַע → ___"></div>
+          <div><label style="font-size:0.78rem;color:var(--text-dim);display:block;margin-bottom:3px;">המשפט המחודש (סביל):</label><input type="text" id="q3c2" placeholder="הביקורת _____..."></div>
+          <div><label style="font-size:0.78rem;color:var(--text-dim);display:block;margin-bottom:3px;">ההבדל פעיל/סביל:</label><input type="text" id="q3c3" placeholder="פעיל = השחקן שמע; סביל = ..."></div>
+        </div>
+      </div>
+
+      <div style="background:var(--surface2);border-radius:10px;padding:14px 16px;border:1px solid var(--border);">
+        <p style="font-size:0.93rem;margin-bottom:10px;color:var(--text);">4. <strong style="color:var(--gold);">⭐ אתגר:</strong> "הם <span style="background:var(--magenta-dim);padding:2px 5px;border-radius:3px;color:var(--magenta);font-weight:600;">הֶחְלִיטוּ</span> לפתח כלי ניטור." → כתבו אותו בהֻפְעַל ובשינוי נושא:</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div><label style="font-size:0.78rem;color:var(--text-dim);display:block;margin-bottom:3px;">פועל בהֻפְעַל:</label><input type="text" id="q3d1" placeholder="הֻחְלַט → ___"></div>
+          <div><label style="font-size:0.78rem;color:var(--text-dim);display:block;margin-bottom:3px;">המשפט (הנושא חדש):</label><input type="text" id="q3d2" placeholder="הֻחְלַט ש... / הפיתוח ___..."></div>
+          <div><label style="font-size:0.78rem;color:var(--text-dim);display:block;margin-bottom:3px;">מה "נעלם" בסביל?</label><input type="text" id="q3d3" placeholder="מי החליט — לא נאמר..."></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q4 — Vowel precision -->
+  <div class="card" style="border-right:4px solid var(--gold);">
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;">
+      <div style="background:var(--gold);color:#000;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.88rem;flex-shrink:0;">4</div>
+      <div>
+        <div style="font-weight:700;font-size:0.98rem;color:var(--text);">דיוק ניקוד — הִ לעומת הֻ</div>
+        <div style="font-size:0.83rem;color:var(--text-dim);">(12 נקודות | סגנון שאלון 70%)</div>
+      </div>
+    </div>
+    <p style="font-size:0.9rem;color:var(--text-mid);margin-bottom:14px;">
+      הוסיפו ניקוד מלא לה"א התחילית בכל צורה, וקבעו אם הפועל הוא הִפְעִיל (פעיל) או הֻפְעַל (סביל):
+    </p>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:12px 14px;">
+        <p style="font-family:monospace;font-size:1.1rem;font-weight:700;color:var(--gold);margin-bottom:8px;" dir="rtl">הַשְׁקִיעוּ / הֻשְׁקְעוּ — שתי קריאות אפשריות</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div><label style="font-size:0.78rem;color:var(--text-dim);display:block;margin-bottom:3px;">קריאה 1 (ניקוד + בניין + גוף):</label><input type="text" id="q4a1" placeholder="הִ___ = הִפְעִיל / ___ גוף: ___"></div>
+          <div><label style="font-size:0.78rem;color:var(--text-dim);display:block;margin-bottom:3px;">קריאה 2 (ניקוד + בניין + גוף):</label><input type="text" id="q4a2" placeholder="הֻ___ = הֻפְעַל / ___ גוף: ___"></div>
+        </div>
+      </div>
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:12px 14px;">
+        <p style="font-family:monospace;font-size:1.1rem;font-weight:700;color:var(--gold);margin-bottom:8px;" dir="rtl">הוצג — שתי קריאות</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div><label style="font-size:0.78rem;color:var(--text-dim);display:block;margin-bottom:3px;">קריאה 1:</label><input type="text" id="q4b1" placeholder="הוֹ___ = ___"></div>
+          <div><label style="font-size:0.78rem;color:var(--text-dim);display:block;margin-bottom:3px;">קריאה 2:</label><input type="text" id="q4b2" placeholder="הֻ___ = ___"></div>
+        </div>
+      </div>
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:12px 14px;">
+        <p style="font-family:monospace;font-size:1.1rem;font-weight:700;color:var(--gold);margin-bottom:8px;" dir="rtl">מופק — הִפְעִיל הווה. כתבו את הֻפְעַל הווה המקביל:</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div><label style="font-size:0.78rem;color:var(--text-dim);display:block;margin-bottom:3px;">זכר יחיד:</label><input type="text" id="q4c1" placeholder="מֻ___"></div>
+          <div><label style="font-size:0.78rem;color:var(--text-dim);display:block;margin-bottom:3px;">נקבה יחיד:</label><input type="text" id="q4c2" placeholder="מֻ___"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q5 — Data + Writing -->
+  <div class="card neon" style="background:linear-gradient(135deg,var(--surface),rgba(124,58,255,0.04));">
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;">
+      <div style="background:var(--neon);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.88rem;flex-shrink:0;">5</div>
+      <div>
+        <div style="font-weight:700;font-size:0.98rem;color:var(--text);">אוריינות נתונים + כתיבה (סגנון ראמ"ה)</div>
+        <div style="font-size:0.83rem;color:var(--text-dim);">(20 נקודות)</div>
+      </div>
+    </div>
+    <div style="background:var(--neon-dim);border:1px solid rgba(124,58,255,0.25);border-radius:8px;padding:12px 14px;margin-bottom:14px;font-size:0.86rem;color:var(--text-mid);">
+      עיינו בגרף ההכנסות של שוק הגיימינג (לשונית "הטקסט") וענו:
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <div>
+        <label style="font-size:0.87rem;font-weight:700;color:var(--neon);display:block;margin-bottom:6px;">א. (5 נק׳) חשבו: כמה <u>יותר</u> מרוויח שוק משחקי המובייל לעומת ה-eSports התחרותי? הציגו חישוב ומסקנה אחת.</label>
+        <textarea id="q5a" rows="3" placeholder="$___ B ÷ $___ B = פי ___. מסקנה: eSports הוא עדיין ___% מהשוק..."></textarea>
+      </div>
+      <div>
+        <label style="font-size:0.87rem;font-weight:700;color:var(--neon);display:block;margin-bottom:6px;">ב. (5 נק׳) הגרף מראה ש-eSports צמח ב-18% בשנת 2025. כתבו שתי השערות לסיבה — אחת שקשורה לטכנולוגיה, אחת שקשורה לתרבות.</label>
+        <textarea id="q5b" rows="4" placeholder="השערה טכנולוגית: ייתכן ש...&#10;השערה תרבותית: ייתכן ש..."></textarea>
+      </div>
+      <div>
+        <label style="font-size:0.87sm;font-weight:700;color:var(--neon);display:block;margin-bottom:6px;">ג. (10 נק׳ — דקדוק) כתבו שלושה משפטים על הנתון — אחד עם הִפְעִיל פעיל, אחד עם הֻפְעַל סביל, ואחד שמשלב את שניהם. <strong>סמנו</strong> כל פועל.</label>
+        <textarea id="q5c" rows="6" placeholder="הִפְעִיל: חברות הגיימינג _____ [הִפְעִיל, ___] את השוק ב...&#10;הֻפְעַל: תקציבים גדולים _____ [הֻפְעַל, ___] לתחום...&#10;שניהם: החברה _____ [הִפְעִיל] מיליונים, ומשחקים חדשים _____ [הֻפְעַל]..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q6 — Active/Passive transformation -->
+  <div class="card" style="border-right:4px solid var(--cyan);">
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;">
+      <div style="background:var(--cyan);color:#000;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.88rem;flex-shrink:0;">6</div>
+      <div>
+        <div style="font-weight:700;font-size:0.98rem;color:var(--text);">פעיל ↔ סביל — הֲפָכָה</div>
+        <div style="font-size:0.83rem;color:var(--text-dim);">(14 נקודות | שאלון 70%)</div>
+      </div>
+    </div>
+    <p style="font-size:0.9rem;color:var(--text-mid);margin-bottom:14px;">הפכו כל משפט מפעיל לסביל (הִפְעִיל → הֻפְעַל) או ההפך. שמרו על זמן הפועל:</p>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div style="background:var(--surface2);border-radius:9px;padding:12px 14px;border:1px solid var(--border);">
+        <p style="font-size:0.9rem;color:var(--text-mid);margin-bottom:8px;"><strong>א.</strong> "חברת eSports <span class="vb-hif">הִשִּׁיקָה</span> טורניר חדש." → הפכו לסביל:</p>
+        <input type="text" id="q6a" placeholder="הטורניר _____ (הֻפְעַל)...">
+      </div>
+      <div style="background:var(--surface2);border-radius:9px;padding:12px 14px;border:1px solid var(--border);">
+        <p style="font-size:0.9rem;color:var(--text-mid);margin-bottom:8px;"><strong>ב.</strong> "הסכם הספונסרשיפ <span class="vb-nif">הֻחְתַּם</span> אתמול." → הפכו לפעיל:</p>
+        <input type="text" id="q6b" placeholder="הסוכנות _____ (הִפְעִיל)...">
+      </div>
+      <div style="background:var(--surface2);border-radius:9px;padding:12px 14px;border:1px solid var(--border);">
+        <p style="font-size:0.9rem;color:var(--text-mid);margin-bottom:8px;"><strong>ג.</strong> "הם <span class="vb-hif">יַכְרִיזוּ</span> על הזוכה מחר." → הפכו לסביל בעתיד:</p>
+        <input type="text" id="q6c" placeholder="הזוכה _____ (הֻפְעַל, עתיד)...">
+      </div>
+      <div style="background:var(--surface2);border-radius:9px;padding:12px 14px;border:1px solid var(--border);">
+        <p style="font-size:0.9rem;color:var(--text-mid);margin-bottom:8px;"><strong>ד. ⭐ אתגר:</strong> "הליגה <span class="vb-hif">מַפְעִילָה</span> מסלול חינוכי." → הפכו לסביל, ואז הסבירו מי "נעלם":</p>
+        <input type="text" id="q6d" placeholder="מסלול חינוכי _____ (הֻפְעַל, הווה)... מי נעלם?">
+      </div>
+    </div>
+  </div>
+
+  <!-- Q7 — Creative Writing -->
+  <div class="card" style="border:1.5px dashed var(--neon);background:var(--neon-dim);">
+    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;">
+      <div style="background:var(--neon);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.88rem;flex-shrink:0;">7</div>
+      <div>
+        <div style="font-weight:700;font-size:0.98rem;color:var(--neon);">⭐ אתגר — כתיבה עצמאית: "יום בחיי גיימר"</div>
+        <div style="font-size:0.83rem;color:var(--text-dim);">(10 נקודות | הרחבה)</div>
+      </div>
+    </div>
+    <p style="font-size:0.9rem;color:var(--text-mid);margin-bottom:10px;">
+      כתבו פסקה (4–5 משפטים) בגוף ראשון: "יום שבו ניהלתי סשן גיימינג". <strong>דרישות:</strong>
+    </p>
+    <ul style="padding-right:18px;font-size:0.86rem;color:var(--text-mid);margin-bottom:14px;line-height:2.1;">
+      <li>לפחות <strong>3 פעלים</strong> בהִפְעִיל (פעיל)</li>
+      <li>לפחות <strong>1 פועל</strong> בהֻפְעַל (סביל)</li>
+      <li>לפחות <strong>1 פועל</strong> בבניין אחר (קַל / פִּיעֵל / הִתְפַּעֵל)</li>
+      <li>סמנו כל פועל: [בניין + זמן]</li>
+    </ul>
+    <textarea id="q7" rows="7" placeholder="הִפְעַלְתִּי [הִפְעִיל, עבר] את המחשב ב-16:00 ו_____ [___] את הסשן..."></textarea>
+    <div class="note">💡 חשבו: מה גרמתם לאחרים לעשות? מה נעשה לכם? מה הרגשתם?</div>
+  </div>
+
+  <!-- Submit -->
+  <div class="card no-print" style="background:linear-gradient(135deg,var(--surface2),var(--surface));border:1px solid var(--neon);text-align:center;">
+    <div style="font-size:2rem;margin-bottom:8px;">📤</div>
+    <h3 style="font-weight:700;font-size:1rem;color:var(--text);margin-bottom:6px;">שליחה למורה</h3>
+    <p style="font-size:0.84rem;color:var(--text-dim);margin-bottom:16px;">לחצו לשליחת דף העבודה המלא</p>
+    <button onclick="submitWS()" class="neon-btn">שלח/י דף עבודה</button>
+  </div>
+
+</div><!-- /worksheet -->
+
+
+<!-- ════════════════════════ TAB 5 — ANSWERS ════════════════════════ -->
+<div id="ta" class="tab-pane teacher-only">
+
+  <div style="background:linear-gradient(135deg,var(--neon-dim),var(--surface));border:1px solid var(--neon);border-radius:12px;padding:16px 20px;margin-bottom:22px;">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div style="font-size:2rem;">🔑</div>
+      <div>
+        <div style="font-weight:800;font-size:0.98rem;color:var(--text);">מדריך פתרונות מלא — לשימוש מורה בלבד</div>
+        <div style="font-size:0.8rem;color:var(--text-dim);">כולל ניקוד מלא, הסברים ורובריקות</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q1 -->
+  <h3 style="font-size:1.05rem;font-weight:800;color:var(--neon);margin-bottom:12px;">שאלה 1 — זיהוי וניתוח (16 נקודות)</h3>
+  <div class="ai"><strong>א. הֻשַּׁק</strong> — הֻפְעַל | שורש: ש-ו-ק (ע"ו) | עבר, ג׳ זכר יחיד | ⚠️ קיבוץ תחת ה"א = הֻפְעַל</div>
+  <div class="ai"><strong>ב. הִפִּיק</strong> — הִפְעִיל | שורש: פ-י-ק / י-צ-א אם הֵפִיק — כאן שורש פ-ו-ק | עבר, ג׳ זכר יחיד | גרימה (גרם למשהו לצאת)</div>
+  <div class="ai cyan"><strong>ג. הֻשְׁפְּעוּ</strong> — הֻפְעַל | שורש: ש-פ-ע | עבר, ג׳ זכר רבים | סביל — קיבלו השפעה</div>
+  <div class="ai"><strong>ד. הֵרִיץ</strong> — הִפְעִיל | שורש: ר-ו-ץ (ע"ו) | עבר, ג׳ זכר יחיד | גרימה = גרם לו לרוץ</div>
+  <div class="ai cyan"><strong>ה. הֻחְלַט</strong> — הֻפְעַל | שורש: ח-ל-ט | עבר, ג׳ זכר יחיד (ללא נושא = "הוחלט" אנונימי) | ⚠️ נפוץ בטקסטים רשמיים</div>
+  <div class="ai cyan"><strong>ו. הֻשְׂגוּ</strong> — הֻפְעַל | שורש: ש-ג-ה/ש-ו-ג | עבר, ג׳ זכר רבים | סביל — הם הושגו/נוצר קשר אליהם</div>
+  <div class="ai"><strong>ז. מַשִּׁיק</strong> — הִפְעִיל | שורש: ש-ו-ק | הווה, זכר יחיד | ⚠️ מ"ם + פתח = הווה הִפְעִיל (לא עבר!)</div>
+  <div class="ai gold"><strong>ח. הִצְטַבְּרוּ</strong> — הִתְפַּעֵל ⚠️ לא הִפְעִיל! | שורש: צ-ב-ר | עבר, ג׳ רבים | חילוף ת→ט לאחר צ׳ = הִצְ-טַ | זה הִתְפַּעֵל, לא הִפְעִיל</div>
+
+  <!-- Q2 -->
+  <h3 style="font-size:1.05rem;font-weight:800;color:var(--neon);margin:22px 0 12px;">שאלה 2 — טבלת נטייה: פ-ק-ד (18 נקודות)</h3>
+  <div class="overflow-x-auto my-4" style="overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:8px;">
+    <table style="width:100%;border-collapse:collapse;font-size:0.84rem;">
+      <thead><tr style="background:var(--surface3);">
+        <th style="padding:9px;color:var(--text-dim);border-bottom:1px solid var(--border);">גוף</th>
+        <th style="padding:9px;color:var(--neon);border-bottom:1px solid var(--border);">הִפְעִיל עבר</th>
+        <th style="padding:9px;color:var(--neon);border-bottom:1px solid var(--border);">הִפְעִיל הווה</th>
+        <th style="padding:9px;color:var(--neon);border-bottom:1px solid var(--border);">הִפְעִיל עתיד</th>
+        <th style="padding:9px;color:var(--cyan);border-bottom:1px solid var(--border);">הֻפְעַל עבר</th>
+        <th style="padding:9px;color:var(--cyan);border-bottom:1px solid var(--border);">הֻפְעַל הווה</th>
+      </tr></thead>
+      <tbody>
+        <tr class="rr"><td>אני</td><td class="hif">הִפְקַדְתִּי</td><td style="color:var(--text-dim);">—</td><td class="hif">אַפְקִיד</td><td class="huf">הֻפְקַדְתִּי</td><td style="color:var(--text-dim);">—</td></tr>
+        <tr class="rr"><td>הוא</td><td class="hif">הִפְקִיד ✓</td><td class="hif">מַפְקִיד</td><td class="hif">יַפְקִיד</td><td class="huf">הֻפְקַד</td><td class="huf">מֻפְקָד</td></tr>
+        <tr class="rr"><td>היא</td><td class="hif">הִפְקִידָה</td><td class="hif">מַפְקִידָה</td><td class="hif">תַּפְקִיד</td><td class="huf">הֻפְקְדָה</td><td class="huf">מֻפְקֶדֶת</td></tr>
+        <tr class="rr"><td>אתם</td><td class="hif">הִפְקַדְתֶּם</td><td class="hif">מַפְקִידִים</td><td class="hif">תַּפְקִידוּ</td><td class="huf">הֻפְקַדְתֶּם</td><td class="huf">מֻפְקָדִים</td></tr>
+        <tr class="rr"><td>הם</td><td class="hif">הִפְקִידוּ</td><td class="hif">מַפְקִידִים</td><td class="hif">יַפְקִידוּ</td><td class="huf">הֻפְקְדוּ</td><td class="huf">מֻפְקָדִים</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note" style="margin-bottom:16px;">⚠️ הֻפְקַד (עבר) ↔ מֻפְקָד (הווה) — שינוי ניקוד עי"ן הפועל חשוב: פתח בעבר, קמץ בהווה.</div>
+
+  <!-- Q3 -->
+  <h3 style="font-size:1.05rem;font-weight:800;color:var(--neon);margin:22px 0 12px;">שאלה 3 — המרת בניינים (20 נקודות)</h3>
+  <div class="ai"><strong>1. הֵרִיץ:</strong> "הסוכן <em>הֵרִיץ</em> את ליאב על 10 שעות ביום." | שינוי: בקַל — ליאב פעל מרצונו; בהִפְעִיל — גורם חיצוני (הסוכן) גרם לו.</div>
+  <div class="ai"><strong>2. הוֹצִיאָה:</strong> "הסוכנות <em>הוֹצִיאָה</em> פרסומת חדשה." | שינוי: בקַל — החברה יצאה בכוחות עצמה; בהִפְעִיל — גרמה לפרסומת לצאת (ייצור/הפקה).</div>
+  <div class="ai cyan"><strong>3. הֻשְׁמְעָה:</strong> "הביקורת <em>הֻשְׁמְעָה</em> ואז השחקן שינה גישה." | הבדל: פעיל — השחקן שמע (הוא הנושא); סביל — הביקורת הוּשמעה (מישהו אמר — לא נאמר מי).</div>
+  <div class="ai gold"><strong>4 ⭐. הֻחְלַט:</strong> "הֻחְלַט לפתח כלי ניטור." | מי נעלם: בפעיל — "הם" = המחליטים; בסביל — הגורם המחליט לא נאמר, ההחלטה "קיבלה חיים" ללא אחריות.</div>
+
+  <!-- Q4 -->
+  <h3 style="font-size:1.05rem;font-weight:800;color:var(--neon);margin:22px 0 12px;">שאלה 4 — דיוק ניקוד (12 נקודות)</h3>
+  <div class="ai gold"><strong>השקיעו/הֻשְׁקְעוּ:</strong><br>קריאה 1: <strong>הִשְׁקִיעוּ</strong> = הִפְעִיל, עבר, ג׳ זכר רבים (הם השקיעו כסף)<br>קריאה 2: <strong>הֻשְׁקְעוּ</strong> = הֻפְעַל, עבר, ג׳ זכר רבים (כספים הושקעו [בידי מישהו])</div>
+  <div class="ai gold"><strong>הוצג:</strong><br>קריאה 1: <strong>הוּצַג</strong> = הֻפְעַל, עבר, ג׳ זכר יחיד — שורוק (⚠️ חריג: שורשי ו' ראשונה → שורוק בהֻפְעַל)<br>קריאה 2: <strong>הֻצַּג</strong> = גם קיבוץ אפשרי לפי הגייה; שתי קריאות קבלו</div>
+  <div class="ai gold"><strong>מופק → הֻפְעַל הווה:</strong> זכר = <strong>מֻפָּק</strong> | נקבה = <strong>מֻפֶּקֶת</strong></div>
+
+  <!-- Q5 -->
+  <h3 style="font-size:1.05rem;font-weight:800;color:var(--neon);margin:22px 0 12px;">שאלה 5 — נתונים + דקדוק (20 נקודות)</h3>
+  <div class="ai"><strong>א. חישוב:</strong> $95B (מובייל) ÷ $13B (eSports) = פי ~7.3. מסקנה: eSports תחרותי הוא 6% בלבד מהשוק — קטן אך הצומח ביותר (18%). (5 נק׳: חישוב נכון + פרסום כ"%" + מסקנה)</div>
+  <div class="ai"><strong>ב. השערות לדוגמה:</strong><br>טכנולוגית: פלטפורמות סטרימינג (Twitch, YouTube) <em>הִאִיצוּ</em> [הִפְעִיל] את הצריכה.<br>תרבותית: גיימינג <em>הֻכַּר</em> [הֻפְעַל] כספורט לגיטימי בקרב בני נוער. (5 נק׳: שתי השערות + ניסוח "ייתכן")</div>
+  <div class="ai"><strong>ג. דוגמות מצוינות:</strong><br>הִפְעִיל: "חברות הגיימינג <u>הִשְׁקִיעוּ</u> [הִפְעִיל, עבר, ג׳ רבים] מיליארדים בפיתוח."<br>הֻפְעַל: "תקציבים ענקיים <u>הֻפְנוּ</u> [הֻפְעַל, עבר, ג׳ רבים] לפרסום."<br>שניהם: "החברה <u>הִשִּׁיקָה</u> [הִפְעִיל] כלי חדש, ושחקנים <u>הֻכְשְׁרוּ</u> [הֻפְעַל] להשתמש בו." (10 נק׳: 3 לכל פועל + 1 לניסוח)</div>
+
+  <!-- Q6 -->
+  <h3 style="font-size:1.05rem;font-weight:800;color:var(--neon);margin:22px 0 12px;">שאלה 6 — פעיל ↔ סביל (14 נקודות)</h3>
+  <div class="ai cyan"><strong>א.</strong> "טורניר חדש <u>הֻשַּׁק</u> על ידי חברת eSports." (הֻפְעַל, עבר, ג׳ זכר יחיד)</div>
+  <div class="ai"><strong>ב.</strong> "הסוכנות <u>הֶחְתִּימָה</u> את הסכם הספונסרשיפ אתמול." (הִפְעִיל, עבר, ג׳ נקבה יחיד)</div>
+  <div class="ai cyan"><strong>ג.</strong> "הזוכה <u>יֻכְרַז</u> מחר." (הֻפְעַל, עתיד, ג׳ זכר יחיד)</div>
+  <div class="ai gold"><strong>ד ⭐.</strong> "מסלול חינוכי <u>מֻפְעָל</u> [הֻפְעַל, הווה, זכר יחיד] על ידי הליגה." | מי נעלם: "הליגה" — הגורם המפעיל; בסביל, הנושא האמיתי (הגורם) יכול להיעלם או להופיע אחרי "על ידי".</div>
+
+  <!-- Q7 Rubric -->
+  <h3 style="font-size:1.05rem;font-weight:800;color:var(--neon);margin:22px 0 12px;">שאלה 7 — כתיבה עצמאית (10 נקודות)</h3>
+  <div class="overflow-x-auto my-4" style="overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:12px;">
+    <table style="width:100%;border-collapse:collapse;font-size:0.86rem;">
+      <thead><tr style="background:var(--surface3);">
+        <th style="padding:9px;text-align:right;color:var(--neon);border-bottom:1px solid var(--border);">קריטריון</th>
+        <th style="padding:9px;text-align:center;color:var(--cyan);border-bottom:1px solid var(--border);">מלא</th>
+        <th style="padding:9px;text-align:center;color:var(--gold);border-bottom:1px solid var(--border);">חלקי</th>
+        <th style="padding:9px;text-align:center;color:var(--magenta);border-bottom:1px solid var(--border);">לא</th>
+      </tr></thead>
+      <tbody>
+        <tr class="rr"><td>3 פעלי הִפְעִיל — מסומנים ומנותחים</td><td style="text-align:center;">4</td><td style="text-align:center;">2</td><td style="text-align:center;">0</td></tr>
+        <tr class="rr"><td>1 פועל הֻפְעַל — מסומן ומנותח</td><td style="text-align:center;">3</td><td style="text-align:center;">1</td><td style="text-align:center;">0</td></tr>
+        <tr class="rr"><td>פועל נוסף מבניין אחר</td><td style="text-align:center;">2</td><td style="text-align:center;">1</td><td style="text-align:center;">0</td></tr>
+        <tr class="rr"><td>הפסקה קוהרנטית ומנוסחת</td><td style="text-align:center;">1</td><td style="text-align:center;">0</td><td style="text-align:center;">0</td></tr>
+      </tbody>
+      <tfoot><tr style="background:var(--surface3);font-weight:700;"><td style="padding:9px;">סה"כ</td><td style="text-align:center;padding:9px;">10</td><td></td><td></td></tr></tfoot>
+    </table>
+  </div>
+  <div style="background:var(--neon-dim);border:1px solid rgba(124,58,255,0.25);border-radius:9px;padding:13px 15px;font-size:0.86rem;color:var(--text-mid);margin-bottom:24px;">
+    <strong style="color:var(--neon);">דוגמת תשובה מצוינת:</strong><br>
+    "<u>הִפְעַלְתִּי</u> [הִפְעִיל, עבר] את המחשב ב-16:00 ו<u>הִשַּׁקְתִּי</u> [הִפְעִיל, עבר] סשן אימון. הצוות שלי <u>הֻכְנַס</u> [הֻפְעַל, עבר] לפגישת אסטרטגיה שלא תוכנן מראש. <u>הִדְרַכְתִּי</u> [הִפְעִיל, עבר] שחקן חדש, ובסוף הוא <u>הִשְׁתַּפֵּר</u> [הִתְפַּעֵל, עבר] ב-40 דקות. <u>הרגשתי</u> [קַל, עבר] גאווה אמיתית."
+  </div>
+
+  <!-- Score Card -->
+  <div class="card" style="background:linear-gradient(135deg,#050010,#0d0030);border:1px solid var(--neon);text-align:center;">
+    <div style="font-family:'Space Grotesk',sans-serif;font-size:1.2rem;font-weight:800;color:var(--text);margin-bottom:16px;">סה"כ ניקוד שיעור 4</div>
+    <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:14px;">
+      <div class="score-pill"><div style="font-size:1.4rem;font-weight:900;color:var(--neon);">16</div><div style="font-size:0.7rem;color:var(--text-dim);">שאלה 1</div></div>
+      <div class="score-pill"><div style="font-size:1.4rem;font-weight:900;color:var(--neon);">18</div><div style="font-size:0.7rem;color:var(--text-dim);">שאלה 2</div></div>
+      <div class="score-pill"><div style="font-size:1.4rem;font-weight:900;color:var(--magenta);">20</div><div style="font-size:0.7rem;color:var(--text-dim);">שאלה 3</div></div>
+      <div class="score-pill"><div style="font-size:1.4rem;font-weight:900;color:var(--gold);">12</div><div style="font-size:0.7rem;color:var(--text-dim);">שאלה 4</div></div>
+      <div class="score-pill"><div style="font-size:1.4rem;font-weight:900;color:var(--neon);">20</div><div style="font-size:0.7rem;color:var(--text-dim);">שאלה 5</div></div>
+      <div class="score-pill"><div style="font-size:1.4rem;font-weight:900;color:var(--cyan);">14</div><div style="font-size:0.7rem;color:var(--text-dim);">שאלה 6</div></div>
+      <div class="score-pill" style="border-color:var(--neon-lt);"><div style="font-size:1.4rem;font-weight:900;color:var(--neon-lt);">10</div><div style="font-size:0.7rem;color:var(--text-dim);">שאלה 7</div></div>
+      <div style="background:var(--neon);border-radius:100px;padding:10px 22px;display:inline-block;box-shadow:0 0 20px rgba(124,58,255,0.4);">
+        <div style="font-size:1.9rem;font-weight:900;color:#fff;font-family:'Space Grotesk',sans-serif;">110</div>
+        <div style="font-size:0.7rem;color:rgba(255,255,255,0.65);">סה"כ</div>
+      </div>
+    </div>
+    <div style="font-size:0.76rem;color:var(--text-dim);">שאלות 1–6 = 100 נק׳ (ליבה + 70%) | שאלה 7 = 10 נק׳ (הרחבה)</div>
+  </div>
+
+</div><!-- /answers -->
+
+<!-- ═══ TAB: ASSESSMENT — lesson 4 ═══ -->
+<div id="tab-assess" class="tab-pane">
+  <div style="max-width:660px;margin:0 auto;padding:8px 0">
+    <h2 style="font-size:1.2rem;font-weight:800;margin-bottom:8px">
+      📊 הערכה עצמית — שיעור 4</h2>
+    <p style="font-size:.87rem;color:#6b7280;margin-bottom:18px">
+      מלאו את דף העבודה ולחצו על הכפתור לסיכום</p>
+    <div id="assessment-content-old"
+      style="display:none;background:#ffffff;border:1.5px solid #dde3f0;
+             border-radius:12px;padding:20px;
+             direction:rtl;text-align:right;min-height:60px">
+      <p style="color:#9ca3af;font-size:.87rem;text-align:center;padding:8px 0">לחצו על כפתור “חשב סיכום” לצפייה בלשונית ההערכה</p>
+    </div>
+    <button
+      onclick="if(window.calcAssessment)window.calcAssessment()"
+      style="margin-top:14px;background:#2d3561;color:#fff;border:none;
+             padding:12px 24px;border-radius:9px;
+             font-family:'Heebo','Assistant',sans-serif;
+             font-size:.93rem;font-weight:700;cursor:pointer;
+             width:100%;display:block">
+      חשב סיכום מילוי ⇩
+    </button>
+  </div>
+</div>
+
+<!-- DASHBOARD TAB -->
+<div id="tab-dashboard" class="tab-pane">
+  <div style="max-width:660px;margin:0 auto;padding:8px 0">
+    <div class="dash-hero">
+      <div style="font-size:2.5rem;">📊</div>
+      <div><div style="font-family:'Secular One',sans-serif;font-size:1.15rem;">לוח בקרה — Dashboard</div><div style="font-size:.82rem;color:rgba(255,255,255,.6);">סיכום מילוי דף העבודה</div></div>
+    </div>
+    <div class="card">
+      <div style="font-weight:700;font-size:1rem;margin-bottom:8px;">📋 סיכום מילוי</div>
+      <div id="assessment-content" style="display:none;background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:18px;direction:rtl;text-align:right;min-height:56px;">
+        <p style="color:var(--dim);font-size:.87rem;text-align:center;padding:6px 0;">לחצו "חשב סיכום" לצפייה</p>
+      </div>
+      <button onclick="if(window.calcAssessment)window.calcAssessment()" style="margin-top:14px;background:#1a3a6b;color:#fff;border:none;padding:12px 24px;border-radius:9px;font-family:'Heebo',sans-serif;font-size:.93rem;font-weight:700;cursor:pointer;width:100%;display:block;">חשב סיכום מילוי ⇩</button>
+    </div>
+  </div>
+</div>
+</main>
+
+<!-- MODAL -->
+<div id="modal">
+  <div style="background:var(--surface);border:1px solid var(--neon);border-radius:18px;padding:34px;max-width:420px;width:90%;text-align:center;box-shadow:0 0 40px rgba(124,58,255,0.3);">
+    <div style="font-size:3rem;margin-bottom:10px;">✅</div>
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1.3rem;font-weight:800;color:var(--text);margin-bottom:8px;">נשלח בהצלחה!</h2>
+    <p style="color:var(--text-dim);font-size:0.88rem;margin-bottom:16px;">דף העבודה נשלח למורה.</p>
+    <div id="modal-sum" style="background:var(--surface2);border-radius:8px;padding:12px;text-align:right;margin-bottom:16px;font-size:0.85rem;color:var(--text-mid);"></div>
+    <button onclick="closeModal()" class="neon-btn" style="padding:10px 28px;font-size:0.92rem;">סגור</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="no-print" style="background:var(--surface);border-top:1px solid var(--border);text-align:center;padding:20px;font-size:0.76rem;color:var(--text-dim);margin-top:60px;position:relative;z-index:1;">
+  פלטפורמת לשון עברית — כיתה י׳ | יחידה 1: מערכת הפועל | שיעור 4 מתוך 6<br>
+  תואם תכנית המפמ"ר ומיצ"ב 2026 | © כל הזכויות שמורות
+</footer>
+
+<script>
+// Tabs
+function showTab(id,btn){
+  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>{b.classList.remove('active');b.style.color='var(--text-mid)';});
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  if(id==='tx') setTimeout(animateBars,80);
+}
+
+// Timer
+let tInt=null,tSec=2700,elapsed=0;
+const phases=[{end:300,label:'🔥 פתיחה'},{end:900,label:'📚 רכישה'},{end:1500,label:'🎮 הדגמה'},{end:2400,label:'✏️ תרגול'},{end:2700,label:'🔚 סיכום'}];
+function startTimer(){
+  if(tInt)return;
+  tInt=setInterval(()=>{
+    elapsed++;
+    const rem=tSec-elapsed;
+    if(rem<=0){clearInterval(tInt);document.getElementById('timer-display').textContent='00:00';return;}
+    const m=Math.floor(rem/60),s=rem%60;
+    const d=document.getElementById('timer-display');
+    d.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    d.classList.toggle('warning',rem<=120);
+    const pct=Math.round(elapsed/tSec*100);
+    document.getElementById('prog-fill').style.width=pct+'%';
+    document.getElementById('prog-pct').textContent=pct+'%';
+    const ph=phases.find(p=>elapsed<=p.end);
+    if(ph) document.getElementById('phase-ind').textContent=ph.label;
+  },1000);
+}
+function resetTimer(){
+  clearInterval(tInt);tInt=null;elapsed=0;
+  document.getElementById('timer-display').textContent='45:00';
+  document.getElementById('timer-display').classList.remove('warning');
+  document.getElementById('prog-fill').style.width='0%';
+  document.getElementById('prog-pct').textContent='0%';
+  document.getElementById('phase-ind').textContent='';
+}
+
+// Animate chart bars
+function animateBars(){
+  document.querySelectorAll('.chart-bar-fill').forEach(b=>{
+    const w=b.style.width; b.style.width='0%';
+    setTimeout(()=>{b.style.width=w;},120);
+  });
+}
+
+// Submit
+function submitWS(){
+  const name=document.getElementById('sname').value.trim()||'לא הוזן';
+  const cls=document.getElementById('sclass').value.trim()||'לא הוזנה';
+  const date=document.getElementById('sdate').value.trim()||new Date().toLocaleDateString('he-IL');
+  const q3len=document.getElementById('q3a1').value.trim().length;
+  const q7len=document.getElementById('q7').value.trim().length;
+  document.getElementById('modal-sum').innerHTML=`
+    <div style="margin-bottom:5px;"><strong style="color:var(--text);">תלמיד/ה:</strong> ${name}</div>
+    <div style="margin-bottom:5px;"><strong style="color:var(--text);">כיתה:</strong> ${cls}</div>
+    <div style="margin-bottom:5px;"><strong style="color:var(--text);">תאריך:</strong> ${date}</div>
+    <div style="margin-bottom:5px;"><strong style="color:var(--text);">שאלה 3:</strong> ${q3len?'הוזנה':'ריקה'}</div>
+    <div><strong style="color:var(--text);">שאלה 7:</strong> ${q7len} תווים</div>
+  `;
+  document.getElementById('modal').classList.add('show');
+}
+function closeModal(){document.getElementById('modal').classList.remove('show');}
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+// ─── AUTO-INJECTED BY DASHBOARD: read student name from URL/LS ───
+(function injectStudentName() {
+  try {
+    var p = new URLSearchParams(window.location.search);
+    var n = (p.get('student') || p.get('name') || '').trim();
+    if (!n) { try { n = JSON.parse(localStorage.getItem('lashon_current_student') || '""') || ''; } catch(_){} }
+    if (n) {
+      var bar = document.getElementById('greeting-bar'), gn = document.getElementById('greeting-name');
+      if (bar && gn) { gn.textContent = 'שלום, ' + n + '!'; bar.style.display = 'flex'; }
+      ['sname','student-name','s_name','studentName'].forEach(function(id){ var el=document.getElementById(id); if(el&&!el.value) el.value=n; });
+      try { localStorage.setItem('lashon_current_student', JSON.stringify(n)); } catch(_){}
+    }
+    var dt = document.getElementById('sdate') || document.getElementById('student-date');
+    if (dt && !dt.value) dt.value = new Date().toLocaleDateString('he-IL');
+  } catch(e) {}
+})();
+// ─── END AUTO-INJECT ───
+</script>
+
+<script>
+/* ═══ window.calcAssessment — שיעור 4 ═══ */
+/* ═══ window.calcAssessment — lesson 4 ═══ */
+window.calcAssessment = function() {
+  var ac = document.getElementById("assessment-content");
+  if (!ac) return;
+
+  // Read student info
+  var sname  = (document.getElementById("sname")  || {value:""}).value.trim();
+  var sclass = (document.getElementById("sclass") || {value:""}).value.trim();
+  var sdate  = (document.getElementById("sdate")  || {value:""}).value.trim()
+               || new Date().toLocaleDateString("he-IL");
+
+  var filled = 0;
+  var total  = 34;
+  var qData  = [];   // [{label, ok}]
+
+  // chkText: plain input or textarea
+  function chkText(id, label) {
+    var el = document.getElementById(id);
+    var ok = !!(el && el.value && el.value.trim().length > 0);
+    if (ok) filled++;
+    qData.push({label: label, ok: ok, val: el ? el.value.trim().substring(0,40) : ""});
+  }
+
+  // chkRadio: radio group by name
+  function chkRadio(name, label) {
+    var radios = document.querySelectorAll("input[type=radio][name=" + name + "]");
+    var ok = false;
+    radios.forEach(function(r) { if (r.checked) ok = true; });
+    // Also check mc-option selected class (for styled radio)
+    if (!ok) {
+      var opts = document.querySelectorAll(".mc-option.selected[data-q=" + name + "]");
+      ok = opts.length > 0;
+    }
+    if (ok) filled++;
+    qData.push({label: label, ok: ok, val: ok ? "✔" : ""});
+  }
+
+  chkText("q1a", "שאלה 1א — שורש הפעיל");
+  chkText("q1b", "שאלה 1ב — שורש הפעיל");
+  chkText("q1c", "שאלה 1ג — שורש הפעיל");
+  chkText("q1d", "שאלה 1ד — שורש הפעיל");
+  chkText("q1e", "שאלה 1ה — שורש הפעיל");
+  chkText("q1f", "שאלה 1ו — שורש הפעיל");
+  chkText("q1g", "שאלה 1ז — שורש הפעיל");
+  chkText("q1h", "שאלה 1ח — שורש הפעיל");
+  chkText("q3a1", "שאלה 3א — עבר");
+  chkText("q3a2", "שאלה 3א — הווה");
+  chkText("q3a3", "שאלה 3א — עתיד");
+  chkText("q3b1", "שאלה 3ב — עבר");
+  chkText("q3b2", "שאלה 3ב — הווה");
+  chkText("q3b3", "שאלה 3ב — עתיד");
+  chkText("q3c1", "שאלה 3ג — עבר");
+  chkText("q3c2", "שאלה 3ג — הווה");
+  chkText("q3c3", "שאלה 3ג — עתיד");
+  chkText("q3d1", "שאלה 3ד — עבר");
+  chkText("q3d2", "שאלה 3ד — הווה");
+  chkText("q3d3", "שאלה 3ד — עתיד");
+  chkText("q4a1", "שאלה 4א — פועל בהפעיל");
+  chkText("q4a2", "שאלה 4א — משפט מחודש");
+  chkText("q4b1", "שאלה 4ב — פועל בהפעיל");
+  chkText("q4b2", "שאלה 4ב — משפט מחודש");
+  chkText("q4c1", "שאלה 4ג — פועל בהפעיל");
+  chkText("q4c2", "שאלה 4ג — משפט מחודש");
+  chkText("q5a", "שאלה 5א — ניתוח");
+  chkText("q5b", "שאלה 5ב — ניתוח");
+  chkText("q5c", "שאלה 5ג — ניתוח");
+  chkText("q6a", "שאלה 6א — המרה");
+  chkText("q6b", "שאלה 6ב — המרה");
+  chkText("q6c", "שאלה 6ג — המרה");
+  chkText("q6d", "שאלה 6ד — המרה");
+  chkText("q7", "שאלה 7 — פסקה אישית");
+
+  var pct = total > 0 ? Math.round(filled / total * 100) : 0;
+  var barColor = pct >= 80 ? "#4a7c59" : pct >= 50 ? "#b45309" : "#c84b31";
+  var bgColor  = pct >= 80 ? "#e8f5e9" : pct >= 50 ? "#fff8e1" : "#ffebee";
+
+  // Build HTML
+  var html = "";
+
+  // Header: student info
+  html += "<div style='background:#f0f3ff;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:.88rem;direction:rtl'>";
+  html += "<strong>תלמיד/ה:</strong> " + (sname || "לא הוזן");
+  if (sclass) html += " &nbsp;|  <strong>כיתה:</strong> " + sclass;
+  html += " &nbsp;|  <strong>תאריך:</strong> " + sdate;
+  html += "</div>";
+
+  // Score badge
+  html += "<div style='background:" + bgColor + ";color:" + barColor + ";padding:12px 16px;border-radius:10px;text-align:center;font-weight:800;font-size:1.05rem;margin-bottom:12px;direction:rtl'>";
+  html += (pct >= 80 ? "⭐" : pct >= 50 ? "💪" : "📝") + " " + filled + " שאלות מולאו מתוך " + total + " — " + pct + "%";
+  html += "</div>";
+
+  // Progress bar
+  html += "<div style='height:10px;background:#e8edf5;border-radius:5px;margin-bottom:16px;overflow:hidden'>";
+  html += "<div style='height:100%;width:" + pct + "%;background:" + barColor + ";border-radius:5px;transition:width .6s ease'></div>";
+  html += "</div>";
+
+  // Per-question rows
+  html += "<div style='font-size:.82rem;direction:rtl'>";
+  qData.forEach(function(q, i) {
+    var icon = q.ok ? "✅" : "○";
+    var clr  = q.ok ? "#2e7d32" : "#9ca3af";
+    html += "<div style='display:flex;align-items:baseline;gap:8px;padding:4px 0;border-bottom:1px solid #f0f3ff'>";
+    html += "<span style='flex-shrink:0;font-size:.9rem'>" + icon + "</span>";
+    html += "<span style='flex:1;color:" + clr + "'>" + q.label + "</span>";
+    if (q.val && q.ok) html += "<span style='color:#6b7280;font-size:.78rem;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'>" + q.val + "</span>";
+    html += "</div>";
+  });
+  html += "</div>";
+
+  ac.innerHTML = html;
+  ac.style.display = "block";
+};;
+</script>
+<script>
+/* ── Auto visual feedback on inputs (green when filled) ── */
+document.addEventListener('DOMContentLoaded', function() {
+  var skip = ['sname','sclass','sdate','student-date'];
+  document.querySelectorAll('input[type="text"],textarea').forEach(function(el){
+    if (skip.indexOf(el.id) >= 0) return;
+    el.addEventListener('input', function(){
+      this.classList.remove('ok','err');
+      if (this.value.trim()) this.classList.add('ok');
+    });
+    // mark already-filled on load
+    if (el.value && el.value.trim()) el.classList.add('ok');
+  });
+  injectStudentName();
+});
+
+// ─── ROLE=STUDENT SECURITY (v3) ─────────────────────────────
+(function applyStudentRole() {
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('role') !== 'student') return;
+
+  // Hide these tab panes
+  var hideIds = [
+    'tt', 'tab-teacher',
+    'ta', 'tab-answers',
+    'tab-assess',
+    'tab-dashboard'
+  ];
+  hideIds.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) { el.style.display = 'none'; el.setAttribute('aria-hidden','true'); }
+  });
+
+  // Hide tab buttons (by onclick content, text, or class)
+  document.querySelectorAll('.tab-btn, button').forEach(function(btn) {
+    var oc  = btn.getAttribute('onclick') || '';
+    var txt = (btn.textContent || '').trim();
+    var cls = btn.className || '';
+    var hide =
+      cls.indexOf('teacher-only') !== -1 ||
+      oc.indexOf("'tt'") !== -1          || oc.indexOf('"tt"') !== -1 ||
+      oc.indexOf("'tab-teacher'") !== -1 || oc.indexOf('"tab-teacher"') !== -1 ||
+      oc.indexOf("'ta'") !== -1          || oc.indexOf('"ta"') !== -1 ||
+      oc.indexOf("'tab-answers'") !== -1 || oc.indexOf('"tab-answers"') !== -1 ||
+      oc.indexOf("'tab-assess'") !== -1  || oc.indexOf('"tab-assess"') !== -1 ||
+      oc.indexOf("'tab-dashboard'") !== -1 || oc.indexOf('"tab-dashboard"') !== -1 ||
+      txt === '🔑 פתרונות' ||
+      txt.indexOf('Dashboard') !== -1 ||
+      txt === '📊 הערכה' ||
+      txt === '📋 מדריך' ||
+      txt === '📋 מדריך המורה';
+    if (hide) btn.style.display = 'none';
+  });
+
+  // Hide any remaining teacher-only elements
+  document.querySelectorAll('.teacher-only').forEach(function(el){
+    el.style.display = 'none';
+  });
+
+  // Activate first visible student tab: theory > text > worksheet
+  var preferOrder = ['th', 'tx', 'tw'];
+  for (var i = 0; i < preferOrder.length; i++) {
+    var pane = document.getElementById(preferOrder[i]);
+    if (pane && pane.style.display !== 'none') {
+      document.querySelectorAll('.tab-pane').forEach(function(p){ p.classList.remove('active'); });
+      pane.classList.add('active');
+      document.querySelectorAll('.tab-btn').forEach(function(b){
+        b.classList.remove('active');
+        var oc2 = b.getAttribute('onclick') || '';
+        if (oc2.indexOf("'" + preferOrder[i] + "'") !== -1 ||
+            oc2.indexOf('"' + preferOrder[i] + '"') !== -1) {
+          b.classList.add('active');
+        }
+      });
+      break;
+    }
+  }
+})();
+// ─── END ROLE=STUDENT SECURITY ──────────────────────────────
+
+</script>
+</body>
+</html>
