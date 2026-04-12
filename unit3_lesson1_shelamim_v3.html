@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>יחידה 3 · שיעור 1 — גזרת השלמים</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  /* ===== SECURITY: Teacher content hidden by default ===== */
+  .teacher-only { display: none !important; }
+
+  /* ===== BASE ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --blue:    #1877f2;
+    --blue-lt: #e7f0fd;
+    --green:   #16a34a;
+    --green-lt:#dcfce7;
+    --amber:   #d97706;
+    --amber-lt:#fef3c7;
+    --red:     #dc2626;
+    --red-lt:  #fee2e2;
+    --purple:  #7c3aed;
+    --purple-lt:#ede9fe;
+    --gray-bg: #f0f2f5;
+    --card:    #ffffff;
+    --text:    #1a1a2e;
+    --muted:   #6b7280;
+    --border:  #e5e7eb;
+    --radius:  16px;
+    --shadow:  0 2px 12px rgba(0,0,0,.08);
+  }
+  html { font-family: 'Heebo', sans-serif; font-size: 16px; color: var(--text); background: var(--gray-bg); }
+  body { min-height: 100vh; padding-bottom: 3rem; }
+
+  /* ===== HEADER ===== */
+  .page-header {
+    background: linear-gradient(135deg, #1877f2 0%, #0f5fcf 100%);
+    color: #fff;
+    padding: 2.5rem 1.5rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 20% 50%, rgba(255,255,255,.12) 0%, transparent 60%);
+  }
+  .page-header .badge {
+    display: inline-block;
+    background: rgba(255,255,255,.2);
+    border: 1px solid rgba(255,255,255,.35);
+    border-radius: 999px;
+    font-size: .78rem; font-weight: 600; letter-spacing: .06em;
+    padding: .25rem .85rem; margin-bottom: .75rem;
+  }
+  .page-header h1 { font-size: 2rem; font-weight: 900; line-height: 1.2; }
+  .page-header p { font-size: 1rem; opacity: .85; margin-top: .4rem; font-weight: 400; }
+
+  /* ===== META BAR ===== */
+  .meta-bar {
+    display: flex; flex-wrap: wrap; gap: .6rem; justify-content: center;
+    padding: .9rem 1.5rem;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+  }
+  .meta-pill {
+    display: flex; align-items: center; gap: .35rem;
+    background: var(--gray-bg); border-radius: 999px;
+    font-size: .82rem; font-weight: 500; color: var(--muted);
+    padding: .3rem .8rem;
+  }
+  .meta-pill span { font-size: .95em; }
+
+  /* ===== TABS ===== */
+  .tabs-nav {
+    display: flex; gap: .4rem;
+    padding: 1rem 1.5rem .5rem;
+    overflow-x: auto;
+  }
+  .tab-btn {
+    display: flex; align-items: center; gap: .4rem;
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    font-family: 'Heebo', sans-serif;
+    font-size: .88rem; font-weight: 600; color: var(--muted);
+    padding: .5rem 1.1rem;
+    cursor: pointer;
+    transition: all .2s;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { border-color: var(--blue); color: var(--blue); }
+  .tab-btn.active {
+    background: var(--blue); border-color: var(--blue);
+    color: #fff; box-shadow: 0 4px 14px rgba(24,119,242,.35);
+  }
+  .tab-btn .tab-icon { font-size: 1.05rem; }
+
+  .tab-panel { display: none; padding: 1rem 1.5rem; }
+  .tab-panel.active { display: block; }
+
+  /* Teacher tab special */
+  .tab-btn.teacher-tab {
+    background: #fefce8; border-color: #fbbf24; color: #92400e;
+  }
+  .tab-btn.teacher-tab.active {
+    background: #f59e0b; border-color: #f59e0b; color: #fff;
+  }
+
+  /* ===== CARDS ===== */
+  .card {
+    background: var(--card); border-radius: var(--radius);
+    box-shadow: var(--shadow); border: 1px solid var(--border);
+    padding: 1.5rem; margin-bottom: 1.2rem;
+  }
+  .card-title {
+    font-size: 1.05rem; font-weight: 800; color: var(--text);
+    margin-bottom: .9rem; display: flex; align-items: center; gap: .5rem;
+  }
+  .card-title .dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--blue); flex-shrink: 0;
+  }
+
+  /* ===== THEORY BOXES ===== */
+  .def-box {
+    border-right: 4px solid var(--blue);
+    background: var(--blue-lt);
+    border-radius: 8px; padding: 1rem 1.2rem; margin-bottom: 1rem;
+  }
+  .def-box .def-label {
+    font-size: .75rem; font-weight: 700; letter-spacing: .07em;
+    color: var(--blue); margin-bottom: .35rem; text-transform: uppercase;
+  }
+  .def-box p { font-size: .95rem; line-height: 1.6; font-weight: 500; }
+
+  .warn-box {
+    border-right: 4px solid var(--amber);
+    background: var(--amber-lt);
+    border-radius: 8px; padding: 1rem 1.2rem; margin-bottom: 1rem;
+  }
+  .warn-box .warn-label {
+    font-size: .75rem; font-weight: 700; letter-spacing: .07em;
+    color: var(--amber); margin-bottom: .35rem;
+  }
+
+  .note-box {
+    border-right: 4px solid var(--purple);
+    background: var(--purple-lt);
+    border-radius: 8px; padding: 1rem 1.2rem; margin-bottom: 1rem;
+  }
+
+  .tip-box {
+    border-right: 4px solid var(--green);
+    background: var(--green-lt);
+    border-radius: 8px; padding: 1rem 1.2rem; margin-bottom: 1rem;
+  }
+  .tip-box .tip-label { font-size: .75rem; font-weight: 700; color: var(--green); margin-bottom: .3rem; }
+
+  /* ===== TABLES ===== */
+  .heb-table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+  .heb-table th {
+    background: var(--blue); color: #fff;
+    padding: .55rem .8rem; font-weight: 700; text-align: right;
+  }
+  .heb-table td { padding: .5rem .8rem; border-bottom: 1px solid var(--border); text-align: right; }
+  .heb-table tr:hover td { background: var(--blue-lt); }
+  .heb-table tr:last-child td { border-bottom: none; }
+
+  /* ===== EXERCISE ===== */
+  .ex-header {
+    display: flex; align-items: center; gap: .6rem;
+    margin-bottom: .9rem;
+  }
+  .ex-num {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--blue); color: #fff;
+    font-size: .85rem; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .ex-title { font-size: 1rem; font-weight: 700; }
+  .ex-instruction { font-size: .9rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.5; }
+
+  /* Sort exercise */
+  .sort-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1rem; margin-bottom: 1rem;
+  }
+  .sort-col {
+    border-radius: 12px; border: 2px solid;
+    padding: .8rem 1rem; min-height: 140px;
+  }
+  .sort-col.shelamim { border-color: var(--green); }
+  .sort-col.lo-shelamim { border-color: var(--red); }
+  .sort-col-title {
+    font-size: .8rem; font-weight: 700; margin-bottom: .6rem;
+    display: flex; align-items: center; gap: .3rem;
+  }
+  .sort-col.shelamim .sort-col-title { color: var(--green); }
+  .sort-col.lo-shelamim .sort-col-title { color: var(--red); }
+
+  .draggable-area {
+    display: flex; flex-wrap: wrap; gap: .5rem;
+    min-height: 40px; border: 2px dashed var(--border);
+    border-radius: 8px; padding: .5rem;
+    transition: background .2s;
+  }
+  .draggable-area.drag-over { background: var(--blue-lt); border-color: var(--blue); }
+
+  .verb-chip {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 8px; padding: .3rem .75rem;
+    font-size: .92rem; font-weight: 600; cursor: grab;
+    user-select: none;
+    transition: all .2s;
+    box-shadow: 0 1px 4px rgba(0,0,0,.07);
+  }
+  .verb-chip:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-1px); }
+  .verb-chip:active { cursor: grabbing; }
+  .verb-chip.correct { background: var(--green-lt); border-color: var(--green); color: var(--green); }
+  .verb-chip.wrong { background: var(--red-lt); border-color: var(--red); color: var(--red); }
+
+  .verbs-bank {
+    display: flex; flex-wrap: wrap; gap: .5rem;
+    padding: .8rem; background: var(--gray-bg); border-radius: 10px;
+    margin-bottom: .8rem; min-height: 52px;
+  }
+
+  /* Identification exercise */
+  .id-row {
+    display: flex; align-items: center; gap: .6rem;
+    padding: .7rem .9rem; border-radius: 10px;
+    background: var(--gray-bg); margin-bottom: .5rem;
+  }
+  .id-verb { font-size: 1rem; font-weight: 700; min-width: 80px; }
+  .id-inputs { display: flex; gap: .5rem; flex: 1; flex-wrap: wrap; }
+  .id-input {
+    border: 2px solid var(--border); border-radius: 8px;
+    font-family: 'Heebo', sans-serif; font-size: .88rem; font-weight: 600;
+    padding: .3rem .7rem; background: var(--card); color: var(--text);
+    outline: none; transition: border .2s;
+    width: 90px;
+  }
+  .id-input:focus { border-color: var(--blue); }
+  .id-input.correct { border-color: var(--green); background: var(--green-lt); }
+  .id-input.wrong { border-color: var(--red); background: var(--red-lt); }
+  .id-label { font-size: .75rem; color: var(--muted); font-weight: 500; }
+
+  /* Square roots */
+  .square-root-card {
+    background: var(--purple-lt); border: 2px solid var(--purple);
+    border-radius: 12px; padding: 1rem 1.2rem; margin-bottom: .6rem;
+  }
+  .square-root-card .sr-verb { font-size: 1.2rem; font-weight: 900; color: var(--purple); }
+  .square-root-card .sr-detail { font-size: .88rem; color: #5b21b6; margin-top: .2rem; }
+
+  /* ===== BUTTONS ===== */
+  .btn {
+    display: inline-flex; align-items: center; gap: .4rem;
+    border: none; border-radius: 10px; cursor: pointer;
+    font-family: 'Heebo', sans-serif; font-size: .9rem; font-weight: 700;
+    padding: .55rem 1.3rem; transition: all .2s;
+  }
+  .btn-primary { background: var(--blue); color: #fff; }
+  .btn-primary:hover { background: #0f5fcf; box-shadow: 0 4px 14px rgba(24,119,242,.35); }
+  .btn-green { background: var(--green); color: #fff; }
+  .btn-green:hover { background: #15803d; }
+  .btn-gray { background: var(--border); color: var(--text); }
+  .btn-gray:hover { background: #d1d5db; }
+  .btn-amber { background: #f59e0b; color: #fff; }
+  .btn-amber:hover { background: #d97706; }
+
+  /* ===== FEEDBACK ===== */
+  .feedback-msg {
+    border-radius: 10px; padding: .65rem 1rem;
+    font-size: .9rem; font-weight: 600; margin-top: .7rem;
+    display: none;
+  }
+  .feedback-msg.success { background: var(--green-lt); color: var(--green); display: block; }
+  .feedback-msg.error { background: var(--red-lt); color: var(--red); display: block; }
+  .feedback-msg.info { background: var(--blue-lt); color: var(--blue); display: block; }
+
+  /* ===== TEACHER PANEL ===== */
+  .teacher-panel { background: #fffbeb; border: 2px solid #f59e0b; border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.2rem; }
+  .teacher-panel .t-section-title {
+    font-size: .88rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase;
+    color: #92400e; margin-bottom: .8rem; display: flex; align-items: center; gap: .4rem;
+  }
+  .answer-key-row {
+    display: flex; align-items: center; gap: .6rem;
+    padding: .5rem .8rem; border-radius: 8px;
+    background: var(--card); margin-bottom: .4rem; border: 1px solid var(--border);
+    font-size: .9rem;
+  }
+  .answer-key-row .ak-q { font-weight: 700; min-width: 80px; }
+  .answer-key-row .ak-a { color: var(--green); font-weight: 600; }
+
+  /* ===== PROGRESS BAR ===== */
+  .progress-bar-wrap { background: var(--border); border-radius: 999px; height: 6px; margin-top: .5rem; overflow: hidden; }
+  .progress-bar-fill { height: 100%; background: var(--blue); border-radius: 999px; transition: width .4s; }
+
+  /* ===== ROOT VISUAL ===== */
+  .root-letters {
+    display: inline-flex; gap: .3rem;
+  }
+  .root-letter {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: var(--blue); color: #fff;
+    font-size: 1.1rem; font-weight: 900;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 8px rgba(24,119,242,.3);
+  }
+  .root-letter.vowel { background: var(--muted); }
+  .root-letter.guttural { background: var(--amber); }
+  .root-letter.weak { background: var(--red); }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .sort-grid { grid-template-columns: 1fr; }
+    .id-inputs { flex-direction: column; }
+    .page-header h1 { font-size: 1.5rem; }
+  }
+</style>
+
+<!-- ================================================================
+     SECURITY SCRIPT — runs immediately, before DOM paint.
+     For non-teacher URLs:
+       1. Removes .teacher-only nodes on DOMContentLoaded
+       2. MutationObserver as a second layer (catches late-injected nodes)
+     For teacher URLs: nodes stay, buildTeacherKeys() fills them at init.
+================================================================ -->
+<script>
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var isTeacher = params.get('role') === 'teacher';
+
+  function purgeTeacherNodes() {
+    document.querySelectorAll('.teacher-only').forEach(function(el) {
+      if (el.parentNode) el.parentNode.removeChild(el);
+    });
+  }
+
+  if (!isTeacher) {
+    // Layer 1 — as early as possible
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', purgeTeacherNodes);
+    } else {
+      purgeTeacherNodes();
+    }
+    // Layer 2 — MutationObserver catches any dynamically injected teacher nodes
+    var obs = new MutationObserver(function(mutations) {
+      mutations.forEach(function(m) {
+        m.addedNodes.forEach(function(node) {
+          if (node.nodeType === 1) {
+            if (node.classList && node.classList.contains('teacher-only')) {
+              if (node.parentNode) node.parentNode.removeChild(node);
+            }
+            node.querySelectorAll && node.querySelectorAll('.teacher-only').forEach(function(el) {
+              if (el.parentNode) el.parentNode.removeChild(el);
+            });
+          }
+        });
+      });
+    });
+    obs.observe(document.documentElement, { childList: true, subtree: true });
+  }
+})();
+</script>
+</head>
+<body>
+
+<!-- ================================================================ HEADER -->
+<header class="page-header">
+  <div class="badge">יחידה 3 · שיעור 1</div>
+  <h1>גזרות הפועל — מבוא וגזרת השלמים</h1>
+  <p>הכרת מערכת הגזרות · זיהוי שורשי שלמים · שורשים מרובעים</p>
+</header>
+
+<!-- META BAR -->
+<div class="meta-bar">
+  <div class="meta-pill"><span>⏱</span> 45 דקות</div>
+  <div class="meta-pill"><span>🎓</span> כיתה י׳</div>
+  <div class="meta-pill"><span>📚</span> לשון עברית</div>
+  <div class="meta-pill"><span>📍</span> גזרות הפועל</div>
+</div>
+
+<!-- ================================================================ TABS NAV -->
+<div class="tabs-nav">
+  <button class="tab-btn active" data-tab="theory" onclick="switchTab('theory', this)">
+    <span class="tab-icon">📖</span> תיאוריה
+  </button>
+  <button class="tab-btn" data-tab="practice" onclick="switchTab('practice', this)">
+    <span class="tab-icon">✏️</span> תרגול
+  </button>
+  <button class="tab-btn" data-tab="summary" onclick="switchTab('summary', this)">
+    <span class="tab-icon">📋</span> סיכום
+  </button>
+
+  <!-- Teacher tab — will be REMOVED from DOM for students -->
+  <div class="teacher-only" id="teacher-tab-btn">
+    <button class="tab-btn teacher-tab" data-tab="teacher" onclick="switchTab('teacher', this)">
+      <span class="tab-icon">🔑</span> מורה
+    </button>
+  </div>
+</div>
+
+<!-- ================================================================
+     TAB 1: THEORY
+================================================================ -->
+<div id="tab-theory" class="tab-panel active">
+
+  <!-- SECTION 1: גזרות -->
+  <div class="card">
+    <div class="card-title"><span class="dot"></span> מהי גזרה?</div>
+
+    <div class="def-box">
+      <div class="def-label">הגדרה</div>
+      <p>
+        <strong>גזרה</strong> היא קבוצה של שורשים שמתנהגים אותו דבר בנטייה — כלומר, עוברים
+        שינויים פונולוגיים זהים בצורות הפועל השונות.<br>
+        שורשים מאותה גזרה "נוהגים" לפי אותן חוקיות ולכן קל לזהותם ולנטותם.
+      </p>
+    </div>
+
+    <p style="font-size:.93rem; line-height:1.7; color:#374151; margin-bottom:.9rem;">
+      ממה נובעת הגזרה? <strong>מהאותיות עצמן בשורש.</strong> לחלק מהאותיות יש תכונות
+      פונטיות (גרוניות, אותיות חלשות) שגורמות לשינויים בנטייה. שורש שבו כל האותיות
+      "נורמליות" שייך לגזרת השלמים — הגזרה הגדולה והיסודית ביותר.
+    </p>
+
+    <!-- Diagram: גזרות overview -->
+    <div style="overflow-x:auto;">
+      <table class="heb-table">
+        <thead>
+          <tr>
+            <th>הגזרה</th>
+            <th>מאפיין</th>
+            <th>דוגמאות</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>שלמים</strong> ✅</td>
+            <td>כל אותיות השורש שלמות בכל נטייה</td>
+            <td>כ–ת–ב, ש–מ–ר, ל–מ–ד</td>
+          </tr>
+          <tr>
+            <td><strong>פ"א גרונית</strong></td>
+            <td>האות הראשונה גרונית (א/ה/ח/ע)</td>
+            <td>א–מ–ר, ע–מ–ד, ח–ש–ב</td>
+          </tr>
+          <tr>
+            <td><strong>ע"ו / ע"י</strong> (חלולים)</td>
+            <td>אות שנייה ו'/י' — לעיתים נופלת</td>
+            <td>ק–ו–ם, ב–י–א</td>
+          </tr>
+          <tr>
+            <td><strong>נחי ל"ה</strong></td>
+            <td>אות שלישית ה' שנשמטת לעיתים</td>
+            <td>ב–נ–ה, ג–ל–ה</td>
+          </tr>
+          <tr>
+            <td><strong>נחי פ"נ</strong></td>
+            <td>האות הראשונה נ' הנשמטת</td>
+            <td>נ–פ–ל, נ–ת–נ</td>
+          </tr>
+          <tr>
+            <td><strong>כפולים</strong></td>
+            <td>ע"פ ול"פ זהות</td>
+            <td>ס–ב–ב, נ–ס–ס</td>
+          </tr>
+          <tr>
+            <td><strong>מרובעים</strong></td>
+            <td>שורש בן 4 אותיות</td>
+            <td>פ–ר–ס–מ, ט–ל–פ–נ</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 2: גזרת השלמים -->
+  <div class="card">
+    <div class="card-title"><span class="dot"></span> גזרת השלמים — הגדרה מפורטת</div>
+
+    <div class="def-box">
+      <div class="def-label">הגדרה — גזרת השלמים</div>
+      <p>
+        שורש שייך לגזרת השלמים אם <strong>כל שלוש אותיותיו (פ"פ, ע"פ, ל"פ)
+        נשמרות בכל צורות הנטייה</strong>, ואינן גרוניות, חלשות, כפולות או נשמטות.
+      </p>
+    </div>
+
+    <p style="font-size:.93rem; line-height:1.7; color:#374151; margin-bottom:1rem;">
+      בגזרת השלמים: כשנוטים את הפועל — לא חסרה אות, לא משתנה תנועה בצורה חריגה,
+      ואין תופעות מיוחדות. הנטייה "צפויה לחלוטין".
+    </p>
+
+    <!-- Example: שמר -->
+    <div style="background:var(--gray-bg); border-radius:12px; padding:1rem; margin-bottom:1rem;">
+      <div style="font-size:.8rem; font-weight:700; color:var(--muted); margin-bottom:.6rem;">לדוגמה: שורש ש–מ–ר בפעל</div>
+      <div style="display:flex; gap:.5rem; flex-wrap:wrap;">
+        <div class="root-letters" style="margin-left:1rem;">
+          <div class="root-letter">ש</div>
+          <div class="root-letter">מ</div>
+          <div class="root-letter">ר</div>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:.4rem; align-items:center;">
+          <span style="background:var(--card); border:2px solid var(--border); border-radius:8px; padding:.25rem .65rem; font-weight:600;">שָׁמַר</span>
+          <span style="background:var(--card); border:2px solid var(--border); border-radius:8px; padding:.25rem .65rem; font-weight:600;">שָׁמַרְתָּ</span>
+          <span style="background:var(--card); border:2px solid var(--border); border-radius:8px; padding:.25rem .65rem; font-weight:600;">שָׁמְרָה</span>
+          <span style="background:var(--card); border:2px solid var(--border); border-radius:8px; padding:.25rem .65rem; font-weight:600;">שָׁמְרוּ</span>
+          <span style="background:var(--card); border:2px solid var(--border); border-radius:8px; padding:.25rem .65rem; font-weight:600;">יִשְׁמֹר</span>
+          <span style="background:var(--card); border:2px solid var(--border); border-radius:8px; padding:.25rem .65rem; font-weight:600;">שְׁמֹר</span>
+        </div>
+      </div>
+      <p style="font-size:.82rem; color:var(--green); font-weight:600; margin-top:.5rem;">
+        ✅ בכל צורה — ש׳, מ׳ ור׳ נשמרות. זו גזרת שלמים.
+      </p>
+    </div>
+
+    <!-- Contrast: נפל -->
+    <div style="background:var(--red-lt); border-radius:12px; padding:1rem; margin-bottom:1rem; border:1px solid #fca5a5;">
+      <div style="font-size:.8rem; font-weight:700; color:var(--red); margin-bottom:.6rem;">לעומת זאת: שורש נ–פ–ל (נחי פ"נ)</div>
+      <div style="display:flex; gap:.5rem; flex-wrap:wrap; align-items:center;">
+        <div class="root-letters" style="margin-left:1rem;">
+          <div class="root-letter weak">נ</div>
+          <div class="root-letter">פ</div>
+          <div class="root-letter">ל</div>
+        </div>
+        <div style="display:flex; flex-wrap:wrap; gap:.4rem; align-items:center;">
+          <span style="background:var(--card); border:2px solid #fca5a5; border-radius:8px; padding:.25rem .65rem; font-weight:600;">נָפַל</span>
+          <span style="background:var(--card); border:2px solid #fca5a5; border-radius:8px; padding:.25rem .65rem; font-weight:600;">נָפַלְתָּ</span>
+          <span style="background:var(--card); border:2px solid #fca5a5; border-radius:8px; padding:.25rem .65rem; font-weight:600; color:var(--red);">יִפֹּל ← הנ׳ נשמטת!</span>
+        </div>
+      </div>
+      <p style="font-size:.82rem; color:var(--red); font-weight:600; margin-top:.5rem;">
+        ❌ בצורת העתיד הנ׳ נשמטת — אינו גזרת שלמים.
+      </p>
+    </div>
+  </div>
+
+  <!-- SECTION 3: אותיות גרוניות -->
+  <div class="card">
+    <div class="card-title"><span class="dot"></span> האותיות הגרוניות — מוציאות משלמים</div>
+
+    <div class="warn-box">
+      <div class="warn-label">⚠️ שים לב!</div>
+      <p style="font-size:.93rem; line-height:1.6;">
+        שורש שאחת מאותיותיו היא <strong>אות גרונית</strong> (א, ה, ח, ע, ר לפי חלק מהחוקרים)
+        — <strong>אינו שייך לגזרת השלמים</strong>, אלא לגזרה מיוחדת (פ"א גרונית, ע"א גרונית, ל"ה וכד׳).
+        <br>האותיות הגרוניות גורמות לשינויים בתנועות ולעיתים לדגש חזק חסר.
+      </p>
+    </div>
+
+    <div style="display:grid; grid-template-columns: repeat(5, 1fr); gap:.5rem; margin-bottom:1rem; max-width:320px;">
+      <div style="text-align:center; background:var(--amber-lt); border:2px solid var(--amber); border-radius:10px; padding:.6rem; font-size:1.3rem; font-weight:900; color:var(--amber);">א</div>
+      <div style="text-align:center; background:var(--amber-lt); border:2px solid var(--amber); border-radius:10px; padding:.6rem; font-size:1.3rem; font-weight:900; color:var(--amber);">ה</div>
+      <div style="text-align:center; background:var(--amber-lt); border:2px solid var(--amber); border-radius:10px; padding:.6rem; font-size:1.3rem; font-weight:900; color:var(--amber);">ח</div>
+      <div style="text-align:center; background:var(--amber-lt); border:2px solid var(--amber); border-radius:10px; padding:.6rem; font-size:1.3rem; font-weight:900; color:var(--amber);">ע</div>
+      <div style="text-align:center; background:var(--amber-lt); border:2px solid var(--amber); border-radius:10px; padding:.6rem; font-size:1.3rem; font-weight:900; color:var(--amber);">ר</div>
+    </div>
+
+    <table class="heb-table" style="margin-bottom:0;">
+      <thead>
+        <tr>
+          <th>פועל</th>
+          <th>שורש</th>
+          <th>האות הגרונית</th>
+          <th>הגזרה</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>אָמַר</td>
+          <td>א–מ–ר</td>
+          <td><span style="color:var(--amber); font-weight:700;">א</span> (פ"פ גרונית)</td>
+          <td>פ"א גרונית</td>
+        </tr>
+        <tr>
+          <td>עָמַד</td>
+          <td>ע–מ–ד</td>
+          <td><span style="color:var(--amber); font-weight:700;">ע</span> (פ"פ גרונית)</td>
+          <td>פ"ע גרונית</td>
+        </tr>
+        <tr>
+          <td>שָׁלַח</td>
+          <td>ש–ל–ח</td>
+          <td><span style="color:var(--amber); font-weight:700;">ח</span> (ל"פ גרונית)</td>
+          <td>ל"ח גרונית</td>
+        </tr>
+        <tr>
+          <td>בָּנָה</td>
+          <td>ב–נ–ה</td>
+          <td><span style="color:var(--amber); font-weight:700;">ה</span> (ל"פ גרונית)</td>
+          <td>נחי ל"ה</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECTION 4: שורשים מרובעים -->
+  <div class="card">
+    <div class="card-title"><span class="dot"></span> שורשים מרובעים — ארבע אותיות</div>
+
+    <div class="note-box">
+      <p style="font-size:.93rem; line-height:1.6; color:#5b21b6;">
+        <strong>שורש מרובע</strong> הוא שורש בן 4 אותיות. הוא מופיע בדרך כלל בבניין
+        <strong>פִּעֵל / פֻּעַל / הִתפַּעֵל</strong>, כשהשורש המרובע ממלא את מקום ש–ע–ל
+        (כלומר, ד׳ האותיות מופצות בתבנית הבניין).
+      </p>
+    </div>
+
+    <div style="margin-bottom:1rem;">
+      <div class="square-root-card">
+        <div class="sr-verb">פֵּרְסֵם</div>
+        <div class="sr-detail">שורש: פ–ר–ס–מ | בניין: פיעל (על שורש מרובע) | מקור: פַּרְסֵם</div>
+      </div>
+      <div class="square-root-card">
+        <div class="sr-verb">טִלְפֵּן</div>
+        <div class="sr-detail">שורש: ט–ל–פ–נ | בניין: פיעל (על שורש מרובע) | מקור: "טלפון"</div>
+      </div>
+      <div class="square-root-card">
+        <div class="sr-verb">הִתְפַּרְסֵם</div>
+        <div class="sr-detail">שורש: פ–ר–ס–מ | בניין: התפיעל (גזרת מרובעים) | פועל חוזר/סביל</div>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <div class="tip-label">💡 טיפ</div>
+      <p style="font-size:.9rem; color:#15803d;">
+        שורשים מרובעים רבים נוצרו מ<strong>שאילה</strong> מלשונות אחרות (טלפון, פרסה, קמפוס)
+        או <strong>מצירוף</strong> שתי מילים עבריות. הם מתנהגים כמו בניין פיעל במבנה, אך
+        ניכר שיש בהם ארבע עיצורים שורשיים.
+      </p>
+    </div>
+  </div>
+
+</div><!-- /tab-theory -->
+
+
+<!-- ================================================================
+     TAB 2: PRACTICE
+================================================================ -->
+<div id="tab-practice" class="tab-panel">
+
+  <!-- ============ EXERCISE 1: זיהוי שורש ובניין ============ -->
+  <div class="card">
+    <div class="ex-header">
+      <div class="ex-num">1</div>
+      <div class="ex-title">זהה שורש ובניין</div>
+    </div>
+    <p class="ex-instruction">
+      לכל פועל — כתוב את השורש ואת שם הבניין. לאחר מכן לחץ על "בדוק" לקבלת ניקוד.
+    </p>
+
+    <div id="ex1-container">
+      <!-- rows injected by JS -->
+    </div>
+
+    <div style="display:flex; gap:.6rem; margin-top:.8rem; flex-wrap:wrap;">
+      <button class="btn btn-primary" onclick="checkEx1()">✔ בדוק תשובות</button>
+      <button class="btn btn-gray" onclick="resetEx1()">↺ אפס</button>
+    </div>
+    <div id="ex1-feedback" class="feedback-msg"></div>
+    <div id="ex1-score" style="display:none; margin-top:.6rem; font-size:.9rem; color:var(--muted);">
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" id="ex1-bar" style="width:0%"></div></div>
+      <span id="ex1-score-text"></span>
+    </div>
+  </div>
+
+
+  <!-- ============ EXERCISE 2: מיון — שלמים / לא שלמים ============ -->
+  <div class="card">
+    <div class="ex-header">
+      <div class="ex-num">2</div>
+      <div class="ex-title">מיין: שלמים או לא שלמים?</div>
+    </div>
+    <p class="ex-instruction">
+      גרור כל פועל לעמודה המתאימה — <strong>גזרת שלמים</strong> או <strong>לא גזרת שלמים</strong>.
+      לאחר מכן לחץ "בדוק".
+    </p>
+
+    <!-- Bank -->
+    <div class="verbs-bank" id="sort-bank">
+      <!-- chips injected by JS -->
+    </div>
+
+    <div class="sort-grid">
+      <div class="sort-col shelamim">
+        <div class="sort-col-title">✅ גזרת שלמים</div>
+        <div class="draggable-area" id="drop-shelamim"
+          ondragover="allowDrop(event)" ondrop="dropVerb(event, 'shelamim')"
+          ondragenter="this.classList.add('drag-over')"
+          ondragleave="this.classList.remove('drag-over')">
+        </div>
+      </div>
+      <div class="sort-col lo-shelamim">
+        <div class="sort-col-title">❌ לא גזרת שלמים</div>
+        <div class="draggable-area" id="drop-lo-shelamim"
+          ondragover="allowDrop(event)" ondrop="dropVerb(event, 'lo-shelamim')"
+          ondragenter="this.classList.add('drag-over')"
+          ondragleave="this.classList.remove('drag-over')">
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:.6rem; margin-top:.5rem; flex-wrap:wrap;">
+      <button class="btn btn-primary" onclick="checkSort()">✔ בדוק</button>
+      <button class="btn btn-gray" onclick="resetSort()">↺ אפס</button>
+    </div>
+    <div id="sort-feedback" class="feedback-msg"></div>
+  </div>
+
+
+  <!-- ============ EXERCISE 3: שורשים מרובעים ============ -->
+  <div class="card">
+    <div class="ex-header">
+      <div class="ex-num">3</div>
+      <div class="ex-title">שורשים מרובעים — זיהוי ובניין</div>
+    </div>
+    <p class="ex-instruction">
+      לכל פועל מרובע — כתוב את 4 אותיות השורש ופרט מהו הבניין שעליו הוא בנוי.
+    </p>
+
+    <div id="ex3-container"></div>
+
+    <div style="display:flex; gap:.6rem; margin-top:.8rem; flex-wrap:wrap;">
+      <button class="btn btn-primary" onclick="checkEx3()">✔ בדוק</button>
+      <button class="btn btn-gray" onclick="resetEx3()">↺ אפס</button>
+    </div>
+    <div id="ex3-feedback" class="feedback-msg"></div>
+  </div>
+
+</div><!-- /tab-practice -->
+
+
+<!-- ================================================================
+     TAB 3: SUMMARY
+================================================================ -->
+<div id="tab-summary" class="tab-panel">
+  <div class="card">
+    <div class="card-title"><span class="dot"></span> סיכום השיעור</div>
+
+    <div class="tip-box" style="margin-bottom:1rem;">
+      <div class="tip-label">🎯 מה למדנו היום</div>
+      <ul style="font-size:.93rem; line-height:2; color:#15803d; padding-right:1rem; list-style:disc;">
+        <li>גזרה — קבוצת שורשים בעלי התנהגות נטייתית משותפת</li>
+        <li>גזרת השלמים — שורש שכל אותיותיו שלמות בכל נטייה</li>
+        <li>אותיות גרוניות (א ה ח ע ר) — מוציאות שורש משלמים</li>
+        <li>שורשים מרובעים — 4 אותיות, מופיעים בעיקר בפיעל/התפיעל</li>
+      </ul>
+    </div>
+
+    <div class="def-box" style="margin-bottom:1rem;">
+      <div class="def-label">כלל אצבע לזיהוי שלמים</div>
+      <p>שאל: <strong>האם בכל צורות הנטייה של הפועל כל שלוש אותיות השורש נשמרות?</strong><br>
+      אם כן — גזרת שלמים. אם אות אחת נשמטת, מוכפלת או משתנה — אינו שלמים.</p>
+    </div>
+
+    <table class="heb-table">
+      <thead>
+        <tr><th>בדיקה</th><th>שאלה</th><th>אם כן</th><th>אם לא</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>יש אות גרונית בשורש?</td>
+          <td style="color:var(--red);">אינו שלמים</td>
+          <td>המשך לבדיקה 2</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>האות השנייה היא ו' / י' ?</td>
+          <td style="color:var(--red);">חלול — אינו שלמים</td>
+          <td>המשך לבדיקה 3</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>האות הראשונה נ' ונשמטת?</td>
+          <td style="color:var(--red);">נחי פ"נ — אינו שלמים</td>
+          <td>המשך לבדיקה 4</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>שתי אותיות ע"פ ול"פ זהות?</td>
+          <td style="color:var(--red);">כפולים — אינו שלמים</td>
+          <td style="color:var(--green); font-weight:700;">✅ גזרת שלמים!</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="dot"></span> מבחן עצמי מהיר</div>
+    <p style="font-size:.9rem; color:var(--muted); margin-bottom:1rem;">ענה בעל-פה: האם הפועל הבא שייך לגזרת שלמים?</p>
+
+    <div id="quick-quiz-container"></div>
+    <button class="btn btn-primary" style="margin-top:.8rem;" onclick="nextQuick()">הפועל הבא ←</button>
+  </div>
+</div><!-- /tab-summary -->
+
+
+<!-- ================================================================
+     TAB 4: TEACHER (REMOVED FROM DOM FOR STUDENTS)
+     Security: .teacher-only → display:none !important by CSS,
+     AND all .teacher-only nodes are removeChild'd from DOM
+     for non-teacher URLs (see security script in <head>).
+================================================================ -->
+<div id="tab-teacher" class="tab-panel teacher-only">
+
+  <!-- ── מדריך פדגוגי ── -->
+  <div class="teacher-panel">
+    <div class="t-section-title">🔑 מדריך למורה — שיעור 1, יחידה 3</div>
+
+    <div class="tip-box" style="margin-bottom:1rem;">
+      <div class="tip-label">📌 מטרות השיעור</div>
+      <ul style="font-size:.9rem; line-height:1.8; color:#15803d; padding-right:1rem; list-style:disc;">
+        <li>להכיר את מושג הגזרה ואת הרציונל לחלוקה לגזרות</li>
+        <li>לשלוט בהגדרת גזרת השלמים ובמבחנים לזיהויה</li>
+        <li>להבחין בין שורשי שלמים לשאינם שלמים</li>
+        <li>לזהות שורשים מרובעים</li>
+      </ul>
+    </div>
+
+    <div style="background:var(--blue-lt); border-right:4px solid var(--blue); border-radius:8px; padding:1rem 1.2rem; margin-bottom:1rem;">
+      <div style="font-size:.75rem; font-weight:700; color:var(--blue); margin-bottom:.4rem;">💡 טיפים פדגוגיים</div>
+      <ul style="font-size:.9rem; line-height:1.9; color:#1e40af; padding-right:1rem; list-style:disc;">
+        <li><strong>פתיחה:</strong> שאלו: "מה הופך נ–פ–ל שונה מכ–ת–ב?" — גרמו לתלמידים לגלות בעצמם.</li>
+        <li><strong>אות גרונית:</strong> הדגישו שגם ר' נחשבת גרונית לפי חלק מהדקדוקים — ציינו זאת בזהירות.</li>
+        <li><strong>מרובעים:</strong> בקשו מהתלמידים לחשוב על מילים שנשמעות כמו 4 עיצורים ("טלפן", "פרסם", "תדלק").</li>
+        <li><strong>שגיאות נפוצות:</strong> תלמידים נוטים לסווג א–מ–ר כשלמים. הסבירו: האל"ף גרונית גם אם נשמרת בנטייה.</li>
+        <li><strong>תרגיל 2 (מיון):</strong> ד–ב–ר — מקור מחלוקת. הר׳ גרונית לחלק מהפוסקים; קבלו גם "שלמים" כתשובה סבירה.</li>
+      </ul>
+    </div>
+
+    <div style="background:var(--amber-lt); border-right:4px solid var(--amber); border-radius:8px; padding:1rem 1.2rem;">
+      <div style="font-size:.75rem; font-weight:700; color:var(--amber); margin-bottom:.4rem;">⏱ פילוס זמן מוצע (45 דקות)</div>
+      <div style="display:grid; grid-template-columns:auto 1fr; gap:.3rem .8rem; font-size:.88rem; color:#78350f;">
+        <span style="font-weight:700;">0–8 דק׳</span><span>מבוא: מה זו גזרה? שאלות הנחיה בכיתה</span>
+        <span style="font-weight:700;">8–18 דק׳</span><span>הסבר תיאוריה — הגדרה, אותיות גרוניות, מרובעים</span>
+        <span style="font-weight:700;">18–30 דק׳</span><span>תרגול עצמי (תרגילים 1–2)</span>
+        <span style="font-weight:700;">30–40 דק׳</span><span>תרגיל 3 + דיון בכיתה</span>
+        <span style="font-weight:700;">40–45 דק׳</span><span>סיכום ומבחן עצמי מהיר</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════
+       דף תשובות מהיר — מרוכז לכל תרגילי השיעור
+  ══════════════════════════════════════════════════ -->
+  <div class="teacher-panel">
+    <div class="t-section-title">⚡ דף תשובות מהיר — כל שורשי השיעור</div>
+
+    <!-- טבלה מרוכזת — תרגיל 1 -->
+    <div style="font-size:.8rem; font-weight:700; color:#92400e; margin-bottom:.5rem; margin-top:.2rem;">
+      תרגיל 1 — זיהוי שורש ובניין
+    </div>
+    <div style="overflow-x:auto; margin-bottom:1.2rem;">
+      <table style="width:100%; border-collapse:collapse; font-size:.88rem;">
+        <thead>
+          <tr style="background:#f59e0b; color:#fff;">
+            <th style="padding:.45rem .8rem; text-align:right; font-weight:700; border-radius:0;">פועל</th>
+            <th style="padding:.45rem .8rem; text-align:right; font-weight:700;">שורש</th>
+            <th style="padding:.45rem .8rem; text-align:right; font-weight:700;">בניין</th>
+            <th style="padding:.45rem .8rem; text-align:right; font-weight:700;">גזרה</th>
+          </tr>
+        </thead>
+        <tbody id="qk-ex1-tbody">
+          <!-- injected by buildTeacherKeys() -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- טבלה מרוכזת — תרגיל 2 -->
+    <div style="font-size:.8rem; font-weight:700; color:#92400e; margin-bottom:.5rem;">
+      תרגיל 2 — מיון שלמים / לא שלמים
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:.8rem; margin-bottom:1.2rem;">
+      <div style="background:var(--green-lt); border:2px solid var(--green); border-radius:10px; padding:.8rem 1rem;">
+        <div style="font-size:.75rem; font-weight:800; color:var(--green); margin-bottom:.5rem;">✅ גזרת שלמים</div>
+        <div id="qk-shelamim-list" style="font-size:.9rem; font-weight:600; line-height:2;"></div>
+      </div>
+      <div style="background:var(--red-lt); border:2px solid var(--red); border-radius:10px; padding:.8rem 1rem;">
+        <div style="font-size:.75rem; font-weight:800; color:var(--red); margin-bottom:.5rem;">❌ לא גזרת שלמים</div>
+        <div id="qk-lo-shelamim-list" style="font-size:.9rem; font-weight:600; line-height:2;"></div>
+      </div>
+    </div>
+
+    <!-- טבלה מרוכזת — תרגיל 3 -->
+    <div style="font-size:.8rem; font-weight:700; color:#92400e; margin-bottom:.5rem;">
+      תרגיל 3 — שורשים מרובעים
+    </div>
+    <div style="overflow-x:auto;">
+      <table style="width:100%; border-collapse:collapse; font-size:.88rem;">
+        <thead>
+          <tr style="background:#7c3aed; color:#fff;">
+            <th style="padding:.45rem .8rem; text-align:right; font-weight:700;">פועל</th>
+            <th style="padding:.45rem .8rem; text-align:right; font-weight:700;">שורש (4 אות׳)</th>
+            <th style="padding:.45rem .8rem; text-align:right; font-weight:700;">בניין</th>
+          </tr>
+        </thead>
+        <tbody id="qk-ex3-tbody">
+          <!-- injected by buildTeacherKeys() -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ── מפתח תשובות מפורט — תרגיל 1 ── -->
+  <div class="teacher-panel">
+    <div class="t-section-title">📝 מפתח מפורט — תרגיל 1 (זיהוי שורש ובניין)</div>
+    <div id="ak-ex1">
+      <!-- injected by buildTeacherKeys() -->
+    </div>
+  </div>
+
+  <!-- ── מפתח תשובות מפורט — תרגיל 2 ── -->
+  <div class="teacher-panel">
+    <div class="t-section-title">📝 מפתח מפורט — תרגיל 2 (מיון שלמים)</div>
+    <div id="ak-ex2-detail">
+      <!-- injected by buildTeacherKeys() -->
+    </div>
+  </div>
+
+  <!-- ── מפתח תשובות מפורט — תרגיל 3 ── -->
+  <div class="teacher-panel">
+    <div class="t-section-title">📝 מפתח מפורט — תרגיל 3 (שורשים מרובעים)</div>
+    <div id="ak-ex3">
+      <!-- injected by buildTeacherKeys() -->
+    </div>
+  </div>
+
+</div><!-- /tab-teacher -->
+
+
+<!-- ================================================================
+     SCRIPTS
+================================================================ -->
+<script>
+// ================================================================
+// TAB SWITCHING
+// ================================================================
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  var panel = document.getElementById('tab-' + name);
+  if (panel) panel.classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+// ================================================================
+// DATA — no answer strings exposed at top level
+// All answer data is in a closure, never accessible from the console
+// by default (the teacher panel elements are REMOVED from DOM for students)
+// ================================================================
+(function() {
+
+// ---- Exercise 1 data ----
+var ex1Data = [
+  { verb: 'כָּתַב',  root: 'כ–ת–ב', binyan: 'פעל' },
+  { verb: 'לִמֵּד',  root: 'ל–מ–ד', binyan: 'פיעל' },
+  { verb: 'הִשְׁמִיד', root: 'ש–מ–ד', binyan: 'הפעיל' },
+  { verb: 'נִשְׁמַר', root: 'ש–מ–ר', binyan: 'נפעל' },
+  { verb: 'הִתְלַבֵּשׁ', root: 'ל–ב–שׁ', binyan: 'התפעל' },
+  { verb: 'שָׁלַח', root: 'ש–ל–ח', binyan: 'פעל' },
+];
+
+// ---- Exercise 2 data ----
+var sortData = [
+  // [verb, answer: 'shelamim' | 'lo-shelamim', reason]
+  ['שָׁמַר', 'shelamim', 'שורש ש–מ–ר, כל האותיות שלמות'],
+  ['הִלְבִּישׁ', 'shelamim', 'שורש ל–ב–שׁ, כל האותיות שלמות'],
+  ['הִתְכַּתֵּב', 'shelamim', 'שורש כ–ת–ב, כל האותיות שלמות'],
+  ['נָפַל', 'lo-shelamim', 'נחי פ"נ — הנ׳ נשמטת ביפ"ל'],
+  ['קָם', 'lo-shelamim', 'שורש ק–ו–מ, חלול'],
+  ['מָצָא', 'lo-shelamim', 'שורש מ–צ–א, ל"א גרונית'],
+  ['דִּבֵּר', 'shelamim', 'שורש ד–ב–ר, כל האותיות שלמות (ר׳ ספרדית רגילה)'],
+  ['בָּנָה', 'lo-shelamim', 'שורש ב–נ–ה, נחי ל"ה'],
+];
+
+// ---- Exercise 3 data ----
+var ex3Data = [
+  { verb: 'פֵּרְסֵם', root: 'פ–ר–ס–מ', binyan: 'פיעל על שורש מרובע' },
+  { verb: 'טִלְפֵּן', root: 'ט–ל–פ–נ', binyan: 'פיעל על שורש מרובע' },
+  { verb: 'הִתְפַּרְסֵם', root: 'פ–ר–ס–מ', binyan: 'התפיעל (התפעל על שורש מרובע)' },
+  { verb: 'תִּדְלֵק', root: 'ת–ד–ל–ק', binyan: 'פיעל על שורש מרובע' },
+];
+
+// ---- Quick quiz data ----
+var quickQuizData = [
+  { verb: 'כָּתַב', answer: true,  reason: 'כ–ת–ב — כל האותיות שלמות ✅' },
+  { verb: 'נָפַל',  answer: false, reason: 'נ–פ–ל — נחי פ"נ, הנ׳ נשמטת ❌' },
+  { verb: 'שָׁמַר', answer: true,  reason: 'ש–מ–ר — כל האותיות שלמות ✅' },
+  { verb: 'אָמַר',  answer: false, reason: 'א–מ–ר — פ"א גרונית ❌' },
+  { verb: 'גָּדַל', answer: true,  reason: 'ג–ד–ל — כל האותיות שלמות ✅' },
+  { verb: 'שָׁב',   answer: false, reason: 'ש–ו–ב — חלול ❌' },
+  { verb: 'לָמַד', answer: true,  reason: 'ל–מ–ד — כל האותיות שלמות ✅' },
+  { verb: 'עָמַד',  answer: false, reason: 'ע–מ–ד — פ"ע גרונית ❌' },
+];
+var qqi = 0;
+
+// ================================================================
+// BUILD EXERCISE 1
+// ================================================================
+function buildEx1() {
+  var c = document.getElementById('ex1-container');
+  if (!c) return;
+  c.innerHTML = '';
+  ex1Data.forEach(function(item, i) {
+    c.innerHTML += '<div class="id-row" id="ex1-row-' + i + '">' +
+      '<div class="id-verb">' + item.verb + '</div>' +
+      '<div class="id-inputs">' +
+        '<div>' +
+          '<div class="id-label">שורש</div>' +
+          '<input class="id-input" id="ex1-root-' + i + '" placeholder="?–?–?" />' +
+        '</div>' +
+        '<div>' +
+          '<div class="id-label">בניין</div>' +
+          '<input class="id-input" id="ex1-bin-' + i + '" placeholder="בניין..." />' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  });
+}
+
+window.checkEx1 = function() {
+  var score = 0;
+  ex1Data.forEach(function(item, i) {
+    var rootInput = document.getElementById('ex1-root-' + i);
+    var binInput  = document.getElementById('ex1-bin-' + i);
+    if (!rootInput || !binInput) return;
+    // Normalize: strip spaces and dashes variants
+    var userRoot = rootInput.value.replace(/[\s–\-]/g,'').trim();
+    var correctRoot = item.root.replace(/[\s–\-]/g,'').trim();
+    var rootOk = userRoot === correctRoot;
+    var binOk  = binInput.value.trim() === item.binyan;
+    rootInput.className = 'id-input ' + (rootOk ? 'correct' : (rootInput.value ? 'wrong' : ''));
+    binInput.className  = 'id-input ' + (binOk  ? 'correct' : (binInput.value  ? 'wrong' : ''));
+    if (rootOk && binOk) score++;
+  });
+  var fb = document.getElementById('ex1-feedback');
+  var sc = document.getElementById('ex1-score');
+  var bar = document.getElementById('ex1-bar');
+  var txt = document.getElementById('ex1-score-text');
+  var pct = Math.round(score / ex1Data.length * 100);
+  fb.className = 'feedback-msg ' + (score === ex1Data.length ? 'success' : 'info');
+  fb.textContent = score === ex1Data.length
+    ? '🎉 מצוין! כל התשובות נכונות!'
+    : 'ענית נכון על ' + score + ' מתוך ' + ex1Data.length + '. תרגיל תשובות שגויות מסומנות באדום.';
+  sc.style.display = 'block';
+  bar.style.width = pct + '%';
+  txt.textContent = score + '/' + ex1Data.length + ' (' + pct + '%)';
+};
+
+window.resetEx1 = function() {
+  buildEx1();
+  var fb = document.getElementById('ex1-feedback');
+  var sc = document.getElementById('ex1-score');
+  if (fb) { fb.className = 'feedback-msg'; }
+  if (sc) sc.style.display = 'none';
+};
+
+// ================================================================
+// BUILD EXERCISE 2 (sort / drag)
+// ================================================================
+function buildSort() {
+  var bank = document.getElementById('sort-bank');
+  var ds   = document.getElementById('drop-shelamim');
+  var dls  = document.getElementById('drop-lo-shelamim');
+  if (!bank || !ds || !dls) return;
+  bank.innerHTML = '';
+  ds.innerHTML   = '';
+  dls.innerHTML  = '';
+  ds.classList.remove('drag-over');
+  dls.classList.remove('drag-over');
+
+  sortData.forEach(function(item) {
+    var chip = document.createElement('div');
+    chip.className = 'verb-chip';
+    chip.draggable = true;
+    chip.textContent = item[0];
+    chip.dataset.verb = item[0];
+    chip.dataset.answer = item[1];
+    chip.addEventListener('dragstart', function(e) {
+      e.dataTransfer.setData('text', item[0]);
+    });
+    // Touch support
+    chip.addEventListener('touchstart', touchStart, {passive:true});
+    chip.addEventListener('touchend', touchEnd, {passive:true});
+    bank.appendChild(chip);
+  });
+}
+
+// ── Drag & Drop ──
+window.allowDrop = function(e) { e.preventDefault(); };
+window.dropVerb = function(e, col) {
+  e.preventDefault();
+  var v = e.dataTransfer.getData('text');
+  var chip = document.querySelector('[data-verb="' + v + '"]');
+  if (!chip) return;
+  var target = document.getElementById('drop-' + col);
+  target.classList.remove('drag-over');
+  target.appendChild(chip);
+};
+
+// ── Touch drag (simplified) ──
+var _touchChip = null;
+function touchStart(e) { _touchChip = e.currentTarget; }
+function touchEnd(e) {
+  if (!_touchChip) return;
+  var touch = e.changedTouches[0];
+  var el = document.elementFromPoint(touch.clientX, touch.clientY);
+  var area = el && (el.classList.contains('draggable-area') ? el : el.closest('.draggable-area'));
+  if (area) area.appendChild(_touchChip);
+  _touchChip = null;
+}
+
+window.checkSort = function() {
+  var correct = 0;
+  sortData.forEach(function(item) {
+    var chip = document.querySelector('[data-verb="' + item[0] + '"]');
+    if (!chip) return;
+    var inShelamim   = !!document.getElementById('drop-shelamim').querySelector('[data-verb="' + item[0] + '"]');
+    var inLoShelamim = !!document.getElementById('drop-lo-shelamim').querySelector('[data-verb="' + item[0] + '"]');
+    var placed = inShelamim || inLoShelamim;
+    if (!placed) return;
+    var ok = (inShelamim && item[1] === 'shelamim') || (inLoShelamim && item[1] === 'lo-shelamim');
+    chip.classList.toggle('correct', ok);
+    chip.classList.toggle('wrong', !ok);
+    if (ok) correct++;
+  });
+  var placed = document.querySelectorAll('#drop-shelamim .verb-chip, #drop-lo-shelamim .verb-chip').length;
+  var fb = document.getElementById('sort-feedback');
+  fb.className = 'feedback-msg ' + (correct === sortData.length ? 'success' : 'info');
+  fb.textContent = correct === sortData.length
+    ? '🎉 כל הפעלים מוינו נכון!'
+    : 'נכון: ' + correct + '/' + placed + ' — ירוק = נכון, אדום = שגוי.';
+};
+
+window.resetSort = function() {
+  buildSort();
+  var fb = document.getElementById('sort-feedback');
+  if (fb) { fb.className = 'feedback-msg'; }
+};
+
+// ================================================================
+// BUILD EXERCISE 3 (square roots)
+// ================================================================
+function buildEx3() {
+  var c = document.getElementById('ex3-container');
+  if (!c) return;
+  c.innerHTML = '';
+  ex3Data.forEach(function(item, i) {
+    c.innerHTML += '<div class="id-row" id="ex3-row-' + i + '">' +
+      '<div class="id-verb" style="min-width:110px;">' + item.verb + '</div>' +
+      '<div class="id-inputs">' +
+        '<div>' +
+          '<div class="id-label">שורש (4 אותיות)</div>' +
+          '<input class="id-input" style="width:120px;" id="ex3-root-' + i + '" placeholder="?–?–?–?" />' +
+        '</div>' +
+        '<div>' +
+          '<div class="id-label">בניין</div>' +
+          '<input class="id-input" style="width:160px;" id="ex3-bin-' + i + '" placeholder="בניין..." />' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  });
+}
+
+window.checkEx3 = function() {
+  var score = 0;
+  ex3Data.forEach(function(item, i) {
+    var ri = document.getElementById('ex3-root-' + i);
+    var bi = document.getElementById('ex3-bin-' + i);
+    if (!ri || !bi) return;
+    var userRoot = ri.value.replace(/[\s–\-]/g,'').trim();
+    var correctRoot = item.root.replace(/[\s–\-]/g,'').trim();
+    // Binyan: accept partial match (contains key word)
+    var userBin = bi.value.trim();
+    var binOk = userBin.indexOf('פיעל') !== -1 || userBin.indexOf('התפיעל') !== -1 || userBin.indexOf('פעל') !== -1;
+    var rootOk = userRoot === correctRoot;
+    ri.className = 'id-input ' + (rootOk ? 'correct' : (ri.value ? 'wrong' : ''));
+    bi.className = 'id-input ' + (binOk  ? 'correct' : (bi.value ? 'wrong' : ''));
+    if (rootOk && binOk) score++;
+  });
+  var fb = document.getElementById('ex3-feedback');
+  fb.className = 'feedback-msg ' + (score === ex3Data.length ? 'success' : 'info');
+  fb.textContent = score === ex3Data.length
+    ? '🎉 כל השורשים המרובעים זוהו!'
+    : score + '/' + ex3Data.length + ' — תשובות שגויות מסומנות.';
+};
+
+window.resetEx3 = function() {
+  buildEx3();
+  var fb = document.getElementById('ex3-feedback');
+  if (fb) { fb.className = 'feedback-msg'; }
+};
+
+// ================================================================
+// QUICK QUIZ (summary tab)
+// ================================================================
+function renderQuick() {
+  var c = document.getElementById('quick-quiz-container');
+  if (!c) return;
+  var item = quickQuizData[qqi % quickQuizData.length];
+  c.innerHTML =
+    '<div style="background:var(--gray-bg);border-radius:14px;padding:1.2rem;text-align:center;">' +
+      '<div style="font-size:2rem;font-weight:900;margin-bottom:.5rem;">' + item.verb + '</div>' +
+      '<div style="display:flex;gap:.6rem;justify-content:center;margin-bottom:.6rem;">' +
+        '<button class="btn btn-green" onclick="answerQuick(true)">✅ שלמים</button>' +
+        '<button class="btn" style="background:var(--red);color:#fff;" onclick="answerQuick(false)">❌ לא שלמים</button>' +
+      '</div>' +
+      '<div id="quick-result" style="font-size:.9rem;font-weight:600;min-height:1.4rem;"></div>' +
+    '</div>';
+}
+
+window.answerQuick = function(ans) {
+  var item = quickQuizData[qqi % quickQuizData.length];
+  var r = document.getElementById('quick-result');
+  if (!r) return;
+  if (ans === item.answer) {
+    r.style.color = 'var(--green)';
+    r.textContent = '✅ נכון! ' + item.reason;
+  } else {
+    r.style.color = 'var(--red)';
+    r.textContent = '❌ לא נכון. ' + item.reason;
+  }
+};
+
+window.nextQuick = function() {
+  qqi++;
+  renderQuick();
+};
+
+// ================================================================
+// TEACHER ANSWER KEYS
+// Runs only when teacher-only DOM nodes are present (role=teacher URL).
+// Populates: quick-answer sheet + detailed answer keys for all 3 exercises.
+// ================================================================
+function buildTeacherKeys() {
+  // Guard: if the teacher tab was removed from DOM (student view), all these
+  // getElementById calls return null and the forEach guards handle it gracefully.
+
+  // ── Gzera helper ──
+  var gzeraLabel = {
+    'shelamim': 'שלמים ✅',
+    'lo-shelamim-nun': 'נחי פ"נ',
+    'lo-shelamim-hollow': 'חלול',
+    'lo-shelamim-guttural': 'גרונית',
+    'lo-shelamim-lamed-he': 'נחי ל"ה'
+  };
+
+  // Map ex1 roots to gzera for the quick sheet
+  var ex1Gzera = {
+    'כָּתַב':      'שלמים ✅',
+    'לִמֵּד':      'שלמים ✅',
+    'הִשְׁמִיד':   'שלמים ✅',
+    'נִשְׁמַר':    'שלמים ✅',
+    'הִתְלַבֵּשׁ': 'שלמים ✅',
+    'שָׁלַח':      'ל"ח גרונית'
+  };
+
+  var tr_even = 'background:#fff;';
+  var tr_odd  = 'background:#fffbeb;';
+
+  // ─────────────────────────────────────────
+  // QUICK SHEET — Exercise 1 tbody
+  // ─────────────────────────────────────────
+  var qk1 = document.getElementById('qk-ex1-tbody');
+  if (qk1) {
+    qk1.innerHTML = '';
+    ex1Data.forEach(function(item, i) {
+      var bg = i % 2 === 0 ? tr_even : tr_odd;
+      qk1.innerHTML +=
+        '<tr style="' + bg + '">' +
+          '<td style="padding:.42rem .8rem; font-weight:700; border-bottom:1px solid #f3f4f6;">' + item.verb + '</td>' +
+          '<td style="padding:.42rem .8rem; color:var(--blue); font-weight:700; border-bottom:1px solid #f3f4f6;">' + item.root + '</td>' +
+          '<td style="padding:.42rem .8rem; border-bottom:1px solid #f3f4f6;">' + item.binyan + '</td>' +
+          '<td style="padding:.42rem .8rem; color:var(--green); font-weight:600; border-bottom:1px solid #f3f4f6;">' + (ex1Gzera[item.verb] || '—') + '</td>' +
+        '</tr>';
+    });
+  }
+
+  // ─────────────────────────────────────────
+  // QUICK SHEET — Exercise 2 lists
+  // ─────────────────────────────────────────
+  var qkS = document.getElementById('qk-shelamim-list');
+  var qkL = document.getElementById('qk-lo-shelamim-list');
+  if (qkS && qkL) {
+    var shLines = [], loLines = [];
+    sortData.forEach(function(item) {
+      if (item[1] === 'shelamim') {
+        shLines.push('<div>' + item[0] + ' <span style="font-size:.75rem; color:var(--muted); font-weight:400;">(' + item[2].split(',')[0] + ')</span></div>');
+      } else {
+        loLines.push('<div>' + item[0] + ' <span style="font-size:.75rem; color:var(--muted); font-weight:400;">(' + item[2] + ')</span></div>');
+      }
+    });
+    qkS.innerHTML = shLines.join('');
+    qkL.innerHTML = loLines.join('');
+  }
+
+  // ─────────────────────────────────────────
+  // QUICK SHEET — Exercise 3 tbody
+  // ─────────────────────────────────────────
+  var qk3 = document.getElementById('qk-ex3-tbody');
+  if (qk3) {
+    qk3.innerHTML = '';
+    ex3Data.forEach(function(item, i) {
+      var bg = i % 2 === 0 ? tr_even : 'background:#faf5ff;';
+      qk3.innerHTML +=
+        '<tr style="' + bg + '">' +
+          '<td style="padding:.42rem .8rem; font-weight:700; border-bottom:1px solid #f3f4f6;">' + item.verb + '</td>' +
+          '<td style="padding:.42rem .8rem; color:var(--purple); font-weight:700; letter-spacing:.05em; border-bottom:1px solid #f3f4f6;">' + item.root + '</td>' +
+          '<td style="padding:.42rem .8rem; border-bottom:1px solid #f3f4f6;">' + item.binyan + '</td>' +
+        '</tr>';
+    });
+  }
+
+  // ─────────────────────────────────────────
+  // DETAILED KEY — Exercise 1
+  // ─────────────────────────────────────────
+  var ak1 = document.getElementById('ak-ex1');
+  if (ak1) {
+    ak1.innerHTML = '';
+    ex1Data.forEach(function(item) {
+      ak1.innerHTML +=
+        '<div class="answer-key-row">' +
+          '<span class="ak-q">' + item.verb + '</span>' +
+          '<div style="flex:1;">' +
+            '<span class="ak-a">שורש: <strong>' + item.root + '</strong> | בניין: <strong>' + item.binyan + '</strong></span>' +
+            '<div style="font-size:.78rem; color:var(--muted); margin-top:.15rem;">' + (ex1Gzera[item.verb] || '') + '</div>' +
+          '</div>' +
+        '</div>';
+    });
+  }
+
+  // ─────────────────────────────────────────
+  // DETAILED KEY — Exercise 2
+  // ─────────────────────────────────────────
+  var ak2 = document.getElementById('ak-ex2-detail');
+  if (ak2) {
+    ak2.innerHTML = '';
+    sortData.forEach(function(item) {
+      var isSh = item[1] === 'shelamim';
+      var chipColor = isSh ? 'background:var(--green-lt);color:var(--green);' : 'background:var(--red-lt);color:var(--red);';
+      var chipLabel = isSh ? '✅ שלמים' : '❌ לא שלמים';
+      ak2.innerHTML +=
+        '<div class="answer-key-row">' +
+          '<span class="ak-q">' + item[0] + '</span>' +
+          '<span style="' + chipColor + ' border-radius:999px; padding:.15rem .65rem; font-size:.76rem; font-weight:800; margin-left:.5rem;">' + chipLabel + '</span>' +
+          '<span style="font-size:.84rem; color:var(--muted); margin-right:.5rem; flex:1;">' + item[2] + '</span>' +
+        '</div>';
+    });
+  }
+
+  // ─────────────────────────────────────────
+  // DETAILED KEY — Exercise 3
+  // ─────────────────────────────────────────
+  var ak3 = document.getElementById('ak-ex3');
+  if (ak3) {
+    ak3.innerHTML = '';
+    ex3Data.forEach(function(item) {
+      ak3.innerHTML +=
+        '<div class="answer-key-row">' +
+          '<span class="ak-q">' + item.verb + '</span>' +
+          '<div style="flex:1;">' +
+            '<span class="ak-a">שורש: <strong>' + item.root + '</strong></span>' +
+            '<div style="font-size:.82rem; color:var(--muted); margin-top:.15rem;">' + item.binyan + '</div>' +
+          '</div>' +
+        '</div>';
+    });
+  }
+}
+
+// ================================================================
+// INIT
+// ================================================================
+document.addEventListener('DOMContentLoaded', function() {
+  buildEx1();
+  buildSort();
+  buildEx3();
+  renderQuick();
+  buildTeacherKeys(); // only has effect if teacher-only nodes survive
+});
+
+})(); // end closure
+</script>
+
+</body>
+</html>

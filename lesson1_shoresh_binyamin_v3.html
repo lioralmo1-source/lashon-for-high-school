@@ -716,47 +716,66 @@ window.calcAssessment = function() {
   try{localStorage.setItem('lashon_current_student',JSON.stringify(studentName));}catch(e){}
 })();
 
-// ─── ROLE=STUDENT SECURITY (v4) ─────────────────────────────────────────
-(function applyStudentRole() {
-  var params = new URLSearchParams(window.location.search);
-  if (params.get('role') !== 'student') return;
+// ─── ROLE SECURITY (v5) — ברירת מחדל: תלמיד ────────────────────────────
+(function applyRoleSecurity() {
+  var params    = new URLSearchParams(window.location.search);
+  var isTeacher = params.get('role') === 'teacher';
 
-  // IDs to hide — covers all naming conventions across all lesson files
+  if (isTeacher) return; // מורה — אין הגבלות
+
+  // ── IDs לכפתורים/פאנלים שמורה בלבד רואה ──
   var hideIds = [
-    'tq',            // Dashboard pane (L1/L2/unit2)
-    'tab-dashboard', // Dashboard pane (L3-L6)
-    'tt',            // Teacher guide pane
+    'tq',             // Dashboard pane
+    'tab-dashboard',
+    'tt',             // Teacher guide pane
     'tab-teacher',
-    'ta',            // Answers pane
+    'ta',             // Answers pane
     'tab-answers',
-    'tab-assess',    // Assessment tab
+    'tab-assess',
     'assessment-drawer'
   ];
   hideIds.forEach(function(id) {
     var el = document.getElementById(id);
-    if (el) { el.style.display = 'none'; el.setAttribute('data-student-hidden','1'); }
+    if (el) {
+      el.style.setProperty('display','none','important');
+      el.setAttribute('data-student-hidden','1');
+    }
   });
 
-  // Hide tab buttons pointing to those panes + teacher-only buttons
-  document.querySelectorAll('.tab-btn, button').forEach(function(btn) {
-    var oc  = (btn.getAttribute('onclick') || '').toLowerCase();
+  // ── הסתר כפתורי ניווט של מורה ──
+  document.querySelectorAll('.tab-btn, button, a').forEach(function(btn) {
+    var oc  = btn.getAttribute('onclick') || '';
     var txt = (btn.textContent || '').trim();
     var cls = btn.className || '';
     var shouldHide =
-      /['"](tq|tab-dashboard|tt|tab-teacher|ta|tab-answers|tab-assess)['"]/.test(oc) ||
+      /['"](tq|tab-dashboard|tt|tab-teacher|ta|tab-answers|tab-assess)['"]/i.test(oc) ||
       cls.indexOf('teacher-only') !== -1 ||
-      txt === '🔑 פתרונות' || txt === '📊 Dashboard' ||
-      txt === '📋 מדריך המורה' || txt === '📋 מדריך' ||
-      txt === '📊 הערכה';
-    if (shouldHide) { btn.style.display = 'none'; btn.setAttribute('data-student-hidden','1'); }
+      txt.indexOf('פתרונות') !== -1 ||
+      txt.indexOf('מדריך') !== -1 ||
+      txt.indexOf('הערכה') !== -1 ||
+      txt.indexOf('Dashboard') !== -1;
+    if (shouldHide) {
+      btn.style.setProperty('display','none','important');
+      btn.setAttribute('data-student-hidden','1');
+    }
   });
 
-  // Hide any element with class teacher-only
+  // ── הסתר כל אלמנט עם class teacher-only — הסרה מה-DOM ──
   document.querySelectorAll('.teacher-only').forEach(function(el) {
-    el.style.display = 'none';
+    el.parentNode && el.parentNode.removeChild(el);
   });
 
-  // Activate first visible tab pane (theory or worksheet)
+  // ── מנע מעקף: override showTab לחסום טאבים מוסתרים ──
+  var _origShowTab = window.showTab;
+  window.showTab = function(tabId, btn) {
+    var el = document.getElementById(tabId);
+    if (el && el.getAttribute('data-student-hidden') === '1') {
+      return; // חסום — תלמיד לא יכול להפעיל טאב זה
+    }
+    if (_origShowTab) _origShowTab(tabId, btn);
+  };
+
+  // ── הפעל טאב ראשון גלוי (תיאוריה / דף עבודה) ──
   var preferOrder = ['th', 'tab-theory', 'tw', 'tab-worksheet'];
   var activated = false;
   for (var i = 0; i < preferOrder.length; i++) {
@@ -764,19 +783,18 @@ window.calcAssessment = function() {
     if (pane && pane.getAttribute('data-student-hidden') !== '1') {
       document.querySelectorAll('.tab-pane').forEach(function(p){ p.classList.remove('active'); });
       pane.classList.add('active');
-      // Activate matching button
-      document.querySelectorAll('.tab-btn, button').forEach(function(btn) {
-        var oc2 = btn.getAttribute('onclick') || '';
+      document.querySelectorAll('.tab-btn, button').forEach(function(b) {
+        b.classList.remove('active');
+        var oc2 = b.getAttribute('onclick') || '';
         if (oc2.indexOf("'" + preferOrder[i] + "'") !== -1 ||
             oc2.indexOf('"' + preferOrder[i] + '"') !== -1) {
-          btn.classList.add('active');
+          b.classList.add('active');
         }
       });
       activated = true;
       break;
     }
   }
-  // Fallback: first visible pane
   if (!activated) {
     var panes = document.querySelectorAll('.tab-pane');
     for (var j = 0; j < panes.length; j++) {
@@ -786,7 +804,7 @@ window.calcAssessment = function() {
     }
   }
 })();
-// ─── END ROLE=STUDENT SECURITY ──────────────────────────────────────────
+// ─── END ROLE SECURITY ──────────────────────────────────────────────────
 
 </script>
 </body>

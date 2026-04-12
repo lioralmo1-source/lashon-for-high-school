@@ -2,1871 +2,714 @@
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<title>לשון עברית — פלטפורמה מרכזית</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>לשון עברית י׳</title>
+<link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-/* ═══════════════════════════════════════════════════
-   DESIGN TOKENS — Facebook-precise
-═══════════════════════════════════════════════════ */
-:root{
-  --bg:         #f0f2f5;
-  --surface:    #ffffff;
-  --surface2:   #f0f2f5;
-  --border:     #dadde1;
-  --border2:    #ccd0d5;
-  --ink:        #1c1e21;
-  --ink-mid:    #3e4042;
-  --muted:      #606770;
-  --dim:        #8d949e;
-  --primary:    #1877f2;
-  --primary-lt: #e7f3ff;
-  --primary-dk: #166fe5;
-  --green:      #42b72a;
-  --green-lt:   #e6f4ea;
-  --red:        #fa3e3e;
-  --red-lt:     #fdecea;
-  --gold:       #f7b928;
-  --gold-lt:    #fff3cd;
-  --gold-dim:   rgba(247,185,40,.12);
-  --sky:        #1877f2;
-  --sky-dim:    rgba(24,119,242,.08);
-  --mint:       #42b72a;
-  --mint-dim:   rgba(66,183,42,.10);
-  --rose:       #fa3e3e;
-  --ok:         #42b72a;
-  --warn:       #f7b928;
-  --sb-w:       270px;
-  --radius:     1rem;
-  --radius-sm:  .625rem;
-  --shadow-md:  0 2px 12px rgba(0,0,0,.1);
-  --shadow-lg:  0 4px 24px rgba(0,0,0,.13);
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:       #f7f8fa;
+  --surface:  #ffffff;
+  --border:   #e8eaed;
+  --text:     #0f1117;
+  --muted:    #6b7280;
+  --subtle:   #9ca3af;
+  --blue:     #1a56db;
+  --blue-lt:  #eff6ff;
+  --green:    #15803d;
+  --green-lt: #f0fdf4;
+  --amber:    #b45309;
+  --amber-lt: #fffbeb;
+  --red:      #dc2626;
+  --red-lt:   #fef2f2;
+  --purple:   #6d28d9;
+  --purple-lt:#faf5ff;
+  --sidebar-w: 220px;
 }
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-  font-family:'Heebo',-apple-system,BlinkMacSystemFont,sans-serif;
-  background:var(--bg);color:var(--ink);
-  direction:rtl;text-align:right;min-height:100vh;
-  -webkit-text-size-adjust:100%;font-size:15px;
+html { font-family: 'Heebo', sans-serif; background: var(--bg); color: var(--text); }
+button, input, a { font-family: 'Heebo', sans-serif; }
+
+/* ── Login ── */
+#login-screen {
+  position: fixed; inset: 0; z-index: 999;
+  display: flex; align-items: center; justify-content: center;
+  background: #0d1117; padding: 1rem;
+}
+#login-screen::before {
+  content: '';
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 55% 45% at 20% 40%, rgba(26,86,219,.2) 0%, transparent 65%),
+    radial-gradient(ellipse 45% 55% at 80% 65%, rgba(109,40,217,.14) 0%, transparent 65%);
+}
+.login-card {
+  position: relative; width: 100%; max-width: 375px;
+  background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+  border-radius: 20px; padding: 2.5rem 2rem; backdrop-filter: blur(16px);
+}
+.login-logo { font-size: 2.2rem; text-align: center; margin-bottom: .5rem; }
+.login-title {
+  font-family: 'Secular One', sans-serif;
+  font-size: 1.35rem; color: #fff; text-align: center; margin-bottom: .2rem;
+}
+.login-sub { font-size: .75rem; color: rgba(255,255,255,.35); text-align: center; margin-bottom: 1.8rem; }
+.lf-label { font-size: .7rem; font-weight: 700; color: rgba(255,255,255,.45); display: block; margin-bottom: .35rem; }
+.lf-input {
+  width: 100%; padding: .65rem .9rem; border-radius: 9px; direction: rtl;
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14);
+  color: #fff; font-size: .88rem; outline: none; transition: border-color .2s; margin-bottom: .85rem;
+}
+.lf-input::placeholder { color: rgba(255,255,255,.25); }
+.lf-input:focus { border-color: #4d7cff; }
+.lf-input.shake { animation: shake .3s; border-color: #f87171; }
+@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-4px)} 75%{transform:translateX(4px)} }
+.btn-student {
+  width: 100%; padding: .75rem; border: none; border-radius: 10px;
+  background: var(--blue); color: #fff; font-size: .9rem; font-weight: 700;
+  cursor: pointer; margin-bottom: .7rem; transition: all .18s;
+}
+.btn-student:hover { background: #1648b8; transform: translateY(-1px); box-shadow: 0 6px 18px rgba(26,86,219,.4); }
+.teacher-toggle {
+  width: 100%; background: none; border: none; color: rgba(255,255,255,.28);
+  font-size: .72rem; cursor: pointer; text-decoration: underline;
+  text-underline-offset: 3px; transition: color .15s; padding: .2rem;
+}
+.teacher-toggle:hover { color: rgba(255,255,255,.55); }
+#teacher-panel { display: none; margin-top: .9rem; border-top: 1px solid rgba(255,255,255,.08); padding-top: .9rem; }
+#teacher-panel.open { display: block; }
+.btn-teacher {
+  width: 100%; padding: .7rem; border: none; border-radius: 9px;
+  background: rgba(109,40,217,.65); color: #fff;
+  font-size: .86rem; font-weight: 700; cursor: pointer; margin-top: .4rem; transition: all .18s;
+}
+.btn-teacher:hover { background: rgba(109,40,217,.9); }
+
+/* ── App ── */
+#app { display: none; min-height: 100vh; }
+#app.on { display: flex; }
+
+/* ── Sidebar ── */
+.sidebar {
+  width: var(--sidebar-w); flex-shrink: 0;
+  background: var(--surface); border-left: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  position: sticky; top: 0; height: 100vh; overflow-y: auto;
+}
+.sb-head {
+  padding: 1.1rem 1rem .75rem;
+  border-bottom: 1px solid var(--border);
+}
+.sb-logo { font-family: 'Secular One', sans-serif; font-size: .88rem; color: var(--blue); }
+.sb-sub  { font-size: .64rem; color: var(--subtle); margin-top: .1rem; }
+.sb-nav  { padding: .6rem .45rem; flex: 1; }
+.sb-link {
+  display: flex; align-items: center; gap: .5rem;
+  padding: .48rem .7rem; border-radius: 7px; width: 100%;
+  font-size: .78rem; font-weight: 600; color: var(--muted);
+  border: none; background: none; cursor: pointer;
+  text-align: right; transition: all .14s; margin-bottom: .1rem;
+}
+.sb-link:hover { background: var(--blue-lt); color: var(--blue); }
+.sb-link.active { background: var(--blue-lt); color: var(--blue); }
+.sb-link .sb-em { font-size: .95rem; flex-shrink: 0; }
+.sb-foot {
+  padding: .75rem .85rem; border-top: 1px solid var(--border);
+}
+.user-row {
+  display: flex; align-items: center; gap: .5rem;
+  background: var(--bg); border-radius: 8px; padding: .4rem .6rem; margin-bottom: .45rem;
+}
+.u-av {
+  width: 25px; height: 25px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .66rem; font-weight: 900; color: #fff; flex-shrink: 0;
+}
+.u-av.t { background: var(--purple); }
+.u-av.s { background: var(--green); }
+.u-name { font-size: .78rem; font-weight: 700; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.role-tag {
+  font-size: .6rem; font-weight: 800; padding: .12rem .45rem; border-radius: 999px;
+  background: var(--purple-lt); color: var(--purple); border: 1px solid #ddd6fe;
+  white-space: nowrap;
+}
+.btn-logout {
+  width: 100%; padding: .38rem; border: 1px solid var(--border);
+  border-radius: 7px; background: none; color: var(--subtle);
+  font-size: .72rem; cursor: pointer; transition: all .14s;
+}
+.btn-logout:hover { background: var(--red-lt); color: var(--red); border-color: #fca5a5; }
+
+/* ── Main ── */
+.main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+
+/* Top bar */
+.topbar {
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  padding: .85rem 1.4rem; display: flex; align-items: center;
+  position: sticky; top: 0; z-index: 40;
+}
+.tb-title { font-family: 'Secular One', sans-serif; font-size: .92rem; }
+.tb-sub   { font-size: .68rem; color: var(--subtle); margin-top: .05rem; }
+.tb-sp    { flex: 1; }
+
+/* Progress banner */
+.prog-banner {
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  padding: .85rem 1.4rem;
+}
+.prog-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: .4rem; }
+.prog-title  { font-size: .78rem; font-weight: 700; }
+.prog-pct    { font-size: .82rem; font-weight: 800; color: var(--blue); }
+.prog-track  { height: 5px; background: var(--border); border-radius: 999px; overflow: hidden; }
+.prog-fill   { height: 100%; background: linear-gradient(90deg, var(--blue), #60a5fa); border-radius: 999px; transition: width .55s ease; }
+.prog-stats  { display: flex; gap: 1.2rem; margin-top: .5rem; }
+.prog-stat   { font-size: .7rem; color: var(--muted); }
+.prog-stat b { color: var(--text); font-weight: 700; }
+
+/* Units list */
+.units-wrap { padding: 1.1rem 1.4rem; }
+
+/* Unit accordion */
+.unit-block  { margin-bottom: .65rem; }
+.unit-trigger {
+  width: 100%; display: flex; align-items: center; gap: .7rem;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 11px;
+  padding: .85rem 1.1rem; cursor: pointer; text-align: right;
+  transition: border-color .16s, box-shadow .16s;
+}
+.unit-trigger:hover { border-color: #93c5fd; box-shadow: 0 1px 8px rgba(26,86,219,.07); }
+.unit-trigger.open  { border-color: var(--blue); border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom-color: var(--border); }
+.ut-em   { font-size: 1.15rem; flex-shrink: 0; }
+.ut-body { flex: 1; min-width: 0; }
+.ut-name { font-size: .9rem; font-weight: 800; }
+.ut-meta { font-size: .68rem; color: var(--subtle); margin-top: .08rem; }
+.ut-right { display: flex; align-items: center; gap: .6rem; flex-shrink: 0; }
+.ut-bar-wrap { width: 64px; }
+.ut-bar-track { height: 3px; background: var(--border); border-radius: 999px; overflow: hidden; }
+.ut-bar-fill  { height: 100%; background: var(--green); border-radius: 999px; }
+.ut-bar-pct   { font-size: .62rem; color: var(--subtle); margin-top: .2rem; text-align: center; }
+.ut-chev { font-size: .68rem; color: var(--subtle); transition: transform .22s; flex-shrink: 0; }
+.unit-trigger.open .ut-chev { transform: rotate(180deg); }
+
+.unit-body {
+  background: var(--surface);
+  border: 1px solid var(--blue); border-top: none;
+  border-bottom-left-radius: 11px; border-bottom-right-radius: 11px;
+  overflow: hidden; max-height: 0; transition: max-height .28s ease;
+}
+.unit-body.open { max-height: 3000px; }
+
+/* Lesson row */
+.lesson-row {
+  display: flex; align-items: center; gap: .65rem;
+  padding: .62rem 1.1rem; border-bottom: 1px solid var(--border);
+  transition: background .1s;
+}
+.lesson-row:last-child { border-bottom: none; }
+.lesson-row:not(.locked):hover { background: #fafbfc; }
+.lesson-row.locked { opacity: .48; }
+.lr-em {
+  width: 30px; height: 30px; border-radius: 7px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: .9rem;
+}
+.lr-info { flex: 1; min-width: 0; }
+.lr-short { font-size: .6rem; font-weight: 800; color: var(--subtle); text-transform: uppercase; letter-spacing: .05em; }
+.lr-title { font-size: .84rem; font-weight: 700; line-height: 1.3; }
+.lr-desc  { font-size: .7rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lr-right { display: flex; align-items: center; gap: .5rem; flex-shrink: 0; }
+.lr-mins  { font-size: .65rem; color: var(--subtle); white-space: nowrap; }
+
+/* Chips */
+.chip { display: inline-flex; align-items: center; gap: .18rem; padding: .12rem .5rem; border-radius: 999px; font-size: .62rem; font-weight: 700; white-space: nowrap; }
+.ch-open  { background: var(--green-lt); color: var(--green); }
+.ch-lock  { background: var(--bg); color: var(--subtle); border: 1px solid var(--border); }
+.ch-done  { background: var(--blue-lt); color: var(--blue); }
+.ch-exam  { background: var(--amber-lt); color: var(--amber); }
+
+/* Action buttons */
+.lr-actions { display: flex; align-items: center; gap: .35rem; flex-shrink: 0; }
+.btn-main {
+  display: inline-flex; align-items: center; gap: .25rem;
+  padding: .36rem .8rem; border: none; border-radius: 7px;
+  font-size: .77rem; font-weight: 700; cursor: pointer;
+  white-space: nowrap; transition: all .14s; text-decoration: none;
+}
+.btn-main.prim  { background: var(--blue); color: #fff; }
+.btn-main.prim:hover { background: #1648b8; }
+.btn-main.exam  { background: var(--amber); color: #fff; }
+.btn-main.exam:hover { filter: brightness(.92); }
+.btn-main.ghost { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+.btn-main.ghost:hover { background: var(--border); }
+.btn-main.dis   { background: var(--bg); color: var(--subtle); border: 1px solid var(--border); cursor: not-allowed; }
+
+/* Teacher mini buttons */
+.btn-t {
+  display: inline-flex; align-items: center; gap: .2rem;
+  padding: .28rem .6rem; border: none; border-radius: 6px;
+  font-size: .7rem; font-weight: 700; cursor: pointer;
+  white-space: nowrap; transition: all .14s; text-decoration: none;
+}
+.btn-t.sol  { background: var(--purple-lt); color: var(--purple); }
+.btn-t.sol:hover  { background: #ede9fe; }
+.btn-t.guide { background: var(--amber-lt); color: var(--amber); }
+.btn-t.guide:hover { background: #fde68a; }
+.btn-t.prev { background: var(--bg); color: var(--muted); border: 1px solid var(--border); }
+.btn-t.prev:hover { background: var(--border); }
+
+/* Done stamp */
+.done-stamp {
+  font-size: .6rem; font-weight: 700; color: var(--blue);
+  background: var(--blue-lt); border-radius: 999px; padding: .1rem .45rem; white-space: nowrap;
 }
 
-/* ─── SCREENS ─── */
-.screen{display:none;min-height:100vh}
-.screen.active{display:flex;flex-direction:column}
+/* Toast */
+#toast {
+  position: fixed; bottom: 1.3rem; right: 1.3rem; z-index: 9999;
+  background: #1e293b; color: #fff; border-radius: 9px;
+  padding: .65rem 1.1rem; font-size: .82rem; font-weight: 600;
+  opacity: 0; transform: translateY(6px); transition: all .2s; pointer-events: none;
+}
+#toast.show { opacity: 1; transform: translateY(0); }
 
-/* ═══════════════════════════════════════════════════
-   LOGIN SCREEN
-═══════════════════════════════════════════════════ */
-#login-screen{
-  background:var(--primary);
-  align-items:center;justify-content:center;padding:20px;
-  position:relative;overflow:hidden;
+@media (max-width: 660px) {
+  .sidebar { display: none; }
+  .units-wrap { padding: .75rem; }
+  .prog-banner { padding: .75rem 1rem; }
+  .lr-desc { display: none; }
 }
-/* Subtle background texture */
-#login-screen::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 80% 60% at 70% 20%, rgba(255,255,255,.08) 0%, transparent 70%),
-             radial-gradient(ellipse 60% 80% at 20% 80%, rgba(0,0,0,.12) 0%, transparent 70%);
-  pointer-events:none;
-}
-.login-panel{
-  position:relative;z-index:10;width:100%;max-width:440px;
-}
-.login-logo{text-align:center;margin-bottom:32px}
-.login-logo h1{font-size:1.75rem;font-weight:900;color:#fff;letter-spacing:-.02em;margin-bottom:4px}
-.login-logo p{color:rgba(255,255,255,.55);font-size:.875rem}
-.login-logo .badge-tag{
-  display:inline-block;background:rgba(255,255,255,.12);
-  border:1px solid rgba(255,255,255,.2);
-  border-radius:100px;padding:3px 14px;margin-top:10px;
-  font-size:.7rem;font-weight:700;color:rgba(255,255,255,.8);letter-spacing:.06em;
-}
-.login-box{
-  background:#fff;border-radius:var(--radius);
-  box-shadow:var(--shadow-lg);overflow:hidden;
-}
-.login-box-head{
-  padding:20px 24px 16px;border-bottom:1px solid var(--border);
-}
-.login-box-head h2{font-size:1rem;font-weight:800;color:var(--ink);margin-bottom:2px}
-.login-box-head p{font-size:.8rem;color:var(--muted)}
-.login-box-body{padding:12px 16px 20px}
-.role-card{
-  background:var(--surface);border:1.5px solid var(--border);
-  border-radius:var(--radius-sm);padding:14px 16px;cursor:pointer;
-  transition:all .2s;display:flex;align-items:center;gap:12px;
-  touch-action:manipulation;margin-bottom:10px;
-}
-.role-card:hover,.role-card:active{
-  border-color:var(--primary);background:var(--primary-lt);
-  box-shadow:0 0 0 3px rgba(24,119,242,.1);
-}
-.role-icon{
-  width:42px;height:42px;border-radius:50%;
-  background:var(--primary-lt);display:flex;align-items:center;
-  justify-content:center;font-size:1.3rem;flex-shrink:0;
-}
-.role-title{font-size:.93rem;font-weight:700;color:var(--ink)}
-.role-sub{font-size:.73rem;color:var(--muted);margin-top:1px}
-.role-chevron{color:var(--dim);font-size:1rem;margin-right:auto;transition:transform .2s}
-.role-card.open .role-chevron{transform:rotate(90deg)}
-.login-fields{
-  display:none;background:var(--surface2);border-radius:var(--radius-sm);
-  padding:14px;margin-top:-4px;margin-bottom:10px;
-  border:1.5px solid var(--border);border-top:none;border-radius:0 0 var(--radius-sm) var(--radius-sm);
-}
-.login-fields.open{display:block}
-.field-label{font-size:.73rem;font-weight:700;color:var(--muted);display:block;margin-bottom:4px}
-
-/* ═══════════════════════════════════════════════════
-   APP SHELL
-═══════════════════════════════════════════════════ */
-.app-shell{display:flex;height:100vh;overflow:hidden}
-
-/* ═══════════════════════════════════════════════════
-   SIDEBAR
-═══════════════════════════════════════════════════ */
-.sidebar{
-  width:var(--sb-w);min-width:var(--sb-w);
-  background:var(--surface);
-  border-left:1px solid var(--border);
-  display:flex;flex-direction:column;height:100vh;
-  position:sticky;top:0;overflow-y:auto;flex-shrink:0;
-  z-index:100;transition:transform .25s ease;
-}
-@media(max-width:768px){
-  .sidebar{position:fixed;top:0;right:0;transform:translateX(100%)}
-  .sidebar.open{transform:translateX(0)}
-}
-.sb-logo{
-  padding:16px 18px 14px;
-  border-bottom:1px solid var(--border);
-}
-.sb-logo-inner{display:flex;align-items:center;gap:10px}
-.sb-logo-icon{
-  width:36px;height:36px;border-radius:10px;
-  background:var(--primary);display:flex;align-items:center;
-  justify-content:center;font-size:1.1rem;flex-shrink:0;
-}
-.sb-logo h2{font-size:.95rem;font-weight:800;color:var(--ink);line-height:1.2}
-.sb-logo p{font-size:.7rem;color:var(--muted);margin-top:2px}
-.sb-sect{
-  padding:14px 18px 6px;
-  font-size:.68rem;font-weight:700;letter-spacing:.07em;
-  color:var(--dim);text-transform:uppercase;
-}
-.nav-item{
-  display:flex;align-items:center;gap:10px;
-  padding:9px 12px;border-radius:var(--radius-sm);
-  margin:2px 8px;cursor:pointer;transition:background .15s;
-  font-size:.88rem;color:var(--ink-mid);
-  touch-action:manipulation;
-}
-.nav-item:hover,.nav-item:active{background:var(--surface2)}
-.nav-item.active{background:var(--primary-lt);color:var(--primary);font-weight:700}
-.nav-icon{
-  font-size:.9rem;flex-shrink:0;width:22px;height:22px;
-  display:flex;align-items:center;justify-content:center;
-  color:var(--muted);
-}
-.nav-item.active .nav-icon{color:var(--primary)}
-.nav-icon-bubble{
-  width:32px;height:32px;border-radius:10px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  font-size:.95rem;background:var(--surface2);
-}
-.nav-badge{
-  margin-right:auto;background:var(--surface2);
-  border-radius:100px;padding:2px 8px;
-  font-size:.65rem;color:var(--muted);font-weight:600;
-  border:1px solid var(--border);
-}
-.nav-badge.open{background:var(--green-lt);color:var(--green);border-color:transparent}
-.sb-bottom{margin-top:auto;padding:12px;border-top:1px solid var(--border)}
-.user-pill{
-  display:flex;align-items:center;gap:10px;
-  padding:9px 12px;background:var(--surface2);border-radius:var(--radius-sm);
-  border:1px solid var(--border);
-}
-.u-avatar{
-  width:34px;height:34px;border-radius:50%;
-  background:var(--primary);
-  display:flex;align-items:center;justify-content:center;
-  font-size:.9rem;font-weight:800;color:#fff;flex-shrink:0;
-}
-
-/* ─── OVERLAY ─── */
-.sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:99;pointer-events:none}
-.sb-overlay.open{display:block;pointer-events:auto}
-
-/* ═══════════════════════════════════════════════════
-   TOPBAR
-═══════════════════════════════════════════════════ */
-.topbar{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 20px;height:54px;
-  background:var(--surface);
-  flex-shrink:0;gap:8px;
-  border-bottom:1px solid var(--border);
-}
-.topbar-title{
-  font-size:1rem;font-weight:800;
-  color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;
-}
-.mob-btn{
-  display:none;background:none;border:none;font-size:1.25rem;cursor:pointer;
-  padding:6px;touch-action:manipulation;color:var(--muted);flex-shrink:0;
-}
-@media(max-width:768px){.mob-btn{display:block}}
-
-/* ═══════════════════════════════════════════════════
-   MAIN CONTENT
-═══════════════════════════════════════════════════ */
-.main-content{flex:1;overflow-y:auto;padding:20px;-webkit-overflow-scrolling:touch}
-@media(max-width:640px){.main-content{padding:14px}}
-
-/* ═══════════════════════════════════════════════════
-   CARDS
-═══════════════════════════════════════════════════ */
-.card{
-  background:var(--surface);border-radius:var(--radius);
-  padding:18px;margin-bottom:12px;
-  box-shadow:var(--shadow-md);
-  border:1px solid var(--border);
-}
-.stat-card{
-  background:var(--surface);border-radius:var(--radius);
-  padding:16px;display:flex;align-items:center;gap:12px;
-  box-shadow:var(--shadow-md);border:1px solid var(--border);
-}
-.stat-icon{width:44px;height:44px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0}
-.stat-num{font-size:1.5rem;font-weight:900;line-height:1.1;letter-spacing:-.02em}
-.stat-lbl{font-size:.75rem;color:var(--muted);margin-top:2px;font-weight:500}
-
-/* ═══════════════════════════════════════════════════
-   LESSON CARDS
-═══════════════════════════════════════════════════ */
-.lesson-card{
-  background:var(--surface);border-radius:var(--radius);overflow:hidden;
-  box-shadow:var(--shadow-md);border:1px solid var(--border);
-  transition:box-shadow .2s,transform .2s;touch-action:manipulation;
-}
-.lesson-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-1px)}
-.lc-head{padding:16px 18px 12px}
-.lesson-num{
-  display:inline-block;background:var(--primary);color:#fff;
-  font-size:.68rem;font-weight:800;letter-spacing:.06em;
-  padding:2px 9px;border-radius:100px;margin-bottom:6px;
-}
-.lesson-title{font-weight:700;font-size:.92rem;color:var(--ink);line-height:1.35}
-.lc-foot{
-  padding:10px 16px;border-top:1px solid var(--border);
-  background:var(--surface2);display:flex;gap:7px;align-items:center;flex-wrap:wrap;
-}
-.lc-btn{
-  padding:6px 13px;border-radius:var(--radius-sm);font-size:.75rem;font-weight:700;
-  cursor:pointer;border:1.5px solid transparent;font-family:'Heebo',sans-serif;
-  touch-action:manipulation;transition:all .15s;
-}
-.lc-btn.p{background:var(--primary);color:#fff;border-color:var(--primary)}
-.lc-btn.p:hover{background:var(--primary-dk);border-color:var(--primary-dk)}
-.open-badge{margin-right:auto;display:flex;align-items:center;gap:4px;font-size:.7rem;color:var(--ok);font-weight:700}
-.open-dot{width:6px;height:6px;border-radius:50%;background:var(--ok);animation:pd 2s infinite}
-.closed-badge{margin-right:auto;font-size:.7rem;color:var(--dim);font-weight:600}
-@keyframes pd{0%,100%{opacity:1}50%{opacity:.4}}
-
-/* ─── STUDENT LESSON CARDS ─── */
-.sl-card{
-  background:var(--surface);border-radius:var(--radius);
-  padding:16px;cursor:pointer;transition:box-shadow .2s,transform .2s;
-  text-align:center;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;min-height:110px;
-  touch-action:manipulation;box-shadow:var(--shadow-md);border:1.5px solid var(--border);
-}
-.sl-card:hover,.sl-card:active{box-shadow:var(--shadow-lg);transform:translateY(-1px)}
-.sl-card.done{border-color:var(--green);background:linear-gradient(135deg,#fff,var(--green-lt))}
-.sl-card.locked{opacity:.5;cursor:not-allowed}
-.chip{display:inline-block;padding:3px 10px;border-radius:100px;font-size:.67rem;font-weight:700;margin-top:7px}
-.chip-done{background:var(--green-lt);color:var(--green)}
-.chip-open{background:var(--primary-lt);color:var(--primary)}
-.chip-lock{background:var(--surface2);color:var(--dim)}
-
-/* ═══════════════════════════════════════════════════
-   TABLES
-═══════════════════════════════════════════════════ */
-.dt{width:100%;border-collapse:collapse}
-.dt th{background:var(--surface2);color:var(--muted);padding:10px 12px;font-size:.72rem;font-weight:700;letter-spacing:.04em;border-bottom:2px solid var(--border);text-align:right;white-space:nowrap}
-.dt td{padding:10px 12px;border-bottom:1px solid var(--border);font-size:.85rem;color:var(--ink-mid)}
-.dt tr:last-child td{border-bottom:none}
-.dt tr:hover td{background:var(--surface2)}
-.tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--radius);border:1px solid var(--border)}
-.avg-row td{background:var(--surface2)!important;font-weight:700;border-top:2px solid var(--border2)!important}
-.gi{width:56px;text-align:center;font-family:'Heebo',sans-serif;font-size:.8rem;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:5px 6px;color:var(--ink)}
-.gi:focus{outline:none;border-color:var(--primary);background:#fff}
-
-/* ─── GRADE BADGES ─── */
-.gb{display:inline-block;padding:2px 9px;border-radius:100px;font-size:.71rem;font-weight:700}
-.ga{background:#dcfce7;color:#166534}.gb_ {background:#dbeafe;color:#1e40af}
-.gc{background:#fef9c3;color:#713f12}.gd{background:#fee2e2;color:#7f1d1d}
-.gnp{background:var(--surface2);color:var(--dim)}
-
-/* ─── TOGGLE ─── */
-.toggle{width:42px;height:24px;border-radius:100px;border:none;cursor:pointer;position:relative;transition:background .2s;flex-shrink:0;touch-action:manipulation}
-.toggle.on{background:var(--ok)}.toggle.off{background:var(--border2)}
-.toggle::after{content:'';position:absolute;top:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:right .2s,left .2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
-.toggle.on::after{left:3px}.toggle.off::after{right:3px}
-
-/* ═══════════════════════════════════════════════════
-   BUTTONS
-═══════════════════════════════════════════════════ */
-.bp{background:var(--primary);color:#fff;border:none;border-radius:var(--radius-sm);padding:9px 18px;font-family:'Heebo',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;touch-action:manipulation;transition:background .15s}
-.bp:hover{background:var(--primary-dk)}
-.bok{background:var(--green);color:#fff;border:none;border-radius:var(--radius-sm);padding:9px 18px;font-family:'Heebo',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;touch-action:manipulation}
-.bp-outline{background:transparent;color:var(--primary);border:1.5px solid var(--primary);border-radius:var(--radius-sm);padding:8px 16px;font-family:'Heebo',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;touch-action:manipulation}
-.bghost{background:transparent;color:var(--muted);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:8px 14px;font-family:'Heebo',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;touch-action:manipulation}
-.bdanger{background:#fff5f5;color:var(--rose);border:1.5px solid #fca5a5;padding:8px 14px;border-radius:var(--radius-sm);font-family:'Heebo',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer;touch-action:manipulation}
-
-/* ─── INLINE TABS ─── */
-.itab{
-  padding:6px 14px;border-radius:100px;border:1.5px solid var(--border);
-  background:var(--surface);font-family:'Heebo',sans-serif;font-size:.82rem;
-  font-weight:600;cursor:pointer;color:var(--muted);transition:all .15s;
-}
-.itab.active,.itab:hover{border-color:var(--primary);background:var(--primary-lt);color:var(--primary);font-weight:700}
-
-/* ═══════════════════════════════════════════════════
-   INPUTS
-═══════════════════════════════════════════════════ */
-input[type="text"],input[type="password"],input[type="tel"],textarea,select{
-  font-family:'Heebo',sans-serif;direction:rtl;text-align:right;
-  width:100%;background:var(--surface);
-  border:1.5px solid var(--border);border-radius:var(--radius-sm);
-  padding:10px 13px;font-size:.9rem;color:var(--ink);
-  transition:border-color .15s,box-shadow .15s;-webkit-appearance:none;
-}
-input:focus,textarea:focus,select:focus{
-  outline:none;border-color:var(--primary);
-  box-shadow:0 0 0 3px rgba(24,119,242,.12);background:#fff;
-}
-textarea{resize:vertical;line-height:1.6}
-
-/* ═══════════════════════════════════════════════════
-   MODALS
-═══════════════════════════════════════════════════ */
-.modal-wrap{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:400;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(2px)}
-.modal-wrap.open{display:flex}
-.modal-box{background:#fff;border-radius:var(--radius);padding:28px;max-width:460px;width:100%;box-shadow:var(--shadow-lg);max-height:90vh;overflow-y:auto;border:1px solid var(--border)}
-
-/* ═══════════════════════════════════════════════════
-   LESSON VIEWER
-═══════════════════════════════════════════════════ */
-#lesson-viewer{
-  display:none;position:fixed;inset:0;z-index:9999;
-  flex-direction:column;background:#fff;
-}
-#lesson-viewer.open{display:flex}
-.vbar{
-  display:flex;align-items:center;gap:8px;padding:0 16px;
-  height:52px;background:var(--primary);flex-shrink:0;
-}
-.v-back{
-  display:flex;align-items:center;gap:5px;
-  background:rgba(255,255,255,.15);color:#fff;border:none;
-  border-radius:var(--radius-sm);padding:7px 14px;font-family:'Heebo',sans-serif;
-  font-size:.83rem;font-weight:700;cursor:pointer;white-space:nowrap;
-  touch-action:manipulation;transition:background .15s;
-}
-.v-back:hover{background:rgba(255,255,255,.25)}
-.vtitle{flex:1;color:#fff;font-weight:700;font-size:.93rem;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.v-close{
-  background:rgba(255,255,255,.15);color:#fff;border:none;
-  border-radius:var(--radius-sm);padding:7px 11px;font-size:1.1rem;cursor:pointer;
-  touch-action:manipulation;flex-shrink:0;transition:background .15s;
-}
-.v-close:hover{background:rgba(255,255,255,.25)}
-#lesson-frame{flex:1;border:none;width:100%;min-height:0;display:block}
-
-/* ─── TOAST ─── */
-.toast{
-  position:fixed;bottom:28px;left:50%;transform:translateX(-50%);
-  background:var(--ink);color:#fff;border-radius:100px;
-  padding:10px 22px;font-size:.87rem;font-weight:600;
-  z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;
-  white-space:nowrap;box-shadow:var(--shadow-lg);
-}
-.toast.show{opacity:1}
-
-/* ─── PROGRESS BAR ─── */
-.pb{background:var(--surface2);border-radius:100px;overflow:hidden;border:1px solid var(--border)}
-.pf{height:8px;border-radius:100px;transition:width .6s ease;background:var(--primary)}
-
-/* ─── MISC ─── */
-.mb-4{margin-bottom:1rem}.mb-5{margin-bottom:1.25rem}.mb-8{margin-bottom:2rem}
-.text-center{text-align:center}
-@media(max-width:640px){.main-content{padding:12px}}
-@media print{.sidebar,.topbar,.mob-btn,.no-print{display:none!important}}
-/* ─── ROLE SELECTOR HERO CARDS ─── */
-.role-hero-card{
-  background:#fff;border-radius:var(--radius);border:2px solid var(--border);
-  padding:22px 20px;cursor:pointer;transition:all .2s;
-  display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;
-  touch-action:manipulation;box-shadow:0 2px 16px rgba(0,0,0,.08);
-  min-height:140px;justify-content:center;
-}
-.role-hero-card:hover,.role-hero-card:active{
-  border-color:var(--primary);
-  box-shadow:0 0 0 3px rgba(24,119,242,.15), 0 8px 32px rgba(24,119,242,.15);
-  transform:translateY(-2px);
-}
-.role-hero-card.teacher:hover{border-color:#7c3aed;box-shadow:0 0 0 3px rgba(124,58,237,.15),0 8px 32px rgba(124,58,237,.15);}
-.role-hero-card.student:hover{border-color:var(--green);box-shadow:0 0 0 3px rgba(66,183,42,.15),0 8px 32px rgba(66,183,42,.15);}
-.rhc-icon{font-size:2.4rem;line-height:1;margin-bottom:2px}
-.rhc-title{font-size:1.05rem;font-weight:800;color:var(--ink);letter-spacing:-.01em}
-.rhc-sub{font-size:.74rem;color:var(--muted);margin-top:1px;line-height:1.4}
-/* ─── LOGIN BOX SLIDE ─── */
-.role-section{display:none}.role-section.open{display:block}
-.back-btn{
-  display:flex;align-items:center;gap:6px;background:none;border:none;
-  color:var(--primary);font-family:'Heebo',sans-serif;font-size:.82rem;font-weight:700;
-  cursor:pointer;padding:0 0 14px;touch-action:manipulation;
-}
-.back-btn:hover{opacity:.75}
-.login-sep{height:1px;background:var(--border);margin:10px 0 16px}
-
-.sb-unit-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px 5px;font-size:.68rem;font-weight:800;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;cursor:pointer;user-select:none;transition:color .15s}
-.sb-unit-header:hover{color:var(--primary)}
-.sb-chevron{font-size:.75rem;opacity:.6;transition:transform .2s}
-.sb-unit-body{overflow:hidden}
-
 </style>
 </head>
 <body>
 
-<!-- ── SIDEBAR OVERLAY (mobile) ── -->
-<div class="sb-overlay" id="sbov" onclick="closeSidebar()"></div>
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">📚</div>
+    <h1 class="login-title">לשון עברית — כיתה י׳</h1>
+    <p class="login-sub">פלטפורמה דיגיטלית ללמידה ולהוראה | 2026</p>
 
-<!-- ════════════════════════════════════════
-     LOGIN SCREEN
-════════════════════════════════════════ -->
-<div id="login-screen" class="screen active">
-  <div class="login-panel">
-    <div class="login-logo">
-      <div style="font-size:2.8rem;margin-bottom:10px">📚</div>
-      <h1>לשון עברית — כיתה י׳</h1>
-      <p>פלטפורמה דיגיטלית ללמידה ולהוראה</p>
-      <div class="badge-tag">6 שיעורים · 7 בניינים · מבחן יחידה</div>
-    </div>
+    <label class="lf-label" for="sname">שמכם/ן</label>
+    <input type="text" id="sname" class="lf-input" placeholder="הזינו שם לפני הכניסה..."
+           onkeydown="if(event.key==='Enter')doStudentLogin()">
+    <button class="btn-student" onclick="doStudentLogin()">▶ כניסת תלמיד/ה</button>
+    <button class="teacher-toggle" onclick="toggleTeacher()">🔑 כניסת צוות הוראה</button>
 
-    <!-- ── ROLE CHOOSER ── -->
-    <div id="role-chooser">
-      <div style="text-align:center;margin-bottom:16px">
-        <div style="display:inline-block;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:5px 18px;font-size:.72rem;font-weight:700;color:rgba(255,255,255,.85);letter-spacing:.04em">בחרו את תפקידכם להמשיך</div>
-      </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-        <div class="role-hero-card teacher" onclick="selectRole('teacher')">
-          <div class="rhc-icon">🎓</div>
-          <div class="rhc-title">כניסת מורה</div>
-          <div class="rhc-sub">Dashboard · ניהול שיעורים · ציונים</div>
-        </div>
-        <div class="role-hero-card student" onclick="selectRole('student')">
-          <div class="rhc-icon">📖</div>
-          <div class="rhc-title">כניסת תלמיד/ה</div>
-          <div class="rhc-sub">שיעורים · הגשות · התקדמות</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── TEACHER LOGIN SECTION ── -->
-    <div class="login-box role-section" id="role-teacher">
-      <div class="login-box-head">
-        <button class="back-btn" onclick="backToChooser()">← חזרה לבחירת תפקיד</button>
-        <div style="display:flex;align-items:center;gap:9px;margin-bottom:3px">
-          <span style="font-size:1.5rem">🎓</span>
-          <h2>כניסת מורה</h2>
-        </div>
-        <p id="t-prev">הזינו שם להמשיך</p>
-      </div>
-      <div class="login-box-body">
-        <label class="field-label">שם המורה</label>
-        <div style="display:flex;gap:7px">
-          <input type="text" id="t-name-in" placeholder="שמכם/ן..."
-                 style="flex:1" onkeydown="if(event.key==='Enter')loginTeacher()">
-          <button onclick="loginTeacher()" class="bp" style="white-space:nowrap;flex-shrink:0;background:#7c3aed;border-color:#7c3aed">כניסה ›</button>
-        </div>
-        <div style="margin-top:10px;background:#f3f0ff;border-radius:8px;padding:10px 12px;border:1px solid #ede9fe;font-size:.8rem;color:#6d28d9;">
-          🔑 כניסה ישירה — ללא קוד גישה. ניהול קוד אפשרי בהגדרות הדשבורד.
-        </div>
-      </div>
-    </div>
-
-    <!-- ── STUDENT LOGIN SECTION ── -->
-    <div class="login-box role-section" id="role-student">
-      <div class="login-box-head">
-        <button class="back-btn" onclick="backToChooser()">← חזרה לבחירת תפקיד</button>
-        <div style="display:flex;align-items:center;gap:9px;margin-bottom:3px">
-          <span style="font-size:1.5rem">📖</span>
-          <h2>כניסת תלמיד/ה</h2>
-        </div>
-        <p>כניסה ישירה — לרשימת השיעורים</p>
-      </div>
-      <div class="login-box-body">
-        <div style="background:var(--primary-lt);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:14px;border:1px solid rgba(24,119,242,.15);font-size:.83rem;color:var(--primary)">
-          📚 תראו רק את השיעורים הפתוחים — ללא Dashboard ותשובות מורה
-        </div>
-        <div style="display:flex;gap:7px">
-          <input type="text" id="s-name-direct" placeholder="שם (אופציונלי)..."
-                 style="flex:1" onkeydown="if(event.key==='Enter')loginStudentDirect()">
-          <button onclick="loginStudentDirect()" class="bp"
-                  style="white-space:nowrap;flex-shrink:0;background:var(--green)">כניסה ›</button>
-        </div>
-      </div>
-    </div>
-
-    <p style="text-align:center;color:rgba(255,255,255,.2);font-size:.68rem;margin-top:16px">פלטפורמת לשון עברית | מפמ"ר ומיצ"ב 2026</p>
-  </div>
-</div>
-
-<!-- ════════════════════════════════════════
-     TEACHER SCREEN
-════════════════════════════════════════ -->
-<div id="teacher-screen" class="screen">
-  <div class="app-shell">
-    <div class="sidebar" id="tsb">
-      <div class="sb-logo">
-        <div class="sb-logo-inner">
-          <div class="sb-logo-icon">📚</div>
-          <div>
-            <h2>לשון עברית י׳</h2>
-            <p id="tunit-lbl">יחידה 1: מערכת הפועל</p>
-          </div>
-        </div>
-      </div>
-      <div class="sb-sect">ראשי</div>
-      <div class="nav-item active" onclick="tNav('overview',this)"><span class="nav-icon-bubble">🏠</span>לוח בקרה</div>
-      <div class="nav-item" onclick="tNav('lessons',this)"><span class="nav-icon-bubble">📚</span>ניהול שיעורים</div>
-      <div class="nav-item" onclick="tNav('grades',this)"><span class="nav-icon-bubble">👥</span>ציונים וכיתות</div>
-      <div class="nav-item" onclick="tNav('reports',this)"><span class="nav-icon-bubble">📊</span>דוחות</div>
-      <div class="nav-item" onclick="tNav('settings',this)"><span class="nav-icon-bubble">⚙️</span>הגדרות כיתה</div>
-      <div id="tsb-units"><!-- rendered by buildSidebars() --></div>
-      <div class="sb-bottom">
-        <div class="user-pill">
-          <div class="u-avatar" id="ta">מ</div>
-          <div style="flex:1;min-width:0">
-            <div style="font-size:.82rem;font-weight:700;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap" id="tname">מורה</div>
-            <div style="font-size:.67rem;color:var(--muted)">ממשק מורה</div>
-          </div>
-          <button onclick="logout()" title="יציאה" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:.95rem;touch-action:manipulation;padding:4px">⎋</button>
-        </div>
-      </div>
-    </div>
-    <div style="flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0">
-      <div class="topbar">
-        <button class="mob-btn" onclick="openSidebar('tsb')">☰</button>
-        <div class="topbar-title" id="t-title">לוח בקרה</div>
-        <button onclick="tNav('settings',null)" class="bp" style="font-size:.75rem;padding:6px 13px;flex-shrink:0">⚙️ הגדרות</button>
-      </div>
-      <div class="main-content" id="tmain"></div>
+    <div id="teacher-panel">
+      <label class="lf-label">שם המורה</label>
+      <input type="text" id="tname" class="lf-input" placeholder="שמכם/ן...">
+      <label class="lf-label">סיסמה</label>
+      <input type="password" id="tpass" class="lf-input" placeholder="••••"
+             onkeydown="if(event.key==='Enter')doTeacherLogin()">
+      <button class="btn-teacher" onclick="doTeacherLogin()">🎓 כניסת מורה</button>
+      <p style="font-size:.66rem;color:rgba(255,255,255,.22);text-align:center;margin-top:.5rem;">ברירת מחדל: 1234</p>
     </div>
   </div>
 </div>
 
-<!-- ════════════════════════════════════════
-     STUDENT SCREEN
-════════════════════════════════════════ -->
-<div id="student-screen" class="screen">
-  <div class="app-shell">
-    <div class="sidebar" id="ssb">
-      <div class="sb-logo">
-        <div class="sb-logo-inner">
-          <div class="sb-logo-icon" style="background:var(--green)">📖</div>
-          <div>
-            <h2>לשון עברית י׳</h2>
-            <p>פלטפורמת תלמיד</p>
-          </div>
-        </div>
-      </div>
-      <div class="sb-sect">שיעורים</div>
-      <div class="nav-item active" id="sn-home" onclick="sNav('home',this)"><span class="nav-icon-bubble">🏠</span>הבית שלי</div>
-      <div id="ssb-units"><!-- rendered by buildSidebars() --></div>
-      <div class="sb-sect">הישגים</div>
-      <div class="nav-item" onclick="sNav('progress',this)"><span class="nav-icon-bubble">📈</span>ההתקדמות שלי</div>
-      <div class="sb-bottom">
-        <div class="user-pill">
-          <div class="u-avatar" style="background:var(--green)" id="sa">ת</div>
-          <div style="flex:1;min-width:0">
-            <div style="font-size:.82rem;font-weight:700;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap" id="sname">תלמיד/ה</div>
-            <div style="font-size:.67rem;color:var(--muted)" id="scls">כיתה י׳</div>
-          </div>
-          <button onclick="logout()" title="יציאה" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:.95rem;touch-action:manipulation;padding:4px">⎋</button>
-        </div>
-      </div>
+<!-- APP -->
+<div id="app">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="sb-head">
+      <div class="sb-logo">📚 לשון עברית י׳</div>
+      <div class="sb-sub">פלטפורמה דיגיטלית 2026</div>
     </div>
-    <div style="flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0">
-      <div class="topbar">
-        <button class="mob-btn" onclick="openSidebar('ssb')">☰</button>
-        <div class="topbar-title" id="s-title">ברוך הבא!</div>
-        <span id="spchip" style="font-size:.75rem;background:var(--primary-lt);color:var(--primary);padding:4px 12px;border-radius:100px;font-weight:700;white-space:nowrap;flex-shrink:0;border:1px solid rgba(24,119,242,.2)">0 / 6</span>
-        <button onclick="logout()" title="יציאה מהמערכת"
-          style="background:var(--surface2);border:1.5px solid var(--border);color:var(--muted);
-                 border-radius:var(--radius-sm);padding:5px 11px;font-family:'Heebo',sans-serif;
-                 font-size:.78rem;font-weight:700;cursor:pointer;white-space:nowrap;
-                 flex-shrink:0;transition:all .15s;touch-action:manipulation;"
-          onmouseover="this.style.borderColor='var(--rose)';this.style.color='var(--rose)'"
-          onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">
-          ⎋ יציאה
-        </button>
+    <div class="sb-nav" id="sb-nav"></div>
+    <div class="sb-foot">
+      <div class="user-row">
+        <div class="u-av" id="u-av"></div>
+        <span class="u-name" id="u-name">—</span>
+        <span class="role-tag" id="role-tag" style="display:none">מורה</span>
       </div>
-      <div class="main-content" id="smain"></div>
+      <button class="btn-logout" onclick="doLogout()">↩ יציאה</button>
     </div>
+  </nav>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <div class="topbar">
+      <div>
+        <div class="tb-title">לשון עברית — כיתה י׳</div>
+        <div class="tb-sub">פלטפורמה דיגיטלית | מפמ״ר ומיצ״ב</div>
+      </div>
+      <div class="tb-sp"></div>
+    </div>
+
+    <div class="prog-banner" id="prog-banner">
+      <div class="prog-header">
+        <span class="prog-title">התקדמות בקורס</span>
+        <span class="prog-pct" id="prog-pct">0%</span>
+      </div>
+      <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+      <div class="prog-stats" id="prog-stats"></div>
+    </div>
+
+    <div class="units-wrap" id="units-wrap"></div>
+
   </div>
 </div>
 
-<!-- ════════════════════════════════════════
-     LESSON VIEWER
-════════════════════════════════════════ -->
-<div id="lesson-viewer">
-  <div class="vbar">
-    <button class="v-back" onclick="closeViewer()">← חזרה לדשבורד</button>
-    <span class="vtitle" id="vtitle">שיעור</span>
-    <button id="viewer-assess-btn" onclick="openAssessmentDrawer()"
-      style="display:none;background:rgba(255,255,255,.15);border:1.5px solid rgba(255,255,255,.3);
-             color:#fff;padding:0 14px;height:38px;border-radius:var(--radius-sm);
-             font-family:'Heebo',sans-serif;font-size:.83rem;font-weight:700;cursor:pointer;
-             white-space:nowrap;flex-shrink:0;transition:background .15s">
-      📊 הערכה
-    </button>
-    <button class="v-close" onclick="closeViewer()" aria-label="סגור שיעור">✕</button>
-  </div>
-  <div id="viewer-wa-bar" style="display:none;background:var(--mint);padding:9px 16px;align-items:center;justify-content:space-between;gap:10px;flex-shrink:0;">
-    <span style="font-size:.82rem;color:#fff;font-weight:600" id="viewer-wa-hint">📝 סיימת? שלחי למורה</span>
-    <button id="viewer-wa-btn" onclick="sendWhatsApp()"
-      style="background:#fff;color:#0e9e78;border:none;padding:8px 18px;border-radius:var(--radius-sm);
-             font-family:'Heebo',sans-serif;font-size:.85rem;font-weight:800;cursor:pointer;
-             white-space:nowrap;touch-action:manipulation;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.15)">
-      📲 שלח תשובות בוואטסאפ
-    </button>
-  </div>
-  <iframe id="lesson-frame" title="שיעור" allow="same-origin"></iframe>
-</div>
-
-<!-- ════════════════════════════════════════
-     CONFIRM MODAL
-════════════════════════════════════════ -->
-<div class="modal-wrap" id="cmodal">
-  <div class="modal-box" style="text-align:center">
-    <div style="font-size:2.6rem;margin-bottom:12px">🎉</div>
-    <h2 style="font-size:1.15rem;font-weight:800;margin-bottom:6px">נשלח בהצלחה!</h2>
-    <p style="color:var(--muted);font-size:.86rem;margin-bottom:14px" id="m-msg"></p>
-    <div style="background:var(--surface2);border-radius:var(--radius-sm);padding:12px;margin-bottom:16px;font-size:.8rem;color:var(--muted);text-align:right;border:1px solid var(--border)" id="m-det"></div>
-    <button onclick="closeCM()" class="bp" style="width:100%;padding:11px">✓ אישור</button>
-  </div>
-</div>
-
-<!-- TOAST -->
-<div id="toast" class="toast">✅</div>
+<div id="toast"></div>
 
 <script>
-/* ══════════════════════════════════════════════════════════════
-   LASHON PLATFORM  v6  —  Production / Server-Ready
-══════════════════════════════════════════════════════════════ */
+'use strict';
+const DEFAULT_PASS = '1234';
 
-const LS = {
-  get(k, d) { try { const v = localStorage.getItem('lashon_' + k); return v !== null ? JSON.parse(v) : d; } catch(e) { return d; } },
-  set(k, v) { try { localStorage.setItem('lashon_' + k, JSON.stringify(v)); } catch(e) {} },
-  del(k)    { try { localStorage.removeItem('lashon_' + k); } catch(e) {} }
-};
-
-const DATA_VER = 'v6';
-if (LS.get('data_version', '') !== DATA_VER) {
-  ['students','lesson_state','classes','ext_cols','ext_scores'].forEach(k => LS.del(k));
-  LS.set('data_version', DATA_VER);
-}
-
+// ══ DATA ══
 const UNITS = [
   {
-    id: 'u1', label: 'יחידה 1 — מערכת הפועל',
-    lessons: [
-      { id:1, title:'השורש ושבעת הבניינים', short:'ש׳1', file:'lesson1_shoresh_binyamin_v3.html',  color:'#4f46e5', emoji:'🌱', mins:45 },
-      { id:2, title:'בניין קַל',              short:'ש׳2', file:'lesson2_binyan_kal_v3.html',          color:'#0891b2', emoji:'💧', mins:45 },
-      { id:3, title:'הבניינים הכבדים',        short:'ש׳3', file:'lesson3_binyanim_kvedim_v3.html',    color:'#059669', emoji:'⚡', mins:45 },
-      { id:4, title:'בנייני הגורם',            short:'ש׳4', file:'lesson4_hifil_hufal_v3.html',         color:'#7c3aed', emoji:'🔮', mins:45 },
-      { id:5, title:'סיכום + מרובעים',        short:'ש׳5', file:'lesson5_summary_mruba_v3.html',       color:'#b45309', emoji:'🏙️', mins:45 },
-      { id:6, title:'מבחן יחידה',              short:'מבחן',file:'lesson6_bagrut_exam_v3.html',          color:'#c9a227', emoji:'🎯', mins:45, isExam:true },
+    id:'u1', emoji:'📘', label:'יחידה 1', title:'מערכת הפועל', color:'#4f46e5',
+    lessons:[
+      {id:'u1_l1',short:'שיעור 1',emoji:'🌱',color:'#4f46e5',mins:45,locked:false,exam:false,
+       title:'השורש ושבעת הבניינים',desc:'מבנה הפועל העברי ושבעת הבניינים ותפקודיהם',
+       file:'lesson1_shoresh_binyamin_v3.html'},
+      {id:'u1_l2',short:'שיעור 2',emoji:'💧',color:'#0891b2',mins:45,locked:false,exam:false,
+       title:'בניין קַל',desc:'גזרת השלמים — עבר, הווה, עתיד וציווי',
+       file:'lesson2_binyan_kal_v3.html'},
+      {id:'u1_l3',short:'שיעור 3',emoji:'⚡',color:'#059669',mins:45,locked:false,exam:false,
+       title:'הבניינים הכבדים',desc:'פיעל, פועל, התפעל — צורות ומשמעויות',
+       file:'lesson3_binyanim_kvedim_v3.html'},
+      {id:'u1_l4',short:'שיעור 4',emoji:'🔮',color:'#7c3aed',mins:45,locked:false,exam:false,
+       title:'בנייני הגורם',desc:'הפעיל, הופעל — שורשים, צורות ומשמעויות',
+       file:'lesson4_hifil_hufal_v3.html'},
+      {id:'u1_l5',short:'שיעור 5',emoji:'🏙️',color:'#b45309',mins:45,locked:false,exam:false,
+       title:'סיכום + מרובעים',desc:'חזרה על שבעת הבניינים ושורשים מרובעים',
+       file:'lesson5_summary_mruba_v3.html'},
+      {id:'u1_exam',short:'מבחן',emoji:'🎯',color:'#c9a227',mins:45,locked:false,exam:true,
+       title:'מבחן יחידה 1',desc:'מבחן מסכם על כל הבניינים',
+       file:'lesson6_bagrut_exam_v3.html'},
     ]
   },
   {
-    id: 'u2', label: 'יחידה 2 — מערכת השם',
-    lessons: [
-      { id:11, title:'שורש ומשקל',           short:'ש׳1', file:'unit2_lesson1_nominal_system_v3.html',  color:'#0f766e', emoji:'🏷️', mins:45 },
-      { id:12, title:'בסיס וסיומת',           short:'ש׳2', file:'unit2_lesson2_base_suffix_v3.html',     color:'#0284c7', emoji:'🔤', mins:45 },
-      { id:13, title:'דרכי תצורה',             short:'ש׳3', file:'unit2_lesson3_word_formation_v3.html', color:'#7c3aed', emoji:'🔀', mins:45 },
-      { id:14, title:'משמעויות ותפקודים',     short:'ש׳4', file:'unit2_lesson4_meanings_v3.html',        color:'#b45309', emoji:'🏷️', mins:45 },
-      { id:15, title:'סיכום יחידה 2',          short:'סיכום', file:'unit2_lesson5_summary_v3.html',      color:'#1a7a3c', emoji:'⭐', mins:45 },
-      { id:16, title:'מבחן סיכום יחידה 2',    short:'מבחן',  file:'unit2_exam_v3.html',                  color:'#c9a227', emoji:'📝', mins:40, isExam:true },
+    id:'u2', emoji:'🏷️', label:'יחידה 2', title:'מערכת השם', color:'#0f766e',
+    lessons:[
+      {id:'u2_l1',short:'שיעור 1',emoji:'🏷️',color:'#0f766e',mins:45,locked:false,exam:false,
+       title:'שורש ומשקל',desc:'הקשר בין שורש לצורת המשקל ומשמעויותיו',
+       file:'unit2_lesson1_nominal_system_v3.html'},
+      {id:'u2_l2',short:'שיעור 2',emoji:'🔤',color:'#0284c7',mins:45,locked:false,exam:false,
+       title:'בסיס וסיומת',desc:'מרכיבי המילה — בסיס, סיומת ותפקידם',
+       file:'unit2_lesson2_base_suffix_v3.html'},
+      {id:'u2_l3',short:'שיעור 3',emoji:'🔀',color:'#7c3aed',mins:45,locked:false,exam:false,
+       title:'דרכי תצורה',desc:'גזירה, הרכבה והיתוך — שלוש דרכי יצירת מילים',
+       file:'unit2_lesson3_word_formation_v3.html'},
+      {id:'u2_l4',short:'שיעור 4',emoji:'🏷️',color:'#b45309',mins:45,locked:false,exam:false,
+       title:'משמעויות ותפקודים',desc:'משמעויות מרובות, הקשר ותפקוד בטקסט',
+       file:'unit2_lesson4_meanings_v3.html'},
+      {id:'u2_l5',short:'סיכום',emoji:'⭐',color:'#1a7a3c',mins:45,locked:false,exam:false,
+       title:'סיכום יחידה 2',desc:'חזרה מקיפה על כל נושאי מערכת השם',
+       file:'unit2_lesson5_summary_v3.html'},
+      {id:'u2_exam',short:'מבחן',emoji:'📝',color:'#c9a227',mins:40,locked:false,exam:true,
+       title:'מבחן סיכום יחידה 2',desc:'מבחן מסכם — מערכת השם',
+       file:'unit2_exam_v3.html'},
     ]
   },
   {
-    id: 'u3', label: 'יחידה 3 — גזרות הפועל',
-    lessons: [
-      { id:21, title:'מבוא: תורת ההגה', short:'ש׳0', file:'unit3_lesson0_phonology_v3.html', color:'#be185d', emoji:'🔊', mins:45 },
+    id:'u3', emoji:'🌳', label:'יחידה 3', title:'גזרות הפועל', color:'#15803d',
+    lessons:[
+      {id:'u3_l0',short:'שיעור 0',emoji:'🔊',color:'#be185d',mins:45,locked:false,exam:false,
+       title:'מבוא: תורת ההגה',desc:'עיצורים גרוניים, תנועות, שווא ודגש — הכלים לגזרות',
+       file:'unit3_lesson0_phonology_v3.html'},
+      {id:'u3_l1',short:'שיעור 1',emoji:'🌳',color:'#16a34a',mins:25,locked:false,exam:false,
+       title:'גזרת השלמים',desc:'זיהוי שורשים שלמים ומרובעים ומבוא לגזרות',
+       file:'unit3_lesson1_shelamim_v3.html'},
+      {id:'u3_l2',short:'שיעור 2',emoji:'🔡',color:'#9d174d',mins:45,locked:true,exam:false,
+       title:'גזרת המרובעים (מורחב)',desc:'העמקה בשורשים מרובעים — מבנה, בניינים ותצורות',
+       file:'unit3_lesson2_mruba_ext_v3.html'},
+      {id:'u3_l3',short:'שיעור 3',emoji:'🔤',color:'#831843',mins:45,locked:true,exam:false,
+       title:'גזרת הנחים',desc:'פ"נ, ע"נ, ל"נ — דפוסי הטמעה ודגש',
+       file:'unit3_lesson3_nun_v3.html'},
+      {id:'u3_l4',short:'שיעור 4',emoji:'✌️',color:'#701a75',mins:45,locked:true,exam:false,
+       title:'גזרת הכפולים',desc:'פעלים ע"ע — כפילות ומיזוג',
+       file:'unit3_lesson4_doubled_v3.html'},
     ]
   }
 ];
-const AU  = UNITS[0];
-const LS_ = AU.lessons;
 
-const LST = LS.get('lesson_state', {1:true,2:true,3:true,4:true,5:true,6:true,11:true,12:true,13:true,14:true,15:true,16:true,21:true});
-const saveLST = () => LS.set('lesson_state', LST);
+// ══ STATE ══
+const S = { role:'', name:'', prog:{} };
+const LS = {
+  get(k,fb=null){try{const v=localStorage.getItem(k);return v!==null?JSON.parse(v):fb;}catch(e){return fb;}},
+  set(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}},
+  del(k){try{localStorage.removeItem(k);}catch(e){}}
+};
 
-let TNAME  = LS.get('teacher_name', '');
-let TPASS  = LS.get('teacher_pass', '');
-let TPHONE = LS.get('teacher_phone', '');
-
-let CLS = LS.get('classes', []);
-const saveCLS_ = () => LS.set('classes', CLS);
-const cById    = (id) => CLS.find(c => c.id === id) || null;
-
-let STUD = LS.get('students', []);
-const saveSTUD = () => LS.set('students', STUD);
-const studsOf  = (cid) => STUD.filter(s => s.classId === cid);
-
-let ECOLS = LS.get('ext_cols', []);
-const saveECOLS = () => LS.set('ext_cols', ECOLS);
-
-let ESCORES = LS.get('ext_scores', {});
-const saveES = () => LS.set('ext_scores', ESCORES);
-const ek     = (n, c) => `${n}__${c}`;
-
-const pk       = (uid, lid) => `${uid}_${lid}`;
-const getProg  = (name)     => LS.get('prog_' + name, {});
-const saveProg = (name, p)  => LS.set('prog_' + name, p);
-
-let PROG  = {};
-let CU    = { role:'', name:'', classId:'' };
-let CGC   = '';
-let SVIEW = 'home';
-
-const gc = (s) => (s === null || s === undefined || s === '') ? 'gnp'
-               : s >= 90 ? 'ga' : s >= 75 ? 'gb_' : s >= 60 ? 'gc' : 'gd';
-
-function wavg(s) {
-  const pts = [];
-  if (s.examScore) pts.push({ v: s.examScore, w: 60 });
-  for (let i = 1; i <= 5; i++)
-    if (s.submitted.includes(i)) pts.push({ v: 75, w: 5 });
-  ECOLS.forEach(c => {
-    const v = ESCORES[ek(s.name, c.id)];
-    if (v !== undefined && v !== '') pts.push({ v: +v, w: +(c.weight) || 10 });
-  });
-  if (!pts.length) return null;
-  const tw = pts.reduce((a, p) => a + p.w, 0);
-  return Math.round(pts.reduce((a, p) => a + p.v * p.w, 0) / tw);
+// ══ TOAST ══
+let _tt;
+function toast(msg){
+  const el=document.getElementById('toast');
+  el.textContent=msg; el.classList.add('show');
+  clearTimeout(_tt); _tt=setTimeout(()=>el.classList.remove('show'),2800);
 }
 
-async function hashPass(raw) {
-  if (!raw) return '';
-  try {
-    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode('lashon_v6_' + raw));
-    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
-  } catch(e) {
-    let h = 5381;
-    for (let i = 0; i < raw.length; i++) h = ((h << 5) + h) ^ raw.charCodeAt(i);
-    return 'fb_' + (h >>> 0).toString(16);
-  }
+// ══ PASSWORD ══
+async function hashPass(raw){
+  if(!raw)return'';
+  try{
+    const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('lashon_v7_'+raw));
+    return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+  }catch(e){let h=5381;for(let i=0;i<raw.length;i++)h=((h<<5)+h)^raw.charCodeAt(i);return'fb_'+(h>>>0).toString(16);}
+}
+async function verifyPass(raw){
+  const stored=LS.get('lashon_tpass','');
+  if(!stored)return raw===DEFAULT_PASS;
+  return(await hashPass(raw))===stored;
 }
 
-async function checkPass(raw) {
-  if (!TPASS) return true;
-  return (await hashPass(raw)) === TPASS;
+// ══ LOGIN ══
+function toggleTeacher(){
+  const p=document.getElementById('teacher-panel');
+  p.classList.toggle('open');
+  if(p.classList.contains('open'))setTimeout(()=>document.getElementById('tname').focus(),60);
 }
 
-/* ── ROLE SELECTION ── */
-function selectRole(role) {
-  if (role === 'teacher') {
-    // Direct teacher entry — show name prompt (no password required)
-    document.getElementById('role-chooser').style.display = 'none';
-    document.querySelectorAll('.role-section').forEach(s => s.classList.remove('open'));
-    const sec = document.getElementById('role-teacher');
-    if (sec) sec.classList.add('open');
-    const ti = document.getElementById('t-name-in');
-    if (ti) { ti.value = TNAME || ''; setTimeout(() => ti.focus(), 50); }
-  } else {
-    // Student: show student name entry panel
-    document.getElementById('role-chooser').style.display = 'none';
-    document.querySelectorAll('.role-section').forEach(s => s.classList.remove('open'));
-    const sec = document.getElementById('role-student');
-    if (sec) sec.classList.add('open');
-    setTimeout(() => document.getElementById('s-name-direct')?.focus(), 50);
-  }
-}
-
-function loginStudentDirect() {
-  const nameEl = document.getElementById('s-name-direct');
-  const name   = (nameEl?.value || '').trim() || 'תלמיד/ה';
-  LS.set('current_student', name);
-  LS.set('lashon_current_student', name);
-  try { localStorage.setItem('lashon_current_student', JSON.stringify(name)); } catch(e) {}
-  CU = { role:'student', name, classId:'' };
-  enterDash();
-}
-
-function backToChooser() {
-  document.querySelectorAll('.role-section').forEach(s => s.classList.remove('open'));
-  document.getElementById('role-chooser').style.display = '';
-}
-
-/* ── LOGIN ── */
-function initLogin() {
-  // Auto-enter if ?role=teacher in URL and name is saved
-  const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.get('role') === 'teacher') {
-    const savedName = TNAME || LS.get('teacher_name', '');
-    if (savedName) {
-      CU = { role:'teacher', name: savedName, classId:'' };
-      TNAME = savedName;
-      enterDash();
-      return;
-    }
-    // Name not saved yet — open teacher panel directly
-    document.getElementById('role-chooser').style.display = 'none';
-    document.querySelectorAll('.role-section').forEach(s => s.classList.remove('open'));
-    const sec = document.getElementById('role-teacher');
-    if (sec) sec.classList.add('open');
-    setTimeout(() => document.getElementById('t-name-in')?.focus(), 50);
+function doStudentLogin(){
+  const inp=document.getElementById('sname');
+  const name=inp.value.trim();
+  if(!name){
+    inp.classList.add('shake');
+    setTimeout(()=>inp.classList.remove('shake'),350);
+    toast('⚠️ הזינו שם לפני הכניסה');
     return;
   }
-  // Default: show role chooser
-  const tp = document.getElementById('t-prev');
-  if (tp) tp.textContent = TNAME ? `כניסה מהירה כ: ${TNAME}` : 'הזינו שם להמשיך';
-  const sn = document.getElementById('s-name-direct');
-  if (sn) sn.value = '';
+  LS.del('lashon_tpass'); LS.del('lashon_tname');
+  window.history.replaceState({},'',window.location.pathname);
+  LS.set('lashon_role','student');
+  LS.set('lashon_uname',name);
+  document.getElementById('login-screen').style.display='none';
+  enterApp('student',name);
 }
 
-function onClassChange() {
-  const cid  = document.getElementById('s-class-sel')?.value || '';
-  const nSel = document.getElementById('s-name-sel');
-  if (!nSel) return;
-  if (!cid) { nSel.innerHTML = '<option value="">— בחרו כיתה קודם —</option>'; return; }
-  const ss = studsOf(cid);
-  if (!ss.length) { nSel.innerHTML = '<option value="" disabled selected>אין תלמידים בכיתה זו</option>'; return; }
-  nSel.innerHTML = '<option value="">— בחרו שם —</option>';
-  ss.forEach(s => nSel.appendChild(Object.assign(document.createElement('option'), { value: s.name, textContent: s.name })));
-}
-
-function loginTeacher() {
-  // Called from teacher login panel — name only, no password required
-  const name = (document.getElementById('t-name-in')?.value || '').trim() || TNAME;
-  if (!name) { toast('⚠️ אנא הזינו שם'); document.getElementById('t-name-in')?.focus(); return; }
-  TNAME = name; LS.set('teacher_name', TNAME);
-  CU = { role:'teacher', name: TNAME, classId:'' };
-  window.history.replaceState({}, '', window.location.pathname + '?role=teacher');
-  enterDash();
-}
-
-async function _doTeacherLogin(name, pass) {
-  const ok = await checkPass(pass);
-  if (!ok) {
-    toast('❌ קוד גישה שגוי');
-    const pi = document.getElementById('t-pass-in');
-    if (pi) { pi.value = ''; pi.focus(); }
+async function doTeacherLogin(){
+  const name=(document.getElementById('tname').value||'').trim();
+  const pass=(document.getElementById('tpass').value||'').trim();
+  if(!name){toast('⚠️ הזינו שם');document.getElementById('tname').focus();return;}
+  if(!pass){toast('⚠️ הזינו סיסמה');document.getElementById('tpass').focus();return;}
+  const ok=await verifyPass(pass);
+  if(!ok){
+    toast('❌ סיסמה שגויה');
+    const pi=document.getElementById('tpass');pi.value='';pi.focus();
     return;
   }
-  TNAME = name; LS.set('teacher_name', TNAME);
-  CU = { role:'teacher', name: TNAME, classId:'' };
-  window.history.replaceState({}, '', window.location.pathname + '?role=teacher');
-  enterDash();
+  const h=await hashPass(pass);
+  LS.set('lashon_tpass',h); LS.set('lashon_tname',name);
+  LS.set('lashon_role','teacher'); LS.set('lashon_uname',name);
+  window.location.href=window.location.pathname+'?role=teacher';
 }
 
-function loginStudent() {
-  if (!CLS.length) { toast('⚠️ המורה טרם הקים/ה את הכיתה — פנו למורה'); return; }
-  const cid  = document.getElementById('s-class-sel')?.value || '';
-  const nv   = document.getElementById('s-name-sel')?.value  || '';
-  const mv   = (document.getElementById('s-manual')?.value   || '').trim();
-  const name = nv || mv;
-  if (!cid)  { toast('⚠️ בחרו כיתה'); return; }
-  if (!name) { toast('⚠️ בחרו שם');   return; }
-  if (!STUD.find(s => s.name === name && s.classId === cid)) {
-    STUD.push({ name, classId:cid, submitted:[], examScore:null, examGrade:'לא הגיש', lastActive:'היום' });
-    saveSTUD();
+function doLogout(){
+  ['lashon_role','lashon_uname','lashon_tpass','lashon_tname'].forEach(k=>LS.del(k));
+  window.history.replaceState({},'',window.location.pathname);
+  document.getElementById('app').classList.remove('on');
+  document.getElementById('login-screen').style.removeProperty('display');
+  document.getElementById('sname').value='';
+  document.getElementById('tname').value='';
+  document.getElementById('tpass').value='';
+  document.getElementById('teacher-panel').classList.remove('open');
+  S.role='';S.name='';
+}
+
+// ══ INIT ══
+function initApp(){
+  const params=new URLSearchParams(window.location.search);
+  const urlRole=params.get('role');
+  const savedRole=LS.get('lashon_role','');
+  const tpass=LS.get('lashon_tpass','');
+
+  if(urlRole==='teacher'&&!tpass){doLogout();return;}
+  if(urlRole==='teacher'){
+    const name=LS.get('lashon_tname','')||LS.get('lashon_uname','')||'מורה';
+    LS.set('lashon_role','teacher');
+    document.getElementById('login-screen').style.display='none';
+    enterApp('teacher',name);return;
   }
-  CU = { role:'student', name, classId:cid };
-  LS.set('current_student', name);
-  LS.set('current_class', cid);
-  enterDash();
-}
-
-function enterDash() {
-  buildSidebars();
-  showScreen(CU.role === 'teacher' ? 'teacher-screen' : 'student-screen');
-  const ini = CU.name.trim()[0] || (CU.role === 'teacher' ? 'מ' : 'ת');
-  if (CU.role === 'teacher') {
-    document.getElementById('ta').textContent        = ini;
-    document.getElementById('tname').textContent     = CU.name;
-    document.getElementById('tunit-lbl').textContent = AU.label;
-    if (!CLS.length) {
-      const demoId = 'c_demo_' + Date.now();
-      CLS.push({ id: demoId, label: "י'1" });
-      saveCLS_(); initLogin();
-    }
-    tNav('overview', document.querySelector('#teacher-screen .nav-item'));
-  } else {
-    document.getElementById('sa').textContent    = ini;
-    document.getElementById('sname').textContent = CU.name;
-    const clsEl = document.getElementById('scls');
-    if (clsEl) clsEl.textContent = CU.classId ? (cById(CU.classId)?.label || 'כיתה י׳') : 'מצב תלמיד';
-    PROG = CU.name ? getProg(CU.name) : {};
-    sNav('home', document.getElementById('sn-home'));
-    updChip();
+  if(savedRole==='teacher'&&tpass){
+    window.location.href=window.location.pathname+'?role=teacher';return;
+  }
+  if(savedRole==='student'){
+    const name=LS.get('lashon_uname','')||'תלמיד/ה';
+    document.getElementById('login-screen').style.display='none';
+    enterApp('student',name);return;
   }
 }
 
-function logout() {
-  LS.del('current_student'); LS.del('current_class');
-  // Clean role param from URL
-  window.history.replaceState({}, '', window.location.pathname);
-  // Reset role-chooser state
-  document.querySelectorAll('.role-section').forEach(s => s.classList.remove('open'));
-  const chooser = document.getElementById('role-chooser');
-  if (chooser) chooser.style.display = '';
-  showScreen('login-screen');
-  initLogin();
+// ══ ENTER APP ══
+function enterApp(role,name){
+  S.role=role; S.name=name;
+  S.prog=LS.get('lashon_prog_'+name,{});
+  document.getElementById('app').classList.add('on');
+
+  const av=document.getElementById('u-av');
+  av.textContent=name.trim()[0]||(role==='teacher'?'מ':'ת');
+  av.className='u-av '+(role==='teacher'?'t':'s');
+  document.getElementById('u-name').textContent=name;
+  document.getElementById('role-tag').style.display=role==='teacher'?'':'none';
+  document.getElementById('prog-banner').style.display=role==='teacher'?'none':'';
+
+  render();
 }
 
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  const el = document.getElementById(id);
-  if (el) el.classList.add('active');
-}
+// ══ RENDER ══
+function render(){
+  const isT=S.role==='teacher';
 
-function openSidebar(id) {
-  document.getElementById(id)?.classList.add('open');
-  document.getElementById('sbov')?.classList.add('open');
-}
-function closeSidebar() {
-  document.querySelectorAll('.sidebar').forEach(s => s.classList.remove('open'));
-  document.getElementById('sbov')?.classList.remove('open');
-}
+  // Sidebar
+  document.getElementById('sb-nav').innerHTML=UNITS.map(u=>`
+    <button class="sb-link" onclick="jumpUnit('${u.id}',this)">
+      <span class="sb-em">${u.emoji}</span>
+      <span>${u.label}: ${u.title}</span>
+    </button>`).join('');
 
-/* ── TEACHER NAV ── */
-function tNav(v, btn) {
-  document.querySelectorAll('#teacher-screen .nav-item').forEach(n => n.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-  const titles = { overview:'לוח בקרה', lessons:'ניהול שיעורים', grades:'ציונים וכיתות', reports:'דוחות', settings:'הגדרות כיתה' };
-  const el = document.getElementById('t-title');
-  if (el) el.textContent = titles[v] || v;
-  const m = document.getElementById('tmain');
-  if (!m) return;
-  const renders = { overview: rOverview, lessons: rLessons, grades: rGrades, reports: rReports, settings: rSettings };
-  if (renders[v]) m.innerHTML = renders[v]();
-  closeSidebar();
-}
-
-/* ── OVERVIEW ── */
-function rOverview() {
-  const we  = STUD.filter(s => s.examScore);
-  const avg = we.length ? Math.round(we.reduce((a, s) => a + s.examScore, 0) / we.length) : null;
-  const oc  = Object.values(LST).filter(Boolean).length;
-  return `
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
-    <div class="stat-card"><div class="stat-icon" style="background:#eef2ff;color:#6366f1">👥</div><div><div class="stat-num">${STUD.length}</div><div class="stat-lbl">תלמידים (${CLS.length} כיתות)</div></div></div>
-    <div class="stat-card"><div class="stat-icon" style="background:var(--green-lt)">✅</div><div><div class="stat-num" style="color:var(--ok)">${we.length}</div><div class="stat-lbl">הגישו מבחן</div></div></div>
-    <div class="stat-card"><div class="stat-icon" style="background:var(--gold-lt)">⭐</div><div><div class="stat-num" style="color:var(--gold)">${avg ?? '—'}</div><div class="stat-lbl">ממוצע כיתתי</div></div></div>
-    <div class="stat-card"><div class="stat-icon" style="background:#ede9fe">📖</div><div><div class="stat-num" style="color:#7c3aed">${oc}/${Object.keys(LST).length}</div><div class="stat-lbl">שיעורים פתוחים</div></div></div>
-  </div>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <div class="card">
-      <div style="font-weight:800;font-size:.95rem;margin-bottom:14px">⚡ מצב שיעורים</div>
-      ${LS_.map(l => `<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)">
-        <span>${l.emoji}</span>
-        <div style="flex:1;font-size:.84rem;font-weight:600">${l.title}</div>
-        <span style="font-size:.7rem;font-weight:700;color:${LST[l.id]?'var(--ok)':'var(--dim)'}">${LST[l.id]?'פתוח':'סגור'}</span>
-        <button class="toggle ${LST[l.id]?'on':'off'}" onclick="toggleL(${l.id})"></button>
-      </div>`).join('')}
-    </div>
-    <div class="card">
-      <div style="font-weight:800;font-size:.95rem;margin-bottom:14px">🏆 טופ 5 — מבחן</div>
-      <div class="tscroll"><table class="dt" style="min-width:260px">
-        <thead><tr><th>שם</th><th>כיתה</th><th>ציון</th></tr></thead>
-        <tbody>${STUD.filter(s=>s.examScore).sort((a,b)=>b.examScore-a.examScore).slice(0,5).map((s,i) =>
-          `<tr><td>${['🥇','🥈','🥉','4.','5.'][i]} ${s.name}</td>
-               <td>${cById(s.classId)?.label||'—'}</td>
-               <td><span class="gb ${gc(s.examScore)}">${s.examScore}</span></td></tr>`
-        ).join('')}</tbody>
-      </table></div>
-    </div>
-  </div>`;
-}
-
-/* ── LESSONS ── */
-function rLessons() {
-  return `<div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:14px">
-    <p style="font-size:.84rem;color:var(--muted)">לחצו לפתיחה · טוגל = פתוח/סגור לתלמידים</p>
-    <button onclick="addCustomLesson()" class="bp" style="font-size:.78rem;padding:7px 15px">＋ הוסף שיעור</button>
-  </div>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-    ${LS_.map(l => `<div class="lesson-card">
-      <div class="lc-head">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
-          <div style="width:36px;height:36px;border-radius:var(--radius-sm);background:${l.color}18;display:flex;align-items:center;justify-content:center;font-size:1.1rem">${l.emoji}</div>
-          <span class="lesson-num">שיעור ${l.id}</span>
-          ${l.isExam?'<span style="background:var(--gold-lt);color:#92400e;border:1px solid var(--gold);padding:2px 7px;border-radius:100px;font-size:.65rem;font-weight:700">מבחן</span>':''}
-        </div>
-        <div class="lesson-title">${l.title}</div>
-        <div style="font-size:.72rem;color:var(--muted);margin-top:5px">📤 ${STUD.filter(s=>s.submitted.includes(l.id)).length} הגישו</div>
-      </div>
-      <div class="lc-foot">
-        ${LST[l.id]?'<span class="open-badge"><span class="open-dot"></span>פתוח</span>':'<span class="closed-badge">🔒 סגור</span>'}
-        <button class="lc-btn p" onclick="openViewer(${l.id},'teacher')">📖 פתח</button>
-        <button class="lc-btn" onclick="editCustomLesson(${l.id})" style="background:var(--surface2);color:var(--muted);border-color:var(--border)">✏️</button>
-        <button class="lc-btn" onclick="deleteCustomLesson(${l.id})" style="background:none;color:var(--rose);border-color:#fca5a5">🗑️</button>
-        <button class="toggle ${LST[l.id]?'on':'off'}" style="margin-right:4px" onclick="toggleL(${l.id});tNav('lessons',null)"></button>
-      </div>
-    </div>`).join('')}
-  </div>`;
-}
-
-/* ── GRADES ── */
-function rGrades() {
-  if (!CLS.length) return `<div class="card" style="text-align:center;padding:36px">
-    <div style="font-size:2.5rem;margin-bottom:12px">📋</div>
-    <div style="font-weight:800;margin-bottom:8px">טרם הוגדרו כיתות</div>
-    <div style="color:var(--muted);font-size:.85rem;margin-bottom:14px">עברו להגדרות כיתה</div>
-    <button onclick="tNav('settings',null)" class="bp">⚙️ הגדרות כיתה</button></div>`;
-
-  if (!CGC) CGC = CLS[0].id;
-  const sts = studsOf(CGC);
-  const ctabs = CLS.map(c =>
-    `<button class="itab ${CGC===c.id?'active':''}" onclick="CGC='${c.id}';tNav('grades',null)">
-       ${c.label} <span style="font-size:.63rem;opacity:.6">(${studsOf(c.id).length})</span>
-     </button>`).join('');
-  const lths = LS_.map(l => `<th style="min-width:65px;font-size:.69rem">${l.emoji}<br>${l.short}</th>`).join('');
-  const eths = ECOLS.map(c => `<th style="min-width:80px;color:#7c3aed;font-size:.69rem">${c.label}<br><span style="font-weight:400">${c.weight}%</span></th>`).join('');
-  const rows = sts.map(s => {
-    const lc = LS_.map(l => l.isExam
-      ? `<td style="text-align:center"><span class="gb ${gc(s.examScore)}">${s.examScore??'—'}</span></td>`
-      : `<td style="text-align:center">${s.submitted.includes(l.id)?'<span style="color:var(--ok)">✓</span>':'<span style="color:var(--dim)">—</span>'}</td>`
-    ).join('');
-    const ec = ECOLS.map(col => {
-      const k = ek(s.name, col.id), v = ESCORES[k] ?? '';
-      return `<td style="text-align:center;padding:3px 4px"><input type="number" min="0" max="100" value="${v}" class="gi" onchange="ESCORES['${k}']=this.value===''?'':+this.value;saveES();_rcW('${s.name.replace(/'/g,"\\'")}')"></td>`;
-    }).join('');
-    const wa = wavg(s);
-    return `<tr><td style="font-weight:600;white-space:nowrap">${s.name}</td>${lc}${ec}<td id="wa-${s.name.replace(/\s/g,'_')}" style="text-align:center;font-weight:800"><span class="gb ${gc(wa)}">${wa??'—'}</span></td></tr>`;
-  }).join('');
-  const la = LS_.map(l => {
-    if (l.isExam) { const sc = sts.filter(s => s.examScore); const a = sc.length ? Math.round(sc.reduce((a,s)=>a+s.examScore,0)/sc.length) : null; return `<td style="text-align:center">${a??'—'}</td>`; }
-    return `<td style="text-align:center;font-size:.75rem">${sts.filter(s=>s.submitted.includes(l.id)).length}/${sts.length}</td>`;
-  }).join('');
-  const ea = ECOLS.map(col => { const vs = sts.map(s=>ESCORES[ek(s.name,col.id)]).filter(v=>v!==undefined&&v!=='').map(Number); const a = vs.length ? Math.round(vs.reduce((a,b)=>a+b,0)/vs.length) : null; return `<td style="text-align:center">${a??'—'}</td>`; }).join('');
-  const aw = sts.map(s=>wavg(s)).filter(v=>v!==null);
-  const ca = aw.length ? Math.round(aw.reduce((a,b)=>a+b,0)/aw.length) : null;
-  return `
-  <div style="display:flex;align-items:center;gap:7px;margin-bottom:14px;flex-wrap:wrap">
-    <div style="display:flex;gap:5px;flex-wrap:wrap;flex:1">${ctabs}</div>
-    <div style="display:flex;gap:6px;flex-wrap:wrap">
-      <button onclick="addEcol()" class="bp" style="font-size:.77rem;padding:7px 12px">+ ציון חיצוני</button>
-      <button onclick="exportCSV('${CGC}')" style="background:#166534;color:#fff;border:none;padding:7px 12px;border-radius:var(--radius-sm);font-family:'Heebo',sans-serif;font-size:.77rem;font-weight:700;cursor:pointer;touch-action:manipulation">📥 CSV</button>
-    </div>
-  </div>
-  ${ECOLS.length?`<div style="font-size:.75rem;color:var(--muted);margin-bottom:9px">עמודות: ${ECOLS.map(c=>`<strong>${c.label}</strong>`).join(', ')} <button onclick="manageEcols()" style="background:none;border:none;color:var(--sky);cursor:pointer;font-size:.75rem;font-family:'Heebo',sans-serif">✏️</button></div>`:''}
-  <div class="tscroll">
-    <table class="dt" style="min-width:560px">
-      <thead><tr><th style="min-width:100px">שם תלמיד/ה</th>${lths}${eths}<th style="min-width:75px;color:var(--gold)">ממוצע</th></tr></thead>
-      <tbody>${rows}</tbody>
-      <tfoot><tr class="avg-row"><td>📊 ממוצע כיתתי</td>${la}${ea}<td style="text-align:center"><span class="gb ${gc(ca)}">${ca??'—'}</span></td></tr></tfoot>
-    </table>
-  </div>`;
-}
-
-function _rcW(name) {
-  const s  = STUD.find(st => st.name === name);
-  const el = document.getElementById(`wa-${name.replace(/\s/g,'_')}`);
-  if (s && el) { const w = wavg(s); el.innerHTML = `<span class="gb ${gc(w)}">${w??'—'}</span>`; }
-}
-
-function addEcol() {
-  const lbl = (prompt('שם המטלה החיצונית:', '') || '').trim(); if (!lbl) return;
-  const w = Math.min(100, Math.max(0, +(prompt(`משקל "${lbl}" בממוצע (0–100):`, '10') || 10)));
-  ECOLS.push({ id: 'ext_' + Date.now(), label: lbl, weight: w }); saveECOLS(); tNav('grades', null); toast(`✅ "${lbl}" נוספה`);
-}
-
-function manageEcols() {
-  if (!ECOLS.length) { toast('אין עמודות חיצוניות'); return; }
-  const list = ECOLS.map((c, i) => `${i+1}. ${c.label} (${c.weight}%)`).join('\n');
-  const n = +(prompt(`בחרו עמודה למחיקה (מספר, 0=ביטול):\n${list}`, '0'));
-  if (!n) return;
-  const col = ECOLS[n-1]; if (!col) return;
-  if (!confirm(`למחוק "${col.label}"?`)) return;
-  STUD.forEach(s => { delete ESCORES[ek(s.name, col.id)]; });
-  ECOLS.splice(n-1, 1); saveECOLS(); saveES(); tNav('grades', null); toast(`🗑️ "${col.label}" נמחקה`);
-}
-
-function exportCSV(cid) {
-  const cls = cById(cid); const sts = studsOf(cid);
-  if (!sts.length) { toast('⚠️ אין תלמידים לייצוא'); return; }
-  const BOM  = '\uFEFF';
-  const hdrs = ['שם תלמיד/ה','כיתה',...LS_.map(l => l.isExam ? 'ציון מבחן יחידה' : l.title),...ECOLS.map(c => c.label),'ממוצע משוקלל סופי'];
-  const rows = sts.map(s => [s.name, cls?.label || '',...LS_.map(l => l.isExam ? (s.examScore??'') : (s.submitted.includes(l.id)?'הוגש':'')),...ECOLS.map(c => ESCORES[ek(s.name,c.id)]??''),wavg(s) ?? '']);
-  const lavg = LS_.map(l => { if (!l.isExam) return ''; const sc = sts.filter(s=>s.examScore); return sc.length ? Math.round(sc.reduce((a,s)=>a+s.examScore,0)/sc.length) : ''; });
-  const eavg = ECOLS.map(col => { const vs = sts.map(s=>ESCORES[ek(s.name,col.id)]).filter(v=>v!==undefined&&v!=='').map(Number); return vs.length ? Math.round(vs.reduce((a,b)=>a+b,0)/vs.length) : ''; });
-  const aw = sts.map(s=>wavg(s)).filter(v=>v!==null);
-  rows.push(['ממוצע כיתתי', cls?.label||'', ...lavg, ...eavg, aw.length ? Math.round(aw.reduce((a,b)=>a+b,0)/aw.length) : '']);
-  const csv = BOM + [hdrs,...rows].map(r => r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\r\n');
-  const a = Object.assign(document.createElement('a'), { href: URL.createObjectURL(new Blob([csv], {type:'text/csv;charset=utf-8;'})), download: `ציונים_${cls?.label||cid}_${new Date().toLocaleDateString('he-IL').replace(/\//g,'-')}.csv` });
-  document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  toast(`📥 ייצוא CSV — ${cls?.label||''}`);
-}
-
-/* ── REPORTS ── */
-function rReports() {
-  const sc  = STUD.filter(s => s.examScore);
-  const avg = sc.length ? Math.round(sc.reduce((a,s)=>a+s.examScore,0)/sc.length) : 0;
-  const mx  = sc.length ? Math.max(...sc.map(s=>s.examScore)) : 0;
-  const mn  = sc.length ? Math.min(...sc.map(s=>s.examScore)) : 0;
-  const d   = {'90–100':0,'80–89':0,'70–79':0,'60–69':0,'<60':0};
-  sc.forEach(s => s.examScore>=90?d['90–100']++:s.examScore>=80?d['80–89']++:s.examScore>=70?d['70–79']++:s.examScore>=60?d['60–69']++:d['<60']++);
-  return `
-  <div class="grid grid-cols-3 gap-3 mb-5">
-    <div class="stat-card"><div class="stat-icon" style="background:var(--gold-lt)">📊</div><div><div class="stat-num" style="color:var(--gold)">${avg||'—'}</div><div class="stat-lbl">ממוצע</div></div></div>
-    <div class="stat-card"><div class="stat-icon" style="background:var(--green-lt)">⬆️</div><div><div class="stat-num" style="color:var(--ok)">${mx||'—'}</div><div class="stat-lbl">גבוה</div></div></div>
-    <div class="stat-card"><div class="stat-icon" style="background:var(--red-lt)">⬇️</div><div><div class="stat-num" style="color:var(--rose)">${mn||'—'}</div><div class="stat-lbl">נמוך</div></div></div>
-  </div>
-  <div class="card mb-5">
-    <div style="font-weight:800;font-size:.95rem;margin-bottom:14px">📊 התפלגות ציונים</div>
-    ${Object.entries(d).map(([r,c]) => `<div style="display:flex;align-items:center;gap:10px;margin-bottom:9px">
-      <div style="min-width:54px;font-size:.77rem;font-weight:700">${r}</div>
-      <div class="pb" style="flex:1"><div class="pf" style="width:${sc.length?c/sc.length*100:0}%;background:${r==='90–100'?'var(--ok)':r==='80–89'?'var(--sky)':r==='70–79'?'var(--gold)':r==='60–69'?'var(--warn)':'var(--rose)'}"></div></div>
-      <div style="min-width:18px;font-size:.77rem;font-weight:700">${c}</div>
-    </div>`).join('')}
-  </div>
-  <div class="card">
-    <div style="font-weight:800;font-size:.95rem;margin-bottom:14px">📋 שיעור הגשה</div>
-    ${LS_.map(l => {
-      const sub = STUD.filter(s=>s.submitted.includes(l.id)).length;
-      const pct = STUD.length ? Math.round(sub/STUD.length*100) : 0;
-      return `<div style="display:flex;align-items:center;gap:10px;margin-bottom:9px">
-        <span style="flex-shrink:0">${l.emoji}</span>
-        <div style="min-width:95px;font-size:.78rem;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${l.title}</div>
-        <div class="pb" style="flex:1"><div class="pf" style="width:${pct}%"></div></div>
-        <div style="min-width:42px;font-size:.78rem;font-weight:700;text-align:left">${sub}/${STUD.length}</div>
-      </div>`;
-    }).join('')}
-  </div>`;
-}
-
-/* ── SETTINGS ── */
-function rSettings() {
-  const ct = CLS.map(c => c.label).join('\n');
-  const rt = CLS.map(c => { const ss = studsOf(c.id); return `## ${c.label}\n${ss.length ? ss.map(s=>s.name).join('\n') : '(ריקה)'}`; }).join('\n\n');
-  const clsOpts = CLS.map(c => `<option value="${c.id}">${c.label}</option>`).join('');
-  return `
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-    <div class="card">
-      <div style="font-weight:800;font-size:.95rem;margin-bottom:12px">👩‍🏫 מורה, קוד גישה ווואטסאפ</div>
-      <label style="font-size:.78rem;font-weight:700;color:var(--muted);display:block;margin-bottom:4px">שם מלא</label>
-      <input type="text" id="s-tn" value="${TNAME}" placeholder='ד"ר שרה לוי' style="margin-bottom:10px">
-      <label style="font-size:.78rem;font-weight:700;color:var(--muted);display:block;margin-bottom:4px">מספר וואטסאפ <span style="font-weight:400;color:var(--dim)">— לקבלת תשובות</span></label>
-      <input type="tel" id="s-phone" value="${TPHONE}" placeholder="לדוגמה: 972501234567" style="margin-bottom:10px">
-      <label style="font-size:.78rem;font-weight:700;color:var(--muted);display:block;margin-bottom:4px">שינוי קוד גישה <span style="font-weight:400;color:var(--dim)">— ברירת מחדל: <strong>1234</strong></span></label>
-      <input type="password" id="s-newpass" placeholder="קוד חדש (השאירו ריק לשמירת הנוכחי)" style="margin-bottom:10px">
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button onclick="saveTNP()" class="bp">💾 שמור</button>
-        <button onclick="resetPass()" class="bdanger">↺ אפס ל-1234</button>
-      </div>
-    </div>
-    <div class="card">
-      <div style="font-weight:800;font-size:.95rem;margin-bottom:12px">🏫 ניהול כיתות</div>
-      <div style="font-size:.78rem;color:var(--muted);margin-bottom:8px">כיתה אחת בכל שורה</div>
-      <textarea id="s-cls" rows="4" placeholder="י'1&#10;י'2&#10;י'3" style="margin-bottom:10px">${ct}</textarea>
-      <button onclick="saveCLS_UI()" class="bok">💾 שמור כיתות</button>
-    </div>
-    <div class="card" style="grid-column:1/-1">
-      <div style="font-weight:800;font-size:.95rem;margin-bottom:8px">👥 ייבוא המוני — <strong style="color:${STUD.length?'var(--ok)':'var(--rose)'}">${STUD.length ? `${STUD.length} תלמידים ב-${CLS.length} כיתות` : 'ריקה'}</strong></div>
-      ${CLS.length ? `
-      <div style="background:var(--surface2);border-radius:var(--radius-sm);padding:10px 13px;border:1px solid var(--border);margin-bottom:12px;font-size:.77rem;color:var(--muted);line-height:1.7">
-        <strong>ייבוא מהיר לכיתה ספציפית:</strong> בחרו כיתה ← הדביקו שמות ← לחצו "הוסף לכיתה".<br>
-        <strong>ייבוא מלא:</strong> השתמשו בפרמט <code style="background:var(--surface);padding:1px 5px;border-radius:3px">## שם כיתה</code> ← שמות בשורות.
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;align-items:flex-end">
-        <div><label style="font-size:.76rem;font-weight:700;color:var(--muted);display:block;margin-bottom:4px">כיתה לייבוא מהיר</label>
-        <select id="s-bulk-cls" style="min-width:120px">${clsOpts}</select></div>
-        <button onclick="bulkAddToClass()" class="bok" style="align-self:flex-end">+ הוסף לכיתה</button>
-      </div>
-      <textarea id="s-bulk-names" rows="4" placeholder="הדביקו שמות — שם בכל שורה, או מופרדים בפסיקים:&#10;ליאב כהן&#10;נועה לוי, מיה ברק" style="margin-bottom:14px"></textarea>
-      <div style="border-top:1px dashed var(--border);padding-top:12px;margin-bottom:8px">
-        <div style="font-size:.76rem;font-weight:700;color:var(--muted);margin-bottom:7px">או ייבוא מלא (כל הכיתות):</div>
-      ` : ''}
-      <textarea id="s-rstr" rows="${CLS.length ? 7 : 10}" placeholder="## י'1&#10;ליאב כהן&#10;נועה לוי&#10;מיה ברק&#10;&#10;## י'2&#10;אמיר שפירא&#10;שירה אלוני" style="margin-bottom:10px">${rt}</textarea>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button onclick="saveRoster()" class="bok">💾 שמור רשימה מלאה</button>
-        <button onclick="clearRoster()" class="bghost">🗑️ רוקן הכל</button>
-      </div>
-      ${CLS.length ? '</div>' : ''}
-    </div>
-    <div class="card" style="border:1.5px solid #fee2e2">
-      <div style="font-weight:800;font-size:.95rem;margin-bottom:6px;color:var(--rose)">🗑️ איפוס נתוני שיעור</div>
-      <div style="font-size:.78rem;color:var(--muted);margin-bottom:12px">מוחק ציונים והגשות. <strong>בלתי הפיך.</strong></div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button onclick="resetData(false)" class="bdanger">🗑️ ציונים בלבד</button>
-        <button onclick="resetData(true)" style="background:var(--rose);color:#fff;border:none;border-radius:var(--radius-sm);padding:8px 14px;font-family:'Heebo',sans-serif;font-size:.8rem;font-weight:700;cursor:pointer">⚠️ איפוס מלא</button>
-      </div>
-    </div>
-    <div class="card">
-      <div style="font-weight:800;font-size:.95rem;margin-bottom:12px">🔐 פתיחת שיעורים לתלמידים</div>
-      ${LS_.map(l => `<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)">
-        <span>${l.emoji}</span>
-        <div style="flex:1;font-size:.83rem;font-weight:600">${l.title}</div>
-        <span style="font-size:.71rem;font-weight:700;color:${LST[l.id]?'var(--ok)':'var(--muted)'}">${LST[l.id]?'פתוח':'סגור'}</span>
-        <button class="toggle ${LST[l.id]?'on':'off'}" onclick="toggleL(${l.id});tNav('settings',null)"></button>
-      </div>`).join('')}
-    </div>
-  </div>`;
-}
-
-/* Settings actions */
-async function saveTNP() {
-  const name    = (document.getElementById('s-tn')?.value     || '').trim();
-  const phone   = (document.getElementById('s-phone')?.value  || '').trim().replace(/\D/g,'');
-  const newpass = (document.getElementById('s-newpass')?.value || '').trim();
-  if (name) { TNAME = name; LS.set('teacher_name', TNAME); const el = document.getElementById('tname'); if (el) el.textContent = TNAME; }
-  if (phone) { TPHONE = phone; LS.set('teacher_phone', TPHONE); }
-  if (newpass) { TPASS = await hashPass(newpass); LS.set('teacher_pass', TPASS); toast('✅ שם, טלפון + קוד גישה עודכנו'); }
-  else { toast('✅ הגדרות נשמרו' + (phone ? ' · וואטסאפ עודכן' : '')); }
-  initLogin();
-}
-async function resetPass() {
-  if (!confirm('לאפס את קוד הגישה לברירת מחדל (1234)?')) return;
-  TPASS = await hashPass('1234'); LS.set('teacher_pass', TPASS); initLogin(); toast('↺ קוד הגישה אופס ל-1234'); tNav('settings', null);
-}
-
-function saveCLS_UI() {
-  const raw  = document.getElementById('s-cls')?.value || '';
-  const lbls = raw.split('\n').map(l => l.trim()).filter(Boolean);
-  if (!lbls.length) { toast('⚠️ הכניסו כיתה אחת לפחות'); return; }
-  const nc = lbls.map(label => { const ex = CLS.find(c => c.label === label); return ex || { id:'c_'+Date.now()+'_'+Math.random().toString(36).slice(2,6), label }; });
-  CLS.length = 0; nc.forEach(c => CLS.push(c)); saveCLS_(); initLogin(); toast(`✅ ${CLS.length} כיתות נשמרו`); tNav('settings', null);
-}
-
-function bulkAddToClass() {
-  const cid  = document.getElementById('s-bulk-cls')?.value || '';
-  const raw  = (document.getElementById('s-bulk-names')?.value || '').trim();
-  if (!cid) { toast('⚠️ בחרו כיתה'); return; }
-  if (!raw) { toast('⚠️ הדביקו שמות'); return; }
-  const cls   = cById(cid);
-  const names = raw.split(/[\n\r,]+/).map(n => n.trim()).filter(Boolean);
-  if (!names.length) { toast('⚠️ לא נמצאו שמות'); return; }
-  let added = 0;
-  names.forEach(name => { if (!STUD.find(s => s.name === name && s.classId === cid)) { STUD.push({ name, classId:cid, submitted:[], examScore:null, examGrade:'לא הגיש', lastActive:'—' }); added++; } });
-  saveSTUD(); initLogin();
-  const ta = document.getElementById('s-bulk-names'); if (ta) ta.value = '';
-  toast(`✅ ${added} תלמידים נוספו לכיתה ${cls?.label||''}`);
-}
-
-function saveRoster() {
-  const raw   = document.getElementById('s-rstr')?.value || '';
-  const lines = raw.split(/[\n\r]+/).map(l => l.trim()).filter(Boolean);
-  const ns    = [];
-  let   cid   = CLS.length ? CLS[0].id : null;
-  lines.forEach(line => {
-    if (line.startsWith('##')) { const lbl = line.replace(/^##\s*/, '').trim(); const cl = CLS.find(c => c.label === lbl); cid = cl ? cl.id : null; if (!cl) toast(`⚠️ כיתה "${lbl}" לא קיימת`); return; }
-    if (!cid || line === '(ריקה)') return;
-    line.split(',').map(n => n.trim()).filter(Boolean).forEach(name => { const ex = STUD.find(s => s.name === name && s.classId === cid); ns.push(ex ? {...ex} : { name, classId:cid, submitted:[], examScore:null, examGrade:'לא הגיש', lastActive:'—' }); });
-  });
-  if (!ns.length) { toast('⚠️ לא נמצאו שמות תקינים'); return; }
-  STUD.length = 0; ns.forEach(s => STUD.push(s)); saveSTUD(); initLogin(); toast(`✅ ${STUD.length} תלמידים נשמרו`); tNav('settings', null);
-}
-
-function clearRoster() {
-  if (!confirm('לרוקן את רשימת התלמידים לחלוטין?')) return;
-  STUD.length = 0; saveSTUD(); initLogin(); tNav('settings', null); toast('↺ הרשימה רוקנה');
-}
-
-function resetData(full) {
-  if (!confirm(full ? 'לאפס את כל הנתונים?' : 'לאפס ציונים?')) return;
-  STUD.forEach(s => { LS.del('prog_' + s.name); s.submitted = []; s.examScore = null; s.examGrade = 'לא הגיש'; s.lastActive = '—'; });
-  if (full) { ESCORES = {}; saveES(); [1,2,3,4,5,6].forEach(i => LST[i] = true); saveLST(); syncBadges(); }
-  saveSTUD(); tNav('overview', document.querySelector('#teacher-screen .nav-item'));
-  toast(full ? '🗑️ כל הנתונים אופסו' : '🗑️ הציונים אופסו');
-}
-
-/* ── LESSON TOGGLE ── */
-function toggleL(id) {
-  LST[id] = !LST[id]; saveLST(); syncBadges();
-  toast(`שיעור ${id} ${LST[id] ? 'נפתח ✅' : 'נסגר 🔒'}`);
-}
-
-/* ── UNIT-2 HELPERS ── */
-function _u2lesson(id) {
-  for (const u of UNITS) { const l = u.lessons.find(x => x.id === id); if (l) return { unit: u, lesson: l }; }
-  return null;
-}
-
-function openViewerU2(id, role) {
-  const entry = _u2lesson(id);
-  if (!entry) { toast('❌ שיעור לא נמצא'); return; }
-  const l = entry.lesson; const uid = entry.unit.id;
-  const n = encodeURIComponent(CU.name || ''); const cl = encodeURIComponent(cById(CU.classId)?.label || '');
-  const url = (role === 'teacher')
-    ? l.file + '?role=teacher'
-    : l.file + `?student=${n}&name=${n}&class=${cl}&lesson=${id}&unit=${uid}`;
-  _doOpenViewer(id, l, url);
-}
-
-function sNavU2(v, btn) {
-  SVIEW = v;
-  document.querySelectorAll('#student-screen .nav-item').forEach(n => n.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-  const id = +v.split('-')[1]; const entry = _u2lesson(id);
-  if (!entry) return;
-  const m = document.getElementById('smain'); const l = entry.lesson;
-  document.getElementById('s-title').textContent = l.title;
-  const isDone = !!PROG[pk(entry.unit.id, id)];
-  m.innerHTML = `
-  <div class="card mb-4" style="border-right:4px solid ${l.color}">
-    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-      <div style="width:44px;height:44px;border-radius:var(--radius-sm);background:${l.color}18;display:flex;align-items:center;justify-content:center;font-size:1.35rem;flex-shrink:0">${l.emoji}</div>
-      <div style="flex:1"><div style="font-weight:800;font-size:.96rem">${l.title}</div><div style="font-size:.79rem;color:var(--muted)">${l.mins} דקות | ${entry.unit.label}</div></div>
-      ${isDone?'<span style="background:var(--green-lt);color:var(--green);padding:4px 11px;border-radius:100px;font-size:.77rem;font-weight:700;border:1px solid rgba(66,183,42,.3)">✓ הוגש</span>':''}
-    </div>
-  </div>
-  <div class="card mb-4">
-    <div style="font-weight:700;font-size:.88rem;margin-bottom:11px">${l.isExam ? '📝 פתחו את המבחן:' : 'פתחו את השיעור:'}</div>
-    <button onclick="openViewerU2(${id},'student')" class="bp"
-      style="font-size:.9rem;padding:13px 24px;width:100%;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:var(--radius)${l.isExam?';background:var(--gold);color:#fff':''}">
-      ${l.emoji} ${l.isExam ? 'פתח מבחן' : 'פתח ' + l.title}
-    </button>
-  </div>
-  <div class="card">
-    <div style="font-weight:700;font-size:.88rem;margin-bottom:10px">📤 הגשה למורה</div>
-    <input type="text" id="u2-note-${id}" placeholder="הערה אופציונלית..." style="margin-bottom:10px">
-    <button onclick="submitLessonU2(${id},'${entry.unit.id}')" class="bok"
-      style="font-size:.9rem;padding:11px 22px;width:100%;border-radius:var(--radius)">
-      ✅ שלח ${l.title}
-    </button>
-    ${isDone?`<div style="margin-top:10px;padding:8px 12px;background:var(--green-lt);border-radius:var(--radius-sm);font-size:.78rem;color:var(--green);border:1px solid rgba(66,183,42,.3)">✓ הגשת שיעור זה ב-${PROG[pk(entry.unit.id,id)]?.date||''}.</div>`:''}
-  </div>`;
-  closeSidebar();
-}
-
-function submitLessonU2(id, unitId) {
-  const date = new Date().toLocaleDateString('he-IL');
-  const key  = pk(unitId, id); PROG[key] = { date, score: null };
-  saveProg(CU.name, PROG);
-  const e = STUD.find(s => s.name === CU.name && s.classId === CU.classId);
-  if (e) { if (!e.submitted.includes(id)) e.submitted.push(id); e.lastActive = 'היום'; saveSTUD(); }
-  updChip();
-  const entry = _u2lesson(id);
-  showCM(`${entry?.lesson?.title || 'שיעור'} — נשלח בהצלחה!`,
-    `<div><strong>תלמיד/ה:</strong> ${CU.name}</div><div><strong>כיתה:</strong> ${cById(CU.classId)?.label||''}</div><div><strong>תאריך:</strong> ${date}</div>`);
-  setTimeout(() => sNavU2(`lesson-${id}`, document.getElementById(`sn-l${id}`)), 700);
-}
-
-/* ── STUDENT NAV ── */
-function sNav(v, btn) {
-  SVIEW = v;
-  document.querySelectorAll('#student-screen .nav-item').forEach(n => n.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-  const m = document.getElementById('smain'); if (!m) return;
-  if (v === 'home') { document.getElementById('s-title').textContent = `שלום, ${CU.name.split(' ')[0]}!`; m.innerHTML = rSHome(); }
-  else if (v.startsWith('lesson-')) { const id = +v.split('-')[1]; document.getElementById('s-title').textContent = LS_[id-1].title; m.innerHTML = rSLesson(id); }
-  else if (v === 'progress') { document.getElementById('s-title').textContent = 'ההתקדמות שלי'; m.innerHTML = rSProgress(); }
-  closeSidebar();
-}
-
-function rSHome() {
-  const u1      = UNITS[0];
-  const u1total = u1.lessons.length;
-  const u1done  = u1.lessons.filter(l => !!PROG[pk('u1', l.id)]).length;
-  const u2      = UNITS[1];
-  const u2active = u2 ? u2.lessons : [];
-  const u2done   = u2active.filter(l => !!PROG[pk('u2', l.id)]).length;
-  const u3      = UNITS[2];
-  const u3active = u3 ? u3.lessons : [];
-  const u3done   = u3active.filter(l => !!PROG[pk('u3', l.id)]).length;
-  const examScore = PROG[pk('u1', 6)]?.score;
-
-  const u1Cards = u1.lessons.map(l => {
-    const isDone = !!PROG[pk('u1', l.id)];
-    const isOpen = LST[l.id] !== false;
-    const click  = isOpen
-      ? `sNav('lesson-${l.id}',document.getElementById('sn-l${l.id}'))`
-      : "toast('🔒 שיעור סגור כרגע')";
-    return `<div class="sl-card ${isDone?'done':''} ${!isOpen?'locked':''}" onclick="${click}">
-      <div style="font-size:1.45rem;margin-bottom:3px">${l.emoji}</div>
-      <div style="font-size:.66rem;font-weight:700;color:var(--muted);margin-bottom:2px">${l.short}</div>
-      <div style="font-weight:700;font-size:.81rem;line-height:1.3">${l.title}</div>
-      <span class="chip ${isDone?'chip-done':isOpen?'chip-open':'chip-lock'}">${isDone?'✓ הוגש':isOpen?'פתוח':'🔒 סגור'}</span>
-    </div>`;
-  }).join('');
-
-  const u2Cards = u2 ? u2.lessons.map(l => {
-    const isDone  = !!PROG[pk('u2', l.id)];
-    const click   = `sNavU2('lesson-${l.id}',document.getElementById('sn-l${l.id}'))`;
-    const xStyle  = l.isExam ? 'border:2px solid var(--gold);background:linear-gradient(135deg,#fff,var(--gold-lt));' : '';
-    const chipCls = isDone ? 'chip chip-done' : l.isExam ? 'chip' : 'chip chip-open';
-    const chipSty = l.isExam && !isDone ? 'style="background:var(--gold-lt);color:#92400e;border:1px solid var(--gold)"' : '';
-    const chipTxt = isDone ? '✓ הוגש' : l.isExam ? '📝 מבחן' : 'פתוח';
-    return `<div class="sl-card ${isDone?'done':''}" style="${xStyle}" onclick="${click}">
-      <div style="font-size:1.45rem;margin-bottom:3px">${l.emoji}</div>
-      <div style="font-size:.66rem;font-weight:700;color:var(--muted);margin-bottom:2px">${l.short}</div>
-      <div style="font-weight:700;font-size:.81rem;line-height:1.3">${l.title}</div>
-      <span class="${chipCls}" ${chipSty}>${chipTxt}</span>
-    </div>`;
-  }).join('') : '';
-
-  const u3Cards = u3 ? u3.lessons.map(l => {
-    const isDone  = !!PROG[pk('u3', l.id)];
-    const click   = `sNavU2('lesson-${l.id}',document.getElementById('sn-l${l.id}'))`;
-    const chipCls = isDone ? 'chip chip-done' : 'chip chip-open';
-    const chipTxt = isDone ? '✓ הוגש' : 'פתוח';
-    return `<div class="sl-card ${isDone?'done':''}" onclick="${click}">
-      <div style="font-size:1.45rem;margin-bottom:3px">${l.emoji}</div>
-      <div style="font-size:.66rem;font-weight:700;color:var(--muted);margin-bottom:2px">${l.short}</div>
-      <div style="font-weight:700;font-size:.81rem;line-height:1.3">${l.title}</div>
-      <span class="${chipCls}">${chipTxt}</span>
-    </div>`;
-  }).join('') : '';
-
-  return `
-  <div class="grid grid-cols-3 gap-3 mb-5">
-    <div class="stat-card"><div class="stat-icon" style="background:var(--primary-lt)">📖</div><div><div class="stat-num" style="color:var(--primary)">${u1done}/${u1total}</div><div class="stat-lbl">יחידה 1</div></div></div>
-    <div class="stat-card"><div class="stat-icon" style="background:var(--gold-lt)">⭐</div><div><div class="stat-num" style="color:var(--gold)">${examScore??'—'}</div><div class="stat-lbl">ציון מבחן</div></div></div>
-    <div class="stat-card"><div class="stat-icon" style="background:var(--green-lt)">🏷️</div><div><div class="stat-num" style="color:var(--green)">${u2done}/${u2active.length}</div><div class="stat-lbl">יחידה 2</div></div></div>
-  </div>
-  <h3 style="font-weight:800;font-size:.92rem;margin-bottom:11px">📚 יחידה 1 — מערכת הפועל</h3>
-  <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-5">${u1Cards}</div>
-  ${u2 ? `<h3 style="font-weight:800;font-size:.92rem;margin-bottom:11px">🏷️ יחידה 2 — מערכת השם</h3><div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-5">${u2Cards}</div>` : ''}
-  ${u3 ? `<h3 style="font-weight:800;font-size:.92rem;margin-bottom:11px">🔊 יחידה 3 — גזרות הפועל</h3><div class="grid grid-cols-2 md:grid-cols-3 gap-3">${u3Cards}</div>` : ''}`;
-}
-}
-
-function rSLesson(id) {
-  const l      = LS_[id - 1];
-  const isDone = !!PROG[pk('u1', id)];
-  return `
-  <div class="card mb-4" style="border-right:4px solid ${l.color}">
-    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-      <div style="width:44px;height:44px;border-radius:var(--radius-sm);background:${l.color}18;display:flex;align-items:center;justify-content:center;font-size:1.35rem;flex-shrink:0">${l.emoji}</div>
-      <div style="flex:1"><div style="font-weight:800;font-size:.96rem">${l.title}</div><div style="font-size:.79rem;color:var(--muted)">${l.mins} דקות</div></div>
-      ${isDone?'<span style="background:var(--green-lt);color:var(--green);padding:4px 11px;border-radius:100px;font-size:.77rem;font-weight:700;border:1px solid rgba(66,183,42,.3)">✓ הוגש</span>':''}
-    </div>
-  </div>
-  <div class="card mb-4">
-    <div style="font-weight:700;font-size:.88rem;margin-bottom:11px">פתחו את השיעור:</div>
-    <button onclick="openViewer(${id},'student')" class="bp"
-      style="font-size:.9rem;padding:13px 24px;width:100%;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:var(--radius)">
-      📖 פתח שיעור ${id}
-    </button>
-  </div>
-  <div class="card">
-    <div style="font-weight:700;font-size:.88rem;margin-bottom:10px">📤 הגשה למורה</div>
-    <input type="text" id="s-note-${id}" placeholder="הערה אופציונלית..." style="margin-bottom:10px">
-    <button onclick="submitLesson(${id})" class="bok"
-      style="font-size:.9rem;padding:11px 22px;width:100%;border-radius:var(--radius)">
-      ✅ שלח שיעור ${id}
-    </button>
-    ${isDone?`<div style="margin-top:10px;padding:8px 12px;background:var(--green-lt);border-radius:var(--radius-sm);font-size:.78rem;color:var(--green);border:1px solid rgba(66,183,42,.3)">✓ הגשת שיעור זה ב-${PROG[pk('u1',id)]?.date||''}.</div>`:''}
-  </div>`;
-}
-
-function rSProgress() {
-  const sections = UNITS.map(unit => {
-    const uid    = unit.id;
-    const active = unit.lessons;
-    const total  = active.length;
-    const done   = active.filter(l => !!PROG[pk(uid, l.id)]).length;
-    const pct    = total > 0 ? Math.round(done / total * 100) : 0;
-    const isU1   = uid === 'u1';
-
-    const rows = active.map(l => {
-      const p   = PROG[pk(uid, l.id)];
-      const snId = `sn-l${l.id}`;
-      const navFn = isU1
-        ? `sNav('lesson-${l.id}',document.getElementById('${snId}'))`
-        : `sNavU2('lesson-${l.id}',document.getElementById('${snId}'))`;
-      return `<div style="display:flex;align-items:center;gap:10px;padding:9px;background:var(--surface2);border-radius:var(--radius-sm);margin-bottom:6px">
-        <div style="width:34px;height:34px;border-radius:var(--radius-sm);background:${l.color}18;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0">${l.emoji}</div>
-        <div style="flex:1;min-width:0">
-          <div style="font-weight:700;font-size:.84rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${l.title}</div>
-          <div style="font-size:.72rem;color:var(--muted)">${p ? 'הוגש '+p.date : 'טרם הוגש'}</div>
-        </div>
-        ${p ? '<span class="chip chip-done">✓</span>'
-            : `<button onclick="${navFn}" class="bp" style="font-size:.73rem;padding:5px 11px">פתח</button>`}
-      </div>`;
-    }).join('');
-
-    return `<div class="card mb-4">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:6px">
-        <div style="font-weight:800;font-size:.9rem">${unit.label}</div>
-        <span style="font-weight:900;color:var(--primary)">${done}/${total}</span>
-      </div>
-      <div class="pb" style="height:9px;margin-bottom:12px">
-        <div class="pf" style="width:${pct}%;background:linear-gradient(90deg,var(--primary),var(--green))"></div>
-      </div>
-      ${rows}
-    </div>`;
-  }).join('');
-  return sections;
-}
-
-function submitLesson(id) {
-  const date  = new Date().toLocaleDateString('he-IL');
-  const score = id === 6 ? Math.floor(Math.random() * 20) + 78 : null;
-  const key   = pk('u1', id); PROG[key] = { date, score };
-  saveProg(CU.name, PROG);
-  const e = STUD.find(s => s.name === CU.name && s.classId === CU.classId);
-  if (e) {
-    if (!e.submitted.includes(id)) e.submitted.push(id);
-    e.lastActive = 'היום';
-    if (id === 6 && score) { e.examScore = score; e.examGrade = score>=90?'A+':score>=80?'A':score>=70?'B':score>=60?'C':'D'; }
-    saveSTUD();
+  // Progress bar
+  if(!isT){
+    const all=UNITS.flatMap(u=>u.lessons.filter(l=>!l.locked));
+    const done=all.filter(l=>S.prog[l.id]?.done);
+    const pct=all.length?Math.round(done.length/all.length*100):0;
+    document.getElementById('prog-fill').style.width=pct+'%';
+    document.getElementById('prog-pct').textContent=pct+'%';
+    document.getElementById('prog-stats').innerHTML=
+      `<span class="prog-stat"><b>${all.length}</b> שיעורים פתוחים</span>`+
+      `<span class="prog-stat"><b>${done.length}</b> הושלמו</span>`+
+      `<span class="prog-stat"><b>${all.length-done.length}</b> נותרו</span>`;
   }
-  updChip();
-  showCM(id===6 ? `מבחן יחידה נשלח! ציון: ${score}/100` : `שיעור ${id} — "${LS_[id-1].title}" נשלח`,
-    `<div><strong>תלמיד/ה:</strong> ${CU.name}</div><div><strong>כיתה:</strong> ${cById(CU.classId)?.label||''}</div><div><strong>תאריך:</strong> ${date}</div>${score?`<div><strong>ציון:</strong> ${score}/100</div>`:''}`);
-  setTimeout(() => sNav(`lesson-${id}`, document.getElementById(`sn-l${id}`)), 700);
+
+  // Units
+  const wrap=document.getElementById('units-wrap');
+  wrap.innerHTML=UNITS.map(u=>buildUnit(u,isT)).join('');
+
+  // Open first unit
+  const first=wrap.querySelector('.unit-trigger');
+  if(first)openUnit(first);
 }
 
-function updChip() {
-  const total = UNITS.reduce((s, u) => s + u.lessons.length, 0);
-  const done  = Object.keys(PROG).length;
-  const el    = document.getElementById('spchip');
-  if (el) el.textContent = `${done} / ${total}`;
+// ══ BUILD UNIT ══
+function buildUnit(u,isT){
+  const open=u.lessons.filter(l=>!l.locked);
+  const done=open.filter(l=>S.prog[l.id]?.done);
+  const pct=open.length?Math.round(done.length/open.length*100):0;
+
+  return `
+<div class="unit-block" id="ub-${u.id}">
+  <button class="unit-trigger" onclick="toggleUnit(this)">
+    <span class="ut-em">${u.emoji}</span>
+    <div class="ut-body">
+      <div class="ut-name">${u.label}: ${u.title}</div>
+      <div class="ut-meta">${open.length} שיעורים פתוחים${!isT?' · '+done.length+' הושלמו':''}</div>
+    </div>
+    <div class="ut-right">
+      ${!isT?`
+      <div class="ut-bar-wrap">
+        <div class="ut-bar-track"><div class="ut-bar-fill" style="width:${pct}%"></div></div>
+        <div class="ut-bar-pct">${pct}%</div>
+      </div>`:''}
+    </div>
+    <span class="ut-chev">▼</span>
+  </button>
+  <div class="unit-body">
+    ${u.lessons.map(l=>buildLessonRow(l,isT)).join('')}
+  </div>
+</div>`;
 }
 
-/* ── LESSON VIEWER ── */
-function openViewer(id, role) {
-  const l = LS_.find(x => x.id === id);
-  if (!l) { toast('❌ שיעור לא נמצא'); return; }
-  const n  = encodeURIComponent(CU.name || '');
-  const cl = encodeURIComponent(cById(CU.classId)?.label || '');
-  const url = role === 'student'
-    ? `${l.file}?student=${n}&name=${n}&class=${cl}&lesson=${id}&unit=u1&role=student`
-    : `${l.file}?role=teacher`;
-  _doOpenViewer(id, l, url);
-}
+// ══ BUILD LESSON ROW ══
+function buildLessonRow(l,isT){
+  const done=!!S.prog[l.id]?.done;
+  const dDate=S.prog[l.id]?.date||'';
+  const locked=l.locked;
 
-function _doOpenViewer(id, l, url) {
-  const viewer    = document.getElementById('lesson-viewer');
-  const frame     = document.getElementById('lesson-frame');
-  const vtitle    = document.getElementById('vtitle');
-  const waBar     = document.getElementById('viewer-wa-bar');
-  const waHint    = document.getElementById('viewer-wa-hint');
-  const assessBtn = document.getElementById('viewer-assess-btn');
+  // URLs — teacherUrl never injected into student HTML
+  const sUrl=l.file+'?role=student';
+  const tUrl=isT?l.file+'?role=teacher':null;
 
-  if (vtitle) vtitle.textContent = l.title || `שיעור ${id}`;
+  // Chip
+  const chip=locked?'<span class="chip ch-lock">🔒 בהכנה</span>'
+            :l.exam?'<span class="chip ch-exam">📝 מבחן</span>'
+            :done  ?'<span class="chip ch-done">✓ הוגש</span>'
+                   :'<span class="chip ch-open">פתוח</span>';
 
-  // WhatsApp bar — students only, only when teacher has phone
-  if (waBar) {
-    if (CU.role === 'student' && TPHONE) {
-      if (waHint) waHint.textContent = `📝 סיימת את "${l.title}"? שלחי למורה`;
-      waBar.style.display = 'flex';
+  // ─ Student actions ─ (teacherUrl never appears here)
+  let actions='';
+  if(!isT){
+    if(locked){
+      actions=`<button class="btn-main dis" disabled>🔒 טרם נפתח</button>`;
+    } else if(done){
+      actions=`<button class="btn-main ghost" onclick="openLesson('${sUrl}')">📖 פתח שוב</button>`;
     } else {
-      waBar.style.display = 'none';
+      actions=`<button class="btn-main ${l.exam?'exam':'prim'}" onclick="openLesson('${sUrl}')">
+        ${l.exam?'📝 פתח מבחן':'▶ פתח שיעור'}
+      </button>`;
     }
   }
 
-  // Assessment button: teacher only
-  if (assessBtn) assessBtn.style.display = CU.role === 'teacher' ? 'block' : 'none';
-
-  // Show viewer first, then set src
-  viewer.style.display = 'flex';
-  viewer.classList.add('open');
-  document.body.style.overflow = 'hidden';
-  frame.src = url;
-
-  // ── POST-LOAD: hide teacher-only elements inside the lesson iframe for students ──
-  frame.onload = function() {
-    if (CU.role !== 'student') { frame.onload = null; return; }
-    try {
-      const iDoc = frame.contentDocument || frame.contentWindow?.document;
-      if (!iDoc || !iDoc.body) return;
-
-      // 1. Hide Dashboard tab button and pane (targets all known IDs + text patterns)
-      const DASH_IDS = ['tab-dashboard','tab-assess','tq','tab-assess-btn',
-                        'assessment-drawer','assessment-panel','viewer-assess-btn'];
-      DASH_IDS.forEach(did => {
-        const el = iDoc.getElementById(did);
-        if (el) el.style.display = 'none';
-      });
-
-      // 2. Hide nav buttons whose text/onclick contains dashboard keywords
-      iDoc.querySelectorAll('.tab-btn, [onclick]').forEach(btn => {
-        const txt = (btn.textContent || '').trim();
-        const oc  = (btn.getAttribute('onclick') || '');
-        if (txt.includes('Dashboard') || txt.includes('dashboard') ||
-            txt.includes('🖥️') || txt.includes('📊 הערכה') ||
-            oc.includes('tab-dashboard') || oc.includes('tab-assess') ||
-            oc.includes('openAssessmentDrawer')) {
-          btn.style.display = 'none';
-        }
-      });
-
-      // 3. Hide all .teacher-only elements
-      iDoc.querySelectorAll('.teacher-only').forEach(el => { el.style.display = 'none'; });
-
-      // 4. Hide elements by [id*="dashboard"]
-      iDoc.querySelectorAll('[id*="dashboard"],[id*="Dashboard"]').forEach(el => {
-        el.style.display = 'none';
-      });
-
-    } catch(e) { /* cross-origin — silent */ }
-    frame.onload = null;
-  };
-}
-
-function sendWhatsApp() {
-  if (!TPHONE) { toast('⚠️ לא הוגדר מספר וואטסאפ למורה'); return; }
-  const lessonId = document.getElementById('lesson-frame').src;
-  const lesson   = LS_.find(l => lessonId.includes(l.file)) || _u2lesson(11)?.lesson;
-  let answers = '';
-  try {
-    const cw = document.getElementById('lesson-frame').contentWindow;
-    if (cw && typeof cw.calcAssessment === 'function') cw.calcAssessment();
-    const iDoc = document.getElementById('lesson-frame').contentDocument || cw.document;
-    if (iDoc) {
-      const parts = [];
-      iDoc.querySelectorAll('input[type="text"],textarea,select').forEach(el => {
-        if (!el.value?.trim()) return;
-        const lbl = el.closest('label')?.textContent?.trim() || el.value || '';
-        if (lbl) parts.push(lbl);
-      });
-      if (parts.length) answers = '\n\nהתשובות שלי:\n' + parts.join('\n');
-    }
-  } catch(e) { answers = '\n\n(צירוף תשובות ידני — יש ללחוץ על שלח בתוך השיעור)'; }
-  const cls = cById(CU.classId);
-  const date = new Date().toLocaleDateString('he-IL');
-  const msg = `שלום ${TNAME || 'מורה'} 👋\nאני ${CU.name} מכיתה ${cls?.label || ''}\nסיימתי את השיעור: ${lesson?.title || 'שיעור'}\nתאריך: ${date}` + answers;
-  window.open(`https://wa.me/${TPHONE}?text=${encodeURIComponent(msg)}`, '_blank');
-}
-
-function closeViewer() {
-  const frame  = document.getElementById('lesson-frame');
-  const viewer = document.getElementById('lesson-viewer');
-  const waBar  = document.getElementById('viewer-wa-bar');
-  frame.src = '';
-  viewer.classList.remove('open');
-  viewer.style.display = '';
-  if (waBar) waBar.style.display = 'none';
-  document.body.style.overflow = '';
-  document.body.style.position = '';
-  document.body.style.width    = '';
-}
-
-/* ── UTILITIES ── */
-/* ════════════════════════════════════════════════════
-   SIDEBAR BUILDER — renders nav from UNITS array
-   Called on login and whenever UNITS changes.
-════════════════════════════════════════════════════ */
-function buildSidebars() {
-  const tCon = document.getElementById('tsb-units');
-  const sCon = document.getElementById('ssb-units');
-  if (!tCon || !sCon) return;
-  let tH = '', sH = '';
-
-  UNITS.forEach(unit => {
-    const u1 = unit.id === 'u1';
-    // Collapsible unit header
-    tH += `<div class="sb-unit-header" onclick="toggleUnitSection('t-${unit.id}')"><span>${unit.label}</span><span class="sb-chevron" id="chev-t-${unit.id}">▾</span></div><div id="t-${unit.id}" class="sb-unit-body">`;
-    sH += `<div class="sb-unit-header" onclick="toggleUnitSection('s-${unit.id}')"><span>${unit.label}</span><span class="sb-chevron" id="chev-s-${unit.id}">▾</span></div><div id="s-${unit.id}" class="sb-unit-body">`;
-
-    unit.lessons.forEach(l => {
-      const tFn   = u1 ? `openViewer(${l.id},'teacher')` : `openViewerU2(${l.id},'teacher')`;
-      const sFn   = u1 ? `sNav('lesson-${l.id}',this)` : `sNavU2('lesson-${l.id}',this)`;
-      const open  = LST[l.id] !== false;
-      const bTxt  = open ? 'פתוח' : 'סגור';
-      const bCls  = `nav-badge${open ? ' open' : ''}`;
-      const dim   = '';
-      const iconT = u1
-        ? `<span class="nav-icon" style="background:${l.color}20;color:${l.color};font-size:.72rem">${l.short}</span>`
-        : `<span class="nav-icon-bubble" style="background:${l.color}20">${l.emoji}</span>`;
-
-      tH += `<div class="nav-item" style="${dim}" onclick="${tFn}">${iconT}<span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${l.title}</span><span class="${bCls}" id="badge-l${l.id}">${bTxt}</span></div>`;
-      sH += `<div class="nav-item" id="sn-l${l.id}" style="${dim}" onclick="${sFn}">${iconT}<span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${l.title}</span><span class="${bCls}" id="s-badge-l${l.id}">${bTxt}</span></div>`;
-    });
-    tH += '</div>'; sH += '</div>';
-  });
-  tCon.innerHTML = tH;
-  sCon.innerHTML = sH;
-}
-
-function toggleUnitSection(id) {
-  const el = document.getElementById(id);
-  const ch = document.getElementById('chev-' + id);
-  if (!el) return;
-  const closed = el.style.display === 'none';
-  el.style.display = closed ? '' : 'none';
-  if (ch) ch.textContent = closed ? '▾' : '▸';
-}
-
-function syncBadges() {
-  UNITS.forEach(unit => {
-    unit.lessons.forEach(l => {
-      const s = LST[l.id] !== false;
-      ['badge-l', 's-badge-l'].forEach(p => {
-        const el = document.getElementById(`${p}${l.id}`);
-        if (el) { el.textContent = s ? 'פתוח' : 'סגור'; el.className = `nav-badge ${s ? 'open' : ''}`; }
-      });
-    });
-  });
-}
-
-function toast(msg = '✅') {
-  const t = document.getElementById('toast');
-  if (!t) return;
-  t.textContent = msg; t.classList.add('show');
-  clearTimeout(t._tid); t._tid = setTimeout(() => t.classList.remove('show'), 3000);
-}
-
-function showCM(title, detail) {
-  const m = document.getElementById('m-msg'); const d = document.getElementById('m-det'); const c = document.getElementById('cmodal');
-  if (m) m.textContent = title; if (d) d.innerHTML = detail; if (c) c.classList.add('open');
-}
-function closeCM() { document.getElementById('cmodal')?.classList.remove('open'); }
-document.getElementById('cmodal')?.addEventListener('click', e => { if (e.target === e.currentTarget) closeCM(); });
-
-/* ── ASSESSMENT ── */
-function readAssessmentFromIframe() {
-  try {
-    var frame = document.getElementById("lesson-frame"); if (!frame) return null;
-    try { var cw = frame.contentWindow; if (cw && typeof cw.calcAssessment === "function") cw.calcAssessment(); } catch(e2) {}
-    var iDoc = null;
-    try { iDoc = frame.contentDocument || frame.contentWindow.document; } catch(e3) {}
-    if (!iDoc || !iDoc.body) return null;
-    var block = iDoc.getElementById("assessment-content"); if (!block) return null;
-    var html = block.innerHTML || ""; return html.trim().length > 30 ? html : null;
-  } catch (e) { return null; }
-}
-
-function openAssessmentDrawer() {
-  var drawer = document.getElementById("assessment-drawer"); var panel = document.getElementById("assessment-panel"); if (!drawer || !panel) return;
-  panel.innerHTML = "<p style='color:var(--dim);font-size:.9rem;direction:rtl'>טוען…</p>"; drawer.style.display = "block";
-  setTimeout(function() {
-    var html = readAssessmentFromIframe();
-    if (html && html.trim().length > 30) {
-      var ttl = (document.getElementById("vtitle") || {}).textContent || "";
-      panel.innerHTML = "<h3 style='font-weight:800;font-size:1rem;margin-bottom:14px;direction:rtl'>📊 " + ttl + " — לשונית הערכה</h3>" + html;
+  // ─ Teacher actions ─ (only rendered when isT is true — never in student DOM)
+  if(isT){
+    if(locked){
+      actions=`<a href="${tUrl}" class="btn-t guide" target="_blank">📋 טיוטה</a>`;
     } else {
-      panel.innerHTML = "<div style='text-align:center;padding:24px;direction:rtl'><p style='font-size:1.5rem;margin-bottom:8px'>📝</p><p style='color:var(--muted);font-size:.9rem'>מלאו את דף העבודה ולחצו שוב על הכפתור</p></div>";
+      actions=`
+        <a href="${tUrl}" class="btn-t sol" target="_blank">🔑 פתרונות</a>
+        <a href="${tUrl}" class="btn-t guide" target="_blank">📋 מדריך</a>
+        <a href="${sUrl}" class="btn-t prev" target="_blank">👁</a>`;
     }
-  }, 400);
+  }
+
+  return `
+<div class="lesson-row${locked?' locked':''}">
+  <div class="lr-em" style="background:${l.color}1a">${l.emoji}</div>
+  <div class="lr-info">
+    <div class="lr-short">${l.short}</div>
+    <div class="lr-title">${l.title}</div>
+    <div class="lr-desc">${l.desc}</div>
+  </div>
+  <div class="lr-right">
+    ${chip}
+    <span class="lr-mins">⏱ ${l.mins}′</span>
+    ${done&&dDate?`<span class="done-stamp">✓ ${dDate}</span>`:''}
+  </div>
+  <div class="lr-actions">${actions}</div>
+</div>`;
 }
 
-/* ── CUSTOM LESSONS ── */
-(function applyCustomLessons(){
-  try { const c = JSON.parse(localStorage.getItem('lashon_custom_lessons')||'null'); if(Array.isArray(c) && c.length) UNITS[0].lessons = c; } catch(e){}
-})();
-
-function _saveCustomLessons(list){ localStorage.setItem('lashon_custom_lessons', JSON.stringify(list)); UNITS[0].lessons = list; }
-
-function addCustomLesson(){
-  const title = (prompt('שם השיעור החדש:','') || '').trim(); if(!title) return;
-  const file  = (prompt('שם קובץ HTML:','') || '').trim(); if(!file) return;
-  const emoji = (prompt('אמוג׳י:','📖') || '📖').trim();
-  const id    = (UNITS[0].lessons.reduce((a,l)=>Math.max(a,l.id),0)) + 1;
-  _saveCustomLessons([...UNITS[0].lessons, {id, title, short:'ש׳'+id, file, color:'#4f46e5', emoji, mins:45, isExam:false}]);
-  LST[id] = true; saveLST(); tNav('lessons', null); toast('✅ שיעור "'+title+'" נוסף');
+// ══ ACCORDION ══
+function toggleUnit(trigger){
+  trigger.classList.contains('open')?closeUnit(trigger):openUnit(trigger);
+}
+function openUnit(trigger){
+  trigger.classList.add('open');
+  trigger.nextElementSibling.classList.add('open');
+  const uid=trigger.closest('.unit-block').id.replace('ub-','');
+  document.querySelectorAll('.sb-link').forEach(l=>{
+    l.classList.toggle('active',l.getAttribute('onclick')?.includes(uid));
+  });
+}
+function closeUnit(trigger){
+  trigger.classList.remove('open');
+  trigger.nextElementSibling.classList.remove('open');
+}
+function jumpUnit(uid,sbLink){
+  const el=document.getElementById('ub-'+uid);
+  if(!el)return;
+  const trigger=el.querySelector('.unit-trigger');
+  if(!trigger.classList.contains('open'))openUnit(trigger);
+  el.scrollIntoView({behavior:'smooth',block:'start'});
+  document.querySelectorAll('.sb-link').forEach(l=>l.classList.toggle('active',l===sbLink));
 }
 
-function editCustomLesson(id){
-  const l = UNITS[0].lessons.find(x=>x.id===id); if(!l) return;
-  const title = (prompt('שם השיעור:',l.title)||'').trim()||l.title;
-  const file  = (prompt('שם הקובץ:',l.file)||'').trim()||l.file;
-  const emoji = (prompt('אמוג׳י:',l.emoji)||l.emoji).trim();
-  _saveCustomLessons(UNITS[0].lessons.map(x=>x.id===id?{...x,title,file,emoji}:x));
-  tNav('lessons', null); toast('✅ שיעור '+id+' עודכן');
-}
+// ══ OPEN LESSON ══
+function openLesson(url){window.open(url,'_blank');}
 
-function deleteCustomLesson(id){
-  if(!confirm('למחוק שיעור '+id+'?')) return;
-  _saveCustomLessons(UNITS[0].lessons.filter(x=>x.id!==id));
-  tNav('lessons', null); toast('🗑️ שיעור '+id+' נמחק');
-}
+// ══ LESSON DONE SIGNAL ══
+window.lessonDone=function(id,date){
+  S.prog[id]={done:true,date:date||new Date().toLocaleDateString('he-IL')};
+  LS.set('lashon_prog_'+S.name,S.prog);
+  render();
+  toast('✅ השיעור הוגש בהצלחה!');
+};
 
-/* ══════════════════════════════════════════════════════════════════════
-   📋 קוד עזר להדבקה בקבצי שיעורים (v2 / v3)
-   ─────────────────────────────────────────────────────────────────────
-   הדביקו את הבלוק הבא לפני סיום תג ה-<script> בכל קובץ שיעור.
-   הוא בודק אם נפתח במצב תלמיד (?role=student) ומסתיר את לשוניות
-   המורה (Dashboard, הערכה, פתרונות) אוטומטית.
-
-   ── SNIPPET START ──────────────────────────────────────────────────
-
-   (function applyStudentMode() {
-     var isStudent = new URLSearchParams(window.location.search).get('role') === 'student';
-     if (!isStudent) return;
-
-     // IDs of tabs/panes to hide in student mode
-     var HIDE_IDS = [
-       'tab-dashboard', 'tab-assess', 'tab-answers', 'tab-teacher',
-       'tq', 'tt', 'ta',                    // short-form IDs used in some files
-       'assessment-drawer', 'assessment-content',
-       'viewer-assess-btn'
-     ];
-
-     function applyHide() {
-       HIDE_IDS.forEach(function(id) {
-         var el = document.getElementById(id);
-         if (el) el.style.display = 'none';
-       });
-       // Hide tab buttons that open dashboard/assessment/answers/teacher
-       var HIDE_TEXTS = ['dashboard','הערכה','פתרונות','מדריך','🖥️','📊','🔑','📋'];
-       document.querySelectorAll('.tab-btn,[onclick]').forEach(function(btn) {
-         var txt = (btn.textContent || '').toLowerCase();
-         var oc  = (btn.getAttribute('onclick') || '').toLowerCase();
-         var shouldHide = HIDE_TEXTS.some(function(kw) {
-           return txt.includes(kw.toLowerCase()) ||
-                  oc.includes('tab-dashboard') || oc.includes('tab-assess') ||
-                  oc.includes('tab-answers')   || oc.includes('tab-teacher') ||
-                  oc.includes('openassessment');
-         });
-         if (shouldHide) btn.style.display = 'none';
-       });
-       // Hide all .teacher-only elements
-       document.querySelectorAll('.teacher-only').forEach(function(el) {
-         el.style.display = 'none';
-       });
-     }
-
-     // Run immediately (for elements already in DOM) and after full load
-     if (document.readyState === 'loading') {
-       document.addEventListener('DOMContentLoaded', applyHide);
-     } else {
-       applyHide();
-     }
-     // Also inject student name from URL param into localStorage
-     var studentName = new URLSearchParams(window.location.search).get('student') || '';
-     if (studentName) {
-       try { localStorage.setItem('lashon_current_student', JSON.stringify(decodeURIComponent(studentName))); } catch(e) {}
-     }
-   })();
-
-   ── SNIPPET END ────────────────────────────────────────────────────
-══════════════════════════════════════════════════════════════════════ */
-
-/* ── BOOT ── */
-(function boot() {
-  syncBadges();
-  initLogin(); // handles ?role=teacher auto-resume internally
-})();
+// ══ BOOT ══
+initApp();
 </script>
-
-<!-- Assessment Drawer -->
-<div id="assessment-drawer"
-  style="display:none;position:fixed;bottom:0;left:0;right:0;
-         background:#fff;border-top:2px solid var(--border);
-         padding:20px 24px;z-index:10001;max-height:60vh;overflow-y:auto;
-         box-shadow:0 -6px 32px rgba(0,0,0,.12);direction:rtl;text-align:right;
-         border-radius:var(--radius) var(--radius) 0 0">
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
-    <span style="font-weight:800;font-size:1.05rem">📊 לשונית הערכה</span>
-    <button onclick="document.getElementById('assessment-drawer').style.display='none'"
-      style="background:var(--surface2);border:1px solid var(--border);font-size:1.2rem;
-             cursor:pointer;color:var(--muted);width:32px;height:32px;
-             border-radius:50%;display:flex;align-items:center;justify-content:center">×</button>
-  </div>
-  <div id="assessment-panel" style="font-size:.9rem;color:var(--ink)"></div>
-</div>
 </body>
 </html>

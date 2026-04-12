@@ -277,13 +277,13 @@ textarea, select {
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <button class="tab-btn" onclick="showTab('tt',this)">📋 מדריך</button>
+    <button class="tab-btn teacher-only" onclick="showTab('tt',this)" style="display:none !important">📋 מדריך</button>
     <button class="tab-btn" onclick="showTab('tx',this)">📰 הטקסט</button>
     <button class="tab-btn" onclick="showTab('th',this)">📚 הלכה</button>
     <button class="tab-btn" onclick="showTab('tw',this)">✏️ מבחן</button>
-    <button class="tab-btn teacher-only" onclick="showTab('ta',this)">🔑 פתרונות</button>
-    <button class="tab-btn" onclick="showTab('tab-assess',this);if(window.calcAssessment)window.calcAssessment()">📊 הערכה</button>
-    <button class="tab-btn" onclick="showTab('tab-dashboard',this)">🖥️ Dashboard</button>
+    <button class="tab-btn teacher-only" onclick="showTab('ta',this)" style="display:none !important">🔑 פתרונות</button>
+    <button class="tab-btn teacher-only" onclick="showTab('tab-assess',this);if(window.calcAssessment)window.calcAssessment()" style="display:none !important">📊 הערכה</button>
+    <button class="tab-btn teacher-only" onclick="showTab('tab-dashboard',this)" style="display:none !important">🖥️ Dashboard</button>
     <button class="tab-btn no-print" onclick="window.print()" style="margin-right:auto">🖨️</button>
   </div>
 </nav>
@@ -300,7 +300,7 @@ textarea, select {
 <main style="max-width:860px;margin:0 auto;padding:16px">
 
 <!-- ════════ TAB 1 — TEACHER ════════ -->
-<div id="tt" class="tab-pane teacher-only active">
+<div id="tt" class="tab-pane teacher-only" style="display:none !important">
 
   <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
     <div class="card text-center" style="border-top:3px solid var(--gold);">
@@ -766,7 +766,7 @@ textarea, select {
 
 
 <!-- ════════ TAB 5 — ANSWERS ════════ -->
-<div id="ta" class="tab-pane teacher-only">
+<div id="ta" class="tab-pane teacher-only" style="display:none !important">
 
   <div style="background:var(--gold-dim);border:1.5px solid var(--gold);border-radius:12px;padding:16px 20px;margin-bottom:22px;">
     <div style="display:flex;align-items:center;gap:10px;">
@@ -849,7 +849,7 @@ textarea, select {
 </div><!-- /answers -->
 
 <!-- ═══ TAB: ASSESSMENT — lesson 6 ═══ -->
-<div id="tab-assess" class="tab-pane">
+<div id="tab-assess" class="tab-pane teacher-only" style="display:none !important">
   <div style="max-width:660px;margin:0 auto;padding:8px 0">
     <h2 style="font-size:1.2rem;font-weight:800;margin-bottom:8px">
       📊 הערכה עצמית — שיעור 6</h2>
@@ -874,7 +874,7 @@ textarea, select {
 </div>
 
 <!-- DASHBOARD TAB -->
-<div id="tab-dashboard" class="tab-pane">
+<div id="tab-dashboard" class="tab-pane teacher-only" style="display:none !important">
   <div style="max-width:660px;margin:0 auto;padding:8px 0">
     <div class="dash-hero">
       <div style="font-size:2.5rem;">📊</div>
@@ -932,8 +932,15 @@ textarea, select {
 </footer>
 
 <script>
-// ─── Answer Key (auto-graded) ───
-const MC_CORRECT = {b:true, c:true, b_q2:true}; // handled in key
+// ━━━ ROLE CHECK — must be first ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// ברירת מחדל: תלמיד. רק ?role=teacher = מורה.
+const isTeacher = new URLSearchParams(window.location.search).get('role') === 'teacher';
+
+// ─── Answer Key — נטען רק עבור מורה ─────────────────────────────────────
+// תלמידים לא מקבלים גישה למפתח התשובות, גם לא דרך Inspect Element
+const MC_CORRECT = isTeacher
+  ? {b:true, c:true, b_q2:true} // מפתח אמיתי — גלוי רק למורה
+  : {};  // מילון ריק לתלמיד
 
 // Points per section
 const SECTION_POINTS = {
@@ -999,7 +1006,6 @@ function calcAutoScore(){ return 0; } // hidden server-side
 
 function updateLiveScore(){}  // score display removed
 
-},3000);
 
 // ─── Submit Exam ───
 function submitExam(){
@@ -1167,75 +1173,101 @@ document.addEventListener('DOMContentLoaded', function() {
       this.classList.remove('ok','err');
       if (this.value.trim()) this.classList.add('ok');
     });
-    // mark already-filled on load
     if (el.value && el.value.trim()) el.classList.add('ok');
   });
   injectStudentName();
 });
 
-// ─── ROLE=STUDENT SECURITY (v3) ─────────────────────────────
-(function applyStudentRole() {
-  var params = new URLSearchParams(window.location.search);
-  if (params.get('role') !== 'student') return;
+// ─── ROLE SECURITY (v6) — חסימה מוחלטת לתלמידים ─────────────────────────
+// isTeacher הוגדר כבר בסקריפט הראשי למעלה
+(function applyRoleSecurity() {
 
-  // Hide these tab panes
-  var hideIds = [
-    'tt', 'tab-teacher',
-    'ta', 'tab-answers',
-    'tab-assess',
-    'tab-dashboard'
-  ];
+  if (isTeacher) {
+    // ── מורה: חשוף הכל, הפעל טאב מדריך ──────────────────────────────────
+    document.querySelectorAll('.teacher-only').forEach(function(el) {
+      el.style.removeProperty('display');
+    });
+    // הפעל טאב tt (מדריך) כברירת מחדל למורה
+    document.querySelectorAll('.tab-pane').forEach(function(p){ p.classList.remove('active'); });
+    var ttPane = document.getElementById('tt');
+    if (ttPane) { ttPane.classList.add('active'); ttPane.style.removeProperty('display'); }
+    document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+    document.querySelectorAll('.tab-btn').forEach(function(b) {
+      var oc = b.getAttribute('onclick') || '';
+      if (oc.indexOf("'tt'") !== -1 || oc.indexOf('"tt"') !== -1) b.classList.add('active');
+    });
+    return;
+  }
+
+  // ── תלמיד: חסימה בשכבות מרובות ──────────────────────────────────────────
+
+  // שכבה 1: הסר מה-DOM לחלוטין — teacher-only ו-admin-panel
+  document.querySelectorAll('.teacher-only, .admin-panel').forEach(function(el) {
+    el.remove();
+  });
+
+  // שכבה 2: הסתר לפי ID עם !important
+  var hideIds = ['tt', 'tab-teacher', 'ta', 'tab-answers', 'tab-assess', 'tab-dashboard'];
   hideIds.forEach(function(id) {
     var el = document.getElementById(id);
-    if (el) { el.style.display = 'none'; el.setAttribute('aria-hidden','true'); }
+    if (el) {
+      el.style.setProperty('display', 'none', 'important');
+      el.setAttribute('data-student-hidden', '1');
+    }
   });
 
-  // Hide tab buttons (by onclick content, text, or class)
-  document.querySelectorAll('.tab-btn, button').forEach(function(btn) {
+  // שכבה 3: הסתר כפתורים לפי טקסט, onclick, או class
+  document.querySelectorAll('.tab-btn, button, a').forEach(function(btn) {
     var oc  = btn.getAttribute('onclick') || '';
-    var txt = (btn.textContent || '').trim();
+    var lbl = (btn.textContent || '').trim();
     var cls = btn.className || '';
     var hide =
+      /['"](tt|tab-teacher|ta|tab-answers|tab-assess|tab-dashboard)['"]/i.test(oc) ||
       cls.indexOf('teacher-only') !== -1 ||
-      oc.indexOf("'tt'") !== -1          || oc.indexOf('"tt"') !== -1 ||
-      oc.indexOf("'tab-teacher'") !== -1 || oc.indexOf('"tab-teacher"') !== -1 ||
-      oc.indexOf("'ta'") !== -1          || oc.indexOf('"ta"') !== -1 ||
-      oc.indexOf("'tab-answers'") !== -1 || oc.indexOf('"tab-answers"') !== -1 ||
-      oc.indexOf("'tab-assess'") !== -1  || oc.indexOf('"tab-assess"') !== -1 ||
-      oc.indexOf("'tab-dashboard'") !== -1 || oc.indexOf('"tab-dashboard"') !== -1 ||
-      txt === '🔑 פתרונות' ||
-      txt.indexOf('Dashboard') !== -1 ||
-      txt === '📊 הערכה' ||
-      txt === '📋 מדריך' ||
-      txt === '📋 מדריך המורה';
-    if (hide) btn.style.display = 'none';
+      cls.indexOf('admin-panel')  !== -1 ||
+      lbl.indexOf('פתרונות')  !== -1 ||
+      lbl.indexOf('מדריך')    !== -1 ||
+      lbl.indexOf('הערכה')    !== -1 ||
+      lbl.indexOf('Dashboard') !== -1;
+    if (hide) {
+      btn.style.setProperty('display', 'none', 'important');
+      btn.setAttribute('data-student-hidden', '1');
+    }
   });
 
-  // Hide any remaining teacher-only elements
-  document.querySelectorAll('.teacher-only').forEach(function(el){
-    el.style.display = 'none';
-  });
+  // שכבה 4: override showTab — מנע מעקף ידני
+  var _orig = window.showTab;
+  window.showTab = function(tabId, btnEl) {
+    // חסום גישה לטאבים מוסתרים
+    var blocked = ['tt', 'tab-teacher', 'ta', 'tab-answers', 'tab-assess', 'tab-dashboard'];
+    if (blocked.indexOf(tabId) !== -1) return;
+    var el = document.getElementById(tabId);
+    if (el && el.getAttribute('data-student-hidden') === '1') return;
+    if (_orig) _orig(tabId, btnEl);
+  };
 
-  // Activate first visible student tab: theory > text > worksheet
-  var preferOrder = ['th', 'tx', 'tw'];
-  for (var i = 0; i < preferOrder.length; i++) {
-    var pane = document.getElementById(preferOrder[i]);
-    if (pane && pane.style.display !== 'none') {
-      document.querySelectorAll('.tab-pane').forEach(function(p){ p.classList.remove('active'); });
+  // שכבה 5: הפעל טאב מבחן (tw) כברירת מחדל לתלמיד
+  document.querySelectorAll('.tab-pane').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); });
+
+  var defaultOrder = ['tw', 'th', 'tx'];
+  for (var i = 0; i < defaultOrder.length; i++) {
+    var pane = document.getElementById(defaultOrder[i]);
+    if (pane && pane.getAttribute('data-student-hidden') !== '1') {
       pane.classList.add('active');
-      document.querySelectorAll('.tab-btn').forEach(function(b){
-        b.classList.remove('active');
+      document.querySelectorAll('.tab-btn').forEach(function(b) {
         var oc2 = b.getAttribute('onclick') || '';
-        if (oc2.indexOf("'" + preferOrder[i] + "'") !== -1 ||
-            oc2.indexOf('"' + preferOrder[i] + '"') !== -1) {
+        if (oc2.indexOf("'" + defaultOrder[i] + "'") !== -1 ||
+            oc2.indexOf('"' + defaultOrder[i] + '"') !== -1) {
           b.classList.add('active');
         }
       });
       break;
     }
   }
+
 })();
-// ─── END ROLE=STUDENT SECURITY ──────────────────────────────
+// ─── END ROLE SECURITY v6 ──────────────────────────────────────────────────
 
 </script>
 </body>
