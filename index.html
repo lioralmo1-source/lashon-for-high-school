@@ -66,6 +66,12 @@ button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
   color:#fff;margin-bottom:.35rem;
   text-shadow:0 2px 32px rgba(255,255,255,.14);
 }
+.ls-sub-big{
+  font-family:'Secular One',sans-serif;
+  font-size:clamp(.9rem,2.2vw,1.15rem);
+  color:rgba(255,255,255,.65);
+  margin-bottom:.3rem;letter-spacing:.02em;
+}
 .ls-sub{font-size:.78rem;color:rgba(255,255,255,.3);letter-spacing:.04em;}
 
 /* Two cards grid */
@@ -75,16 +81,19 @@ button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
   display:grid;grid-template-columns:1fr 1fr;
   gap:1.1rem;
 }
-@media(max-width:440px){.ls-cards{grid-template-columns:1fr;gap:.8rem;}}
+@media(max-width:440px){
+  .ls-cards{grid-template-columns:1fr;gap:.9rem;max-width:340px;}
+}
 
 .lc{
   border-radius:24px;
-  padding:2.4rem 1.4rem 2rem;
+  padding:2.6rem 1.6rem 2.2rem;
   cursor:pointer;border:1.5px solid transparent;
   transition:transform .22s,box-shadow .22s,border-color .22s;
   text-align:center;user-select:none;
   -webkit-tap-highlight-color:transparent;
   outline:none;background:none;
+  position:relative; /* needed for lc-badge */
 }
 .lc:hover{transform:translateY(-7px);}
 .lc:active{transform:translateY(-2px);}
@@ -123,9 +132,9 @@ button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
   color:rgba(202,138,4,.85);padding:.2rem .6rem;letter-spacing:.04em;
   pointer-events:none;
 }
-.lc-icon{font-size:3rem;margin-bottom:.75rem;display:block;}
-.lc-label{font-family:'Secular One',sans-serif;font-size:1.15rem;display:block;margin-bottom:.3rem;}
-.lc-desc{font-size:.72rem;display:block;line-height:1.5;}
+.lc-icon{font-size:3.4rem;margin-bottom:.85rem;display:block;}
+.lc-label{font-family:'Secular One',sans-serif;font-size:1.2rem;display:block;margin-bottom:.35rem;}
+.lc-desc{font-size:.75rem;display:block;line-height:1.5;}
 
 /* Teacher code panel — slides in below cards */
 .ls-tcp{
@@ -221,21 +230,43 @@ button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
 .tb-t-row{display:flex;align-items:center;gap:.6rem;flex-shrink:0;}
 .tb-greeting{
   font-size:.82rem;font-weight:700;
-  background:var(--gold-lt);color:var(--gold);
-  border:1px solid #fde68a;border-radius:999px;
-  padding:.28rem .9rem;white-space:nowrap;
+  background:linear-gradient(90deg,#3b0764,#6d28d9);
+  color:#fff;
+  border-radius:999px;
+  padding:.32rem 1rem;white-space:nowrap;
+  box-shadow:0 2px 10px rgba(109,40,217,.35);
 }
 .btn-settings{
   display:inline-flex;align-items:center;gap:.3rem;
-  padding:.3rem .75rem;border:1px solid var(--border);
-  border-radius:7px;background:var(--surface);
-  font-size:.75rem;font-weight:700;color:var(--muted);
+  padding:.32rem .8rem;border:1.5px solid #ddd6fe;
+  border-radius:7px;background:#faf5ff;
+  font-size:.75rem;font-weight:700;color:var(--purple);
   cursor:pointer;transition:all .14s;white-space:nowrap;
+  min-height:36px;
 }
-.btn-settings:hover{background:var(--gold-lt);color:var(--gold);border-color:#fde68a;}
+.btn-settings:hover{background:#ede9fe;border-color:#c4b5fd;box-shadow:0 2px 8px rgba(109,40,217,.2);}
 
-/* Progress banner */
+/* Teacher admin strip — full-width purple bar below topbar */
+.teacher-strip{
+  background:linear-gradient(90deg,#3b0764 0%,#6d28d9 60%,#7c3aed 100%);
+  padding:.4rem 1.4rem;
+  font-size:.75rem;font-weight:700;color:rgba(255,255,255,.9);
+  display:none;align-items:center;gap:.5rem;
+  border-bottom:1px solid rgba(255,255,255,.12);
+}
+.teacher-strip.on{display:flex;}
+.teacher-strip-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:#86efac;box-shadow:0 0 6px #86efac;
+  animation:blink 2s ease-in-out infinite;
+  flex-shrink:0;
+}
+@keyframes blink{0%,100%{opacity:1} 50%{opacity:.4}}
+@media(max-width:660px){.teacher-strip{padding:.4rem .9rem;}}
+
+/* Progress banner wrapper */
 .prog-banner{background:var(--surface);border-bottom:1px solid var(--border);padding:.85rem 1.4rem;}
+
 .prog-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem;}
 .prog-title {font-size:.78rem;font-weight:700;}
 .prog-pct   {font-size:.82rem;font-weight:800;color:var(--blue);}
@@ -282,7 +313,10 @@ button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
 .lr-em{width:32px;height:32px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.95rem;box-shadow:0 1px 5px rgba(0,0,0,.07);}
 .lr-info{flex:1;min-width:0;}
 .lr-short{font-size:.58rem;font-weight:800;color:var(--subtle);text-transform:uppercase;letter-spacing:.06em;}
-.lr-title{font-size:.86rem;font-weight:700;line-height:1.3;margin-top:1px;}
+.lr-title{
+  font-size:.86rem;font-weight:700;line-height:1.3;margin-top:1px;
+  word-break:break-word;overflow-wrap:break-word;
+}
 .lr-desc {font-size:.7rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px;}
 .lr-right{display:flex;align-items:center;gap:.45rem;flex-shrink:0;}
 .lr-mins {font-size:.63rem;color:var(--subtle);white-space:nowrap;}
@@ -317,25 +351,43 @@ button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
 .btn-t-sep  {width:1px;height:16px;background:var(--border);flex-shrink:0;}
 
 /* ── Inline lock toggle (teacher, inside lesson row) ── */
-.lr-lock-wrap{display:flex;align-items:center;gap:.3rem;flex-shrink:0;}
+.lr-lock-wrap{display:flex;align-items:center;gap:.35rem;flex-shrink:0;}
 .lr-lock-label{font-size:.6rem;color:var(--muted);white-space:nowrap;}
+
+/* iOS-style switch — base */
 .lr-toggle{
-  position:relative;width:34px;height:18px;
+  position:relative;
+  width:44px;height:26px;
   cursor:pointer;display:inline-block;flex-shrink:0;
 }
 .lr-toggle input{opacity:0;width:0;height:0;position:absolute;}
 .lr-slider{
-  position:absolute;inset:0;background:#d1d5db;
-  border-radius:999px;transition:background .2s;cursor:pointer;
+  position:absolute;inset:0;
+  background:#c7cdd6;
+  border-radius:999px;
+  transition:background .22s cubic-bezier(.4,0,.2,1);
+  cursor:pointer;
+  box-shadow:inset 0 1px 2px rgba(0,0,0,.15);
 }
 .lr-slider::before{
   content:'';position:absolute;
-  width:12px;height:12px;border-radius:50%;background:#fff;
-  top:3px;right:3px;transition:transform .2s;
-  box-shadow:0 1px 3px rgba(0,0,0,.25);
+  width:20px;height:20px;border-radius:50%;
+  background:#fff;
+  top:3px;right:21px; /* RTL: starts right */
+  transition:transform .22s cubic-bezier(.4,0,.2,1),right .22s cubic-bezier(.4,0,.2,1);
+  box-shadow:0 2px 6px rgba(0,0,0,.22),0 0 0 1px rgba(0,0,0,.06);
 }
-.lr-toggle input:checked + .lr-slider{background:var(--green);}
-.lr-toggle input:checked + .lr-slider::before{transform:translateX(-16px);}
+.lr-toggle input:checked + .lr-slider{
+  background:var(--green);
+  box-shadow:inset 0 1px 2px rgba(21,128,61,.25);
+}
+.lr-toggle input:checked + .lr-slider::before{
+  right:3px; /* RTL: slides to the left visually */
+}
+/* Focus ring for a11y */
+.lr-toggle input:focus-visible + .lr-slider{
+  outline:2px solid var(--blue);outline-offset:2px;
+}
 
 /* Done stamp */
 .done-stamp{font-size:.6rem;font-weight:700;color:var(--blue);background:var(--blue-lt);border-radius:999px;padding:.1rem .45rem;white-space:nowrap;}
@@ -379,21 +431,46 @@ button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
 .sm-lock-info {flex:1;min-width:0;}
 .sm-lock-name {font-size:.78rem;font-weight:700;line-height:1.2;}
 .sm-lock-unit {font-size:.62rem;color:var(--muted);}
-/* reuse lr-toggle style */
-.sm-toggle{position:relative;width:36px;height:20px;flex-shrink:0;cursor:pointer;display:inline-block;}
+/* Settings modal toggle — iOS-style, matches lr-toggle */
+.sm-toggle{position:relative;width:48px;height:28px;flex-shrink:0;cursor:pointer;display:inline-block;}
 .sm-toggle input{opacity:0;width:0;height:0;position:absolute;}
-.sm-slider{position:absolute;inset:0;background:var(--border);border-radius:999px;transition:background .2s;cursor:pointer;}
-.sm-slider::before{content:'';position:absolute;width:14px;height:14px;border-radius:50%;background:#fff;top:3px;right:3px;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.2);}
+.sm-slider{
+  position:absolute;inset:0;
+  background:#c7cdd6;
+  border-radius:999px;
+  transition:background .22s cubic-bezier(.4,0,.2,1);
+  cursor:pointer;
+  box-shadow:inset 0 1px 2px rgba(0,0,0,.12);
+}
+.sm-slider::before{
+  content:'';position:absolute;
+  width:22px;height:22px;border-radius:50%;background:#fff;
+  top:3px;right:23px;
+  transition:background .22s,right .22s cubic-bezier(.4,0,.2,1);
+  box-shadow:0 2px 6px rgba(0,0,0,.2),0 0 0 1px rgba(0,0,0,.05);
+}
 .sm-toggle input:checked + .sm-slider{background:var(--green);}
-.sm-toggle input:checked + .sm-slider::before{transform:translateX(-16px);}
+.sm-toggle input:checked + .sm-slider::before{right:3px;}
+.sm-toggle input:focus-visible + .sm-slider{outline:2px solid var(--blue);outline-offset:2px;}
 
 /* Form fields */
-.sm-field{margin-bottom:.65rem;}
+.sm-field{margin-bottom:.7rem;}
 .sm-field:last-child{margin-bottom:0;}
-.sm-label{font-size:.7rem;font-weight:700;color:var(--muted);display:block;margin-bottom:.3rem;}
-.sm-input{width:100%;padding:.55rem .8rem;border:1px solid var(--border);border-radius:8px;font-size:.85rem;outline:none;transition:border-color .15s;direction:rtl;background:var(--surface);color:var(--text);}
+.sm-label{font-size:.72rem;font-weight:700;color:var(--muted);display:block;margin-bottom:.35rem;}
+.sm-input{
+  width:100%;padding:.65rem .9rem;border:1px solid var(--border);
+  border-radius:8px;font-size:.9rem;outline:none;
+  transition:border-color .15s;direction:rtl;
+  background:var(--surface);color:var(--text);
+  min-height:46px; /* thumb-friendly */
+}
 .sm-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(26,86,219,.1);}
-.sm-btn{padding:.5rem 1.1rem;border:none;border-radius:8px;font-size:.8rem;font-weight:700;cursor:pointer;transition:all .14s;margin-top:.4rem;}
+.sm-btn{
+  padding:.58rem 1.2rem;border:none;border-radius:8px;
+  font-size:.85rem;font-weight:700;cursor:pointer;
+  transition:all .14s;margin-top:.4rem;
+  min-height:46px; /* thumb-friendly */
+}
 .sm-btn.save{background:var(--blue);color:#fff;}
 .sm-btn.save:hover{background:#1648b8;}
 
@@ -418,15 +495,9 @@ button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
 }
 #sb-backdrop.show{display:block;}
 
-/* Mobile: touch targets — min 44px */
-.btn-main{min-height:44px;}
-.btn-t{min-height:40px;padding:.38rem .75rem;}
-.lr-toggle{width:42px;height:24px;}
-.lr-slider::before{width:16px;height:16px;top:4px;right:4px;}
-.lr-toggle input:checked + .lr-slider::before{transform:translateX(-18px);}
-.sm-toggle{width:44px;height:24px;}
-.sm-slider::before{width:16px;height:16px;top:4px;right:4px;}
-.sm-toggle input:checked + .sm-slider::before{transform:translateX(-20px);}
+/* Mobile: touch targets — min 48px for thumb-friendly tapping */
+.btn-main{min-height:48px;}
+.btn-t{min-height:42px;padding:.4rem .8rem;}
 
 @media(max-width:660px){
   /* Show hamburger, hide sidebar normally */
@@ -442,27 +513,49 @@ button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
   #app.on{display:block;}
   .main{min-height:100vh;}
 
+  /* Login screen — comfortable on mobile */
+  .ls-header{margin-bottom:1.8rem;}
+  .lc{padding:2rem 1.4rem 1.7rem;}
+  .lc-icon{font-size:2.6rem;margin-bottom:.6rem;}
+
   /* Layout adjustments */
   .units-wrap{padding:.75rem;}
   .prog-banner{padding:.75rem 1rem;}
-  .lr-desc{display:none;}
+
+  /* lr-desc: allow wrapping on mobile instead of hiding */
+  .lr-desc{
+    white-space:normal;
+    overflow:visible;
+    text-overflow:clip;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+    font-size:.65rem;
+  }
+
   #settings-overlay{
     padding-top:0;padding-left:0;padding-right:0;
     align-items:flex-end;
   }
   #settings-modal{
     max-width:100%;border-radius:20px 20px 0 0;
-    max-height:88vh;
+    max-height:90vh;
   }
   .topbar{padding:.6rem .9rem;gap:.5rem;}
-  .tb-greeting{display:none;}
+  /* Teacher greeting — keep fully visible on mobile */
+  .tb-greeting{font-size:.75rem;padding:.28rem .75rem;}
+  .btn-settings{font-size:.72rem;padding:.28rem .65rem;min-height:38px;}
   .lr-lock-label{display:none;}
   .tb-sub{display:none;}
 
   /* Lesson row: stack better on small screen */
-  .lesson-row{gap:.5rem;padding:.65rem .85rem;}
-  .lr-right{gap:.3rem;}
+  .lesson-row{gap:.45rem;padding:.6rem .8rem;}
+  .lr-right{gap:.28rem;}
   .lr-actions{flex-wrap:wrap;gap:.28rem;}
+
+  /* Toast — keep away from bottom nav area */
+  #toast{bottom:1.8rem;right:.9rem;left:.9rem;text-align:center;}
 }
 </style>
 </head>
@@ -475,8 +568,9 @@ button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
 
   <div class="ls-header">
     <span class="ls-logo">📚</span>
-    <h1 class="ls-title">מערכת למידה דיגיטלית — לשון עברית</h1>
-    <p class="ls-sub">פלטפורמה ללמידה ולהוראה · כיתה י׳ · 2026</p>
+    <h1 class="ls-title">לשון Lesson</h1>
+    <p class="ls-sub-big">מערכת למידה דיגיטלית</p>
+    <p class="ls-sub">לשון עברית · כיתה י׳ · 2026</p>
   </div>
 
   <div class="ls-cards" id="ls-cards">
@@ -556,6 +650,12 @@ button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
         <span class="tb-greeting" id="tb-greeting">שלום, מורה!</span>
         <button class="btn-settings" onclick="openSettings()">⚙️ הגדרות מערכת</button>
       </div>
+    </div>
+
+    <!-- Teacher admin strip (only visible for teacher) -->
+    <div class="teacher-strip" id="teacher-strip">
+      <span class="teacher-strip-dot"></span>
+      <span id="teacher-strip-label">מרכז ניהול פעיל</span>
     </div>
 
     <div class="prog-banner" id="prog-banner">
@@ -873,6 +973,16 @@ function enterApp(role,name){
     document.getElementById('tb-title').textContent='לשון עברית — כיתה י׳';
   }
   document.getElementById('prog-banner').style.display=role==='teacher'?'none':'';
+  // Teacher admin strip
+  const strip=document.getElementById('teacher-strip');
+  if(strip){
+    if(role==='teacher'){
+      strip.classList.add('on');
+      document.getElementById('teacher-strip-label').textContent='שלום, '+name+' | מרכז ניהול פעיל — כל הכלים זמינים';
+    } else {
+      strip.classList.remove('on');
+    }
+  }
   render();
 }
 
@@ -1112,6 +1222,8 @@ function saveTeacherName(){
   document.getElementById('sm-name-text').textContent='שלום, '+val+'!';
   document.getElementById('tb-greeting').textContent='שלום, '+val+'!';
   document.getElementById('tb-title').textContent=val+' — מרכז ניהול';
+  const sl=document.getElementById('teacher-strip-label');
+  if(sl)sl.textContent='שלום, '+val+' | מרכז ניהול פעיל — כל הכלים זמינים';
   document.getElementById('u-name').textContent=val;
   const av=document.getElementById('u-av');av.textContent=val.trim()[0]||'מ';
   toast('✅ שם עודכן: '+val);
