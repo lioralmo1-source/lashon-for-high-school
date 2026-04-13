@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>מבוא למערכת הפועל – לשון Lesson</title>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&family=Secular+One&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --blue:         #1877f2;
+      --blue-dark:    #1251b5;
+      --blue-light:   #e7f0fd;
+      --yellow:       #fff8e1;
+      --yellow-border:#fbc02d;
+      --purple:       #f3e8ff;
+      --purple-border:#9333ea;
+      --card-shadow:  0 2px 12px rgba(0,0,0,0.07);
+    }
+    * { box-sizing: border-box; }
+    body { background:#f3f4f6; font-family:'Heebo',sans-serif; color:#1f2937; min-height:100vh; }
+    h1,h2,h3,.secular { font-family:'Secular One',sans-serif; }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      background:var(--blue); color:white;
+      padding:0.75rem 1.25rem;
+      display:flex; align-items:center; justify-content:space-between;
+      position:sticky; top:0; z-index:100;
+      box-shadow:0 2px 8px rgba(0,0,0,0.15);
+    }
+    .topbar-title { font-family:'Secular One',sans-serif; font-size:1.15rem; }
+    .topbar-sub   { font-size:0.78rem; opacity:0.85; }
+    .back-btn {
+      background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.35);
+      color:white; border-radius:8px; padding:0.35rem 0.85rem;
+      font-size:0.82rem; font-family:'Heebo',sans-serif;
+      cursor:pointer; text-decoration:none; transition:background 0.18s; white-space:nowrap;
+    }
+    .back-btn:hover { background:rgba(255,255,255,0.28); }
+
+    /* ── HERO ── */
+    .hero {
+      background:linear-gradient(135deg,#1877f2 0%,#1251b5 100%);
+      color:white; padding:2.2rem 1.5rem 2.5rem; text-align:center;
+    }
+    .hero-badge {
+      display:inline-block; background:rgba(255,255,255,0.18);
+      border:1px solid rgba(255,255,255,0.35); border-radius:20px;
+      font-size:0.78rem; padding:0.25rem 0.9rem; margin-bottom:0.75rem;
+    }
+    .hero h1 { font-size:clamp(1.5rem,5vw,2.2rem); margin:0 0 0.5rem; text-shadow:0 2px 8px rgba(0,0,0,0.18); }
+    .hero p  { font-size:0.95rem; opacity:0.88; max-width:500px; margin:0 auto; line-height:1.6; }
+
+    /* ── CONTENT ── */
+    .content-wrap { max-width:720px; margin:0 auto; padding:1.5rem 1rem 3rem; }
+
+    /* ── CARD ── */
+    .card { background:white; border-radius:16px; box-shadow:var(--card-shadow); padding:1.5rem; margin-bottom:1.25rem; }
+    .card-header { display:flex; align-items:center; gap:0.75rem; margin-bottom:1rem; }
+    .section-icon { font-size:1.35rem; flex-shrink:0; }
+    .section-num {
+      width:36px; height:36px; background:var(--blue); color:white;
+      border-radius:50%; display:flex; align-items:center; justify-content:center;
+      font-family:'Secular One',sans-serif; font-size:1rem; flex-shrink:0;
+    }
+    .card h2 { font-size:1.18rem; color:#1f2937; margin:0; }
+    .card p,.card li { font-size:0.93rem; line-height:1.75; color:#374151; }
+
+    /* ── NOTES ── */
+    .note-yellow {
+      background:var(--yellow); border-right:4px solid var(--yellow-border);
+      border-radius:10px; padding:0.9rem 1rem;
+      display:flex; gap:0.65rem; align-items:flex-start; margin-top:1rem;
+    }
+    .note-blue {
+      background:var(--blue-light); border-right:4px solid var(--blue);
+      border-radius:10px; padding:0.9rem 1rem; margin-top:1rem;
+    }
+    .note-purple {
+      background:var(--purple); border-right:4px solid var(--purple-border);
+      border-radius:10px; padding:0.9rem 1rem;
+      display:flex; gap:0.65rem; align-items:flex-start; margin-top:1rem;
+    }
+    .note-teal {
+      background:#e0f7fa; border-right:4px solid #0097a7;
+      border-radius:10px; padding:0.9rem 1rem;
+      display:flex; gap:0.65rem; align-items:flex-start; margin-top:1rem;
+    }
+    .note-icon { font-size:1.2rem; flex-shrink:0; margin-top:0.1rem; }
+    .note-text { font-size:0.88rem; line-height:1.65; color:#374151; }
+    .note-text strong { color:#92400e; }
+    .note-purple .note-text strong { color:#6b21a8; }
+
+    /* ── TENSE BAR ── */
+    .tense-bar { display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.5rem; margin:0.9rem 0; }
+    .tense-item { background:#f3f4f6; border-radius:10px; padding:0.7rem 0.5rem; text-align:center; }
+    .tense-label { font-size:0.75rem; color:#6b7280; margin-bottom:0.2rem; }
+    .tense-word  { font-family:'Secular One',sans-serif; font-size:1.05rem; color:#1877f2; }
+    .tense-arrow { display:flex; align-items:center; justify-content:center; gap:0.25rem; margin:0.25rem 0 0.5rem; color:#9ca3af; font-size:0.82rem; }
+
+    /* ── ROOT LETTERS ── */
+    .root-letters { display:flex; justify-content:center; gap:0.5rem; margin:0.5rem 0 1rem; }
+    .root-letter {
+      width:44px; height:44px; background:#1877f2; color:white;
+      border-radius:10px; display:flex; align-items:center; justify-content:center;
+      font-family:'Secular One',sans-serif; font-size:1.4rem;
+      box-shadow:0 3px 10px rgba(24,119,242,0.3);
+    }
+
+    /* ── WORD FAMILY ── */
+    .word-family { display:grid; grid-template-columns:repeat(2,1fr); gap:0.6rem; margin:1rem 0 0.5rem; }
+    @media(min-width:500px){ .word-family { grid-template-columns:repeat(4,1fr); } }
+    .wf-card {
+      background:#f8faff; border:1.5px solid #dbeafe;
+      border-radius:12px; padding:0.7rem 0.5rem; text-align:center;
+    }
+    .wf-word  { font-family:'Secular One',sans-serif; font-size:1.1rem; color:#1877f2; display:block; margin-bottom:0.15rem; }
+    .wf-type  { font-size:0.72rem; color:#6b7280; display:block; }
+    .wf-badge {
+      display:inline-block; font-size:0.68rem; background:#dbeafe; color:#1d4ed8;
+      border-radius:5px; padding:0.05rem 0.35rem; margin-bottom:0.2rem;
+    }
+
+    /* ── ROOT DEMO ── */
+    .root-demo { display:grid; grid-template-columns:repeat(3,1fr); gap:0.75rem; margin:1rem 0; }
+    @media(max-width:400px){ .root-demo { grid-template-columns:1fr; } }
+    .root-card {
+      background:#f0f5ff; border:1.5px solid #c7d9fb;
+      border-radius:12px; padding:0.85rem 0.75rem; text-align:center;
+      cursor:pointer; transition:transform 0.15s,box-shadow 0.15s,background 0.15s;
+    }
+    .root-card:hover,.root-card.active {
+      background:var(--blue); color:white;
+      transform:translateY(-3px); box-shadow:0 6px 18px rgba(24,119,242,0.25);
+    }
+    .root-card:hover .root-word,.root-card.active .root-word { color:white; }
+    .root-card:hover .root-label,.root-card.active .root-label { color:rgba(255,255,255,0.8); }
+    .root-word  { font-family:'Secular One',sans-serif; font-size:1.35rem; color:#1877f2; display:block; margin-bottom:0.2rem; }
+    .root-label { font-size:0.77rem; color:#6b7280; }
+
+    /* ── BINYAN PAIRS ── */
+    .pair-group { margin-bottom:1.1rem; }
+    .pair-label { font-size:0.75rem; font-weight:600; color:#6b7280; letter-spacing:0.05em; margin-bottom:0.4rem; padding-right:0.1rem; }
+    .binyan-pair { display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; }
+    .binyan-row {
+      display:flex; align-items:center; gap:0.6rem;
+      background:#f9fafb; border:1.5px solid #e5e7eb;
+      border-radius:10px; padding:0.65rem 0.9rem;
+      cursor:pointer; transition:background 0.15s,border-color 0.15s,transform 0.1s;
+    }
+    .binyan-row:hover           { background:var(--blue-light); border-color:#93b8f9; transform:translateY(-1px); }
+    .binyan-row.active          { background:var(--blue-light); border-color:#1877f2; }
+    .binyan-row.passive         { background:#f0fdf4; border-color:#bbf7d0; }
+    .binyan-row.passive:hover   { background:#dcfce7; border-color:#4ade80; transform:translateY(-1px); }
+    .binyan-row.passive.active  { background:#dcfce7; border-color:#16a34a; }
+    .binyan-row.solo            { background:#fdf4ff; border-color:#e9d5ff; }
+    .binyan-row.solo:hover      { background:#f3e8ff; border-color:#c084fc; transform:translateY(-1px); }
+    .binyan-row.solo.active     { background:#f3e8ff; border-color:#9333ea; }
+    .binyan-num {
+      width:24px; height:24px; background:var(--blue); color:white;
+      border-radius:6px; display:flex; align-items:center; justify-content:center;
+      font-size:0.75rem; font-weight:700; flex-shrink:0;
+    }
+    .passive .binyan-num { background:#16a34a; }
+    .solo    .binyan-num { background:#9333ea; }
+    .binyan-name    { font-family:'Secular One',sans-serif; font-size:0.95rem; flex:1; }
+    .binyan-example { font-size:0.78rem; color:#6b7280; background:#e5e7eb; border-radius:6px; padding:0.1rem 0.4rem; white-space:nowrap; }
+    .binyan-row:hover .binyan-example,.binyan-row.active .binyan-example { background:#c7d9fb; color:#1251b5; }
+    .passive:hover .binyan-example,.passive.active .binyan-example       { background:#bbf7d0; color:#166534; }
+    .solo:hover .binyan-example,.solo.active .binyan-example             { background:#e9d5ff; color:#6b21a8; }
+    .pair-connector { font-size:0.75rem; color:#9ca3af; margin:0.25rem 0; text-align:center; }
+    #binyanTooltip { display:none; }
+
+    /* ── QUIZ ── */
+    .quiz-card {
+      background:linear-gradient(135deg,#1877f2 0%,#1251b5 100%);
+      border-radius:16px; padding:1.5rem; margin-bottom:1.25rem; color:white;
+    }
+    .quiz-title    { font-family:'Secular One',sans-serif; font-size:1.05rem; margin-bottom:0.25rem; }
+    .quiz-question { font-size:0.95rem; opacity:0.92; margin-bottom:1.1rem; line-height:1.6; }
+    .quiz-options  { display:flex; flex-direction:column; gap:0.55rem; }
+    .quiz-opt {
+      background:rgba(255,255,255,0.14); border:1.5px solid rgba(255,255,255,0.3);
+      border-radius:10px; padding:0.7rem 1rem;
+      font-size:0.93rem; font-family:'Heebo',sans-serif; color:white;
+      cursor:pointer; text-align:right;
+      transition:background 0.15s,border-color 0.15s,transform 0.1s;
+    }
+    .quiz-opt:hover:not([disabled]) { background:rgba(255,255,255,0.25); border-color:white; transform:translateX(-2px); }
+    .quiz-opt.correct { background:#16a34a; border-color:#4ade80; cursor:default; }
+    .quiz-opt.wrong   { background:rgba(239,68,68,0.5); border-color:#f87171; cursor:default; }
+    .quiz-opt[disabled] { cursor:default; opacity:0.75; }
+    .quiz-feedback {
+      margin-top:1rem; background:rgba(255,255,255,0.15);
+      border-radius:10px; padding:0.8rem 1rem;
+      font-size:0.9rem; line-height:1.65; display:none;
+    }
+    .quiz-feedback.show { display:block; }
+
+    /* ── MISC ── */
+    .progress-wrap  { background:rgba(255,255,255,0.25); border-radius:8px; height:6px; overflow:hidden; }
+    .progress-bar   { height:100%; background:white; border-radius:8px; width:0%; transition:width 0.6s ease; }
+    .progress-label { font-size:0.75rem; opacity:0.8; margin-top:0.3rem; text-align:center; }
+    .finish-btn {
+      display:block; width:100%; max-width:400px; margin:0 auto;
+      background:var(--blue); color:white; border:none; border-radius:14px;
+      padding:1rem 1.5rem; font-family:'Secular One',sans-serif; font-size:1.1rem;
+      text-align:center; text-decoration:none; cursor:pointer;
+      box-shadow:0 4px 18px rgba(24,119,242,0.35);
+      transition:background 0.18s,transform 0.15s,box-shadow 0.15s;
+    }
+    .finish-btn:hover { background:#1251b5; transform:translateY(-2px); box-shadow:0 7px 22px rgba(24,119,242,0.4); }
+    .done-btn {
+      margin-top:1rem; font-size:0.85rem; font-weight:600; color:var(--blue);
+      background:transparent; border:none; cursor:pointer; padding:0;
+      text-decoration:underline; font-family:'Heebo',sans-serif;
+    }
+    .done-btn:disabled { color:#16a34a; cursor:default; }
+    .chip {
+      display:inline-block; background:var(--blue-light); color:var(--blue);
+      border-radius:6px; padding:0.1rem 0.5rem; font-size:0.82rem; font-weight:600;
+    }
+    .divider {
+      display:flex; align-items:center; gap:0.75rem;
+      color:#9ca3af; font-size:0.78rem; margin:0.75rem 0;
+    }
+    .divider::before,.divider::after { content:''; flex:1; height:1px; background:#e5e7eb; }
+  </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <div>
+    <div class="topbar-title">לשון Lesson</div>
+    <div class="topbar-sub">יחידה 1 · שיעור 0</div>
+  </div>
+  <a href="index.html" class="back-btn">← רשימת שיעורים</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">יחידה 1 — מערכת הפועל</div>
+  <h1>מבוא למערכת הפועל</h1>
+  <p>היסודות שכל דבר בנוי עליהם — שורש, בניין, וזמן</p>
+  <div class="progress-wrap" style="max-width:320px;margin:1.2rem auto 0.4rem;">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+  <div class="progress-label" id="progressLabel">0 מתוך 3 סעיפים הושלמו</div>
+</div>
+
+<div class="content-wrap">
+
+  <!-- ══ SECTION 1 — מהו פועל ══ -->
+  <div class="card" id="sec1">
+    <div class="card-header">
+      <span class="section-icon">⚡</span>
+      <div class="section-num">1</div>
+      <h2>מהו פועל?</h2>
+    </div>
+    <p>
+      הפועל הוא חלק הדיבר המרכזי בעברית. הוא מציין <strong>פעולה</strong> (כתב, רץ, אכל)
+      או <strong>מצב</strong> (ישן, חלם, היה). שלא כמו בחלקי דיבר אחרים,
+      הפועל תמיד ממוקם <span class="chip">בזמן</span>.
+    </p>
+    <div class="tense-bar">
+      <div class="tense-item"><div class="tense-label">⏮ עבר</div><div class="tense-word">כָּתַב</div></div>
+      <div class="tense-item"><div class="tense-label">▶ הווה</div><div class="tense-word">כּוֹתֵב</div></div>
+      <div class="tense-item"><div class="tense-label">⏭ עתיד</div><div class="tense-word">יִכְתֹּב</div></div>
+    </div>
+    <div class="tense-arrow"><span>⬅</span><span style="font-size:0.75rem;">ציר הזמן</span><span>➡</span></div>
+    <div class="note-yellow">
+      <span class="note-icon">💡</span>
+      <div class="note-text">
+        <strong>שימו לב:</strong> בניגוד לעברית המדוברת, בעברית הקלסית אין "הווה" עצמאי —
+        יש <em>בינוני</em> שפועל גם כשם עצם. אבל לצורך הבגרות: עבר, הווה, עתיד.
+      </div>
+    </div>
+    <button onclick="markDone(1)" id="btn1" class="done-btn">✓ סיימתי סעיף זה</button>
+  </div>
+
+  <!-- ══ SECTION 2 — השורש ══ -->
+  <div class="card" id="sec2">
+    <div class="card-header">
+      <span class="section-icon">🧬</span>
+      <div class="section-num">2</div>
+      <h2>השורש — לב המילה</h2>
+    </div>
+    <p>
+      השורש הוא <strong>ה"לב" של המילה העברית</strong> — קבוצת אותיות יסוד שנושאת את הרעיון הבסיסי.
+      חשוב להבין: השורש אינו שייך רק לפועל. הוא <em>משותף גם לשמות עצם, שמות תואר</em> וכל שאר הנגזרות.
+      כל המילים שחולקות שורש משתייכות ל<strong>משפחת מילים</strong> אחת.
+    </p>
+
+    <div class="divider">משפחת המילים של כ.ת.ב</div>
+    <div class="root-letters">
+      <div class="root-letter">כ</div>
+      <div class="root-letter">ת</div>
+      <div class="root-letter">ב</div>
+    </div>
+    <div class="word-family">
+      <div class="wf-card">
+        <span class="wf-badge">פועל</span>
+        <span class="wf-word">כָּתַב</span>
+        <span class="wf-type">ביצע פעולת כתיבה</span>
+      </div>
+      <div class="wf-card">
+        <span class="wf-badge">שם עצם</span>
+        <span class="wf-word">מִכְתָּב</span>
+        <span class="wf-type">מסמך כתוב</span>
+      </div>
+      <div class="wf-card">
+        <span class="wf-badge">שם עצם</span>
+        <span class="wf-word">כְּתוֹבֶת</span>
+        <span class="wf-type">מקום / כתובת</span>
+      </div>
+      <div class="wf-card">
+        <span class="wf-badge">שם עצם</span>
+        <span class="wf-word">מַכְתֵּבָה</span>
+        <span class="wf-type">שולחן כתיבה</span>
+      </div>
+    </div>
+
+    <div class="divider">כ.ת.ב בבניינים שונים</div>
+    <p style="font-size:0.88rem;color:#6b7280;margin-bottom:0.5rem;">לחצו על כרטיס כדי להדגיש:</p>
+    <div class="root-demo">
+      <div class="root-card" onclick="toggleRoot(this)">
+        <span class="root-word">כָּתַב</span>
+        <span class="root-label">קל · עבר</span>
+      </div>
+      <div class="root-card" onclick="toggleRoot(this)">
+        <span class="root-word">הִכְתִּיב</span>
+        <span class="root-label">הפעיל · הורה לכתוב</span>
+      </div>
+      <div class="root-card" onclick="toggleRoot(this)">
+        <span class="root-word">הִתְכַּתֵּב</span>
+        <span class="root-label">התפעל · חליפת מכתבים</span>
+      </div>
+    </div>
+    <div class="note-blue">
+      <div class="note-text">
+        🔍 <strong>שימו לב:</strong> כל המילים — פעלים ושמות כאחד — מכילות את האותיות <strong>כ–ת–ב</strong>.
+        הצורה שמסביבן (בניין / משקל) משנה את המשמעות ואת חלק הדיבר.
+      </div>
+    </div>
+
+    <!-- הידעת -->
+    <div class="note-purple">
+      <span class="note-icon">🌟</span>
+      <div class="note-text" style="color:#4c1d95;">
+        <strong>הידעת? — טיפ למצטיינים</strong><br>
+        רוב השורשים בעברית הם <strong>תלת-אותיים</strong> (3 אותיות), אך קיימים גם
+        <strong>שורשים מרובעים</strong> (4 אותיות), למשל:<br>
+        <span style="font-family:'Secular One',sans-serif;">ש.ל.ה.ב</span>
+        (שַׁלְהֶבֶת, לְשַׁלְהֵב) •
+        <span style="font-family:'Secular One',sans-serif;">ט.ל.פ.נ</span>
+        (טֵלֶפוֹן, לְטַלְפֵּן)
+      </div>
+    </div>
+
+    <button onclick="markDone(2)" id="btn2" class="done-btn">✓ סיימתי סעיף זה</button>
+  </div>
+
+  <!-- ══ SECTION 3 — הבניין ══ -->
+  <div class="card" id="sec3">
+    <div class="card-header">
+      <span class="section-icon">🏗️</span>
+      <div class="section-num">3</div>
+      <h2>הבניין — שבע תבניות</h2>
+    </div>
+    <p>
+      אם השורש הוא הלב, <strong>הבניין</strong> הוא הצורה שאליה יוצקים אותו.
+      בעברית יש <strong>שבעה בניינים</strong>. רובם מאורגנים ב<em>זוגות פעיל–סביל</em>:
+      הבניין הפעיל מתאר <em>מי שעושה</em> את הפעולה,
+      והסביל — <em>מי שנעשית לו</em> הפעולה.
+    </p>
+    <p style="font-size:0.85rem;color:#6b7280;margin-bottom:0.75rem;">לחצו על בניין לדוגמה עם ש.מ.ע:</p>
+
+    <!-- זוג א׳ -->
+    <div class="pair-group">
+      <div class="pair-label">⚔️ זוג א׳ — פעולה בסיסית</div>
+      <div class="binyan-pair">
+        <div class="binyan-row" onclick="selectBinyan(this,'שָׁמַע','שמע — עשה את הפעולה בעצמו (פעיל)')">
+          <div class="binyan-num">1</div>
+          <div class="binyan-name">קַל</div>
+          <div class="binyan-example">שָׁמַע</div>
+        </div>
+        <div class="binyan-row passive" onclick="selectBinyan(this,'נִשְׁמַע','נשמע — הפעולה נעשתה לו / ניתן לשמוע (סביל)')">
+          <div class="binyan-num">2</div>
+          <div class="binyan-name">נִפְעַל</div>
+          <div class="binyan-example">נִשְׁמַע</div>
+        </div>
+      </div>
+      <div class="pair-connector">🔵 פעיל &nbsp;⇄&nbsp; 🟢 סביל</div>
+    </div>
+
+    <!-- זוג ב׳ -->
+    <div class="pair-group">
+      <div class="pair-label">🔧 זוג ב׳ — פעולה סיבתית (גרימה)</div>
+      <div class="binyan-pair">
+        <div class="binyan-row" onclick="selectBinyan(this,'הִשְׁמִיעַ','השמיע — גרם לאחר לשמוע (פעיל סיבתי)')">
+          <div class="binyan-num">3</div>
+          <div class="binyan-name">הִפְעִיל</div>
+          <div class="binyan-example">הִשְׁמִיעַ</div>
+        </div>
+        <div class="binyan-row passive" onclick="selectBinyan(this,'הוּשְׁמַע','הושמע — הוגרם לשמוע, הושמע לאוזן (סביל של הפעיל)')">
+          <div class="binyan-num">4</div>
+          <div class="binyan-name">הוּפְעַל</div>
+          <div class="binyan-example">הוּשְׁמַע</div>
+        </div>
+      </div>
+      <div class="pair-connector">🔵 פעיל &nbsp;⇄&nbsp; 🟢 סביל</div>
+    </div>
+
+    <!-- זוג ג׳ -->
+    <div class="pair-group">
+      <div class="pair-label">🔁 זוג ג׳ — פעולה מוגברת / חוזרת</div>
+      <div class="binyan-pair">
+        <div class="binyan-row" onclick="selectBinyan(this,'שִׁמֵּעַ','שימע — הכריז, הפיץ שמועה; פעולה מוגברת (פעיל)')">
+          <div class="binyan-num">5</div>
+          <div class="binyan-name">פִּיעֵל</div>
+          <div class="binyan-example">שִׁמֵּעַ</div>
+        </div>
+        <div class="binyan-row passive" onclick="selectBinyan(this,'שֻׁמַּע','שומע — הוכרז, הופץ (סביל של פיעל)')">
+          <div class="binyan-num">6</div>
+          <div class="binyan-name">פֻּעַל</div>
+          <div class="binyan-example">שֻׁמַּע</div>
+        </div>
+      </div>
+      <div class="pair-connector">🔵 פעיל &nbsp;⇄&nbsp; 🟢 סביל</div>
+    </div>
+
+    <!-- התפעל — יחיד -->
+    <div class="pair-group">
+      <div class="pair-label">🔮 עצמאי — פעולה עצמית / הדדית</div>
+      <div style="max-width:260px;">
+        <div class="binyan-row solo" onclick="selectBinyan(this,'הִתְשַׁמֵּעַ','התשמע (פיוטי) — הגיע לאוזניים מעצמו; פעולה עצמית / הדדית')">
+          <div class="binyan-num">7</div>
+          <div class="binyan-name">הִתְפַּעֵל</div>
+          <div class="binyan-example">הִתְשַׁמֵּעַ</div>
+        </div>
+      </div>
+      <div style="font-size:0.78rem;color:#9333ea;margin-top:0.35rem;">
+        🟣 הבניין השביעי — עצמאי, ללא זוג סביל קבוע
+      </div>
+    </div>
+
+    <!-- Tooltip -->
+    <div id="binyanTooltip" class="note-blue">
+      <div class="note-text" id="binyanTooltipText"></div>
+    </div>
+
+    <button onclick="markDone(3)" id="btn3" class="done-btn">✓ סיימתי סעיף זה</button>
+  </div>
+
+  <!-- ══ KEY INSIGHT ══ -->
+  <div class="card" style="background:#fffbeb;border:1.5px solid #fde68a;">
+    <div style="display:flex;gap:0.75rem;align-items:flex-start;">
+      <div style="font-size:1.6rem;">🔑</div>
+      <div>
+        <div style="font-family:'Secular One',sans-serif;font-size:1rem;margin-bottom:0.35rem;color:#92400e;">
+          העיקרון הגדול
+        </div>
+        <p style="font-size:0.9rem;line-height:1.75;color:#78350f;margin:0;">
+          בעברית <strong>אי-אפשר ליצור פועל</strong> בלי שני רכיבים יחד:
+          <span class="chip" style="background:#fef3c7;color:#b45309;">שורש</span> +
+          <span class="chip" style="background:#fef3c7;color:#b45309;">בניין</span>.
+          השורש נותן את הרעיון, והבניין נותן לו צורה, גוון ומשמעות דקדוקית.
+          בלי אחד מהם — אין פועל.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ MINI QUIZ ══ -->
+  <div class="quiz-card">
+    <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.6rem;">
+      <span style="font-size:1.4rem;">🎯</span>
+      <div class="quiz-title">תרגול מהיר — בדקו את עצמכם</div>
+    </div>
+    <div class="quiz-question">
+      איזו מילה מהמילים הבאות <strong>שייכת לשורש ס.פ.ר</strong>?
+    </div>
+    <div class="quiz-options">
+      <button class="quiz-opt" onclick="answerQuiz(this,false)">מִסְפָּר</button>
+      <button class="quiz-opt" onclick="answerQuiz(this,false)">סִפֵּר</button>
+      <button class="quiz-opt" onclick="answerQuiz(this,false)">סִפְרִיָּה</button>
+      <button class="quiz-opt" onclick="answerQuiz(this,true)">כל התשובות נכונות ✓</button>
+    </div>
+    <div class="quiz-feedback" id="quizFeedback"></div>
+  </div>
+
+  <!-- ══ FINISH ══ -->
+  <div style="text-align:center;margin-top:2rem;">
+    <a href="index.html" class="finish-btn">✓ סיימתי — חזרה לרשימת השיעורים</a>
+    <p style="font-size:0.78rem;color:#9ca3af;margin-top:0.75rem;">השיעור הבא: מבנה הפועל בזמן עבר</p>
+  </div>
+
+</div><!-- /content-wrap -->
+
+<script>
+  /* ── PROGRESS ── */
+  const done = {1:false,2:false,3:false};
+  function markDone(n){
+    done[n]=true;
+    const b=document.getElementById('btn'+n);
+    b.textContent='✅ הושלם!'; b.style.color='#16a34a'; b.disabled=true;
+    updateProgress();
+  }
+  function updateProgress(){
+    const c=Object.values(done).filter(Boolean).length;
+    document.getElementById('progressBar').style.width=Math.round(c/3*100)+'%';
+    document.getElementById('progressLabel').textContent=c+' מתוך 3 סעיפים הושלמו';
+  }
+
+  /* ── ROOT TOGGLE ── */
+  function toggleRoot(el){
+    const was=el.classList.contains('active');
+    document.querySelectorAll('.root-card').forEach(c=>c.classList.remove('active'));
+    if(!was) el.classList.add('active');
+  }
+
+  /* ── BINYAN ── */
+  let activeBinyan=null;
+  function selectBinyan(el,word,expl){
+    if(activeBinyan) activeBinyan.classList.remove('active');
+    activeBinyan=el; el.classList.add('active');
+    const tip=document.getElementById('binyanTooltip');
+    document.getElementById('binyanTooltipText').innerHTML='📖 <strong>'+word+'</strong> — '+expl;
+    tip.style.display='block';
+  }
+
+  /* ── QUIZ ── */
+  let quizDone=false;
+  function answerQuiz(btn,correct){
+    if(quizDone) return;
+    quizDone=true;
+    document.querySelectorAll('.quiz-opt').forEach(b=>{b.disabled=true;});
+    // Always show the correct option (index 3)
+    document.querySelectorAll('.quiz-opt')[3].classList.add('correct');
+    if(!correct) btn.classList.add('wrong');
+    const fb=document.getElementById('quizFeedback');
+    fb.classList.add('show');
+    if(correct){
+      fb.innerHTML='🎉 <strong>מצוין!</strong> אכן, כל שלוש המילים שייכות לשורש ס.פ.ר:<br>'
+        +'<strong>מִסְפָּר</strong> (שם עצם — ספרה, כמות) · '
+        +'<strong>סִפֵּר</strong> (פועל פיעל — מסר סיפור) · '
+        +'<strong>סִפְרִיָּה</strong> (שם עצם — מקום שמירת ספרים).<br>'
+        +'שורש אחד — משפחת מילים שלמה! 📚';
+    } else {
+      fb.innerHTML='💭 <strong>כמעט!</strong> כל שלוש המילים נגזרות מס.פ.ר — '
+        +'לכן "כל התשובות נכונות" היא התשובה הנכונה.<br>'
+        +'<strong>מִסְפָּר</strong> · <strong>סִפֵּר</strong> · <strong>סִפְרִיָּה</strong> — '
+        +'זה בדיוק הכוח של משפחת המילים! 📚';
+    }
+  }
+</script>
+</body>
+</html>
