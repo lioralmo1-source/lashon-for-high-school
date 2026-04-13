@@ -405,9 +405,9 @@ button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
 ══════════════════════════════════════ */
 .lesson-row{
   display:flex;align-items:center;gap:.65rem;
-  padding:.72rem 1.1rem;border-bottom:1px solid var(--border);
+  padding:.68rem 1.1rem;border-bottom:1px solid var(--border);
   transition:background .12s;position:relative;
-  min-height:64px;
+  min-height:60px;
 }
 .lesson-row:last-child{border-bottom:none;}
 .lesson-row:not(.locked):hover{background:#f5f8ff;}
@@ -419,11 +419,13 @@ button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
 }
 .lr-em{width:34px;height:34px;border-radius:9px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.95rem;box-shadow:0 1px 5px rgba(0,0,0,.07);}
 .lr-info{flex:1;min-width:0;}
-/* Desktop: lr-top-mob is invisible wrapper — does not break flex layout */
+/* Desktop: lr-top-mob and lr-bar are invisible containers — children exposed directly */
 .lr-top-mob{display:contents;}
+.lr-bar    {display:contents;}
+/* ↑ These are overridden to display:flex inside the mobile media query below */
 .lr-short{font-size:.58rem;font-weight:800;color:var(--subtle);text-transform:uppercase;letter-spacing:.06em;}
 .lr-title{font-size:.86rem;font-weight:700;line-height:1.3;margin-top:1px;word-break:break-word;overflow-wrap:anywhere;}
-.lr-desc {font-size:.7rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px;}
+.lr-desc {font-size:.68rem;color:#9ca3af;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px;}
 .lr-right{display:flex;align-items:center;gap:.45rem;flex-shrink:0;}
 .lr-mins {font-size:.63rem;color:var(--subtle);white-space:nowrap;}
 
@@ -434,61 +436,80 @@ button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
 .ch-done {background:var(--blue-lt);color:var(--blue);}
 .ch-exam {background:var(--amber-lt);color:var(--amber);}
 
-/* Actions */
-.lr-actions{display:flex;align-items:center;gap:.35rem;flex-shrink:0;}
+/* Actions — desktop */
+.lr-actions{display:flex;align-items:center;gap:.3rem;flex-shrink:0;}
 .btn-main{
   display:inline-flex;align-items:center;gap:.28rem;
-  padding:.44rem .95rem;border:none;border-radius:8px;
+  padding:.42rem .9rem;border:none;border-radius:8px;
   font-size:.78rem;font-weight:700;cursor:pointer;
   white-space:nowrap;transition:all .14s;text-decoration:none;
-  min-height:44px;
+  min-height:40px;
 }
 .btn-main.prim {background:var(--blue);color:#fff;}
-.btn-main.prim:hover {background:#1648b8;box-shadow:0 2px 8px rgba(26,86,219,.3);}
+.btn-main.prim:hover{background:#1648b8;box-shadow:0 2px 8px rgba(26,86,219,.3);}
 .btn-main.exam {background:var(--amber);color:#fff;}
 .btn-main.exam:hover{filter:brightness(.92);}
 .btn-main.ghost{background:var(--bg);color:var(--text);border:1px solid var(--border);}
 .btn-main.ghost:hover{background:var(--border);}
 .btn-main.dis  {background:var(--bg);color:var(--subtle);border:1px solid var(--border);cursor:not-allowed;}
 
-/* Teacher mini-buttons */
+/* Teacher mini-buttons — desktop: text + icon */
 .btn-t{
   display:inline-flex;align-items:center;gap:.22rem;
   padding:.38rem .72rem;border:none;border-radius:7px;
   font-size:.7rem;font-weight:700;cursor:pointer;
   white-space:nowrap;transition:all .14s;text-decoration:none;
-  min-height:44px;
+  min-height:40px;
 }
 .btn-t.sol  {background:var(--purple-lt);color:var(--purple);}
-.btn-t.sol:hover {background:#ede9fe;}
+.btn-t.sol:hover{background:#ede9fe;}
 .btn-t.guide{background:var(--amber-lt);color:var(--amber);}
 .btn-t.guide:hover{background:#fde68a;}
 .btn-t.prev {background:var(--bg);color:var(--muted);border:1px solid var(--border);}
 .btn-t.prev:hover{background:var(--border);}
 .btn-t-sep  {width:1px;height:16px;background:var(--border);flex-shrink:0;}
 
-/* Inline lock toggle (teacher) */
-.lr-lock-wrap{display:flex;align-items:center;gap:.35rem;flex-shrink:0;}
-.lr-lock-label{font-size:.6rem;color:var(--muted);white-space:nowrap;}
+/* Icon-only circular buttons */
+.btn-icon{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:34px;height:34px;border:none;border-radius:50%;
+  font-size:.95rem;cursor:pointer;text-decoration:none;
+  background:#f1f3f5;color:var(--muted);
+  transition:background .14s,transform .1s;
+  flex-shrink:0;
+}
+.btn-icon:hover {background:#e2e8f0;}
+.btn-icon:active{transform:scale(.9);}
+.btn-icon.sol  {background:#f5f3ff;color:var(--purple);}
+.btn-icon.sol:hover{background:#ede9fe;}
+.btn-icon.guide{background:#fffbeb;color:var(--amber);}
+.btn-icon.guide:hover{background:#fef3c7;}
+.btn-icon.prev {background:#f1f3f5;color:var(--muted);}
+.btn-icon.prev:hover{background:#e2e8f0;}
 
+/* Inline lock toggle (teacher) */
+.lr-lock-wrap{display:flex;align-items:center;gap:.3rem;flex-shrink:0;}
+.lr-lock-label{font-size:.58rem;color:var(--muted);white-space:nowrap;}
+
+/* Slim toggle — 36×20px */
 .lr-toggle{
-  position:relative;width:44px;height:26px;
+  position:relative;width:36px;height:20px;
   cursor:pointer;display:inline-block;flex-shrink:0;
 }
 .lr-toggle input{opacity:0;width:0;height:0;position:absolute;}
 .lr-slider{
   position:absolute;inset:0;background:#c7cdd6;
   border-radius:999px;transition:background .22s cubic-bezier(.4,0,.2,1);
-  cursor:pointer;box-shadow:inset 0 1px 2px rgba(0,0,0,.15);
+  cursor:pointer;box-shadow:inset 0 1px 2px rgba(0,0,0,.14);
 }
 .lr-slider::before{
-  content:'';position:absolute;width:20px;height:20px;border-radius:50%;
-  background:#fff;top:3px;right:21px;
-  transition:transform .22s cubic-bezier(.4,0,.2,1),right .22s cubic-bezier(.4,0,.2,1);
-  box-shadow:0 2px 6px rgba(0,0,0,.22),0 0 0 1px rgba(0,0,0,.06);
+  content:'';position:absolute;width:16px;height:16px;border-radius:50%;
+  background:#fff;top:2px;right:18px;
+  transition:right .22s cubic-bezier(.4,0,.2,1);
+  box-shadow:0 1px 4px rgba(0,0,0,.2);
 }
-.lr-toggle input:checked + .lr-slider{background:var(--green);box-shadow:inset 0 1px 2px rgba(21,128,61,.25);}
-.lr-toggle input:checked + .lr-slider::before{right:3px;}
+.lr-toggle input:checked + .lr-slider{background:var(--green);}
+.lr-toggle input:checked + .lr-slider::before{right:2px;}
 .lr-toggle input:focus-visible + .lr-slider{outline:2px solid var(--blue);outline-offset:2px;}
 
 .done-stamp{font-size:.6rem;font-weight:700;color:var(--blue);background:var(--blue-lt);border-radius:999px;padding:.1rem .45rem;white-space:nowrap;}
@@ -621,76 +642,87 @@ button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
   #settings-overlay{padding-top:0;padding-left:0;padding-right:0;align-items:flex-end;}
   #settings-modal{max-width:100%;border-radius:20px 20px 0 0;max-height:90vh;}
 
-  /* LESSON ROW: vertical card layout */
+  /* ════════════════════════════════════════
+     LESSON ROW — mobile (stacked, two rows)
+     ════════════════════════════════════════
+     Structure produced by buildLessonRow():
+       .lesson-row
+         .lr-top-mob   ← row 1: [icon] [text]
+         .lr-bar        ← row 2: [chip+time] ··· [actions] [toggle]
+  ═══════════════════════════════════════ */
   .lesson-row{
-    flex-direction:column;
-    align-items:stretch;
-    gap:0;
-    padding:1rem 1rem .85rem;
-    min-height:unset;
+    flex-direction : column;
+    align-items    : stretch;
+    padding        : .72rem .9rem .6rem;
+    gap            : 0;
+    min-height     : unset;
   }
 
-  /* Top section: icon + text, always 100% width */
+  /* ── Row 1: icon + text block ── */
   .lr-top-mob{
-    display:flex;
-    align-items:flex-start;
-    gap:.6rem;
-    width:100%;
-    margin-bottom:.5rem;
+    display        : flex !important;   /* beats display:contents */
+    align-items    : flex-start;
+    gap            : .5rem;
+    width          : 100%;
+    margin-bottom  : .36rem;
   }
-  .lr-em{flex-shrink:0;width:36px;height:36px;margin-top:.1rem;}
-  .lr-info{flex:1;min-width:0;width:100%;}
-  .lr-title{white-space:normal;word-break:break-word;overflow-wrap:break-word;font-size:.88rem;line-height:1.35;}
+  .lr-em{
+    width:30px; height:30px;
+    margin-top:.1rem; font-size:.85rem; flex-shrink:0;
+  }
+  .lr-info{ flex:1; min-width:0; }
+  .lr-short{ font-size:.55rem; }
+  .lr-title{
+    font-size:.84rem; font-weight:700; line-height:1.32;
+    white-space:normal; word-break:break-word; overflow-wrap:anywhere;
+  }
   .lr-desc{
+    font-size:.63rem; color:#9ca3af;
     white-space:normal;
-    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
-    overflow:hidden;font-size:.7rem;margin-top:.2rem;
-    word-break:break-word;
+    display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical;
+    overflow:hidden; margin-top:.12rem;
   }
 
-  /* Chips + time row */
+  /* ── Row 2: actions bar ── */
+  .lr-bar{
+    display        : flex !important;   /* beats display:contents */
+    align-items    : center;
+    gap            : .28rem;
+    width          : 100%;
+    border-top     : 1px solid var(--border);
+    padding-top    : .38rem;
+  }
+  /* chips + time: take remaining space */
   .lr-right{
-    display:flex;align-items:center;
-    flex-wrap:wrap;gap:.35rem;
-    margin-bottom:.55rem;
+    display:flex; align-items:center;
+    gap:.22rem; flex:1; min-width:0;
+    flex-wrap:nowrap; overflow:hidden;
   }
+  .lr-mins{ font-size:.57rem; }
 
-  /* Action bar: separator line + buttons fill the row */
+  /* action buttons: margin-right:auto pushes them to visual-left in RTL */
   .lr-actions{
-    display:flex;align-items:center;
-    flex-wrap:wrap;gap:.4rem;width:100%;
-    border-top:1px solid var(--border);
-    padding-top:.6rem;
-    margin-top:.1rem;
+    display:flex; align-items:center;
+    gap:.2rem; flex-shrink:0;
+    margin-right:auto;
   }
   .lr-actions .btn-main{
-    flex:1;justify-content:center;
-    min-height:46px;font-size:.82rem;
+    min-height:30px; font-size:.73rem;
+    padding:.22rem .65rem; border-radius:6px;
   }
-  .lr-actions .btn-t{
-    flex:1;justify-content:center;
-    min-height:44px;font-size:.74rem;padding:.4rem .5rem;
-  }
-  /* Hide verbose separator between teacher buttons on mobile */
-  .lr-actions .btn-t-sep{display:none;}
 
-  /* Lock toggle: its own full-width bar, prominent and tappable */
+  /* icon circles: 28px on mobile */
+  .btn-icon{ width:28px; height:28px; font-size:.8rem; }
+
+  /* toggle: 80% size, anchored to its right edge (RTL "left") */
   .lr-lock-wrap{
-    display:flex;align-items:center;
-    justify-content:space-between;
-    gap:.5rem;width:100%;
-    background:var(--bg);border:1px solid var(--border);
-    border-radius:9px;padding:.5rem .75rem;
-    margin-top:.55rem;
+    display:flex; align-items:center;
+    gap:.2rem; flex-shrink:0;
+    background:none; border:none; padding:0;
+    transform:scale(.8);
+    transform-origin:left center;
   }
-  .lr-lock-label{
-    display:block;
-    font-size:.78rem;font-weight:700;color:var(--muted);
-  }
-  /* Make toggle thumb bigger for fat fingers */
-  .lr-toggle{width:50px;height:28px;}
-  .lr-slider::before{width:22px;height:22px;right:25px;}
-  .lr-toggle input:checked + .lr-slider::before{right:3px;}
+  .lr-lock-label{ font-size:.58rem; color:var(--subtle); }
 
   #toast{bottom:1.8rem;right:.9rem;left:.9rem;text-align:center;}
 }
@@ -1273,13 +1305,12 @@ function buildLessonRow(l,isT){
       </div>`;
 
     if(locked){
-      actions=`<a href="${tUrl}" class="btn-t guide" target="_blank">📋 טיוטה</a>`;
+      actions=`<a href="${tUrl}" class="btn-icon guide" target="_blank" title="טיוטה">📋</a>`;
     }else{
       actions=`
-        <a href="${tUrl}" class="btn-t sol"   target="_blank" title="פתרונות ומפתח">🔑 פתרונות</a>
-        <a href="${tUrl}" class="btn-t guide" target="_blank" title="מדריך למורה">📋 מדריך</a>
-        <span class="btn-t-sep"></span>
-        <a href="${sUrl}" class="btn-t prev"  target="_blank" title="צפה כתלמיד">👁</a>`;
+        <a href="${tUrl}" class="btn-icon sol"  target="_blank" title="פתרונות ומפתח">🔑</a>
+        <a href="${tUrl}" class="btn-icon guide" target="_blank" title="מדריך למורה">📖</a>
+        <a href="${sUrl}" class="btn-icon prev"  target="_blank" title="צפה כתלמיד">👁️</a>`;
     }
   }
 
@@ -1293,13 +1324,15 @@ function buildLessonRow(l,isT){
       <div class="lr-desc">${l.desc}</div>
     </div>
   </div>
-  <div class="lr-right">
-    ${chip}
-    <span class="lr-mins">⏱ ${l.mins}′</span>
-    ${done&&dDate?`<span class="done-stamp">✓ ${dDate}</span>`:''}
+  <div class="lr-bar">
+    <div class="lr-right">
+      ${chip}
+      <span class="lr-mins">⏱ ${l.mins}′</span>
+      ${done&&dDate?`<span class="done-stamp">✓ ${dDate}</span>`:''}
+    </div>
+    <div class="lr-actions">${actions}</div>
+    ${lockToggle}
   </div>
-  <div class="lr-actions">${actions}</div>
-  ${lockToggle}
 </div>`;
 }
 
