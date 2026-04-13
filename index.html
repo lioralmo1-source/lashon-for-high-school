@@ -419,6 +419,8 @@ button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
 }
 .lr-em{width:34px;height:34px;border-radius:9px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.95rem;box-shadow:0 1px 5px rgba(0,0,0,.07);}
 .lr-info{flex:1;min-width:0;}
+/* Desktop: lr-top-mob is invisible wrapper — does not break flex layout */
+.lr-top-mob{display:contents;}
 .lr-short{font-size:.58rem;font-weight:800;color:var(--subtle);text-transform:uppercase;letter-spacing:.06em;}
 .lr-title{font-size:.86rem;font-weight:700;line-height:1.3;margin-top:1px;word-break:break-word;overflow-wrap:break-word;}
 .lr-desc {font-size:.7rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px;}
@@ -593,6 +595,7 @@ button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
 #sb-backdrop.show{display:block;}
 
 @media(max-width:660px){
+  /* Hamburger & Sidebar drawer */
   .btn-hamburger{display:flex;}
   .sidebar{
     position:fixed;top:0;right:0;height:100%;z-index:100;
@@ -600,33 +603,85 @@ button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
     box-shadow:-4px 0 24px rgba(0,0,0,.18);
   }
   .sidebar.open{transform:translateX(0);}
-
   #app.on{display:block;}
   .main{min-height:100vh;}
 
+  /* Login screen */
   .ls-header{margin-bottom:1.6rem;}
   .lc{padding:2.2rem 1.5rem 1.9rem;min-height:160px;}
   .lc-icon{font-size:2.8rem;margin-bottom:.7rem;}
 
-  .units-wrap{padding:.75rem;}
+  /* Layout */
+  .units-wrap{padding:.6rem;}
   .prog-banner{padding:.75rem 1rem;}
-
-  .lr-desc{
-    white-space:normal;overflow:visible;text-overflow:clip;
-    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
-    overflow:hidden;font-size:.65rem;
-  }
-
-  #settings-overlay{padding-top:0;padding-left:0;padding-right:0;align-items:flex-end;}
-  #settings-modal{max-width:100%;border-radius:20px 20px 0 0;max-height:90vh;}
   .topbar{padding:.6rem .9rem;gap:.5rem;}
   .tb-greeting{font-size:.75rem;padding:.28rem .75rem;}
   .btn-settings{font-size:.72rem;padding:.28rem .65rem;min-height:44px;}
-  .lr-lock-label{display:none;}
   .tb-sub{display:none;}
-  .lesson-row{gap:.45rem;padding:.6rem .8rem;min-height:60px;}
-  .lr-right{gap:.28rem;}
-  .lr-actions{flex-wrap:wrap;gap:.28rem;}
+  #settings-overlay{padding-top:0;padding-left:0;padding-right:0;align-items:flex-end;}
+  #settings-modal{max-width:100%;border-radius:20px 20px 0 0;max-height:90vh;}
+
+  /* LESSON ROW: vertical card layout */
+  .lesson-row{
+    flex-direction:column;
+    align-items:stretch;
+    gap:0;
+    padding:.8rem .9rem .7rem;
+    min-height:unset;
+  }
+
+  /* Top section: icon + text, always 100% width */
+  .lr-top-mob{
+    display:flex;
+    align-items:flex-start;
+    gap:.6rem;
+    width:100%;
+    margin-bottom:.48rem;
+  }
+  .lr-em{flex-shrink:0;width:34px;height:34px;margin-top:.1rem;}
+  .lr-info{flex:1;min-width:0;width:100%;}
+  .lr-title{white-space:normal;word-break:break-word;overflow-wrap:break-word;font-size:.85rem;}
+  .lr-desc{
+    white-space:normal;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+    overflow:hidden;font-size:.68rem;margin-top:.18rem;
+  }
+
+  /* Chips + time row */
+  .lr-right{
+    display:flex;align-items:center;
+    flex-wrap:wrap;gap:.35rem;
+    margin-bottom:.48rem;
+  }
+
+  /* Action bar: buttons fill the row */
+  .lr-actions{
+    display:flex;align-items:center;
+    flex-wrap:wrap;gap:.4rem;width:100%;
+  }
+  .lr-actions .btn-main{
+    flex:1;justify-content:center;
+    min-height:44px;font-size:.8rem;
+  }
+  .lr-actions .btn-t{
+    flex:1;justify-content:center;
+    min-height:42px;font-size:.72rem;padding:.38rem .5rem;
+  }
+
+  /* Lock toggle: its own full-width bar */
+  .lr-lock-wrap{
+    display:flex;align-items:center;
+    justify-content:space-between;
+    gap:.4rem;width:100%;
+    background:var(--bg);border:1px solid var(--border);
+    border-radius:8px;padding:.38rem .65rem;
+    margin-top:.44rem;
+  }
+  .lr-lock-label{
+    display:block;
+    font-size:.74rem;font-weight:700;color:var(--muted);
+  }
+
   #toast{bottom:1.8rem;right:.9rem;left:.9rem;text-align:center;}
 }
 </style>
@@ -1220,19 +1275,21 @@ function buildLessonRow(l,isT){
 
   return`
 <div class="lesson-row${locked?' locked':''}" style="--lr-color:${l.color}">
-  <div class="lr-em" style="background:${l.color}18">${l.emoji}</div>
-  <div class="lr-info">
-    <div class="lr-short">${l.short}</div>
-    <div class="lr-title">${l.title}</div>
-    <div class="lr-desc">${l.desc}</div>
+  <div class="lr-top-mob">
+    <div class="lr-em" style="background:${l.color}18">${l.emoji}</div>
+    <div class="lr-info">
+      <div class="lr-short">${l.short}</div>
+      <div class="lr-title">${l.title}</div>
+      <div class="lr-desc">${l.desc}</div>
+    </div>
   </div>
   <div class="lr-right">
     ${chip}
     <span class="lr-mins">⏱ ${l.mins}′</span>
     ${done&&dDate?`<span class="done-stamp">✓ ${dDate}</span>`:''}
   </div>
-  ${lockToggle}
   <div class="lr-actions">${actions}</div>
+  ${lockToggle}
 </div>`;
 }
 
