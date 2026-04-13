@@ -514,6 +514,34 @@ button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
 
 .done-stamp{font-size:.6rem;font-weight:700;color:var(--blue);background:var(--blue-lt);border-radius:999px;padding:.1rem .45rem;white-space:nowrap;}
 
+/* ── Exam row — visual distinction ── */
+.lesson-row.exam-row{
+  background:linear-gradient(to left,#eff6ff 0%,#fff 55%);
+}
+.lesson-row.exam-row:not(.locked):hover{
+  background:linear-gradient(to left,#dbeafe 0%,#f5f8ff 55%);
+}
+/* Amber accent stripe on right — separate from the ::after color bar */
+.lesson-row.exam-row::before{
+  content:'';position:absolute;top:6px;bottom:6px;right:0;
+  width:3px;border-radius:999px;
+  background:var(--blue);opacity:.5;
+}
+/* Override the generic ::after so it doesn't double-draw */
+.lesson-row.exam-row::after{ background:transparent; }
+
+/* "משימת סיכום" badge — blue-dark */
+.exam-label{
+  display:inline-flex;align-items:center;gap:.25rem;
+  font-size:.54rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  color:#1e40af;background:#dbeafe;
+  border:1px solid #93c5fd;border-radius:4px;
+  padding:.1rem .42rem;margin-bottom:.22rem;
+}
+/* Sol (answer key) icon button — exam specific */
+.btn-icon.sol-exam{background:#dbeafe;color:#1e40af;}
+.btn-icon.sol-exam:hover{background:#bfdbfe;}
+
 /* Toast */
 #toast{
   position:fixed;bottom:1.3rem;right:1.3rem;z-index:9999;
@@ -719,7 +747,7 @@ button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
     display:flex; align-items:center;
     gap:.2rem; flex-shrink:0;
     background:none; border:none; padding:0;
-    transform:scale(.8);
+    transform:scale(.75);
     transform-origin:left center;
   }
   .lr-lock-label{ font-size:.58rem; color:var(--subtle); }
@@ -921,8 +949,7 @@ button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
 const DEFAULT_PASS='1234';
 
 /* ════════════════════════
-   DATA — שיעור 0 ביחידה 1: isLocked:false (explicit)
-         שיעור 1 ביחידה 3: מקושר ל-unit3_lesson1_shelamim_v3.html, פתוח
+   DATA
 ════════════════════════ */
 const UNITS=[
   {
@@ -947,9 +974,9 @@ const UNITS=[
       {id:'u1_l5',short:'שיעור 5',emoji:'🏙️',color:'#b45309',mins:45,locked:false,exam:false,
        title:'סיכום + מרובעים',desc:'חזרה על שבעת הבניינים ושורשים מרובעים',
        file:'lesson5_summary_mruba_v3.html'},
-      {id:'u1_exam',short:'מבחן',emoji:'🎯',color:'#c9a227',mins:45,locked:false,exam:true,
-       title:'מבחן יחידה 1',desc:'מבחן מסכם על כל הבניינים',
-       file:'lesson6_bagrut_exam_v3.html'},
+      {id:'u1_exam',short:'מבחן סיכום',emoji:'🎯',color:'#c9a227',mins:45,locked:false,exam:true,
+       title:'מבחן סיכום יחידה 1',desc:'מבחן מסכם — מערכת הפועל ושבעת הבניינים',
+       file:'lesson6_bagrut_exam_v3.html',solFile:'lesson6_bagrut_exam_v3.html?sol=1'},
     ]
   },
   {
@@ -970,9 +997,9 @@ const UNITS=[
       {id:'u2_l5',short:'סיכום',emoji:'⭐',color:'#1a7a3c',mins:45,locked:false,exam:false,
        title:'סיכום יחידה 2',desc:'חזרה מקיפה על כל נושאי מערכת השם',
        file:'unit2_lesson5_summary_v3.html'},
-      {id:'u2_exam',short:'מבחן',emoji:'📝',color:'#c9a227',mins:40,locked:false,exam:true,
+      {id:'u2_exam',short:'מבחן סיכום',emoji:'📝',color:'#c9a227',mins:40,locked:false,exam:true,
        title:'מבחן סיכום יחידה 2',desc:'מבחן מסכם — מערכת השם',
-       file:'unit2_exam_v3.html'},
+       file:'unit2_exam_v3.html',solFile:'unit2_exam_v3.html?sol=1'},
     ]
   },
   {
@@ -1272,11 +1299,15 @@ function buildLessonRow(l,isT){
   const dDate =S.prog[l.id]?.date||'';
   const sUrl  =l.file+'?role=student';
   const tUrl  =isT?l.file+'?role=teacher':null;
+  const solUrl=l.solFile||(isT?l.file+'?role=teacher':null); // solution file (separate or fallback)
 
   const chip=locked?'<span class="chip ch-lock">🔒 בהכנה</span>'
             :l.exam ?'<span class="chip ch-exam">📝 מבחן</span>'
             :done   ?'<span class="chip ch-done">✓ הוגש</span>'
                     :'<span class="chip ch-open">פתוח</span>';
+
+  // Exam label shown above title on exam cards
+  const examLabel=l.exam?'<div class="exam-label">📋 משימת סיכום</div>':'';
 
   let actions='';
   if(!isT){
@@ -1288,6 +1319,10 @@ function buildLessonRow(l,isT){
       actions=`<button class="btn-main ${l.exam?'exam':'prim'}" onclick="openLesson('${sUrl}')">
         ${l.exam?'📝 פתח מבחן':'▶ פתח שיעור'}
       </button>`;
+      // Add sol button for exam if solFile defined
+      if(l.exam && l.solFile){
+        actions+=`<a href="${l.solFile}" class="btn-icon sol-exam" target="_blank" title="מפתח תשובות">👁️</a>`;
+      }
     }
   }
 
@@ -1306,6 +1341,12 @@ function buildLessonRow(l,isT){
 
     if(locked){
       actions=`<a href="${tUrl}" class="btn-icon guide" target="_blank" title="טיוטה">📋</a>`;
+    }else if(l.exam && l.solFile){
+      // Exam with dedicated sol file: sol icon links to solFile, guide to tUrl, preview to sUrl
+      actions=`
+        <a href="${l.solFile}" class="btn-icon sol-exam" target="_blank" title="מפתח תשובות">👁️</a>
+        <a href="${tUrl}"      class="btn-icon guide"    target="_blank" title="מדריך למורה">📖</a>
+        <a href="${sUrl}"      class="btn-icon prev"     target="_blank" title="צפה כתלמיד">🎓</a>`;
     }else{
       actions=`
         <a href="${tUrl}" class="btn-icon sol"  target="_blank" title="פתרונות ומפתח">🔑</a>
@@ -1315,10 +1356,11 @@ function buildLessonRow(l,isT){
   }
 
   return`
-<div class="lesson-row${locked?' locked':''}" style="--lr-color:${l.color}">
+<div class="lesson-row${locked?' locked':''}${l.exam?' exam-row':''}" style="--lr-color:${l.color}">
   <div class="lr-top-mob">
     <div class="lr-em" style="background:${l.color}18">${l.emoji}</div>
     <div class="lr-info">
+      ${examLabel}
       <div class="lr-short">${l.short}</div>
       <div class="lr-title">${l.title}</div>
       <div class="lr-desc">${l.desc}</div>
