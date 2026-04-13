@@ -397,16 +397,72 @@ button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
 .sm-btn.save{background:var(--blue);color:#fff;}
 .sm-btn.save:hover{background:#1648b8;}
 
+/* ══════════════════════════════════════
+   MOBILE SIDEBAR DRAWER
+══════════════════════════════════════ */
+/* Hamburger button — hidden on desktop */
+.btn-hamburger{
+  display:none;
+  align-items:center;justify-content:center;
+  width:40px;height:40px;border:none;background:var(--bg);
+  border-radius:9px;cursor:pointer;flex-shrink:0;
+  font-size:1.15rem;transition:background .14s;
+}
+.btn-hamburger:hover{background:var(--border);}
+
+/* Drawer overlay backdrop */
+#sb-backdrop{
+  display:none;
+  position:fixed;inset:0;z-index:90;
+  background:rgba(0,0,0,.35);backdrop-filter:blur(2px);
+}
+#sb-backdrop.show{display:block;}
+
+/* Mobile: touch targets — min 44px */
+.btn-main{min-height:44px;}
+.btn-t{min-height:40px;padding:.38rem .75rem;}
+.lr-toggle{width:42px;height:24px;}
+.lr-slider::before{width:16px;height:16px;top:4px;right:4px;}
+.lr-toggle input:checked + .lr-slider::before{transform:translateX(-18px);}
+.sm-toggle{width:44px;height:24px;}
+.sm-slider::before{width:16px;height:16px;top:4px;right:4px;}
+.sm-toggle input:checked + .sm-slider::before{transform:translateX(-20px);}
+
 @media(max-width:660px){
-  .sidebar{display:none;}
+  /* Show hamburger, hide sidebar normally */
+  .btn-hamburger{display:flex;}
+  .sidebar{
+    position:fixed;top:0;right:0;height:100%;z-index:100;
+    transform:translateX(100%);transition:transform .26s ease;
+    box-shadow:-4px 0 24px rgba(0,0,0,.18);
+  }
+  .sidebar.open{transform:translateX(0);}
+
+  /* Main takes full width */
+  #app.on{display:block;}
+  .main{min-height:100vh;}
+
+  /* Layout adjustments */
   .units-wrap{padding:.75rem;}
   .prog-banner{padding:.75rem 1rem;}
   .lr-desc{display:none;}
-  #settings-overlay{padding-top:3.8rem;padding-left:.75rem;padding-right:.75rem;}
-  #settings-modal{max-width:100%;}
-  .topbar{padding:.65rem .9rem;}
+  #settings-overlay{
+    padding-top:0;padding-left:0;padding-right:0;
+    align-items:flex-end;
+  }
+  #settings-modal{
+    max-width:100%;border-radius:20px 20px 0 0;
+    max-height:88vh;
+  }
+  .topbar{padding:.6rem .9rem;gap:.5rem;}
   .tb-greeting{display:none;}
   .lr-lock-label{display:none;}
+  .tb-sub{display:none;}
+
+  /* Lesson row: stack better on small screen */
+  .lesson-row{gap:.5rem;padding:.65rem .85rem;}
+  .lr-right{gap:.3rem;}
+  .lr-actions{flex-wrap:wrap;gap:.28rem;}
 }
 </style>
 </head>
@@ -462,12 +518,15 @@ button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
 </div><!-- /login-screen -->
 
 
+<!-- Sidebar backdrop (mobile) -->
+<div id="sb-backdrop" onclick="closeSidebar()"></div>
+
 <!-- ════════════════════════════════════
      APP
 ════════════════════════════════════ -->
 <div id="app">
 
-  <nav class="sidebar">
+  <nav class="sidebar" id="sidebar">
     <div class="sb-head">
       <div class="sb-logo">📚 לשון עברית י׳</div>
       <div class="sb-sub">פלטפורמה דיגיטלית 2026</div>
@@ -486,6 +545,8 @@ button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
   <div class="main">
 
     <div class="topbar">
+      <!-- Hamburger — visible on mobile only -->
+      <button class="btn-hamburger" onclick="openSidebar()" aria-label="תפריט">☰</button>
       <div class="tb-text">
         <div class="tb-title" id="tb-title">לשון עברית — כיתה י׳</div>
         <div class="tb-sub">פלטפורמה דיגיטלית | מפמ״ר ומיצ״ב</div>
@@ -948,6 +1009,20 @@ function buildLessonRow(l,isT){
 }
 
 /* ════════════════════════
+   SIDEBAR DRAWER (mobile)
+════════════════════════ */
+function openSidebar(){
+  document.getElementById('sidebar').classList.add('open');
+  document.getElementById('sb-backdrop').classList.add('show');
+  document.body.style.overflow='hidden';
+}
+function closeSidebar(){
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sb-backdrop').classList.remove('show');
+  document.body.style.overflow='';
+}
+
+/* ════════════════════════
    ACCORDION
 ════════════════════════ */
 function toggleUnit(t){t.classList.contains('open')?closeUnit(t):openUnit(t);}
@@ -963,6 +1038,7 @@ function jumpUnit(uid,sb){
   if(!t.classList.contains('open'))openUnit(t);
   el.scrollIntoView({behavior:'smooth',block:'start'});
   document.querySelectorAll('.sb-link').forEach(l=>l.classList.toggle('active',l===sb));
+  closeSidebar(); // auto-close on mobile
 }
 function openLesson(url){window.open(url,'_blank');}
 
