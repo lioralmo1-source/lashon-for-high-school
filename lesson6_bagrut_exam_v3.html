@@ -7,9 +7,9 @@
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
-/* ═══════════════════════════════════════════════════
-   DESIGN TOKENS — Facebook-precise
-═══════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════
+   UNIT-3 GOLD STANDARD — injected by updater
+═══════════════════════════════════════════ */
 :root {
   --bg:         #f0f2f5;
   --surface:    #ffffff;
@@ -18,7 +18,7 @@
   --border-lt:  #e4e6ea;
   --ink:        #1c1e21;
   --ink-mid:    #3e4042;
-  --muted:      #606770;
+  --ink-muted:  #606770;
   --dim:        #90949c;
   --primary:    #1877f2;
   --primary-lt: #e7f3ff;
@@ -29,9 +29,22 @@
   --red-lt:     #fdecea;
   --gold:       #f7b928;
   --gold-lt:    #fff8e1;
+  --gold-dim:   rgba(247,185,40,.18);
   --radius:     1rem;
   --radius-sm:  .625rem;
   --shadow:     0 2px 12px rgba(0,0,0,.09);
+  --navy:       #1a3a6b;
+  --navy-lt:    #2563b8;
+  --teal:       #0d7a6a;
+  --teal-gs:    #0d7a6a;
+  --sun:        #e8a020;
+  --sun-gs:     #e8a020;
+  --danger:     #c0392b;
+  --danger-gs:  #c0392b;
+  --purple:     #6b3aed;
+  --text:       #1c2433;
+  --text-mid:   #3e4a5c;
+  --text-muted: #6b7a8d;
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -42,19 +55,7 @@ body{
   direction:rtl;text-align:right;line-height:1.6;font-size:15px;
 }
 
-
-/* ── GOLD-STANDARD THEORY BLOCKS ── */
-.tb-info{border-right:5px solid #2563b8;padding:1rem 1.25rem;background:#e7f3ff;border-radius:0 10px 10px 0;margin-bottom:1rem;}
-.tb-info .bt{font-weight:800;color:#1a3a6b;font-size:.9rem;margin-bottom:7px;display:flex;align-items:center;gap:6px;}
-.tb-tip{border-right:5px solid #e8a020;padding:1rem 1.25rem;background:#fef9e7;border-radius:0 10px 10px 0;margin-bottom:1rem;}
-.tb-tip .bt{font-weight:800;color:#7a5200;font-size:.9rem;margin-bottom:7px;display:flex;align-items:center;gap:6px;}
-.tb-warn{border-right:5px solid #c0392b;padding:1rem 1.25rem;background:#fdecea;border-radius:0 10px 10px 0;margin-bottom:1rem;}
-.tb-warn .bt{font-weight:800;color:#c0392b;font-size:.9rem;margin-bottom:7px;display:flex;align-items:center;gap:6px;}
-.ab{font-size:.97rem;line-height:2.0;color:#3e4a5c;}
-.ab p{margin-bottom:1.1em;}
-/* Dashboard tab */
-.dash-hero{background:linear-gradient(135deg,#0c2040,#1a3a6b);color:#fff;border-radius:14px;padding:18px 20px;margin-bottom:18px;display:flex;align-items:center;gap:14px;}
-/* ── TOPBAR / NAV ── */
+/* ── NAV ── */
 nav{
   position:sticky;top:0;z-index:50;
   background:var(--primary);
@@ -72,50 +73,53 @@ nav{
   background:transparent;color:rgba(255,255,255,.7);
   font-family:'Heebo',sans-serif;font-size:.83rem;font-weight:600;
   cursor:pointer;transition:all .15s;white-space:nowrap;touch-action:manipulation;
+  min-height:44px;
 }
 .tab-btn:hover{background:rgba(255,255,255,.15);color:#fff}
 .tab-btn.active{background:rgba(255,255,255,.2);color:#fff;font-weight:800}
-
 .tab-pane{display:none}
 .tab-pane.active{display:block}
 
-/* ── HERO BANNER ── */
-.lesson-hero{
-  background:var(--primary);
-  padding:22px 20px 0;
+/* ── HERO ── */
+.hero,.lesson-hero{
+  background:linear-gradient(160deg,#0c2040 0%,#1a3a6b 45%,#1a5080 100%);
+  position:relative;overflow:hidden;
 }
+.lesson-hero{background:var(--primary);padding:22px 20px 0;}
 .lesson-hero-inner{max-width:860px;margin:0 auto;padding-bottom:18px}
-#greeting-bar{
-  display:none;align-items:center;gap:8px;
-  background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);
-  border-radius:100px;padding:4px 14px;font-size:.83rem;font-weight:700;
-  color:#fff;width:fit-content;margin-bottom:12px;
-}
 
 /* ── MAIN LAYOUT ── */
 main{max-width:860px;margin:0 auto;padding:20px 16px}
 
 /* ── CARDS ── */
-.card{
-  background:var(--surface);border-radius:var(--radius);
-  padding:20px;margin-bottom:14px;
-  box-shadow:var(--shadow);border:1px solid var(--border);
-}
-.q-card{
+.card,.q-card{
   background:var(--surface);border-radius:var(--radius);
   padding:20px;margin-bottom:14px;
   box-shadow:var(--shadow);border:1px solid var(--border);
 }
 
-/* ── QUESTION NUMBER BADGE ── */
-.q-num{
-  width:34px;height:34px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-weight:900;font-size:.85rem;flex-shrink:0;
-  color:#fff;background:var(--primary);
+/* ── BUTTONS — proportional, Facebook Blue ── */
+.btn-primary{
+  background:var(--primary);color:#fff;border:none;
+  border-radius:var(--radius-sm);padding:9px 22px;
+  font-family:'Heebo',sans-serif;font-size:.85rem;font-weight:700;
+  cursor:pointer;touch-action:manipulation;min-height:40px;
+  box-shadow:0 1px 4px rgba(24,119,242,.3);
+  transition:background .15s,box-shadow .15s;
 }
+.btn-primary:hover{background:var(--primary-dk);box-shadow:0 2px 10px rgba(24,119,242,.35)}
 
-/* ── INPUTS — clean and spacious ── */
+.btn-submit{
+  background:var(--primary);color:#fff;border:none;
+  border-radius:var(--radius-sm);padding:10px 28px;
+  font-family:'Heebo',sans-serif;font-size:.92rem;font-weight:800;
+  cursor:pointer;touch-action:manipulation;min-height:40px;
+  box-shadow:0 2px 10px rgba(24,119,242,.3);
+  transition:background .15s;
+}
+.btn-submit:hover{background:var(--primary-dk)}
+
+/* ── INPUTS ── */
 input[type="text"],textarea,select{
   font-family:'Heebo',sans-serif;direction:rtl;text-align:right;
   width:100%;background:var(--surface);
@@ -130,52 +134,51 @@ input:focus,textarea:focus,select:focus{
 textarea{resize:vertical;line-height:1.6}
 @media(max-width:640px){input[type="text"],textarea,select{font-size:1rem!important}}
 
-/* ── WEIGHT TAG BADGES ── */
-.wt-maqtel{background:#e7f3ff;color:var(--primary);padding:2px 8px;border-radius:6px;font-weight:700;font-size:.85rem}
-.wt-kattal{background:#e6f4ea;color:#1d7a34;padding:2px 8px;border-radius:6px;font-weight:700;font-size:.85rem}
-.wt-tiqtal{background:#f3e8ff;color:#6b21a8;padding:2px 8px;border-radius:6px;font-weight:700;font-size:.85rem}
-.wt-qitla{background:var(--gold-lt);color:#92400e;padding:2px 8px;border-radius:6px;font-weight:700;font-size:.85rem}
-.wt-misc{background:var(--red-lt);color:#c0392b;padding:2px 8px;border-radius:6px;font-weight:700;font-size:.85rem}
-
-/* ── TABLE ── */
-.wt-table{width:100%;border-collapse:collapse}
-.wt-table th{background:var(--primary);color:#fff;padding:11px 14px;font-size:.8rem;font-weight:700;text-align:right}
-.wt-table td{padding:10px 14px;font-size:.88rem;border-bottom:1px solid var(--border-lt)}
-.wt-table tr:last-child td{border-bottom:none}
-.wt-table tr:hover td{background:var(--surface2)}
-
-/* ── TIMELINE ── */
-.timeline-row{display:flex;gap:14px;margin-bottom:20px;align-items:flex-start}
-.timeline-bubble{min-width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.82rem;color:#fff;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.15)}
-
-/* ── ANSWER ITEMS ── */
-.answer-item{
-  padding:11px 14px;border-radius:var(--radius-sm);
-  background:var(--surface2);font-size:.87rem;margin-bottom:9px;
-  color:var(--ink-mid);border-right:3px solid var(--primary);
-  border:1px solid var(--border);border-right-width:3px;
+/* ── TOUCH TARGETS ── */
+button,.tab-btn,.mc-opt,.btn-primary,.btn-submit,.bp,.bok,.bghost,.bdanger{
+  min-height:44px;touch-action:manipulation;
+}
+input[type="text"],input[type="password"],textarea,select{
+  min-height:44px;font-size:16px!important;
 }
 
-/* ── BUTTONS — only Facebook Blue ── */
-.btn-primary{
-  background:var(--primary);color:#fff;border:none;
-  border-radius:var(--radius-sm);padding:11px 26px;
-  font-family:'Heebo',sans-serif;font-size:.92rem;font-weight:700;
-  cursor:pointer;touch-action:manipulation;
-  box-shadow:0 1px 4px rgba(24,119,242,.3);
-  transition:background .15s,box-shadow .15s;
+/* ── THEORY BLOCKS ── */
+.theory-block,.theory-block-gs{
+  border-right:5px solid var(--navy-lt);
+  padding:1rem 1.25rem;background:#e7f3ff;
+  border-radius:0 10px 10px 0;margin-bottom:1rem;
 }
-.btn-primary:hover{background:var(--primary-dk);box-shadow:0 2px 10px rgba(24,119,242,.35)}
+.theory-block .block-title,.theory-block-gs .block-title{
+  font-weight:800;color:var(--navy);font-size:.9rem;margin-bottom:7px;
+  display:flex;align-items:center;gap:6px;
+}
+.theory-block.tip,.theory-block-gs.tip{border-right-color:var(--sun);background:#fef9e7;}
+.theory-block.tip .block-title,.theory-block-gs.tip .block-title{color:#7a5200;}
+.theory-block.danger,.theory-block-gs.danger-block{border-right-color:var(--danger);background:#fdecea;}
+.theory-block.danger .block-title,.theory-block-gs.danger-block .block-title{color:var(--danger);}
+.theory-block.teal,.theory-block-gs.teal{border-right-color:var(--teal);background:#e6f7f5;}
+.theory-block.teal .block-title,.theory-block-gs.teal .block-title{color:var(--teal);}
 
-.btn-submit{
-  background:var(--primary);color:#fff;border:none;
-  border-radius:var(--radius-sm);padding:13px 32px;
-  font-family:'Heebo',sans-serif;font-size:1rem;font-weight:800;
-  cursor:pointer;touch-action:manipulation;
-  box-shadow:0 2px 10px rgba(24,119,242,.3);
-  transition:background .15s;
+/* ── ARTICLE BODY ── */
+.article-body,.article-body-gs{
+  font-size:.97rem;line-height:2.0;color:var(--ink-mid);
 }
-.btn-submit:hover{background:var(--primary-dk)}
+.article-body p,.article-body-gs p{margin-bottom:1.15em;}
+
+/* ── TABLES ── */
+.ctable,.wt-table{width:100%;border-collapse:collapse;border-radius:10px;overflow:hidden;}
+.ctable th,.wt-table th{background:var(--navy);color:#fff;padding:10px 14px;font-size:.85rem;font-weight:700;text-align:right;}
+.ctable td,.wt-table td{padding:9px 14px;border-bottom:1px solid var(--border);font-size:.88rem;line-height:1.6;}
+.ctable tr:nth-child(even) td,.wt-table tr:last-child td{background:#f4f7fd;}
+.ctable tr:hover td,.wt-table tr:hover td{background:#e3ecf8;}
+
+/* ── Q-NUM ── */
+.q-num{
+  width:34px;height:34px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:.85rem;flex-shrink:0;
+  color:#fff;background:var(--primary);
+}
 
 /* ── MULTIPLE CHOICE ── */
 .mc-opts{display:flex;flex-direction:column;gap:9px;margin-top:12px}
@@ -187,66 +190,89 @@ textarea{resize:vertical;line-height:1.6}
 }
 .mc-opt:hover{border-color:var(--primary);background:var(--primary-lt);color:var(--primary)}
 .mc-opt.chosen{border-color:var(--primary);background:var(--primary-lt);color:var(--primary);font-weight:700}
-.mc-opt.correct{}
-.mc-opt.wrong{}
+
+/* ── SECTION TITLE ── */
+.teal-h,.sec-h,.section-title{
+  font-family:'Secular One',sans-serif;color:var(--navy);font-size:1.25rem;
+  border-bottom:2px solid var(--border);padding-bottom:8px;margin-bottom:18px;
+}
+
+/* ── AI / ANSWER ITEMS ── */
+.ai{border-right:4px solid var(--navy-lt);padding:.65rem 1rem;margin-bottom:.75rem;background:#e7f3ff;border-radius:0 8px 8px 0;font-size:.9rem;line-height:1.7;}
+.ai.teal{border-color:var(--teal);background:#e6f7f5;}
+.ai.danger{border-color:var(--danger);background:#fdecea;}
+.ai.sun{border-color:var(--sun);background:#fef9e7;}
+.ai.purple{border-color:var(--purple);background:#f0ebff;}
+.answer-item{
+  padding:11px 14px;border-radius:var(--radius-sm);
+  background:var(--surface2);font-size:.87rem;margin-bottom:9px;
+  color:var(--ink-mid);border:1px solid var(--border);border-right:3px solid var(--primary);
+  line-height:1.7;
+}
+
+/* ── INFO BOXES ── */
+.info-box{background:var(--primary-lt);border-right:3px solid var(--primary);padding:10px 14px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;font-size:.88rem;color:var(--primary);margin-top:10px;}
+.info-box-gold{background:var(--gold-lt);border-right:3px solid var(--gold);padding:8px 12px;border-radius:0 6px 6px 0;margin-top:8px;font-size:.84rem;color:#92400e;}
+
+/* ── BADGES ── */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 11px;border-radius:100px;font-size:.75rem;font-weight:700;letter-spacing:.03em;}
+
+/* ── MODAL ── */
+#modal,#success-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9999;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(2px)}
+#modal.show,#success-modal.open{display:flex;}
+
+/* ── MOBILE SCROLL ── */
+.mobile-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.mobile-scroll table{min-width:460px;}
+
+/* ── BINYAN COLOR TAGS ── */
+.b-kal{color:#1a3a6b;font-weight:700;}.b-nif{color:#0d7a6a;font-weight:700;}
+.b-piel{color:#6b3aed;font-weight:700;}.b-pual{color:#b45309;font-weight:700;}
+.b-hif{color:#c0392b;font-weight:700;}.b-huf{color:#8b5e3c;font-weight:700;}
+.b-hit{color:#0a5280;font-weight:700;}
+.hl-kal{background:#c8dff8;padding:1px 5px;border-radius:3px;color:#0d2a6b;font-weight:700;}
+.hl-nif{background:#c8e8d8;padding:1px 5px;border-radius:3px;color:#0a4030;font-weight:700;}
+.hl-hif{background:#e8d5fc;padding:1px 5px;border-radius:3px;color:#3a1070;font-weight:700;}
+.hl-pual{background:#fdefd4;padding:1px 5px;border-radius:3px;color:#7a4000;font-weight:700;}
 
 /* ── ASSESSMENT ── */
-#assessment-content{
-  background:var(--surface2);border:1px solid var(--border);
-  border-radius:var(--radius-sm);padding:16px;
-  direction:rtl;text-align:right;min-height:56px;
-}
+#assessment-content{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;direction:rtl;text-align:right;min-height:56px;}
 
-/* ── SUCCESS MODAL ── */
-#success-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(2px)}
-#success-modal.open{display:flex}
-
-/* ── SECTION DIVIDER ── */
-.section-title{
-  font-weight:800;font-size:1rem;color:var(--ink);
-  margin-bottom:14px;padding-bottom:10px;
-  border-bottom:2px solid var(--border);
-}
-
-/* ── INFO BOX ── */
-.info-box{
-  background:var(--primary-lt);border-right:3px solid var(--primary);
-  padding:10px 14px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;
-  font-size:.88rem;color:var(--primary);margin-top:10px;
-}
-.info-box-gold{
-  background:var(--gold-lt);border-right:3px solid var(--gold);
-  padding:8px 12px;border-radius:0 6px 6px 0;
-  margin-top:8px;font-size:.84rem;color:#92400e;
-}
-
+/* ── PRINT ── */
 @media print{nav,.no-print{display:none!important}.tab-pane{display:block!important;page-break-after:always}body{background:#fff}}
 
-
-/* ─── v3: border-radius 12px enforcement ─── */
-:root { --radius: 0.75rem; --radius-sm: 0.625rem; }
-.card, .q-card { border-radius: 12px; }
-.tb-info, .tb-tip, .tb-warn {
-  border-radius: 0 12px 12px 0 !important;
+/* ── VERB HIGHLIGHTS — teacher-only (hidden from students via role security) ── */
+/* פִּיעֵל / קַל (פעיל) — yellow */
+.t-hl-kal {
+  background:#fefce8;border-radius:3px;
+  padding:1px 4px;font-weight:700;
+  border-bottom:2px solid #b7ac00;
+  color:#5a4a00;
 }
-.theory-block, .theory-block-gs {
-  border-radius: 0 12px 12px 0 !important;
+/* הִפְעִיל / הִתְפַּעֵל — blue */
+.t-hl-hif {
+  background:#e7f3ff;border-radius:3px;
+  padding:1px 4px;font-weight:700;
+  border-bottom:2px solid #2b6cb0;
+  color:#1a365d;
 }
-.neon-btn, .btn-submit, .btn-primary,
-button.bp, button.bok, button.bghost, button.bdanger {
-  border-radius: 12px;
+/* סביל (נִפְעַל / פֻּעַל / הֻפְעַל) — pink/red */
+.t-hl-nif {
+  background:#fdecea;border-radius:3px;
+  padding:1px 4px;font-weight:700;
+  border-bottom:2px solid #c53030;
+  color:#742a2a;
 }
-input[type="text"], input[type="password"],
-input[type="tel"], input[type="number"],
-textarea, select {
-  border-radius: 10px;
-  font-size: 16px;   /* prevent iOS zoom */
+/* Legend box — teacher only */
+.t-legend {
+  display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:8px;padding:10px 14px;margin-bottom:16px;
+  font-size:.82rem;
 }
-.tab-btn { border-radius: 8px; }
-/* overflow wrapper for all tables */
-.overflow-x-auto { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-/* ─── end v3 border-radius ─── */
-
+.t-legend-item {
+  display:inline-flex;align-items:center;gap:5px;font-weight:600;
+}
 </style>
 
 
@@ -279,7 +305,7 @@ textarea, select {
   <div class="nav-inner">
     <button class="tab-btn teacher-only" onclick="showTab('tt',this)" style="display:none !important">📋 מדריך</button>
     <button class="tab-btn" onclick="showTab('tx',this)">📰 הטקסט</button>
-    <button class="tab-btn" onclick="showTab('th',this)">📚 הלכה</button>
+    <button class="tab-btn" onclick="showTab('th',this)">📖 תיאוריה</button>
     <button class="tab-btn" onclick="showTab('tw',this)">✏️ מבחן</button>
     <button class="tab-btn teacher-only" onclick="showTab('ta',this)" style="display:none !important">🔑 פתרונות</button>
     <button class="tab-btn teacher-only" onclick="showTab('tab-assess',this);if(window.calcAssessment)window.calcAssessment()" style="display:none !important">📊 הערכה</button>
@@ -346,8 +372,8 @@ textarea, select {
   <div style="display:flex;gap:14px;margin-bottom:20px;align-items:flex-start;">
     <div style="min-width:44px;height:44px;background:var(--ink);color:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:0.83rem;flex-shrink:0;">5׳</div>
     <div style="flex:1;">
-      <span class="badge" style="background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold);margin-bottom:8px;">📚 סיכום הלכה ב-3 דקות</span>
-      <p style="font-size:0.88rem;color:var(--ink-muted);">הקרינו את "כרטיס הבגרות" (לשונית "סיכום הלכה"). שאלו 2–3 שאלות מהירות מהכיתה. ודאו שכולם בעמוד.</p>
+      <span class="badge" style="background:var(--gold-dim);color:var(--gold);border:1px solid var(--gold);margin-bottom:8px;">📚 סיכום תיאוריה ב-3 דקות</span>
+      <p style="font-size:0.88rem;color:var(--ink-muted);">הקרינו את "כרטיס הבגרות" (לשונית "סיכום תיאוריה"). שאלו 2–3 שאלות מהירות מהכיתה. ודאו שכולם בעמוד.</p>
     </div>
   </div>
 
@@ -396,6 +422,14 @@ textarea, select {
   <span class="lu-i"><span class="lu-d" style="background:#4a7c59"></span><span class="vb-hif">הִפְעִיל&nbsp;/&nbsp;הִתְפַּעֵל&nbsp;/&nbsp;פֻּעַל</span></span>
 </div>
 
+<!-- מקרא הדגשות למורה — נסתר מתלמידים -->
+<div class="teacher-only t-legend" style="display:none">
+  <strong style="color:var(--ink);font-size:.84rem;">👁️ מקרא הדגשות — למורה בלבד:</strong>
+  <span class="t-legend-item"><span style="background-color:#fefce8;border-radius:3px;padding:1px 5px;font-weight:700;">פועל</span> פִּיעֵל / קַל — פעיל</span>
+  <span class="t-legend-item"><span style="background-color:#e7f3ff;border-radius:3px;padding:1px 5px;font-weight:700;">פועל</span> הִפְעִיל / הִתְפַּעֵל</span>
+  <span class="t-legend-item"><span style="background-color:#fdecea;border-radius:3px;padding:1px 5px;font-weight:700;">פועל</span> סביל: נִפְעַל / פֻּעַל / הֻפְעַל</span>
+</div>
+
   <div style="background:linear-gradient(135deg,var(--ink),#1a1a3a);border:1px solid rgba(201,162,39,0.3);border-radius:14px;padding:22px 26px;margin-bottom:26px;">
     <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">
       <span class="badge" style="background:rgba(201,162,39,0.15);color:var(--gold);border:1px solid var(--gold);">מאמר דעה</span>
@@ -410,15 +444,129 @@ textarea, select {
 
   <div class="article-body max-w-3xl" style="margin:0 auto 30px;">
 
-    <p>שאלת "מה יעשה ה-AI לשוק העבודה" <span class="vb-nif">נדונה</span> מזה עשרים שנה, אבל בשנת 2026 היא <span class="vb-hif">הפכה</span> מתיאורטית לאקוטית. מנהלים <span class="vb-kal">מדווחים</span> שמשרות שחייבו בעבר שלוש שנות ניסיון כעת <span class="vb-nif">מבוצעות</span> בחלקן על ידי מודלים ניסיוניים. העובדים <span class="vb-nif">הורגשו</span> — לא נשמעו.</p>
+    <p>שאלת "מה יעשה ה-AI לשוק העבודה"
+      <!-- תלמיד: טקסט נקי -->
+      <span class="vb-nif">נדונה</span>
+      <!-- מורה: עם הדגשה -->
+      <span class="teacher-only" style="background-color:#fdecea;border-radius:3px;padding:1px 4px;font-weight:700;" title="נִפְעַל — סביל קַל">נדונה</span>
+      מזה עשרים שנה, אבל בשנת 2026 היא
+      <span class="vb-hif">הפכה</span>
+      <span class="teacher-only" style="background-color:#e7f3ff;border-radius:3px;padding:1px 4px;font-weight:700;" title="הִפְעִיל — גרימה">הפכה</span>
+      מתיאורטית לאקוטית. מנהלים
+      <span class="vb-kal">מדווחים</span>
+      <span class="teacher-only" style="background-color:#fefce8;border-radius:3px;padding:1px 4px;font-weight:700;" title="פִּיעֵל — הווה, זכר רבים">מדווחים</span>
+      שמשרות שחייבו בעבר שלוש שנות ניסיון כעת
+      <span class="vb-nif">מבוצעות</span>
+      <span class="teacher-only" style="background-color:#fdecea;border-radius:3px;padding:1px 4px;font-weight:700;" title="פֻּעַל — סביל פִּיעֵל, הווה">מבוצעות</span>
+      בחלקן על ידי מודלים ניסיוניים. העובדים
+      <span class="vb-nif">הורגשו</span>
+      <span class="teacher-only" style="background-color:#fdecea;border-radius:3px;padding:1px 4px;font-weight:700;" title="הֻפְעַל — סביל הִפְעִיל, עבר">הורגשו</span>
+      — לא נשמעו.</p>
 
-    <p>"הטכנולוגיה <span class="vb-hif">מאיצה</span> תהליכים שכבר <span class="vb-nif">הופעלו</span>", <span class="vb-hif">הסביר</span> ד"ר יניב שגב, כלכלן עבודה מאוניברסיטת חיפה. "לא <span class="vb-nif">מדובר</span> בגל חדש — אלא בגל ישן שנ<span class="vb-kal">עשה</span> גבוה יותר." לפי מחקרו, 38% מהמשרות בישראל <span class="vb-nif">מאופיינות</span> כ"בסיכון גבוה" לאוטומציה. "אבל לא כולן <span class="vb-nif">ייעלמו</span>", הוא <span class="vb-kal">ממהר</span> <span class="vb-hif">להדגיש</span>. "חלקן <span class="vb-hif">יִשְׁתַּנּוּ</span> — ו<span class="vb-nif">ייווצרו</span> משרות חדשות שעדיין לא ממש <span class="vb-nif">מוּגְדָּרוֹת</span>."</p>
+    <p>"הטכנולוגיה
+      <span class="vb-hif">מאיצה</span>
+      <span class="teacher-only" style="background-color:#e7f3ff;border-radius:3px;padding:1px 4px;font-weight:700;" title="הִפְעִיל — הווה">מאיצה</span>
+      תהליכים שכבר
+      <span class="vb-nif">הופעלו</span>
+      <span class="teacher-only" style="background-color:#fdecea;border-radius:3px;padding:1px 4px;font-weight:700;" title="הֻפְעַל — סביל הִפְעִיל, עבר">הופעלו</span>
+      ", <span class="vb-hif">הסביר</span>
+      <span class="teacher-only" style="background-color:#e7f3ff;border-radius:3px;padding:1px 4px;font-weight:700;" title="הִפְעִיל — עבר, ג׳ זכר יחיד">הסביר</span>
+      ד"ר יניב שגב, כלכלן עבודה מאוניברסיטת חיפה. "לא
+      <span class="vb-nif">מדובר</span>
+      <span class="teacher-only" style="background-color:#fdecea;border-radius:3px;padding:1px 4px;font-weight:700;" title="פֻּעַל — הווה, סביל">מדובר</span>
+      בגל חדש — אלא בגל ישן שנ<span class="vb-kal">עשה</span>
+      <span class="teacher-only" style="background-color:#fefce8;border-radius:3px;padding:1px 4px;font-weight:700;" title="קַל — עבר, ג׳ זכר יחיד">עשה</span>
+      גבוה יותר." לפי מחקרו, 38% מהמשרות בישראל
+      <span class="vb-nif">מאופיינות</span>
+      <span class="teacher-only" style="background-color:#fdecea;border-radius:3px;padding:1px 4px;font-weight:700;" title="פֻּעַל — הווה, נקבה רבות">מאופיינות</span>
+      כ"בסיכון גבוה" לאוטומציה. "אבל לא כולן
+      <span class="vb-nif">ייעלמו</span>
+      <span class="teacher-only" style="background-color:#fdecea;border-radius:3px;padding:1px 4px;font-weight:700;" title="נִפְעַל — עתיד, ג׳ זכר רבים">ייעלמו</span>
+      ", הוא
+      <span class="vb-kal">ממהר</span>
+      <span class="teacher-only" style="background-color:#fefce8;border-radius:3px;padding:1px 4px;font-weight:700;" title="קַל — הווה, זכר יחיד">ממהר</span>
+      <span class="vb-hif">להדגיש</span>
+      <span class="teacher-only" style="background-color:#e7f3ff;border-radius:3px;padding:1px 4px;font-weight:700;" title="הִפְעִיל — שם פועל">להדגיש</span>
+      . "חלקן
+      <span class="vb-hif">יִשְׁתַּנּוּ</span>
+      <span class="teacher-only" style="background-color:#e7f3ff;border-radius:3px;padding:1px 4px;font-weight:700;" title="הִתְפַּעֵל — עתיד, ג׳ רבים">יִשְׁתַּנּוּ</span>
+      — ו<span class="vb-nif">ייווצרו</span>
+      <span class="teacher-only" style="background-color:#fdecea;border-radius:3px;padding:1px 4px;font-weight:700;" title="נִפְעַל — עתיד, ג׳ זכר רבים">ייווצרו</span>
+      משרות חדשות שעדיין לא ממש
+      <span class="vb-nif">מוּגְדָּרוֹת</span>
+      <span class="teacher-only" style="background-color:#fdecea;border-radius:3px;padding:1px 4px;font-weight:700;" title="פֻּעַל — הווה, נקבה רבות">מוּגְדָּרוֹת</span>
+      ."</p>
 
-    <p>את הדעה הנגדית <span class="vb-hif">מציגה</span> ד"ר ענבל אוחיון, חוקרת עתידנות מהמרכז להכשרה מקצועית: "כל מהפכה טכנולוגית <span class="vb-kal">יצרה</span> יותר משרות ממה ש<span class="vb-hif">הורסת</span>. מי ש<span class="vb-hif">התאים</span> את עצמו — <span class="vb-kal">שרד</span>. מי ש<span class="vb-kal">ינטש</span> — <span class="vb-nif">ייאבד</span>." היא <span class="vb-hif">מצטטת</span> נתון: בין 2015 ל-2025, בעוד שמשרות כניסת נתונים <span class="vb-kal">ירדו</span> ב-60%, משרות אנליסטים לנתונים <span class="vb-kal">עלו</span> ב-340%.</p>
+    <p>את הדעה הנגדית
+      <span class="vb-hif">מציגה</span>
+      <span class="teacher-only" style="background-color:#e7f3ff;border-radius:3px;padding:1px 4px;font-weight:700;" title="הִפְעִיל — הווה, נקבה יחיד">מציגה</span>
+      ד"ר ענבל אוחיון, חוקרת עתידנות מהמרכז להכשרה מקצועית: "כל מהפכה טכנולוגית
+      <span class="vb-kal">יצרה</span>
+      <span class="teacher-only" style="background-color:#fefce8;border-radius:3px;padding:1px 4px;font-weight:700;" title="קַל — עבר, ג׳ נקבה יחיד">יצרה</span>
+      יותר משרות ממה ש<span class="vb-hif">הורסת</span>
+      <span class="teacher-only" style="background-color:#e7f3ff;border-radius:3px;padding:1px 4px;font-weight:700;" title="הִפְעִיל — הווה, נקבה יחיד">הורסת</span>
+      . מי ש<span class="vb-hif">התאים</span>
+      <span class="teacher-only" style="background-color:#e7f3ff;border-radius:3px;padding:1px 4px;font-weight:700;" title="הִפְעִיל — עבר, ג׳ זכר יחיד">התאים</span>
+      את עצמו —
+      <span class="vb-kal">שרד</span>
+      <span class="teacher-only" style="background-color:#fefce8;border-radius:3px;padding:1px 4px;font-weight:700;" title="קַל — עבר, ג׳ זכר יחיד">שרד</span>
+      . מי ש<span class="vb-kal">ינטש</span>
+      <span class="teacher-only" style="background-color:#fefce8;border-radius:3px;padding:1px 4px;font-weight:700;" title="קַל — עתיד, ג׳ זכר יחיד">ינטש</span>
+      —
+      <span class="vb-nif">ייאבד</span>
+      <span class="teacher-only" style="background-color:#fdecea;border-radius:3px;padding:1px 4px;font-weight:700;" title="נִפְעַל — עתיד, ג׳ זכר יחיד">ייאבד</span>
+      ." היא
+      <span class="vb-hif">מצטטת</span>
+      <span class="teacher-only" style="background-color:#e7f3ff;border-radius:3px;padding:1px 4px;font-weight:700;" title="הִתְפַּעֵל — הווה, נקבה יחיד">מצטטת</span>
+      נתון: בין 2015 ל-2025, בעוד שמשרות כניסת נתונים
+      <span class="vb-kal">ירדו</span>
+      <span class="teacher-only" style="background-color:#fefce8;border-radius:3px;padding:1px 4px;font-weight:700;" title="קַל — עבר, ג׳ זכר רבים">ירדו</span>
+      ב-60%, משרות אנליסטים לנתונים
+      <span class="vb-kal">עלו</span>
+      <span class="teacher-only" style="background-color:#fefce8;border-radius:3px;padding:1px 4px;font-weight:700;" title="קַל — עבר, ג׳ זכר רבים">עלו</span>
+      ב-340%.</p>
 
-    <p>בינתיים, <span class="vb-hif">מתנהל</span> ויכוח פוליטי: האם המדינה צריכה <span class="vb-hif">להסדיר</span> שימוש ב-AI? "תעשיות שלמות <span class="vb-nif">מוסדרות</span> — אבל AI <span class="vb-nif">נשאר</span> כמעט ללא פיקוח", <span class="vb-hif">מעיר</span> ח"כ גל לוי, יו"ר ועדת הכלכלה. הצעת חוק ש<span class="vb-nif">הוגשה</span> בפברואר <span class="vb-kal">מחייבת</span> גילוי מלא כאשר AI <span class="vb-kal">מקבל</span> החלטה שמשפיעה על אדם — ממתין לאישור הממשלה.</p>
+    <p>בינתיים,
+      <span class="vb-hif">מתנהל</span>
+      <span class="teacher-only" style="background-color:#e7f3ff;border-radius:3px;padding:1px 4px;font-weight:700;" title="הִתְפַּעֵל — הווה, זכר יחיד">מתנהל</span>
+      ויכוח פוליטי: האם המדינה צריכה
+      <span class="vb-hif">להסדיר</span>
+      <span class="teacher-only" style="background-color:#e7f3ff;border-radius:3px;padding:1px 4px;font-weight:700;" title="הִפְעִיל — שם פועל">להסדיר</span>
+      שימוש ב-AI? "תעשיות שלמות
+      <span class="vb-nif">מוסדרות</span>
+      <span class="teacher-only" style="background-color:#fdecea;border-radius:3px;padding:1px 4px;font-weight:700;" title="פֻּעַל — הווה, נקבה רבות">מוסדרות</span>
+      — אבל AI
+      <span class="vb-nif">נשאר</span>
+      <span class="teacher-only" style="background-color:#fdecea;border-radius:3px;padding:1px 4px;font-weight:700;" title="נִפְעַל — הווה, זכר יחיד">נשאר</span>
+      כמעט ללא פיקוח",
+      <span class="vb-hif">מעיר</span>
+      <span class="teacher-only" style="background-color:#e7f3ff;border-radius:3px;padding:1px 4px;font-weight:700;" title="הִפְעִיל — הווה, זכר יחיד">מעיר</span>
+      ח"כ גל לוי, יו"ר ועדת הכלכלה. הצעת חוק ש<span class="vb-nif">הוגשה</span>
+      <span class="teacher-only" style="background-color:#fdecea;border-radius:3px;padding:1px 4px;font-weight:700;" title="הֻפְעַל — עבר, ג׳ נקבה יחיד">הוגשה</span>
+      בפברואר
+      <span class="vb-kal">מחייבת</span>
+      <span class="teacher-only" style="background-color:#fefce8;border-radius:3px;padding:1px 4px;font-weight:700;" title="פִּיעֵל — הווה, נקבה יחיד">מחייבת</span>
+      גילוי מלא כאשר AI
+      <span class="vb-kal">מקבל</span>
+      <span class="teacher-only" style="background-color:#fefce8;border-radius:3px;padding:1px 4px;font-weight:700;" title="קַל — הווה, זכר יחיד">מקבל</span>
+      החלטה שמשפיעה על אדם — ממתין לאישור הממשלה.</p>
 
-    <p>ואולי השאלה החשובה ביותר היא זו: מה <span class="vb-nif">נשאיר</span> לאנושי? "כל עוד בני אדם <span class="vb-kal">זקוקים</span> לחיבור אנושי, לסיפור, לאמפתיה — יהיו מקצועות שלא יוחלפו", <span class="vb-kal">מסכמת</span> ד"ר אוחיון. "הבינה הגדולה ביותר אינה מלאכותית — היא היכולת <span class="vb-kal">לבחור</span> כיצד <span class="vb-hif">להשתמש</span> בה."</p>
+    <p>ואולי השאלה החשובה ביותר היא זו: מה
+      <span class="vb-nif">נשאיר</span>
+      <span class="teacher-only" style="background-color:#fdecea;border-radius:3px;padding:1px 4px;font-weight:700;" title="נִפְעַל — עתיד, א׳ רבים">נשאיר</span>
+      לאנושי? "כל עוד בני אדם
+      <span class="vb-kal">זקוקים</span>
+      <span class="teacher-only" style="background-color:#fefce8;border-radius:3px;padding:1px 4px;font-weight:700;" title="קַל — הווה, זכר רבים">זקוקים</span>
+      לחיבור אנושי, לסיפור, לאמפתיה — יהיו מקצועות שלא יוחלפו",
+      <span class="vb-kal">מסכמת</span>
+      <span class="teacher-only" style="background-color:#fefce8;border-radius:3px;padding:1px 4px;font-weight:700;" title="פִּיעֵל — הווה, נקבה יחיד">מסכמת</span>
+      ד"ר אוחיון. "הבינה הגדולה ביותר אינה מלאכותית — היא היכולת
+      <span class="vb-kal">לבחור</span>
+      <span class="teacher-only" style="background-color:#fefce8;border-radius:3px;padding:1px 4px;font-weight:700;" title="קַל — שם פועל">לבחור</span>
+      כיצד
+      <span class="vb-hif">להשתמש</span>
+      <span class="teacher-only" style="background-color:#e7f3ff;border-radius:3px;padding:1px 4px;font-weight:700;" title="הִתְפַּעֵל — שם פועל">להשתמש</span>
+      בה."</p>
 
   </div>
 
@@ -785,12 +933,23 @@ textarea, select {
   <div class="ai"><strong>4. יֻסְדַּר — הֻפְעַל</strong> ✓ | הִפְעִיל → הֻפְעַל; תַּסְדִּיר (הִפְעִיל עתיד) → יֻסְדַּר</div>
   <div class="ai"><strong>5. דִּיגֵּט</strong> ✓ | שורש מרובע ד-י-ג-ט; פִּיעֵל | מקור: Digital</div>
 
+  <!-- נימוקים מפורטים — מונעים מ-ANSWERS -->
+  <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin:10px 0 18px;">
+    <div style="font-weight:800;font-size:.82rem;color:var(--ink-muted);margin-bottom:10px;">🔍 נימוקים מפורטים (מהמערך ANSWERS)</div>
+    <div id="answers-rationale-a" style="font-size:.84rem;line-height:1.8;direction:rtl;"></div>
+  </div>
+
   <h3 style="font-size:1rem;font-weight:800;color:var(--gold);margin:22px 0 12px;">חלק ב׳ — אמת/שקר (25 נקודות)</h3>
   <div class="ai ok"><strong>6. אמת ✓</strong> | הֻחְלַט = הֻפְעַל, עבר ג׳ זכר; שורש ח-ל-ט; משמעות: "הוחלט" — קיבל החלטה (ללא נושא מפורש = אנונימי)</div>
   <div class="ai err"><strong>7. שקר ✗</strong> | פועל מרובע מופיע <em>רק</em> בבניינים פִּיעֵל/פֻּעַל/הִתְפַּעֵל — לא בקַל, לא בנִפְעַל, ולא בהִפְעִיל/הֻפְעַל</div>
   <div class="ai ok"><strong>8. אמת ✓</strong> | מְאַפְשֵׁר: מ"ם + פתח = הִפְעִיל הווה (זכר יחיד); שורש א-פ-ש-ר (מרובע? לא — שלושי א-פ-ש)</div>
   <div class="ai ok"><strong>9. אמת ✓</strong> | נִשְׁמָר = סביל של קַל (נִפְעַל) | מֻשְׁמָר = סביל של פִּיעֵל (פֻּעַל) — אותו שורש, שני מסלולים!</div>
   <div class="ai ok"><strong>10. אמת ✓</strong> | הִשְׁתַּכְלֵל: שורש ש-כ-ל-ל (4 עיצורים) + חילוף ת↔ש = הִשְׁ-תַּ; בניין הִתְפַּעֵל</div>
+
+  <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin:10px 0 18px;">
+    <div style="font-weight:800;font-size:.82rem;color:var(--ink-muted);margin-bottom:10px;">🔍 נימוקים מפורטים (מהמערך ANSWERS)</div>
+    <div id="answers-rationale-b" style="font-size:.84rem;line-height:1.8;direction:rtl;"></div>
+  </div>
 
   <h3 style="font-size:1rem;font-weight:800;color:var(--gold);margin:22px 0 12px;">חלק ג׳ — המרות (20 נקודות)</h3>
   <div class="ai"><strong>11.</strong> "כלי AI חדשים <em>פֻּתְּחוּ</em> על ידי חברות הטכנולוגיה." | פֻּעַל, עבר, ג׳ זכר רבים | ⚠️ "כלי" = נושא החדש</div>
@@ -938,9 +1097,85 @@ const isTeacher = new URLSearchParams(window.location.search).get('role') === 't
 
 // ─── Answer Key — נטען רק עבור מורה ─────────────────────────────────────
 // תלמידים לא מקבלים גישה למפתח התשובות, גם לא דרך Inspect Element
-const MC_CORRECT = isTeacher
-  ? {b:true, c:true, b_q2:true} // מפתח אמיתי — גלוי רק למורה
-  : {};  // מילון ריק לתלמיד
+
+// מפתח תשובות מלא — שאלות 1–10
+// c = מספר התשובה (1=א, 2=ב, 3=ג, 4=ד ; "אמת"/"שקר" לחלק ב׳)
+// e = הסבר קצר (שורש + בניין)
+// correct / label / rationale — שדות נוספים לתצוגה בפאנל הנימוקים
+const ANSWERS = isTeacher ? {
+  // ── חלק א׳ — בחירה מרובה (שאלות 1–5) ──
+  q1: {
+    c: '2',
+    e: 'שורש ח-ש-ב, בניין נִפְעַל',
+    correct: 'b',
+    label:   'נֶחְשֶׁבֶת — נִפְעַל',
+    rationale: 'שורש ח-ש-ב. תחילית נ = סימן נִפְעַל. הווה, נקבה יחיד. נִפְעַל = סביל/עצמי של קַל.'
+  },
+  q2: {
+    c: '1',
+    e: 'שורש ד-ב-ר, בניין פִּיעֵל',
+    correct: 'a',
+    label:   'דִּבְּרוּ — פִּיעֵל',
+    rationale: 'שורש ד-ב-ר. דגש בבי״ת + פתח = פִּיעֵל. עבר, ג׳ זכר רבים. פִּיעֵל = גרימה/עצימות.'
+  },
+  q3: {
+    c: '3',
+    e: 'שורש ח-ל-ל, בניין הִתְפַּעֵל',
+    correct: 'c',
+    label:   'הִתְחוֹלֵל — הִתְפַּעֵל',
+    rationale: 'שורש ח-ל-ל. תחילית הִתְ = הִתְפַּעֵל. עבר, ג׳ זכר יחיד. הִתְפַּעֵל = פעולה רפלקסיבית.'
+  },
+  q4: {
+    c: '4',
+    e: 'שורש פ-ו-ץ, בניין הִפְעִיל',
+    correct: 'd',
+    label:   'הֵפִיץ — הִפְעִיל',
+    rationale: 'שורש פ-ו-ץ. תחילית הִ/הֵ + גזרת ע״ו = הִפְעִיל. עבר, ג׳ זכר יחיד. הִפְעִיל = גרימה/הפצה.'
+  },
+  q5: {
+    c: '2',
+    e: 'שורש ק-ו-ם, בניין הֻפְעַל',
+    correct: 'b',
+    label:   'הוּקְמוּ — הֻפְעַל',
+    rationale: 'שורש ק-ו-ם. קיבוץ+ו בה״א = הֻפְעַל. עבר, ג׳ זכר רבים. הֻפְעַל = סביל של הִפְעִיל.'
+  },
+  // ── חלק ב׳ — אמת/שקר (שאלות 6–10) ──
+  q6: {
+    c: '1',
+    e: 'שורש ח-ל-ל, בניין הִפְעִיל',
+    correct: 'a',
+    label:   'הֵחֵלּוּ — הִפְעִיל',
+    rationale: 'שורש ח-ל-ל. הֵחֵלּוּ = הִפְעִיל, עבר, ג׳ זכר רבים. הִפְעִיל = גרימה (גרמו להתחיל).'
+  },
+  q7: {
+    c: '3',
+    e: 'שורש י-ס-ד, בניין פֻּעַל',
+    correct: 'c',
+    label:   'יֻסַּד — פֻּעַל',
+    rationale: 'שורש י-ס-ד. קיבוץ+דגש = פֻּעַל. עבר, ג׳ זכר יחיד. פֻּעַל = סביל של פִּיעֵל.'
+  },
+  q8: {
+    c: '2',
+    e: 'שורש ש-מ-ר, בניין קַל',
+    correct: 'b',
+    label:   'שָׁמְרָה — קַל',
+    rationale: 'שורש ש-מ-ר. צורת פָּעַל ללא תחילית = קַל. עבר, ג׳ נקבה יחיד. קַל = פעולה בסיסית.'
+  },
+  q9: {
+    c: '4',
+    e: 'שורש ר-כ-ז, בניין הִתְפַּעֵל',
+    correct: 'd',
+    label:   'הִתְרַכֵּז — הִתְפַּעֵל',
+    rationale: 'שורש ר-כ-ז. תחילית הִתְ = הִתְפַּעֵל. עבר, ג׳ זכר יחיד. הִתְפַּעֵל = פעולה עצמית/רפלקסיבית.'
+  },
+  q10: {
+    c: '1',
+    e: 'שורש ל-מ-ד, בניין קַל',
+    correct: 'a',
+    label:   'לָמְדוּ — קַל',
+    rationale: 'שורש ל-מ-ד. צורת פָּעַל ללא תחילית = קַל. עבר, ג׳ זכר רבים. קַל = פעולה בסיסית.'
+  }
+} : {}; // מילון ריק לתלמיד
 
 // Points per section
 const SECTION_POINTS = {
@@ -974,7 +1209,7 @@ function selectMC(el){
 
 // ─── Timer ───
 let tInt=null,tSec=2700,elapsed=0;
-const phases=[{end:300,label:'📖 סקירה'},{end:900,label:'📰 טקסט'},{end:1200,label:'📚 הלכה'},{end:2400,label:'🎯 מבחן'},{end:2700,label:'✅ תיקון'}];
+const phases=[{end:300,label:'📖 סקירה'},{end:900,label:'📰 טקסט'},{end:1200,label:'📖 תיאוריה'},{end:2400,label:'🎯 מבחן'},{end:2700,label:'✅ תיקון'}];
 function startTimer(){
   if(tInt)return;
   tInt=setInterval(()=>{
@@ -1056,6 +1291,56 @@ document.getElementById('results-modal').addEventListener('click',function(e){if
   } catch(e) {}
 })();
 // ─── END AUTO-INJECT ───
+
+// ─── Render ANSWERS rationale panels (teacher only) ─────────────────────
+(function renderAnswersRationale() {
+  if (!isTeacher) return;
+  if (typeof ANSWERS === 'undefined' || !ANSWERS) return;
+
+  function buildRow(num, icon, a) {
+    var cBadge = '<span style="background:var(--primary-lt);color:var(--primary);border-radius:4px;padding:1px 6px;font-size:.78rem;font-weight:700;margin-left:6px;">תשובה: ' + a.c + '</span>';
+    return '<div style="padding:7px 0;border-bottom:1px solid var(--border-lt);">'
+         + '<div style="display:flex;gap:8px;align-items:baseline;margin-bottom:3px;">'
+         + '<span style="font-weight:800;flex-shrink:0;color:var(--navy);">' + icon + ' ' + num + '.</span>'
+         + '<span style="font-weight:700;color:var(--ink);">' + a.label + '</span>'
+         + cBadge
+         + '</div>'
+         + '<div style="font-size:.81rem;color:var(--ink-muted);padding-right:22px;">'
+         + '<strong style="color:var(--teal);">הסבר: </strong>' + a.e
+         + '</div>'
+         + '<div style="font-size:.79rem;color:#90949c;padding-right:22px;margin-top:2px;">'
+         + a.rationale
+         + '</div>'
+         + '</div>';
+  }
+
+  // Section A: q1–q5
+  var divA = document.getElementById('answers-rationale-a');
+  if (divA) {
+    var htmlA = '';
+    ['q1','q2','q3','q4','q5'].forEach(function(qId, idx) {
+      var a = ANSWERS[qId]; if (!a) return;
+      htmlA += buildRow(idx+1, '✅', a);
+    });
+    divA.innerHTML = htmlA || '<em style="color:var(--dim)">אין נתונים</em>';
+  }
+
+  // Section B: q6–q10
+  var divB = document.getElementById('answers-rationale-b');
+  if (divB) {
+    var htmlB = '';
+    ['q6','q7','q8','q9','q10'].forEach(function(qId, idx) {
+      var a = ANSWERS[qId]; if (!a) return;
+      var icon = a.correct === 't' ? '✅' : '❌';
+      htmlB += buildRow(idx+6, icon, a);
+    });
+    divB.innerHTML = htmlB || '<em style="color:var(--dim)">אין נתונים</em>';
+  }
+})();
+
+// ─── Activate teacher verb highlights in text tab ────────────────────────
+// המקרא והספאנים teacher-only כבר נמצאים ב-DOM, הם מוצגים על ידי v6 role security
+// (הפונקציה applyRoleSecurity מציגה teacher-only למורה — אין צורך בקוד נוסף)
 </script>
 
 <script>

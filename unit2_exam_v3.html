@@ -83,12 +83,12 @@
     min-height:44px; touch-action:manipulation;
     user-select:none;
   }
-  .opt-label:hover   { border-color:var(--navy-lt); background:#f0f7ff; }
+  .opt-label:hover    { border-color:var(--navy-lt); background:#f0f7ff; }
   .opt-label.selected { border-color:var(--navy-lt); background:#e7f3ff; }
 
   /* Teacher-mode reveal */
-  .opt-label.correct-ans { border-color:var(--green) !important; background:#e6f7ed !important; }
-  .opt-label.correct-ans::after { content:'✓'; margin-right:auto; color:var(--green); font-weight:900; }
+  .opt-label.correct-ans { border-color:var(--green)  !important; background:#e6f7ed !important; }
+  .opt-label.correct-ans::after { content:'✓'; margin-right:auto; color:var(--green);  font-weight:900; }
   .opt-label.wrong-sel   { border-color:var(--danger) !important; background:#fdecea !important; }
   .opt-label.wrong-sel::after   { content:'✗'; margin-right:auto; color:var(--danger); font-weight:900; }
 
@@ -117,14 +117,30 @@
   .modal-box { background:var(--surface); border-radius:20px; padding:32px 28px; max-width:460px; width:100%; box-shadow:0 8px 40px rgba(0,0,0,.25); }
 
   /* ─── TEACHER PANEL ─── */
-  /* Teacher-only elements: hidden by default at CSS level */
   .teacher-only { display:none !important; }
   body.teacher-mode .teacher-only { display:block !important; }
 
   /* ─── ANSWER ITEMS ─── */
   .ai { border-right:4px solid var(--navy-lt); padding:.6rem 1rem; margin-bottom:.6rem; background:#e7f3ff; border-radius:0 10px 10px 0; font-size:.9rem; line-height:1.7; }
-  .ai.correct { border-color:var(--green); background:#e6f7ed; }
+  .ai.correct { border-color:var(--green);  background:#e6f7ed; }
   .ai.wrong   { border-color:var(--danger); background:#fdecea; }
+
+  /* ─── ANSWER TABLE (teacher) ─── */
+  .ans-table { width:100%; border-collapse:collapse; font-size:.88rem; margin-top:8px; }
+  .ans-table th {
+    background:var(--navy); color:#fff;
+    padding:9px 12px; font-weight:700; text-align:right;
+    font-family:'Secular One',sans-serif; font-size:.83rem;
+  }
+  .ans-table th:first-child { border-radius:0 8px 0 0; }
+  .ans-table th:last-child  { border-radius:8px 0 0 0; }
+  .ans-table td { padding:9px 12px; border-bottom:1px solid var(--border); vertical-align:top; line-height:1.6; }
+  .ans-table tr:nth-child(even) td { background:#f5f8ff; }
+  .ans-table tr:last-child td { border-bottom:none; }
+  .ans-table tr:hover td { background:#e7f3ff; }
+  .ans-table .q-cell   { font-weight:700; color:var(--navy); white-space:nowrap; }
+  .ans-table .num-cell { text-align:center; font-weight:900; font-size:1.05rem; color:var(--green); width:40px; }
+  .ans-table .exp-cell { color:var(--text-mid); font-size:.83rem; }
 
   /* ─── PRINT ─── */
   @media print { .no-print{display:none!important} body{background:#fff} }
@@ -133,6 +149,7 @@
   @media (max-width:640px) {
     .card, .q-card { padding:1rem !important; }
     .opt-label { font-size:.88rem; padding:9px 12px; }
+    .ans-table th, .ans-table td { padding:7px 8px; font-size:.8rem; }
   }
 
   button { min-height:44px; touch-action:manipulation; }
@@ -165,10 +182,10 @@
       <span class="badge" style="background:rgba(168,212,240,.2);color:#a8d4f0;border:1px solid rgba(168,212,240,.4);">כיתה י׳</span>
       <span class="badge" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.15);">לשון עברית</span>
       <span class="badge" style="background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.15);">יחידה 2 — מערכת השם</span>
-      <span class="badge" style="background:rgba(124,58,237,.4);color:#e9d5ff;border:1px solid rgba(124,58,237,.5);">📝 מבחן סיכום</span>
+      <span class="badge" style="background:rgba(124,58,237,.4);color:#e9d5ff;border:1px solid rgba(124,58,237,.5);">📝 מבחן יחידה</span>
     </div>
     <h1 style="font-family:'Secular One',sans-serif;font-size:clamp(1.6rem,4vw,2.4rem);line-height:1.2;margin-bottom:8px;">
-      מבחן מסכם — מערכת השם
+      מבחן יחידה 2 — מערכת השם
     </h1>
     <p style="color:rgba(255,255,255,.65);font-size:.95rem;max-width:480px;">
       10 שאלות אמריקאיות · 10 נקודות לכל שאלה · סה"כ 100 נקודות
@@ -223,10 +240,10 @@
       </div>
     </div>
     <div id="opts1">
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q1" value="a"> <span>היתוך — שורש ח.ש.ב + משקל מַקְטֵל</span></label>
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q1" value="b"> <span>הדבקה — בסיס <strong>מַחְשֵׁב</strong> + סיומת <strong>-וֹן</strong> (הקטנה)</span></label>
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q1" value="c"> <span>מילה לועזית מאנגלית</span></label>
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q1" value="d"> <span>היתוך — שורש כ.ש.ב + משקל מִקְטָל</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q1" value="1"> <span>היתוך — שורש ח.ש.ב + משקל מַקְטֵל</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q1" value="2"> <span>הדבקה — בסיס <strong>מַחְשֵׁב</strong> + סיומת <strong>-וֹן</strong> (הקטנה)</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q1" value="3"> <span>מילה לועזית מאנגלית</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q1" value="4"> <span>היתוך — שורש כ.ש.ב + משקל מִקְטָל</span></label>
     </div>
   </div>
 
@@ -242,10 +259,10 @@
       </div>
     </div>
     <div id="opts2">
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q2" value="a"> <span>צַיָּר = בעל תכונה; קַנָּאי = בעל מקצוע</span></label>
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q2" value="b"> <span>צַיָּר = בעל מקצוע; קַנָּאי = בעל תכונה. משקל קַטָּל יכול לציין <em>גם</em> מקצוע <em>וגם</em> תכונה</span></label>
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q2" value="c"> <span>שתיהן בעל מקצוע — אין הבדל</span></label>
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q2" value="d"> <span>קַנָּאי בנויה בהדבקה ולא בהיתוך</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q2" value="1"> <span>צַיָּר = בעל תכונה; קַנָּאי = בעל מקצוע</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q2" value="2"> <span>צַיָּר = בעל מקצוע; קַנָּאי = בעל תכונה. משקל קַטָּל יכול לציין <em>גם</em> מקצוע <em>וגם</em> תכונה</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q2" value="3"> <span>שתיהן בעל מקצוע — אין הבדל</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q2" value="4"> <span>קַנָּאי בנויה בהדבקה ולא בהיתוך</span></label>
     </div>
   </div>
 
@@ -261,10 +278,10 @@
       </div>
     </div>
     <div id="opts3">
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q3" value="a"> <span>היתוך — שורש ג.ל.ב + משקל מַקְטֵלִי</span></label>
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q3" value="b"> <span>מילה לועזית טהורה ללא שינוי</span></label>
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q3" value="c"> <span>תצורה משולבת: בסיס לועזי <strong>global</strong> + סיומת עברית <strong>-ִי</strong></span></label>
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q3" value="d"> <span>הדבקה — בסיס גלובה + סיומת -לי</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q3" value="1"> <span>היתוך — שורש ג.ל.ב + משקל מַקְטֵלִי</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q3" value="2"> <span>מילה לועזית טהורה ללא שינוי</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q3" value="3"> <span>תצורה משולבת: בסיס לועזי <strong>global</strong> + סיומת עברית <strong>-ִי</strong></span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q3" value="4"> <span>הדבקה — בסיס גלובה + סיומת -לי</span></label>
     </div>
   </div>
 
@@ -280,10 +297,10 @@
       </div>
     </div>
     <div id="opts4">
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q4" value="a"> <span><strong>כַּדּוּרְגְּלָן</strong> — כַּדּוּרֶגֶל + -ָן</span></label>
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q4" value="b"> <span><strong>מִסְעָדָה</strong> — שורש ס.ע.ד + משקל מִקְטָלָה</span></label>
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q4" value="c"> <span><strong>עִיתּוֹנַאי</strong> — עִיתּוֹן + -ָאי</span></label>
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q4" value="d"> <span><strong>יַלְדוּת</strong> — יֶלֶד + -וּת</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q4" value="1"> <span><strong>כַּדּוּרְגְּלָן</strong> — כַּדּוּרֶגֶל + -ָן</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q4" value="2"> <span><strong>מִסְעָדָה</strong> — שורש ס.ע.ד + משקל מִקְטָלָה</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q4" value="3"> <span><strong>עִיתּוֹנַאי</strong> — עִיתּוֹן + -ָאי</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q4" value="4"> <span><strong>יַלְדוּת</strong> — יֶלֶד + -וּת</span></label>
     </div>
   </div>
 
@@ -298,10 +315,10 @@
       </div>
     </div>
     <div id="opts5">
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q5" value="a"> <span>בעל מקצוע</span></label>
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q5" value="b"> <span>מכשיר / כלי</span></label>
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q5" value="c"> <span>מחלה / מצב גופני</span></label>
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q5" value="d"> <span>שם פעולה</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q5" value="1"> <span>בעל מקצוע</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q5" value="2"> <span>מכשיר / כלי</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q5" value="3"> <span>מחלה / מצב גופני</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q5" value="4"> <span>שם פעולה</span></label>
     </div>
   </div>
 
@@ -317,10 +334,10 @@
       </div>
     </div>
     <div id="opts6">
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q6" value="a"> <span>נשאר "פַּסְנ" — עיצורים בלבד ✗ → היתוך</span></label>
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q6" value="b"> <span>נשאר <strong>פַּסְנְתֵּר</strong> — מילה עצמאית ✓ → הדבקה</span></label>
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q6" value="c"> <span>נשאר "פַּסְנְתְּ" — לא מילה ✗ → לועזית</span></label>
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q6" value="d"> <span>פַּסְנְתְּרָן היא מילה לועזית טהורה</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q6" value="1"> <span>נשאר "פַּסְנ" — עיצורים בלבד ✗ → היתוך</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q6" value="2"> <span>נשאר <strong>פַּסְנְתֵּר</strong> — מילה עצמאית ✓ → הדבקה</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q6" value="3"> <span>נשאר "פַּסְנְתְּ" — לא מילה ✗ → לועזית</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q6" value="4"> <span>פַּסְנְתְּרָן היא מילה לועזית טהורה</span></label>
     </div>
   </div>
 
@@ -335,10 +352,10 @@
       </div>
     </div>
     <div id="opts7">
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q7" value="a"> <span>הקטנה — נגר קטן</span></label>
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q7" value="b"> <span>שם פעולה — פעולת הנגרות</span></label>
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q7" value="c"> <span>מקום עבודה — בית המלאכה של הנגר</span></label>
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q7" value="d"> <span>בעל תכונה — אדם נגרני</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q7" value="1"> <span>הקטנה — נגר קטן</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q7" value="2"> <span>שם פעולה — פעולת הנגרות</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q7" value="3"> <span>מקום עבודה — בית המלאכה של הנגר</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q7" value="4"> <span>הדבקה — בסיס <strong>עִיתּוֹן</strong> + סיומת <strong>-ָאי</strong> (עוסק בתחום)</span></label>
     </div>
   </div>
 
@@ -353,10 +370,10 @@
       </div>
     </div>
     <div id="opts8">
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q8" value="a"> <span>כי "מַד" היא מילה עצמאית בעברית</span></label>
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q8" value="b"> <span>כי "מַד" אינה מילה עצמאית בעברית — זהו היתוך: שורש ד.פ.ס + משקל מַקְטֶלֶת</span></label>
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q8" value="c"> <span>כי -ֶסֶת אינה סיומת מוכרת בעברית</span></label>
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q8" value="d"> <span>כי המילה הושאלה מאנגלית</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q8" value="1"> <span>כי "מַד" היא מילה עצמאית בעברית</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q8" value="2"> <span>כי "מַד" אינה מילה עצמאית בעברית — זהו היתוך: שורש ד.פ.ס + משקל מַקְטֶלֶת</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q8" value="3"> <span>כי -ֶסֶת אינה סיומת מוכרת בעברית</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q8" value="4"> <span>כי המילה הושאלה מאנגלית</span></label>
     </div>
   </div>
 
@@ -371,10 +388,10 @@
       </div>
     </div>
     <div id="opts9">
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q9" value="a"> <span>היתוך — שורש ע.ת.נ + משקל קַטָּל</span></label>
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q9" value="b"> <span>הדבקה — בסיס <strong>עִיתּוֹן</strong> + סיומת <strong>-ָאי</strong> (עוסק בתחום)</span></label>
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q9" value="c"> <span>הדבקה — בסיס <strong>עֵת</strong> + סיומת <strong>-וֹנַאי</strong></span></label>
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q9" value="d"> <span>תצורה משולבת — בסיס לועזי + -ָאי</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q9" value="1"> <span>היתוך — שורש ע.ת.נ + משקל קַטָּל</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q9" value="2"> <span>הדבקה — בסיס <strong>עִיתּוֹן</strong> + סיומת <strong>-ָאי</strong> (עוסק בתחום)</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q9" value="3"> <span>הדבקה — בסיס <strong>עֵת</strong> + סיומת <strong>-וֹנַאי</strong></span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q9" value="4"> <span>תצורה משולבת — בסיס לועזי + -ָאי</span></label>
     </div>
   </div>
 
@@ -389,10 +406,10 @@
       </div>
     </div>
     <div id="opts10">
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q10" value="a"> <span><strong>מַדָּעִי</strong> — מַדָּע + -ִי</span></label>
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q10" value="b"> <span><strong>טֶלֶפוֹנִי</strong> — טֶלֶפוֹן (לועזית) + -ִי</span></label>
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q10" value="c"> <span><strong>עִבְרִית</strong> — עִבְרִי + -ִית</span></label>
-      <label class="opt-label"><input class="opt-radio" type="radio" name="q10" value="d"> <span><strong>כְּתִיבָה</strong> — כ.ת.ב + קְטִילָה</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q10" value="1"> <span><strong>מַדָּעִי</strong> — מַדָּע + -ִי</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q10" value="2"> <span><strong>טֶלֶפוֹנִי</strong> — טֶלֶפוֹן (לועזית) + -ִי</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q10" value="3"> <span><strong>עִבְרִית</strong> — עִבְרִי + -ִית</span></label>
+      <label class="opt-label"><input class="opt-radio" type="radio" name="q10" value="4"> <span><strong>כְּתִיבָה</strong> — כ.ת.ב + קְטִילָה</span></label>
     </div>
   </div>
 
@@ -411,11 +428,39 @@
   <!-- ─── TEACHER PANEL (visible only with ?role=teacher) ─── -->
   <div id="teacher-panel" class="no-print teacher-only" style="display:none!important;">
     <hr style="margin:32px 0;border:none;border-top:2px dashed var(--border);">
+
+    <!-- Teacher header -->
     <div style="background:linear-gradient(135deg,#0c2040,#1a3a6b);color:#fff;border-radius:14px;padding:20px 22px;margin-bottom:20px;">
       <div style="font-family:'Secular One',sans-serif;font-size:1.1rem;margin-bottom:4px;">🔑 מפתח תשובות — לשימוש מורה בלבד</div>
       <div style="font-size:.8rem;color:rgba(255,255,255,.6);">מוצג כי הדף נפתח עם <code>?role=teacher</code></div>
     </div>
-    <div id="answer-key"></div>
+
+    <!-- Answer table -->
+    <div class="card" style="padding:0;overflow:hidden;">
+      <div style="padding:14px 18px 10px;border-bottom:1px solid var(--border);">
+        <span style="font-family:'Secular One',sans-serif;font-size:1rem;color:var(--navy);">טבלת תשובות נכונות</span>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="ans-table" id="answers-table">
+          <thead>
+            <tr>
+              <th style="width:30%;">שאלה</th>
+              <th style="width:8%;text-align:center;">תשובה</th>
+              <th>הסבר (שורש / בסיס + סיומת)</th>
+            </tr>
+          </thead>
+          <tbody id="answers-tbody">
+            <!-- filled by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Detailed answer cards -->
+    <div style="margin-top:20px;">
+      <div style="font-family:'Secular One',sans-serif;font-size:.95rem;color:var(--navy);margin-bottom:12px;">פירוט מלא לכל שאלה</div>
+      <div id="answer-key"></div>
+    </div>
   </div>
 
 </main>
@@ -436,29 +481,47 @@
 
 <!-- ════════════ FOOTER ════════════ -->
 <footer class="no-print" style="background:var(--navy);color:rgba(255,255,255,.55);text-align:center;padding:20px;font-size:.78rem;margin-top:60px;">
-  פלטפורמת לשון עברית — כיתה י׳ | יחידה 2: מערכת השם | מבחן סיכום<br>
+  פלטפורמת לשון עברית — כיתה י׳ | יחידה 2: מערכת השם | מבחן יחידה<br>
   תואם תכנית המפמ"ר ומיצ"ב 2026 | © כל הזכויות שמורות
 </footer>
 
 <script>
 /* ══════════════════════════════════════════════════
-   ANSWER KEY — hidden from students
-   Only used when ?role=teacher is in URL
+   METADATA
 ══════════════════════════════════════════════════ */
-/* ── Answer key: stored encoded, decoded only in teacher mode ──
-   Not plain text — prevents casual Inspect-Element snooping.
-   Base64 of JSON; keys: c=correct letter, e=explanation             */
-const _AK = 'eyJxMSI6IHsiYyI6ICJiIiwgImUiOiAi157Wt9eX1rDXqda114HXkdeV1rnXnyA9INeU15PXkden15Q6INeR16HXmdehINee1rfXl9aw16nWtdeB15EgKNee15nXnNeUINep15zXnteUIOKckykgKyDXodeZ15XXnteqIC3Xlda5158gKNeU16fXmNeg15QpLiDXqdeZ150g15zXkTog157Wt9eX1rDXqda114HXkSDXotem157XlSA9INeU15nXqteV15ogKNeXLtepLteRICsg157Wt9en1rDXmNa115wpLCDXkNeaINee1rfXl9aw16nWtdeB15HXlda5158gPSDXlNeT15HXp9eULiJ9LCAicTIiOiB7ImMiOiAiYiIsICJlIjogIten1rfXmNa41rzXnCDXntem15nXmdefINeS150g157Xp9em15XXoiAo16bWt9eZ1rjWvNeoID0g15DXntefINem15nXldeoKSDXldeS150g16rXm9eV16DXlCAo16fWt9eg1rjWvNeQ15kgPSDXkdei15wg16fXoNeQ15XXqikuINeU15TXp9ep16gg16fXldeR16IuIn0sICJxMyI6IHsiYyI6ICJjIiwgImUiOiAi15LWsNa815zXlda515HWuNa815zWtNeZID0g16rXpteV16jXlCDXntep15XXnNeR16o6INeR16HXmdehINec15XXoteW15kgZ2xvYmFsICsg16HXmdeV157XqiDXoteR16jXmdeqIC3WtNeZLiDXkNeZ158g15zXoNeq15fXlCDXm9ep15XXqNepINei15HXqNeZLiJ9LCAicTQiOiB7ImMiOiAiYiIsICJlIjogItee1rTXodaw16LWuNeT1rjXlCA9INeU15nXqteV15o6INep15XXqNepINehLteiLteTICsg157Xqden15wg157WtNen1rDXmNa415zWuNeUICjXnten15XXnSkuINeU15DXl9eo15XXqiDXlNefINeU15PXkden15QuIn0sICJxNSI6IHsiYyI6ICJjIiwgImUiOiAi16fWt9eY1rbWvNec1rbXqiA9INee16nXp9ecINeU157XpteZ15nXnyDXnteX15zXldeqINeV157XpteR15nXnSDXkteV16TXoNeZ15nXnTog15PWt9a815zWtta816fWtteqLCDXqda314HXl9a216TWtteqLCDXm9a31rzXkNa215HWtteqLiJ9LCAicTYiOiB7ImMiOiAiYiIsICJlIjogIteb15nXodeV15kgLda4158g4oaSINeg16nXkNeoINek1rfWvNeh1rDXoNaw16rWtda816gg4oCUINee15nXnNeUINep15zXnteUIOKckyDihpIg15TXk9eR16fXlC4g16TWt9a816HWsNeg1rDXqta11rzXqCDXotem157XlCDXnNeV16LXlteZ16ogKHBpYW5vZm9ydGUpIOKAlCDXkdeh15nXoSDXnNeV16LXlteZICsg16HXmdeV157XqiDXoteR16jXmdeqLiJ9LCAicTciOiB7ImMiOiAiYyIsICJlIjogIteg1rfXkta41rzXqNa015nWuNa815Q6INeR16HXmdehINeg1rfXkta41rzXqCArIC3WtNeZ1rjWvNeUID0g157Xp9eV150g16LXkdeV15PXqiDXlNeg15LXqC4gLda015nWuNa815Qg157XpteZ15nXoNeqINee16fXldedINeQ15Ug15DXldeh16MuIn0sICJxOCI6IHsiYyI6ICJiIiwgImUiOiAiXCLXnta315NcIiDXkNeZ16DXlCDXnteZ15zXlCDXotem157XkNeZ16og4pyXIOKGkiDXkNeZ158g15TXk9eR16fXlC4g157Wt9eT1rDXpNa21rzXoda216ogPSDXlNeZ16rXldeaOiDXqdeV16jXqSDXky7XpC7XoSArINee16nXp9ecINee1rfXp9aw15jWttec1rbXqi4ifSwgInE5IjogeyJjIjogImIiLCAiZSI6ICLXota015nXqta815XWudeg1rfXkNeZID0g15TXk9eR16fXlDog15HXodeZ16Eg16LWtNeZ16rWvNeV1rnXnyAo157Xmdec15Qg16nXnNee15Qg4pyTKSArINeh15nXldee16ogLda415DXmSAo16LXldeh16cg15HXqteX15XXnSkuIn0sICJxMTAiOiB7ImMiOiAiYiIsICJlIjogIteY1rbXnNa216TXlda516DWtNeZID0g16rXpteV16jXlCDXntep15XXnNeR16o6INeR16HXmdehINec15XXoteW15kg15jWttec1rbXpNeV1rnXnyArIC3WtNeZLiDXnta315PWuNa816LWtNeZINeV16LWtNeR1rDXqNa015nXqiA9INeU15PXkden15Q7INeb1rDWvNeq1rTXmdeR1rjXlCA9INeU15nXqteV15ouIn19';
-let ANSWERS = null;  // populated by applyTeacherPermissions() only
+const LESSON_TYPE = 'מבחן יחידה';
+const UNIT        = 'יחידה 2 — מערכת השם';
 
-const Q_LABELS = {
-  q1:'1. מַחְשֵׁבוֹן', q2:'2. צַיָּר / קַנָּאי', q3:'3. גְּלוֹבָּלִי',
-  q4:'4. מיון להיתוך',  q5:'5. משקל קַטֶּלֶת',   q6:'6. פַּסְנְתְּרָן — כיסוי',
-  q7:'7. נַגָּרִיָּה',  q8:'8. מַדְפֶּסֶת',       q9:'9. עִיתּוֹנַאי',
-  q10:'10. תצורה משולבת',
+/* ══════════════════════════════════════════════════
+   ANSWER KEY
+   c = מספר התשובה הנכונה (1–4 לפי סדר האפשרויות)
+   e = הסבר קצר הכולל דרך התצורה (שורש+משקל / בסיס+סיומת)
+══════════════════════════════════════════════════ */
+const ANSWERS = {
+  q1:  { c: '2', e: 'הדבקה: בסיס \'מחשב\' + סיומת \'-ון\' (הקטנה/גוזרת). מַחְשֵׁב עצמו = היתוך (ח.ש.ב + מַקְטֵל), אך מַחְשֵׁבוֹן = הדבקה.' },
+  q2:  { c: '1', e: 'הדבקה: בסיס \'ספר\' + סיומת \'-ן\' (בעל תפקיד). שורש: ס.פ.ר.' },
+  q3:  { c: '3', e: 'היתוך: שורש י.ר.ד, משקל הַקְטָלָה (שם פעולה בהפעיל).' },
+  q4:  { c: '1', e: 'הדבקה: בסיס \'מחשב\' + סיומת \'-ון\' (הקטנה/גוזרת).' },
+  q5:  { c: '2', e: 'היתוך: שורש ר.כ.ב, משקל קֶטֶל (שם עצם עברי קלאסי).' },
+  q6:  { c: '3', e: 'היתוך: שורש ש.מ.ר, משקל קְטִילָה (שם פעולה בקל).' },
+  q7:  { c: '4', e: 'הדבקה: בסיס \'עיתון\' + סיומת \'-אי\' (עוסק בתחום).' },
+  q8:  { c: '2', e: 'היתוך: שורש ג.ל.ה, משקל תַּקְלִית (שם עצם נגזר).' },
+  q9:  { c: '1', e: 'היתוך: שורש ד.פ.ס, משקל מַקְטֶלֶת (כלי/מכשיר).' },
+  q10: { c: '3', e: 'הדבקה: בסיס \'ילד\' + סיומת מופשטת \'-ות\' (מצב/תכונה).' },
 };
 
-const OPT_TEXT = {};  // populated on DOM ready
+const Q_LABELS = {
+  q1:  '1. מַחְשֵׁבוֹן',
+  q2:  '2. צַיָּר / קַנָּאי',
+  q3:  '3. גְּלוֹבָּלִי',
+  q4:  '4. מיון להיתוך',
+  q5:  '5. משקל קַטֶּלֶת',
+  q6:  '6. פַּסְנְתְּרָן — כיסוי',
+  q7:  '7. נַגָּרִיָּה',
+  q8:  '8. מַדְפֶּסֶת',
+  q9:  '9. עִיתּוֹנַאי',
+  q10: '10. תצורה משולבת',
+};
 
 /* ── Progress tracker ── */
 function updateProgress() {
@@ -523,7 +586,7 @@ function submitExam() {
   body    += `<div style="margin-bottom:10px"><strong>תאריך:</strong> ${date}</div>`;
   body    += `<div style="border-top:1px solid var(--border);padding-top:10px;font-size:.82rem;color:var(--text-muted);">`;
   for (let i = 1; i <= 10; i++) {
-    const ans = answers['q' + i];
+    const ans   = answers['q' + i];
     const optEl = document.querySelector(`input[name="q${i}"][value="${ans}"]`);
     const optTxt = optEl ? optEl.closest('.opt-label').querySelector('span').textContent.trim().substring(0,40) : '—';
     body += `<div style="padding:3px 0;">ש${i}: ${ans ? optTxt + (optTxt.length>=40?'…':'') : '<em>לא נענה</em>'}</div>`;
@@ -541,12 +604,11 @@ document.getElementById('modal').addEventListener('click', function(e) {
   if (e.target === this) closeModal();
 });
 
-/* ═══════════════════════════════════════════════════
-   applyTeacherPermissions — unified teacher gate
-   Decodes answer key ONLY when ?role=teacher is present.
-   teacher-only elements are hidden at CSS level (display:none!important)
-   and revealed here via body.teacher-mode class.
-═══════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════
+   applyTeacherPermissions
+   Reveals teacher panel and builds answer table + cards.
+   Activated when URL contains ?role=teacher
+══════════════════════════════════════════════════ */
 function applyTeacherPermissions() {
   const isTeacher = new URLSearchParams(window.location.search).get('role') === 'teacher';
   if (!isTeacher) return;
@@ -554,30 +616,50 @@ function applyTeacherPermissions() {
   // 1. Reveal teacher-only elements
   document.body.classList.add('teacher-mode');
 
-  // 2. Decode answer key from encoded string (not stored as plain text)
-  try {
-    ANSWERS = JSON.parse(atob(_AK));
-  } catch(e) {
-    console.warn('Could not decode answer key'); return;
+  // 2. Build answer table
+  const tbody = document.getElementById('answers-tbody');
+  if (tbody) {
+    let rows = '';
+    for (let i = 1; i <= 10; i++) {
+      const key  = 'q' + i;
+      const data = ANSWERS[key];
+      if (!data) continue;
+      const correctRadio = document.querySelector(`input[name="${key}"][value="${data.c}"]`);
+      const correctTxt   = correctRadio
+        ? correctRadio.closest('.opt-label').querySelector('span').textContent.trim()
+        : '—';
+      rows += `<tr>
+        <td class="q-cell">${Q_LABELS[key]}</td>
+        <td class="num-cell">${data.c}</td>
+        <td>
+          <div style="color:var(--green);font-weight:600;margin-bottom:3px;">✓ ${correctTxt}</div>
+          <div class="exp-cell">${data.e}</div>
+        </td>
+      </tr>`;
+    }
+    tbody.innerHTML = rows;
   }
 
-  // 3. Build answer key panel
+  // 3. Build detailed answer cards
   const keyDiv = document.getElementById('answer-key');
-  if (!keyDiv) return;
-  let html = '';
-  for (let i = 1; i <= 10; i++) {
-    const key  = 'q' + i;
-    const data = ANSWERS[key];
-    if (!data) continue;
-    const correctRadio = document.querySelector('input[name="' + key + '"][value="' + data.c + '"]');
-    const correctTxt   = correctRadio ? correctRadio.closest('.opt-label').querySelector('span').textContent.trim() : '—';
-    html += '<div class="ai correct" style="margin-bottom:10px;">'
-          + '<strong>' + Q_LABELS[key] + '</strong><br>'
-          + '<span style="color:var(--green);">✓ תשובה נכונה: ' + correctTxt + '</span><br>'
-          + '<span style="font-size:.83rem;color:var(--text-mid);">' + data.e + '</span>'
-          + '</div>';
+  if (keyDiv) {
+    let html = '';
+    for (let i = 1; i <= 10; i++) {
+      const key  = 'q' + i;
+      const data = ANSWERS[key];
+      if (!data) continue;
+      const correctRadio = document.querySelector(`input[name="${key}"][value="${data.c}"]`);
+      const correctTxt   = correctRadio
+        ? correctRadio.closest('.opt-label').querySelector('span').textContent.trim()
+        : '—';
+      html += `<div class="ai correct" style="margin-bottom:10px;">
+        <strong>${Q_LABELS[key]}</strong><br>
+        <span style="color:var(--green);">✓ תשובה נכונה (${data.c}): ${correctTxt}</span><br>
+        <span style="font-size:.83rem;color:var(--text-mid);">${data.e}</span>
+      </div>`;
+    }
+    keyDiv.innerHTML = html;
   }
-  keyDiv.innerHTML = html;
 }
 
 /* ── Init ── */
@@ -596,7 +678,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Teacher permissions (decodes answers + reveals teacher panel)
+  // Teacher permissions (reveals panel + builds table)
   applyTeacherPermissions();
   updateProgress();
 });

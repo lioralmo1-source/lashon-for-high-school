@@ -200,11 +200,12 @@ button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
   position:relative;z-index:1;
   width:100%;max-width:560px;
   margin-top:1rem;
-  background:rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.14);
   border-radius:18px;padding:1.4rem 1.6rem;
   display:none;
   animation:tcpSlide .24s ease;
+  box-shadow:0 24px 60px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.05);
 }
 .ls-tcp.open{display:block;}
 @keyframes tcpSlide{from{opacity:0;transform:translateY(-10px)} to{opacity:1;transform:translateY(0)}}
@@ -214,31 +215,31 @@ button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
 .tcp-lbl{font-size:.72rem;font-weight:700;color:rgba(255,255,255,.38);display:block;margin-bottom:.42rem;}
 .tcp-name-in{
   width:100%;padding:.68rem .95rem;border-radius:10px;direction:rtl;
-  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);
-  color:#fff;font-size:.9rem;outline:none;transition:border-color .18s;
+  background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.13);
+  color:#fff;font-size:.9rem;outline:none;transition:border-color .18s,box-shadow .18s;
 }
 .tcp-name-in::placeholder{color:rgba(255,255,255,.22);}
-.tcp-name-in:focus{border-color:rgba(202,138,4,.7);box-shadow:0 0 0 3px rgba(202,138,4,.13);}
+.tcp-name-in:focus{border-color:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,.3);}
 
 .tcp-row{display:flex;gap:.7rem;margin-top:.45rem;}
 .tcp-in{
   flex:1;padding:.7rem .95rem;border-radius:10px;
   direction:ltr;text-align:center;letter-spacing:.25em;
-  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.13);
-  color:#fff;font-size:1.05rem;outline:none;transition:border-color .18s;
+  background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.13);
+  color:#fff;font-size:1.05rem;outline:none;transition:border-color .18s,box-shadow .18s;
 }
 .tcp-in::placeholder{color:rgba(255,255,255,.2);letter-spacing:normal;}
-.tcp-in:focus{border-color:rgba(202,138,4,.7);box-shadow:0 0 0 3px rgba(202,138,4,.13);}
+.tcp-in:focus{border-color:#3b82f6;box-shadow:0 0 0 3px rgba(59,130,246,.3);}
 .tcp-in.shake{animation:shk .32s;border-color:#f87171;}
 @keyframes shk{0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)}}
 
 .tcp-go{
-  padding:.7rem 1.4rem;border:none;border-radius:10px;
+  padding:.625rem 1.25rem;border:none;border-radius:10px;
   background:linear-gradient(135deg,#d97706,#ca8a04);
-  color:#fff;font-size:.9rem;font-weight:700;
+  color:#fff;font-size:.82rem;font-weight:700;
   cursor:pointer;transition:all .15s;white-space:nowrap;
   box-shadow:0 4px 14px rgba(202,138,4,.35);
-  min-height:46px;
+  min-height:42px;
 }
 .tcp-go:hover{background:linear-gradient(135deg,#f59e0b,#d97706);transform:translateY(-1px);}
 
@@ -439,11 +440,11 @@ button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
 /* Actions — desktop */
 .lr-actions{display:flex;align-items:center;gap:.3rem;flex-shrink:0;}
 .btn-main{
-  display:inline-flex;align-items:center;gap:.28rem;
-  padding:.42rem .9rem;border:none;border-radius:8px;
-  font-size:.78rem;font-weight:700;cursor:pointer;
+  display:inline-flex;align-items:center;gap:.22rem;
+  padding:.34rem .72rem;border:none;border-radius:8px;
+  font-size:.62rem;font-weight:700;cursor:pointer;
   white-space:nowrap;transition:all .14s;text-decoration:none;
-  min-height:40px;
+  min-height:32px;
 }
 .btn-main.prim {background:var(--blue);color:#fff;}
 .btn-main.prim:hover{background:#1648b8;box-shadow:0 2px 8px rgba(26,86,219,.3);}
@@ -472,8 +473,8 @@ button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
 /* Icon-only circular buttons */
 .btn-icon{
   display:inline-flex;align-items:center;justify-content:center;
-  width:34px;height:34px;border:none;border-radius:50%;
-  font-size:.95rem;cursor:pointer;text-decoration:none;
+  width:27px;height:27px;border:none;border-radius:50%;
+  font-size:.76rem;cursor:pointer;text-decoration:none;
   background:#f1f3f5;color:var(--muted);
   transition:background .14s,transform .1s;
   flex-shrink:0;
@@ -491,9 +492,9 @@ button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
 .lr-lock-wrap{display:flex;align-items:center;gap:.3rem;flex-shrink:0;}
 .lr-lock-label{font-size:.58rem;color:var(--muted);white-space:nowrap;}
 
-/* Slim toggle — 36×20px */
+/* Slim toggle — 29×16px (was 36×20px) */
 .lr-toggle{
-  position:relative;width:36px;height:20px;
+  position:relative;width:29px;height:16px;
   cursor:pointer;display:inline-block;flex-shrink:0;
 }
 .lr-toggle input{opacity:0;width:0;height:0;position:absolute;}
@@ -503,8 +504,8 @@ button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
   cursor:pointer;box-shadow:inset 0 1px 2px rgba(0,0,0,.14);
 }
 .lr-slider::before{
-  content:'';position:absolute;width:16px;height:16px;border-radius:50%;
-  background:#fff;top:2px;right:18px;
+  content:'';position:absolute;width:12px;height:12px;border-radius:50%;
+  background:#fff;top:2px;right:15px;
   transition:right .22s cubic-bezier(.4,0,.2,1);
   box-shadow:0 1px 4px rgba(0,0,0,.2);
 }
@@ -538,13 +539,23 @@ button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
   border:1px solid #93c5fd;border-radius:4px;
   padding:.1rem .42rem;margin-bottom:.22rem;
 }
+/* "תיאוריה ופתרונות" variant — teal/green */
+.exam-label:has(+ .lr-short) { /* fallback handled below */ }
+div.exam-label[class="exam-label"]:not(:empty) { }
+.theory-label{
+  display:inline-flex;align-items:center;gap:.25rem;
+  font-size:.54rem;font-weight:800;letter-spacing:.06em;
+  color:#065f46;background:#d1fae5;
+  border:1px solid #6ee7b7;border-radius:4px;
+  padding:.1rem .42rem;margin-bottom:.22rem;
+}
 /* Sol (answer key) icon button — exam specific */
 .btn-icon.sol-exam{background:#dbeafe;color:#1e40af;}
 .btn-icon.sol-exam:hover{background:#bfdbfe;}
 
 /* Toast */
 #toast{
-  position:fixed;bottom:1.3rem;right:1.3rem;z-index:9999;
+  position:fixed;bottom:1.3rem;right:1.3rem;z-index:10000;
   background:#1e293b;color:#fff;border-radius:10px;
   padding:.68rem 1.15rem;font-size:.82rem;font-weight:600;
   opacity:0;transform:translateY(8px);
@@ -735,12 +746,35 @@ button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
     margin-right:auto;
   }
   .lr-actions .btn-main{
-    min-height:30px; font-size:.73rem;
-    padding:.22rem .65rem; border-radius:6px;
+    min-height:26px; font-size:.59rem;
+    padding:.18rem .52rem; border-radius:6px;
+  }
+}
+
+/* ══════════════════════════════════════
+   MOBILE ≤640px — action buttons stacked
+══════════════════════════════════════ */
+@media(max-width:640px){
+  .lr-actions{
+    flex-direction:column;
+    align-items:stretch;
+    width:100%;
+    gap:.28rem;
+    margin-right:0;
+    margin-top:.3rem;
+  }
+  .lr-actions .btn-main,
+  .lr-actions a.btn-main{
+    width:100%;justify-content:center;
+    min-height:34px;font-size:.72rem;
+    padding:.42rem .6rem;
+  }
+  .lr-bar{
+    flex-wrap:wrap;
   }
 
-  /* icon circles: 28px on mobile */
-  .btn-icon{ width:28px; height:28px; font-size:.8rem; }
+  /* icon circles: 24px on mobile */
+  .btn-icon{ width:24px; height:24px; font-size:.7rem; }
 
   /* toggle: 80% size, anchored to its right edge (RTL "left") */
   .lr-lock-wrap{
@@ -974,7 +1008,7 @@ const UNITS=[
       {id:'u1_l5',short:'שיעור 5',emoji:'🏙️',color:'#b45309',mins:45,locked:false,exam:false,
        title:'סיכום + מרובעים',desc:'חזרה על שבעת הבניינים ושורשים מרובעים',
        file:'lesson5_summary_mruba_v3.html'},
-      {id:'u1_exam',short:'מבחן סיכום',emoji:'🎯',color:'#c9a227',mins:45,locked:false,exam:true,
+      {id:'u1_exam',short:'מבחן סיכום',emoji:'🎯',color:'#c9a227',mins:45,locked:false,exam:true,theory:true,
        title:'מבחן סיכום יחידה 1',desc:'מבחן מסכם — מערכת הפועל ושבעת הבניינים',
        file:'lesson6_bagrut_exam_v3.html',solFile:'lesson6_bagrut_exam_v3.html?sol=1'},
     ]
@@ -1307,7 +1341,11 @@ function buildLessonRow(l,isT){
                     :'<span class="chip ch-open">פתוח</span>';
 
   // Exam label shown above title on exam cards
-  const examLabel=l.exam?'<div class="exam-label">📋 משימת סיכום</div>':'';
+  const examLabel=l.exam
+    ? (l.theory
+        ? '<div class="theory-label">📖 תיאוריה ופתרונות</div>'
+        : '<div class="exam-label">📋 משימת סיכום</div>')
+    : '';
 
   let actions='';
   if(!isT){

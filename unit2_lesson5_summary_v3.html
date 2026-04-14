@@ -95,6 +95,7 @@
   .ai.danger { border-color:var(--danger); background:#fdecea; }
   .ai.sun    { border-color:var(--sun);    background:#fef9e7; }
   .ai.purple { border-color:var(--purple); background:#f0ebff; }
+  .ai.green  { border-color:var(--green);  background:#e6f7ed; }
 
   /* ─── HIGHLIGHTS ─── */
   .hl-n { background:#c8dff8; padding:1px 4px; border-radius:3px; color:#0d2a6b; font-weight:700; }
@@ -150,6 +151,10 @@
     .ctable { font-size:0.8rem; }
     .ctable th, .ctable td { padding:7px 8px; }
     #timer-display { font-size:1.5rem; }
+    /* כפתורים במובייל — אחד מתחת לשני */
+    .btn-row { flex-direction:column !important; }
+    .btn-row button, .btn-row a { width:100% !important; text-align:center !important; justify-content:center !important; }
+    nav .max-w-5xl { flex-wrap:wrap !important; }
   }
 
   button { min-height:44px; touch-action:manipulation; }
@@ -161,6 +166,14 @@
 
   /* ─── SCORE BAR ─── */
   #score-display { display:none; }
+
+  /* ─── TEACHER ANSWERS TAB ─── */
+  .teacher-answer-section { margin-bottom:2rem; }
+  .teacher-answer-section h3 { font-family:'Secular One',sans-serif; font-size:1.05rem; color:var(--navy); margin-bottom:14px; padding:8px 14px; background:var(--surface2); border-radius:8px; border-right:4px solid var(--navy-lt); }
+  .answer-row { display:flex; flex-direction:column; gap:4px; margin-bottom:10px; padding:10px 14px; background:var(--surface); border:1px solid var(--border); border-radius:10px; }
+  .answer-row .word-label { font-weight:800; color:var(--navy); font-size:0.95rem; }
+  .answer-row .answer-text { font-size:0.88rem; color:var(--text-mid); line-height:1.8; }
+  .answer-correct { color:#15803d; font-weight:700; }
 </style>
 </head>
 <body>
@@ -177,7 +190,8 @@
           <span class="badge" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.15);">לשון עברית</span>
           <span class="badge" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.15);">יחידה 2 — מערכת השם</span>
           <span class="badge" style="background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.15);">שיעור 5 מתוך 5 — סיכום</span>
-          <span class="badge" style="background:rgba(232,160,32,0.3);color:#fde68a;border:1px solid rgba(232,160,32,0.5);">⭐ שיעור סיכום</span>
+          <!-- שינוי 1: מ'הלכה' ל'תיאוריה' -->
+          <span class="badge" style="background:rgba(37,99,184,0.4);color:#a8d4f0;border:1px solid rgba(37,99,184,0.6);">📚 שיעור תיאוריה</span>
         </div>
         <h1 style="font-family:'Secular One',sans-serif;font-size:clamp(1.6rem,4vw,2.7rem);line-height:1.15;margin-bottom:10px;">
           סיכום יחידה 2 — מערכת השם
@@ -201,6 +215,7 @@
     <div style="margin-top:22px;" class="no-print">
       <div style="display:flex;justify-content:space-between;font-size:0.71rem;color:rgba(255,255,255,0.45);margin-bottom:5px;"><span>התקדמות השיעור</span><span id="prog-pct">0%</span></div>
       <div class="prog-wrap"><div class="prog-fill" id="prog-fill" style="width:0%;"></div></div>
+      <!-- שינוי 1: עדכון לשון גם בשורת ההתקדמות -->
       <div style="display:flex;justify-content:space-between;font-size:0.67rem;color:rgba(255,255,255,0.3);margin-top:4px;"><span>תיאוריה (10׳)</span><span>תרגול (15׳)</span><span>דף עבודה (15׳)</span><span>סיכום (5׳)</span></div>
     </div>
   </div>
@@ -214,6 +229,8 @@
     <button class="tab-btn active px-4 py-3 text-sm" onclick="showTab('th',this)" style="color:var(--navy);">📚 תיאוריה</button>
     <button class="tab-btn px-4 py-3 text-sm" onclick="showTab('tp',this)" style="color:var(--text-muted);">🎯 תרגול</button>
     <button class="tab-btn px-4 py-3 text-sm" onclick="showTab('tw',this)" style="color:var(--text-muted);">✏️ דף עבודה</button>
+    <!-- טאב פתרונות - נגיש למורה בלבד -->
+    <button class="tab-btn teacher-only px-4 py-3 text-sm" onclick="showTab('ta',this)" style="color:var(--text-muted);display:none;">🔑 פתרונות</button>
     <button onclick="window.location.href='index.html'" style="margin-right:auto;padding:8px 16px;font-size:0.8rem;color:var(--text-muted);background:transparent;border:1px solid var(--border);border-radius:8px;cursor:pointer;white-space:nowrap;font-family:'Heebo',sans-serif;" class="no-print">🏠 תפריט</button>
     <button onclick="window.print()" style="padding:8px 14px;font-size:0.8rem;color:var(--text-muted);background:transparent;border:none;cursor:pointer;white-space:nowrap;" class="no-print">🖨️</button>
   </div>
@@ -373,7 +390,8 @@
       </div>
     </div>
 
-    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+    <!-- שינוי 3: כפתורים רספונסיביים -->
+    <div class="btn-row" style="display:flex;gap:10px;flex-wrap:wrap;">
       <button onclick="checkSort()" style="background:var(--navy-lt);color:#fff;border:none;padding:10px 24px;border-radius:10px;font-family:'Heebo',sans-serif;font-size:0.95rem;font-weight:700;cursor:pointer;">✔ בדוק תשובות</button>
       <button onclick="resetSort()" style="background:transparent;color:var(--text-muted);border:1.5px solid var(--border);padding:10px 20px;border-radius:10px;font-family:'Heebo',sans-serif;font-size:0.9rem;cursor:pointer;">↺ איפוס</button>
     </div>
@@ -406,7 +424,8 @@
       </table>
     </div>
 
-    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;">
+    <!-- שינוי 3: כפתורים רספונסיביים -->
+    <div class="btn-row" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;">
       <button onclick="checkMatch()" style="background:var(--teal);color:#fff;border:none;padding:10px 24px;border-radius:10px;font-family:'Heebo',sans-serif;font-size:0.95rem;font-weight:700;cursor:pointer;">✔ בדוק תשובות</button>
       <button onclick="resetMatch()" style="background:transparent;color:var(--text-muted);border:1.5px solid var(--border);padding:10px 20px;border-radius:10px;font-family:'Heebo',sans-serif;font-size:0.9rem;cursor:pointer;">↺ איפוס</button>
     </div>
@@ -563,9 +582,814 @@
 
 </div><!-- /worksheet -->
 
+
+<!-- ════════════════════════════════════
+     TAB 4 — TEACHER ANSWERS (teacher-only)
+════════════════════════════════════ -->
+
+<!-- ════════════════════════════════════
+     TAB 4 — TEACHER ANSWERS (teacher-only)
+════════════════════════════════════ -->
+<div id="ta" class="tab-pane teacher-only" style="display:none;">
+
+  <!-- ══ Header ══ -->
+  <div style="background:linear-gradient(135deg,#0c2040,#1a3a6b);color:#fff;border-radius:14px;padding:20px 24px;margin-bottom:24px;">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div style="font-size:2.5rem;">🔑</div>
+      <div>
+        <div style="font-family:'Secular One',sans-serif;font-size:1.2rem;margin-bottom:4px;">פתרונות מלאים — למורה בלבד</div>
+        <div style="font-size:0.82rem;color:rgba(255,255,255,0.6);">מיון מילים · התאמת משמעויות · פתרונות דף עבודה · טיפים פדגוגיים</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       סקציה A — מיון דרך תצורה: 6 המילים של התרגיל
+  ══════════════════════════════════ -->
+  <div class="teacher-answer-section">
+    <h3>🗂️ פתרון מיון לפי דרך תצורה — 6 המילים</h3>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+
+      <!-- שורש ומשקל (היתוך) -->
+      <div style="background:#e7f0ff;border:2px solid #2563b8;border-radius:12px;padding:16px;">
+        <div style="font-family:'Secular One',sans-serif;font-size:0.95rem;color:#1e3a8a;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+          <span style="background:#2563b8;color:#fff;border-radius:6px;padding:2px 10px;font-size:0.8rem;">שורש + משקל</span> היתוך
+        </div>
+        <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+          <thead>
+            <tr style="border-bottom:1px solid #bfdbfe;">
+              <th style="padding:5px 8px;text-align:right;color:#1e3a8a;">מילה</th>
+              <th style="padding:5px 8px;text-align:right;color:#1e3a8a;">שורש</th>
+              <th style="padding:5px 8px;text-align:right;color:#1e3a8a;">משקל</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #dbeafe;">
+              <td style="padding:6px 8px;font-weight:800;">תַּצְפִּית</td>
+              <td style="padding:6px 8px;color:#374151;">צ.פ.י</td>
+              <td style="padding:6px 8px;color:#374151;">תַּקְטִיל</td>
+            </tr>
+            <tr style="border-bottom:1px solid #dbeafe;background:#f0f7ff;">
+              <td style="padding:6px 8px;font-weight:800;">הוֹרָדָה</td>
+              <td style="padding:6px 8px;color:#374151;">י.ר.ד</td>
+              <td style="padding:6px 8px;color:#374151;">הַקְטָלָה (שם פעולה בהפעיל)</td>
+            </tr>
+            <tr style="border-bottom:1px solid #dbeafe;">
+              <td style="padding:6px 8px;font-weight:800;">רֶכֶב</td>
+              <td style="padding:6px 8px;color:#374151;">ר.כ.ב</td>
+              <td style="padding:6px 8px;color:#374151;">קֶטֶל</td>
+            </tr>
+            <tr style="border-bottom:1px solid #dbeafe;background:#f0f7ff;">
+              <td style="padding:6px 8px;font-weight:800;">שְׁמִירָה</td>
+              <td style="padding:6px 8px;color:#374151;">ש.מ.ר</td>
+              <td style="padding:6px 8px;color:#374151;">קְטִילָה</td>
+            </tr>
+            <tr style="border-bottom:1px solid #dbeafe;">
+              <td style="padding:6px 8px;font-weight:800;">תַּגְלִית</td>
+              <td style="padding:6px 8px;color:#374151;">ג.ל.ה</td>
+              <td style="padding:6px 8px;color:#374151;">תַּקְטִיל</td>
+            </tr>
+            <tr>
+              <td style="padding:6px 8px;font-weight:800;">מַדְפֶּסֶת ⚠️</td>
+              <td style="padding:6px 8px;color:#374151;">ד.פ.ס</td>
+              <td style="padding:6px 8px;color:#374151;">מַקְטֶלֶת</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:8px;font-size:0.78rem;color:#1e40af;">⚠️ מַדְפֶּסֶת — מלכודת! "מַד" לא בסיס עצמאי.</div>
+      </div>
+
+      <!-- בסיס וסיומת (הדבקה) -->
+      <div style="background:#e6fdf7;border:2px solid #0d7a6a;border-radius:12px;padding:16px;">
+        <div style="font-family:'Secular One',sans-serif;font-size:0.95rem;color:#134e4a;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+          <span style="background:#0d7a6a;color:#fff;border-radius:6px;padding:2px 10px;font-size:0.8rem;">בסיס + סיומת</span> הדבקה
+        </div>
+        <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+          <thead>
+            <tr style="border-bottom:1px solid #a7f3d0;">
+              <th style="padding:5px 8px;text-align:right;color:#134e4a;">מילה</th>
+              <th style="padding:5px 8px;text-align:right;color:#134e4a;">בסיס</th>
+              <th style="padding:5px 8px;text-align:right;color:#134e4a;">סיומת</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #ccfbf1;">
+              <td style="padding:6px 8px;font-weight:800;">סַפְרָן</td>
+              <td style="padding:6px 8px;color:#374151;">סֵפֶר</td>
+              <td style="padding:6px 8px;color:#374151;">-ָן</td>
+            </tr>
+            <tr style="border-bottom:1px solid #ccfbf1;background:#f0fdf9;">
+              <td style="padding:6px 8px;font-weight:800;">מַחְשְׁבוֹן</td>
+              <td style="padding:6px 8px;color:#374151;">מַחְשֵׁב</td>
+              <td style="padding:6px 8px;color:#374151;">-וֹן</td>
+            </tr>
+            <tr style="border-bottom:1px solid #ccfbf1;">
+              <td style="padding:6px 8px;font-weight:800;">עִיתּוֹנַאי</td>
+              <td style="padding:6px 8px;color:#374151;">עִיתּוֹן</td>
+              <td style="padding:6px 8px;color:#374151;">-ָאי</td>
+            </tr>
+            <tr>
+              <td style="padding:6px 8px;font-weight:800;">יַלְדוּת</td>
+              <td style="padding:6px 8px;color:#374151;">יֶלֶד</td>
+              <td style="padding:6px 8px;color:#374151;">-וּת</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:8px;font-size:0.78rem;color:#0a5040;">✓ כל בסיס = מילה שלמה ועצמאית.</div>
+      </div>
+    </div>
+
+    <!-- סיכום + כלל -->
+    <div style="background:#e6f7f5;border:1px solid var(--teal);border-radius:10px;padding:12px 18px;font-size:0.85rem;line-height:2;">
+      <strong style="color:var(--teal);">סיכום:</strong>
+      <span style="background:#dbeafe;color:#1e3a8a;border-radius:4px;padding:1px 8px;font-weight:700;margin-right:4px;">היתוך (6):</span>
+      תַּצְפִּית · הוֹרָדָה · רֶכֶב · שְׁמִירָה · תַּגְלִית · מַדְפֶּסֶת
+      &nbsp;|&nbsp;
+      <span style="background:#ccfbf1;color:#134e4a;border-radius:4px;padding:1px 8px;font-weight:700;margin-right:4px;">הדבקה (4):</span>
+      סַפְרָן · מַחְשְׁבוֹן · עִיתּוֹנַאי · יַלְדוּת
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       סקציה B — התאמת משמעויות (המילים המבוקשות)
+  ══════════════════════════════════ -->
+  <div class="teacher-answer-section">
+    <h3>🎯 פתרון התאמת משמעויות — 6+3+3 המילים</h3>
+
+    <!-- שתי עמודות: מכשיר/כלי + בעל מקצוע -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px;">
+
+      <div style="background:#e6f7f5;border:2px solid var(--teal);border-radius:12px;padding:14px;">
+        <div style="font-family:'Secular One',sans-serif;font-size:0.9rem;color:var(--teal);margin-bottom:10px;">🔧 מכשיר / כלי</div>
+        <div class="ai teal" style="margin-bottom:6px;">
+          <strong>מַדְפֶּסֶת</strong><br>
+          <span style="font-size:0.82rem;color:var(--text-mid);">ד.פ.ס + מַקְטֶלֶת — מכשיר הדפסה</span>
+        </div>
+        <div class="ai teal">
+          <strong>מַחְשְׁבוֹן</strong><br>
+          <span style="font-size:0.82rem;color:var(--text-mid);">מַחְשֵׁב + -וֹן — כלי חישוב קטן</span>
+        </div>
+      </div>
+
+      <div style="background:#f7efe8;border:2px solid var(--earth);border-radius:12px;padding:14px;">
+        <div style="font-family:'Secular One',sans-serif;font-size:0.9rem;color:var(--earth);margin-bottom:10px;">👷 בעל מקצוע</div>
+        <div class="ai earth" style="margin-bottom:6px;">
+          <strong>סַפְרָן</strong><br>
+          <span style="font-size:0.82rem;color:var(--text-mid);">סֵפֶר + -ָן — עובד בספרייה</span>
+        </div>
+        <div class="ai earth">
+          <strong>עִיתּוֹנַאי</strong><br>
+          <span style="font-size:0.82rem;color:var(--text-mid);">עִיתּוֹן + -ָאי — עוסק בעיתונות</span>
+        </div>
+      </div>
+
+      <div style="background:#f0ebff;border:2px solid var(--purple);border-radius:12px;padding:14px;">
+        <div style="font-family:'Secular One',sans-serif;font-size:0.9rem;color:var(--purple);margin-bottom:10px;">💭 פעולה / שם מופשט</div>
+        <div class="ai purple" style="margin-bottom:6px;">
+          <strong>שְׁמִירָה</strong><br>
+          <span style="font-size:0.82rem;color:var(--text-mid);">ש.מ.ר + קְטִילָה — שם פעולה</span>
+        </div>
+        <div class="ai purple" style="margin-bottom:6px;">
+          <strong>יַלְדוּת</strong><br>
+          <span style="font-size:0.82rem;color:var(--text-mid);">יֶלֶד + -וּת — מצב מופשט</span>
+        </div>
+        <div class="ai purple">
+          <strong>הוֹרָדָה</strong><br>
+          <span style="font-size:0.82rem;color:var(--text-mid);">י.ר.ד + הַקְטָלָה — שם פעולה בהפעיל</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#fef9e7;border:1px solid var(--sun);border-radius:10px;padding:12px 16px;font-size:0.84rem;color:#7a5200;">
+      <strong>💡 כלל אצבע:</strong> מַקְטֵל/מַקְטֶלֶת = כלי · -ָן/-ָאי = בעל עיסוק · קְטִילָה/-וּת = שם מופשט/פעולה
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       סקציה C — שאלות פתוחות: דוגמאות לתשובות מלאות
+  ══════════════════════════════════ -->
+  <div class="teacher-answer-section">
+    <h3>✍️ שאלות פתוחות — דוגמאות לתשובות מלאות</h3>
+
+    <!-- שאלה 1: הבדל שיטה א' ושיטה ב' -->
+    <div style="border-right:4px solid var(--navy-lt);background:#e7f3ff;border-radius:0 12px 12px 0;padding:14px 18px;margin-bottom:14px;">
+      <div style="font-weight:800;color:var(--navy);font-size:0.92rem;margin-bottom:10px;">❓ שאלה 1 — מה ההבדל בין שורש+משקל לבסיס+סיומת?</div>
+      <div style="font-size:0.88rem;color:var(--text-mid);line-height:2.0;">
+        <strong style="color:var(--navy-lt);">תשובה לדוגמה (מלאה):</strong><br>
+        בשיטת שורש+משקל (היתוך), שלושת עיצורי השורש נוצקים לתוך תבנית המשקל — השורש לעולם אינו מילה עצמאית. לדוגמה: <strong>מַחְשֵׁב</strong> — השורש ח.ש.ב נוצק למשקל מַקְטֵל; "מַח" לבדו אינו מילה.<br>
+        בשיטת בסיס+סיומת (הדבקה), מדביקים סיומת למילה שלמה וקיימת (הבסיס). לדוגמה: <strong>עִיתּוֹנַאי</strong> — הבסיס עִיתּוֹן הוא מילה עצמאית, ועליה הוסיפו את הסיומת -ָאי.<br>
+        <strong style="color:var(--danger);">הסימן המבדיל:</strong> "אם מסירים את הסיומת ונשארת מילה שלמה — זו הדבקה; אם נשארים רק עיצורי שורש — זהו היתוך."
+      </div>
+    </div>
+
+    <!-- שאלה 2: מדפסת מלכודת -->
+    <div style="border-right:4px solid var(--danger);background:#fdecea;border-radius:0 12px 12px 0;padding:14px 18px;margin-bottom:14px;">
+      <div style="font-weight:800;color:var(--danger);font-size:0.92rem;margin-bottom:10px;">❓ שאלה 2 — מדוע מַדְפֶּסֶת היא היתוך ולא הדבקה?</div>
+      <div style="font-size:0.88rem;color:var(--text-mid);line-height:2.0;">
+        <strong style="color:var(--danger);">תשובה לדוגמה (מלאה):</strong><br>
+        כאשר בודקים את מַדְפֶּסֶת בשיטת הכיסוי — מסירים את הסיומת "-ֶת" ונשאר "מַדְפֶּ". "מַד" אינו מילה עברית עצמאית בעלת משמעות עצמאית. לכן, אין כאן בסיס — ולא מדובר בהדבקה.<br>
+        לעומת זאת, השורש הוא <strong>ד.פ.ס</strong> (פ-ס-ד) והמשקל הוא <strong>מַקְטֶלֶת</strong> — משקל המציין מכשירים. כלומר: מַדְפֶּסֶת = היתוך (שורש+משקל).<br>
+        <strong style="color:var(--danger);">מסקנה:</strong> לעולם לא לנחש "הדבקה" רק כי יש חלקיק מוכר — יש לבדוק אם הבסיס עומד בפני עצמו!
+      </div>
+    </div>
+
+    <!-- שאלה 3: קטל מקצוע לעומת תכונה -->
+    <div style="border-right:4px solid var(--teal);background:#e6f7f5;border-radius:0 12px 12px 0;padding:14px 18px;margin-bottom:14px;">
+      <div style="font-weight:800;color:var(--teal);font-size:0.92rem;margin-bottom:10px;">❓ שאלה 3 — כיצד נבדיל בין קַטָּל לציון מקצוע לבין קַטָּל לציון תכונה?</div>
+      <div style="font-size:0.88rem;color:var(--text-mid);line-height:2.0;">
+        <strong style="color:var(--teal);">תשובה לדוגמה (מלאה):</strong><br>
+        המשקל קַטָּל יכול לציין שני סוגים שונים:<br>
+        <strong>א. בעל מקצוע —</strong> כאשר השורש מציין פעולה שניתן לעסוק בה. לדוגמה: <strong>נַגָּר</strong> (שורש נ.ג.ר — עיסוק בנגרות), <strong>סַפְרָן</strong> (ס.פ.ר — עיסוק בספרייה). ניתן לשאול: "האם זה מקצוע שאפשר לפרנס ממנו?"<br>
+        <strong>ב. בעל תכונה —</strong> כאשר השורש מציין מצב פנימי. לדוגמה: <strong>קַנָּאי</strong> (ק.נ.א — תכונת הקנאות), <strong>רַחְמָן</strong> (ר.ח.מ — תכונת הרחמים).<br>
+        <strong style="color:var(--danger);">כלל:</strong> ההקשר קובע! אותו משקל — שתי משמעויות שונות. בבגרות: חובה לציין את הקטגוריה הנכונה.
+      </div>
+    </div>
+
+    <!-- שאלה 4: -ית לא תמיד הקטנה -->
+    <div style="border-right:4px solid var(--sun);background:#fef9e7;border-radius:0 12px 12px 0;padding:14px 18px;margin-bottom:14px;">
+      <div style="font-weight:800;color:#7a5200;font-size:0.92rem;margin-bottom:10px;">❓ שאלה 4 — הסבירו: האם הסיומת -ִית מציינת תמיד הקטנה?</div>
+      <div style="font-size:0.88rem;color:var(--text-mid);line-height:2.0;">
+        <strong style="color:#7a5200;">תשובה לדוגמה (מלאה):</strong><br>
+        לא. לסיומת -ִית יש שלוש משמעויות שונות:<br>
+        <strong>1. הקטנה:</strong> <strong>כַּפִּית</strong> (כַּף + -ִית = כף קטנה), <strong>כוֹסִית</strong> (כּוֹס + -ִית).<br>
+        <strong>2. שפה:</strong> <strong>עִבְרִית</strong> (עִבְרִי + -ִית = השפה העברית), <strong>עֲרָבִית</strong>.<br>
+        <strong>3. תחבורה / כלי:</strong> <strong>מְכוֹנִית</strong> (מְכוֹנָה + -ִית — רכב). כאן "מְכוֹנ" כשלעצמו אינו מילה מלאה, ולכן דווקא מדובר בהיתוך!<br>
+        <strong style="color:var(--danger);">מסקנה לבגרות:</strong> תמיד לבדוק בהקשר. לא לקפוץ ל"הקטנה" כברירת מחדל.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════════════════════════════
+       סקציה 0 — מיון מהיר (Quick Reference)
+  ══════════════════════════════════ -->
+  <div class="teacher-answer-section">
+    <h3>⚡ מיון מהיר — כל המילים לפי דרך תצורה</h3>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+
+      <!-- היתוך column -->
+      <div style="background:#e7f0ff;border:2px solid #2563b8;border-radius:12px;padding:16px;">
+        <div style="font-family:'Secular One',sans-serif;font-size:0.95rem;color:#1e3a8a;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+          <span style="background:#2563b8;color:#fff;border-radius:6px;padding:2px 10px;font-size:0.8rem;">שורש + משקל</span> היתוך
+        </div>
+        <table style="width:100%;border-collapse:collapse;font-size:0.84rem;">
+          <thead>
+            <tr style="border-bottom:1px solid #bfdbfe;">
+              <th style="padding:4px 8px;text-align:right;color:#1e3a8a;font-weight:700;">מילה</th>
+              <th style="padding:4px 8px;text-align:right;color:#1e3a8a;font-weight:700;">שורש</th>
+              <th style="padding:4px 8px;text-align:right;color:#1e3a8a;font-weight:700;">משקל</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #dbeafe;">
+              <td style="padding:5px 8px;font-weight:800;">מַחְשֵׁב</td>
+              <td style="padding:5px 8px;color:#374151;">ח.ש.ב</td>
+              <td style="padding:5px 8px;color:#374151;">מַקְטֵל</td>
+            </tr>
+            <tr style="border-bottom:1px solid #dbeafe;background:#f0f7ff;">
+              <td style="padding:5px 8px;font-weight:800;">עָצִיץ</td>
+              <td style="padding:5px 8px;color:#374151;">ע.צ.צ</td>
+              <td style="padding:5px 8px;color:#374151;">קָטִיל</td>
+            </tr>
+            <tr style="border-bottom:1px solid #dbeafe;">
+              <td style="padding:5px 8px;font-weight:800;">כְּתִיבָה</td>
+              <td style="padding:5px 8px;color:#374151;">כ.ת.ב</td>
+              <td style="padding:5px 8px;color:#374151;">קְטִילָה</td>
+            </tr>
+            <tr style="border-bottom:1px solid #dbeafe;background:#f0f7ff;">
+              <td style="padding:5px 8px;font-weight:800;">מִסְעָדָה</td>
+              <td style="padding:5px 8px;color:#374151;">ס.ע.ד</td>
+              <td style="padding:5px 8px;color:#374151;">מִקְטָלָה</td>
+            </tr>
+            <tr style="border-bottom:1px solid #dbeafe;">
+              <td style="padding:5px 8px;font-weight:800;">שִׂמְלָה ⚠️</td>
+              <td style="padding:5px 8px;color:#374151;">ש.מ.ל</td>
+              <td style="padding:5px 8px;color:#374151;">קִטְלָה</td>
+            </tr>
+            <tr style="border-bottom:1px solid #dbeafe;background:#f0f7ff;">
+              <td style="padding:5px 8px;font-weight:800;">דַּלֶּקֶת</td>
+              <td style="padding:5px 8px;color:#374151;">ד.ל.ק</td>
+              <td style="padding:5px 8px;color:#374151;">קַטֶּלֶת</td>
+            </tr>
+            <tr style="border-bottom:1px solid #dbeafe;">
+              <td style="padding:5px 8px;font-weight:800;">מַדְפֶּסֶת ⚠️</td>
+              <td style="padding:5px 8px;color:#374151;">ד.פ.ס</td>
+              <td style="padding:5px 8px;color:#374151;">מַקְטֶלֶת</td>
+            </tr>
+            <tr>
+              <td style="padding:5px 8px;font-weight:800;">מִגְרָשׁ</td>
+              <td style="padding:5px 8px;color:#374151;">ג.ר.ש</td>
+              <td style="padding:5px 8px;color:#374151;">מִקְטָל</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:8px;font-size:0.78rem;color:#1e40af;">⚠️ שִׂמְלָה ומַדְפֶּסֶת — מלכודות! לא הדבקה.</div>
+      </div>
+
+      <!-- הדבקה column -->
+      <div style="background:#e6fdf7;border:2px solid #0d7a6a;border-radius:12px;padding:16px;">
+        <div style="font-family:'Secular One',sans-serif;font-size:0.95rem;color:#134e4a;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+          <span style="background:#0d7a6a;color:#fff;border-radius:6px;padding:2px 10px;font-size:0.8rem;">בסיס + סיומת</span> הדבקה
+        </div>
+        <table style="width:100%;border-collapse:collapse;font-size:0.84rem;">
+          <thead>
+            <tr style="border-bottom:1px solid #a7f3d0;">
+              <th style="padding:4px 8px;text-align:right;color:#134e4a;font-weight:700;">מילה</th>
+              <th style="padding:4px 8px;text-align:right;color:#134e4a;font-weight:700;">בסיס</th>
+              <th style="padding:4px 8px;text-align:right;color:#134e4a;font-weight:700;">סיומת</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #ccfbf1;">
+              <td style="padding:5px 8px;font-weight:800;">מַחְשֵׁבוֹן</td>
+              <td style="padding:5px 8px;color:#374151;">מַחְשֵׁב</td>
+              <td style="padding:5px 8px;color:#374151;">-וֹן</td>
+            </tr>
+            <tr style="border-bottom:1px solid #ccfbf1;background:#f0fdf9;">
+              <td style="padding:5px 8px;font-weight:800;">סְפָרִיָּה</td>
+              <td style="padding:5px 8px;color:#374151;">סֵפֶר</td>
+              <td style="padding:5px 8px;color:#374151;">-ִיָּה</td>
+            </tr>
+            <tr style="border-bottom:1px solid #ccfbf1;">
+              <td style="padding:5px 8px;font-weight:800;">עִיתּוֹנַאי</td>
+              <td style="padding:5px 8px;color:#374151;">עִיתּוֹן</td>
+              <td style="padding:5px 8px;color:#374151;">-ָאי</td>
+            </tr>
+            <tr style="border-bottom:1px solid #ccfbf1;background:#f0fdf9;">
+              <td style="padding:5px 8px;font-weight:800;">שַׁחְמַטַאי</td>
+              <td style="padding:5px 8px;color:#374151;">שַׁחְמַט</td>
+              <td style="padding:5px 8px;color:#374151;">-ָאי</td>
+            </tr>
+            <tr style="border-bottom:1px solid #ccfbf1;">
+              <td style="padding:5px 8px;font-weight:800;">תַּקְלִיטִיָּה</td>
+              <td style="padding:5px 8px;color:#374151;">תַּקְלִיט</td>
+              <td style="padding:5px 8px;color:#374151;">-ִיָּה</td>
+            </tr>
+            <tr style="border-bottom:1px solid #ccfbf1;background:#f0fdf9;">
+              <td style="padding:5px 8px;font-weight:800;">כַּדּוּרְגְּלָן</td>
+              <td style="padding:5px 8px;color:#374151;">כַּדּוּרֶגֶל</td>
+              <td style="padding:5px 8px;color:#374151;">-ָן</td>
+            </tr>
+            <tr>
+              <td style="padding:5px 8px;font-weight:800;">יַלְדוּת</td>
+              <td style="padding:5px 8px;color:#374151;">יֶלֶד</td>
+              <td style="padding:5px 8px;color:#374151;">-וּת</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- סיכום מספרי -->
+    <div style="background:#e6f7f5;border:1px solid var(--teal);border-radius:10px;padding:12px 18px;font-size:0.85rem;line-height:2;">
+      <strong style="color:var(--teal);">סיכום:</strong>
+      <span style="background:#dbeafe;color:#1e3a8a;border-radius:4px;padding:1px 8px;font-weight:700;margin-right:4px;">היתוך (8):</span>
+      מַחְשֵׁב · עָצִיץ · כְּתִיבָה · מִסְעָדָה · שִׂמְלָה · דַּלֶּקֶת · מַדְפֶּסֶת · מִגְרָשׁ
+      &nbsp;|&nbsp;
+      <span style="background:#ccfbf1;color:#134e4a;border-radius:4px;padding:1px 8px;font-weight:700;margin-right:4px;">הדבקה (7):</span>
+      מַחְשֵׁבוֹן · סְפָרִיָּה · עִיתּוֹנַאי · שַׁחְמַטַאי · תַּקְלִיטִיָּה · כַּדּוּרְגְּלָן · יַלְדוּת
+    </div>
+    <div style="background:#fdecea;border:1px solid var(--danger);border-radius:8px;padding:10px 14px;margin-top:8px;font-size:0.83rem;color:var(--danger);">
+      <strong>⚠️ מלכודות נפוצות:</strong> שִׂמְלָה ("שִׂמ" אינו בסיס — שורש ש.מ.ל + קִטְלָה) | מַדְפֶּסֶת ("מַד" אינו מילה — שורש ד.פ.ס + מַקְטֶלֶת)
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       סקציה 1 — התאמת משמעויות
+  ══════════════════════════════════ -->
+  <div class="teacher-answer-section">
+    <h3>📋 פתרון התאמת משמעויות — הזוגות הנכונים</h3>
+
+    <div style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+      <table style="width:100%;border-collapse:collapse;font-size:0.88rem;min-width:500px;">
+        <thead>
+          <tr style="background:var(--teal);">
+            <th style="padding:10px 14px;color:#fff;text-align:right;font-family:'Secular One',sans-serif;">#</th>
+            <th style="padding:10px 14px;color:#fff;text-align:right;font-family:'Secular One',sans-serif;">מילה</th>
+            <th style="padding:10px 14px;color:#a8ede5;text-align:right;font-family:'Secular One',sans-serif;">✓ קטגוריה נכונה</th>
+            <th style="padding:10px 14px;color:#fff;text-align:right;font-family:'Secular One',sans-serif;">הסבר</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:9px 14px;color:var(--text-muted);font-weight:700;">1</td>
+            <td style="padding:9px 14px;font-weight:900;font-size:1rem;">תַּזְמֹרֶת</td>
+            <td style="padding:9px 14px;"><span class="answer-correct">אוסף / מכלול</span></td>
+            <td style="padding:9px 14px;font-size:0.83rem;color:var(--text-mid);">ז.מ.ר + תַּקְטֶלֶת = אוסף נגנים. ⚠️ לא לבלבל עם קַטֶּלֶת (מחלה)!</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);background:#f4f7fd;">
+            <td style="padding:9px 14px;color:var(--text-muted);font-weight:700;">2</td>
+            <td style="padding:9px 14px;font-weight:900;font-size:1rem;">מַקְדֵּחַ</td>
+            <td style="padding:9px 14px;"><span class="answer-correct">מכשיר / כלי</span></td>
+            <td style="padding:9px 14px;font-size:0.83rem;color:var(--text-mid);">ק.ד.ח + מַקְטֵל = כלי קידוח. מַקְטֵל תמיד = כלי/מכשיר.</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:9px 14px;color:var(--text-muted);font-weight:700;">3</td>
+            <td style="padding:9px 14px;font-weight:900;font-size:1rem;">שַׁחֶפֶת</td>
+            <td style="padding:9px 14px;"><span class="answer-correct">מחלה</span></td>
+            <td style="padding:9px 14px;font-size:0.83rem;color:var(--text-mid);">ש.ח.פ + קַטֶּלֶת. כלל: כל מילה במשקל קַטֶּלֶת = מחלה/מצב גופני.</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);background:#f4f7fd;">
+            <td style="padding:9px 14px;color:var(--text-muted);font-weight:700;">4</td>
+            <td style="padding:9px 14px;font-weight:900;font-size:1rem;">כּוֹרֵם</td>
+            <td style="padding:9px 14px;"><span class="answer-correct">בעל מקצוע</span></td>
+            <td style="padding:9px 14px;font-size:0.83rem;color:var(--text-mid);">כ.ר.מ + קוֹטֵל (בינוני פועל). מקובל גם: עוסק בכרמים. קוֹטֵל = פועל כרגע.</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:9px 14px;color:var(--text-muted);font-weight:700;">5</td>
+            <td style="padding:9px 14px;font-weight:900;font-size:1rem;">כְּרִיכָה</td>
+            <td style="padding:9px 14px;"><span class="answer-correct">שם פעולה</span></td>
+            <td style="padding:9px 14px;font-size:0.83rem;color:var(--text-mid);">כ.ר.כ + קְטִילָה = פעולת הכריכה. קְטִילָה = שם פעולה תמיד.</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);background:#f4f7fd;">
+            <td style="padding:9px 14px;color:var(--text-muted);font-weight:700;">6</td>
+            <td style="padding:9px 14px;font-weight:900;font-size:1rem;">מִשְׂרָד</td>
+            <td style="padding:9px 14px;"><span class="answer-correct">מקום</span></td>
+            <td style="padding:9px 14px;font-size:0.83rem;color:var(--text-mid);">ש.ר.ד + מִקְטָל = מקום העבודה. מִקְטָל = מקום/מנין.</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:9px 14px;color:var(--text-muted);font-weight:700;">7</td>
+            <td style="padding:9px 14px;font-weight:900;font-size:1rem;">נַגָּרִיָּה</td>
+            <td style="padding:9px 14px;"><span class="answer-correct">מקום</span></td>
+            <td style="padding:9px 14px;font-size:0.83rem;color:var(--text-mid);">הדבקה: נַגָּר + -ִיָּה = מקום עבודת הנגר. -ִיָּה מציינת מקום או אוסף.</td>
+          </tr>
+          <tr style="background:#f4f7fd;">
+            <td style="padding:9px 14px;color:var(--text-muted);font-weight:700;">8</td>
+            <td style="padding:9px 14px;font-weight:900;font-size:1rem;">מוֹרוּת</td>
+            <td style="padding:9px 14px;"><span class="answer-correct">תחום מופשט</span></td>
+            <td style="padding:9px 14px;font-size:0.83rem;color:var(--text-mid);">הדבקה: מוֹרֶה + -וּת = תחום ההוראה. -וּת = מצב מופשט/תחום.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- טיפ מהיר -->
+    <div style="background:#fef9e7;border:1px solid var(--sun);border-radius:10px;padding:12px 16px;margin-top:12px;font-size:0.84rem;color:#7a5200;">
+      <strong>💡 כלל אצבע להתאמת משמעויות:</strong>
+      מַקְטֵל = כלי · קַטֶּלֶת = מחלה · קְטִילָה = שם פעולה · מִקְטָל = מקום · -ִיָּה = מקום/אוסף · -וּת = מצב מופשט · קַטָּל = מקצוע/תכונה
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       סקציה 2 — מיון 15 מילים (פירוט)
+  ══════════════════════════════════ -->
+  <div class="teacher-answer-section">
+    <h3>חלק א׳ — מיון 15 מילים: ניתוח מלא</h3>
+
+    <div style="margin-bottom:10px;font-size:0.85rem;color:var(--text-muted);">
+      <span style="background:#dbeafe;color:#1e3a8a;border-radius:6px;padding:2px 10px;font-weight:700;margin-left:8px;">היתוך</span> = שורש + משקל (הבסיס אינו מילה עצמאית)
+      <span style="background:#ccfbf1;color:#134e4a;border-radius:6px;padding:2px 10px;font-weight:700;margin-right:8px;">הדבקה</span> = בסיס מילה שלמה + סיומת
+    </div>
+
+    <div class="overflow-x-auto" style="overflow-x:auto;-webkit-overflow-scrolling:touch;">
+      <table style="width:100%;border-collapse:collapse;font-size:0.88rem;min-width:500px;">
+        <thead>
+          <tr style="background:var(--navy);">
+            <th style="padding:9px 12px;color:#fff;text-align:right;">#</th>
+            <th style="padding:9px 12px;color:#fff;text-align:right;">מילה</th>
+            <th style="padding:9px 12px;color:#a8d4f0;text-align:center;">תיוג</th>
+            <th style="padding:9px 12px;color:#fff;text-align:right;">ניתוח מלא</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 12px;color:var(--text-muted);">1</td>
+            <td style="padding:8px 12px;font-weight:800;">מַחְשֵׁב</td>
+            <td style="padding:8px;text-align:center;"><span style="background:#dbeafe;color:#1e3a8a;border-radius:6px;padding:2px 8px;font-size:0.8rem;font-weight:700;">היתוך</span></td>
+            <td style="padding:8px 12px;font-size:0.84rem;">שורש: ח.ש.ב + משקל: מַקְטֵל | <span class="answer-correct">כלי חישוב</span></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);background:#f4f7fd;">
+            <td style="padding:8px 12px;color:var(--text-muted);">2</td>
+            <td style="padding:8px 12px;font-weight:800;">מַחְשֵׁבוֹן</td>
+            <td style="padding:8px;text-align:center;"><span style="background:#ccfbf1;color:#134e4a;border-radius:6px;padding:2px 8px;font-size:0.8rem;font-weight:700;">הדבקה</span></td>
+            <td style="padding:8px 12px;font-size:0.84rem;">בסיס: <span class="answer-correct">מַחְשֵׁב</span> (מילה שלמה ✓) + סיומת: -וֹן | מחשבון כיס / קטן</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 12px;color:var(--text-muted);">3</td>
+            <td style="padding:8px 12px;font-weight:800;">סְפָרִיָּה</td>
+            <td style="padding:8px;text-align:center;"><span style="background:#ccfbf1;color:#134e4a;border-radius:6px;padding:2px 8px;font-size:0.8rem;font-weight:700;">הדבקה</span></td>
+            <td style="padding:8px 12px;font-size:0.84rem;">בסיס: <span class="answer-correct">סֵפֶר</span> + סיומת: -ִיָּה | מקום ספרים</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);background:#f4f7fd;">
+            <td style="padding:8px 12px;color:var(--text-muted);">4</td>
+            <td style="padding:8px 12px;font-weight:800;">עִיתּוֹנַאי</td>
+            <td style="padding:8px;text-align:center;"><span style="background:#ccfbf1;color:#134e4a;border-radius:6px;padding:2px 8px;font-size:0.8rem;font-weight:700;">הדבקה</span></td>
+            <td style="padding:8px 12px;font-size:0.84rem;">בסיס: <span class="answer-correct">עִיתּוֹן</span> + סיומת: -ָאי | עוסק בעיתונות</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 12px;color:var(--text-muted);">5</td>
+            <td style="padding:8px 12px;font-weight:800;">עָצִיץ</td>
+            <td style="padding:8px;text-align:center;"><span style="background:#dbeafe;color:#1e3a8a;border-radius:6px;padding:2px 8px;font-size:0.8rem;font-weight:700;">היתוך</span></td>
+            <td style="padding:8px 12px;font-size:0.84rem;">שורש: ע.צ.צ + משקל: קָטִיל | <span class="answer-correct">כלי / מכל</span></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);background:#f4f7fd;">
+            <td style="padding:8px 12px;color:var(--text-muted);">6</td>
+            <td style="padding:8px 12px;font-weight:800;">כְּתִיבָה</td>
+            <td style="padding:8px;text-align:center;"><span style="background:#dbeafe;color:#1e3a8a;border-radius:6px;padding:2px 8px;font-size:0.8rem;font-weight:700;">היתוך</span></td>
+            <td style="padding:8px 12px;font-size:0.84rem;">שורש: כ.ת.ב + משקל: קְטִילָה | <span class="answer-correct">שם פעולה</span></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 12px;color:var(--text-muted);">7</td>
+            <td style="padding:8px 12px;font-weight:800;">שַׁחְמַטַאי</td>
+            <td style="padding:8px;text-align:center;"><span style="background:#ccfbf1;color:#134e4a;border-radius:6px;padding:2px 8px;font-size:0.8rem;font-weight:700;">הדבקה</span></td>
+            <td style="padding:8px 12px;font-size:0.84rem;">בסיס: <span class="answer-correct">שַׁחְמַט</span> + סיומת: -ָאי | עוסק בשחמט</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);background:#f4f7fd;">
+            <td style="padding:8px 12px;color:var(--text-muted);">8</td>
+            <td style="padding:8px 12px;font-weight:800;">מִסְעָדָה</td>
+            <td style="padding:8px;text-align:center;"><span style="background:#dbeafe;color:#1e3a8a;border-radius:6px;padding:2px 8px;font-size:0.8rem;font-weight:700;">היתוך</span></td>
+            <td style="padding:8px 12px;font-size:0.84rem;">שורש: ס.ע.ד + משקל: מִקְטָלָה | <span class="answer-correct">מקום שסועדים בו</span></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 12px;color:var(--text-muted);">9</td>
+            <td style="padding:8px 12px;font-weight:800;">שִׂמְלָה</td>
+            <td style="padding:8px;text-align:center;"><span style="background:#dbeafe;color:#1e3a8a;border-radius:6px;padding:2px 8px;font-size:0.8rem;font-weight:700;">היתוך</span></td>
+            <td style="padding:8px 12px;font-size:0.84rem;">שורש: ש.מ.ל + משקל: קִטְלָה | <span style="color:var(--danger);font-weight:700;">⚠️ מלכודת!</span> "שִׂמ" לא בסיס עצמאי</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);background:#f4f7fd;">
+            <td style="padding:8px 12px;color:var(--text-muted);">10</td>
+            <td style="padding:8px 12px;font-weight:800;">תַּקְלִיטִיָּה</td>
+            <td style="padding:8px;text-align:center;"><span style="background:#ccfbf1;color:#134e4a;border-radius:6px;padding:2px 8px;font-size:0.8rem;font-weight:700;">הדבקה</span></td>
+            <td style="padding:8px 12px;font-size:0.84rem;">בסיס: <span class="answer-correct">תַּקְלִיט</span> + סיומת: -ִיָּה | מקום תקליטים</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 12px;color:var(--text-muted);">11</td>
+            <td style="padding:8px 12px;font-weight:800;">דַּלֶּקֶת</td>
+            <td style="padding:8px;text-align:center;"><span style="background:#dbeafe;color:#1e3a8a;border-radius:6px;padding:2px 8px;font-size:0.8rem;font-weight:700;">היתוך</span></td>
+            <td style="padding:8px 12px;font-size:0.84rem;">שורש: ד.ל.ק + משקל: קַטֶּלֶת | <span class="answer-correct">מחלה</span></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);background:#f4f7fd;">
+            <td style="padding:8px 12px;color:var(--text-muted);">12</td>
+            <td style="padding:8px 12px;font-weight:800;">מַדְפֶּסֶת</td>
+            <td style="padding:8px;text-align:center;"><span style="background:#dbeafe;color:#1e3a8a;border-radius:6px;padding:2px 8px;font-size:0.8rem;font-weight:700;">היתוך</span></td>
+            <td style="padding:8px 12px;font-size:0.84rem;">שורש: ד.פ.ס + משקל: מַקְטֶלֶת | <span style="color:var(--danger);font-weight:700;">⚠️ "מַד" לא מילה!</span></td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);">
+            <td style="padding:8px 12px;color:var(--text-muted);">13</td>
+            <td style="padding:8px 12px;font-weight:800;">כַּדּוּרְגְּלָן</td>
+            <td style="padding:8px;text-align:center;"><span style="background:#ccfbf1;color:#134e4a;border-radius:6px;padding:2px 8px;font-size:0.8rem;font-weight:700;">הדבקה</span></td>
+            <td style="padding:8px 12px;font-size:0.84rem;">בסיס: <span class="answer-correct">כַּדּוּרֶגֶל</span> + סיומת: -ָן | שחקן כדורגל</td>
+          </tr>
+          <tr style="border-bottom:1px solid var(--border);background:#f4f7fd;">
+            <td style="padding:8px 12px;color:var(--text-muted);">14</td>
+            <td style="padding:8px 12px;font-weight:800;">יַלְדוּת</td>
+            <td style="padding:8px;text-align:center;"><span style="background:#ccfbf1;color:#134e4a;border-radius:6px;padding:2px 8px;font-size:0.8rem;font-weight:700;">הדבקה</span></td>
+            <td style="padding:8px 12px;font-size:0.84rem;">בסיס: <span class="answer-correct">יֶלֶד</span> + סיומת: -וּת | מצב מופשט</td>
+          </tr>
+          <tr>
+            <td style="padding:8px 12px;color:var(--text-muted);">15</td>
+            <td style="padding:8px 12px;font-weight:800;">מִגְרָשׁ</td>
+            <td style="padding:8px;text-align:center;"><span style="background:#dbeafe;color:#1e3a8a;border-radius:6px;padding:2px 8px;font-size:0.8rem;font-weight:700;">היתוך</span></td>
+            <td style="padding:8px 12px;font-size:0.84rem;">שורש: ג.ר.ש + משקל: מִקְטָל | <span class="answer-correct">מקום</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="background:#fef9e7;border:1px solid var(--sun);border-radius:10px;padding:12px 16px;margin-top:10px;font-size:0.84rem;color:#7a5200;">
+      <strong>💡 טיפ פדגוגי:</strong> עצרו על שִׂמְלָה ומַדְפֶּסֶת — שאלו בקול: "כשאני מסיר את הסיומת, האם נשארת מילה?" זה מאמן את שיטת הכיסוי.
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       סקציה 3 — דף עבודה: פתרונות
+  ══════════════════════════════════ -->
+  <div class="teacher-answer-section">
+    <h3>חלק ג׳ — דף העבודה: פתרונות מפורטים</h3>
+
+    <!-- Q1 -->
+    <div style="border-right:4px solid var(--navy-lt);background:#e7f3ff;border-radius:0 12px 12px 0;padding:14px 18px;margin-bottom:16px;">
+      <div style="font-weight:800;color:var(--navy);font-size:0.95rem;margin-bottom:12px;">שאלה 1 — זיהוי דרך תצורה + ניתוח (20 נקודות | 4 נקודות לכל מילה)</div>
+
+      <div class="ai" style="margin-bottom:8px;">
+        <div class="word-label">א. תַּקְלִיטִיָּה — <span style="color:#0f766e;">הדבקה</span> <span style="font-size:0.78rem;color:var(--text-muted);">(4 נק׳)</span></div>
+        <div class="answer-text">
+          בסיס: <strong class="answer-correct">תַּקְלִיט</strong> (מילה שלמה ✓) + סיומת: <strong>-ִיָּה</strong> | מקום תקליטים<br>
+          <span style="color:var(--teal);font-size:0.81rem;">ניקוד: זיהוי הדבקה (1נ) + בסיס (1נ) + סיומת (1נ) + משמעות (1נ)</span>
+        </div>
+      </div>
+
+      <div class="ai" style="margin-bottom:8px;">
+        <div class="word-label">ב. מַדְפֶּסֶת — <span style="color:#1e3a8a;">היתוך</span> <span style="font-size:0.78rem;color:var(--text-muted);">(4 נק׳)</span></div>
+        <div class="answer-text">
+          שורש: <strong class="answer-correct">ד.פ.ס</strong> + משקל: <strong>מַקְטֶלֶת</strong><br>
+          ⚠️ "מַד" אינו מילה עצמאית — חלק מהמשקל!<br>
+          <span style="color:var(--teal);font-size:0.81rem;">ניקוד: זיהוי היתוך (1נ) + שורש (1נ) + משקל (1נ) + ציון שמד לא בסיס (1נ)</span>
+        </div>
+      </div>
+
+      <div class="ai teal" style="margin-bottom:8px;">
+        <div class="word-label">ג. עִיתּוֹנַאי — <span style="color:#0f766e;">הדבקה</span> <span style="font-size:0.78rem;color:var(--text-muted);">(4 נק׳)</span></div>
+        <div class="answer-text">
+          בסיס: <strong class="answer-correct">עִיתּוֹן</strong> (מילה שלמה ✓) + סיומת: <strong>-ָאי</strong> | עוסק בעיתונות<br>
+          <span style="color:var(--teal);font-size:0.81rem;">ניקוד: זיהוי (1נ) + בסיס (1נ) + סיומת (1נ) + משמעות (1נ)</span>
+        </div>
+      </div>
+
+      <div class="ai" style="margin-bottom:8px;">
+        <div class="word-label">ד. מִסְפָּרָה — <span style="color:#1e3a8a;">היתוך</span> <span style="font-size:0.78rem;color:var(--text-muted);">(4 נק׳)</span></div>
+        <div class="answer-text">
+          שורש: <strong class="answer-correct">ס.פ.ר</strong> + משקל: <strong>מִקְטָלָה</strong> | מקום תספורת<br>
+          <span style="color:var(--teal);font-size:0.81rem;">ניקוד: זיהוי (1נ) + שורש (1נ) + משקל (1נ) + משמעות (1נ)</span>
+        </div>
+      </div>
+
+      <div class="ai teal" style="margin-bottom:0;">
+        <div class="word-label">ה. שַׁחְמַטַאי — <span style="color:#0f766e;">הדבקה</span> <span style="font-size:0.78rem;color:var(--text-muted);">(4 נק׳)</span></div>
+        <div class="answer-text">
+          בסיס: <strong class="answer-correct">שַׁחְמַט</strong> (מילה שלמה ✓) + סיומת: <strong>-ָאי</strong> | עוסק בשחמט<br>
+          <span style="color:var(--teal);font-size:0.81rem;">ניקוד: זיהוי (1נ) + בסיס (1נ) + סיומת (1נ) + משמעות (1נ)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div style="border-right:4px solid var(--teal);background:#e6f7f5;border-radius:0 12px 12px 0;padding:14px 18px;margin-bottom:16px;">
+      <div style="font-weight:800;color:var(--teal);font-size:0.95rem;margin-bottom:12px;">שאלה 2 — משמעות לפי צורה (15 נקודות | 3 נקודות לכל תת-שאלה)</div>
+
+      <div class="ai teal" style="margin-bottom:8px;">
+        <div class="word-label">א. דַּלֶּקֶת <span style="font-size:0.78rem;color:var(--text-muted);">(3 נק׳)</span></div>
+        <div class="answer-text">
+          מציינת: <strong class="answer-correct">מחלה / מצב גופני</strong> | כי: קַטֶּלֶת = משקל מחלות (ד.ל.ק)<br>
+          <span style="color:var(--teal);font-size:0.81rem;">ניקוד: קטגוריה (1.5נ) + נימוק (1.5נ)</span>
+        </div>
+      </div>
+
+      <div class="ai teal" style="margin-bottom:8px;">
+        <div class="word-label">ב. מַקְדֵּחַ <span style="font-size:0.78rem;color:var(--text-muted);">(3 נק׳)</span></div>
+        <div class="answer-text">
+          מציינת: <strong class="answer-correct">מכשיר / כלי</strong> | כי: מַקְטֵל = משקל כלים (ק.ד.ח)<br>
+          <span style="color:var(--teal);font-size:0.81rem;">ניקוד: קטגוריה (1.5נ) + נימוק (1.5נ)</span>
+        </div>
+      </div>
+
+      <div class="ai teal" style="margin-bottom:8px;">
+        <div class="word-label">ג. עַצְלָנוּת <span style="font-size:0.78rem;color:var(--text-muted);">(3 נק׳)</span></div>
+        <div class="answer-text">
+          מציינת: <strong class="answer-correct">מצב מופשט / תכונה</strong> | כי: -וּת = מצב מופשט (עַצְלָן + -וּת)<br>
+          <span style="color:var(--teal);font-size:0.81rem;">ניקוד: קטגוריה (1.5נ) + נימוק (1.5נ)</span>
+        </div>
+      </div>
+
+      <div class="ai teal" style="margin-bottom:8px;">
+        <div class="word-label">ד. מְכוֹנִית <span style="font-size:0.78rem;color:var(--text-muted);">(3 נק׳)</span></div>
+        <div class="answer-text">
+          מציינת: <strong class="answer-correct">כלי תחבורה</strong> | כי: -ִית כאן = תחבורה (מְכוֹנָה + -ִית) ⚠️ לא הקטנה!<br>
+          <span style="color:var(--teal);font-size:0.81rem;">ניקוד: קטגוריה (1.5נ) + נימוק + ציון שלא תמיד הקטנה (1.5נ)</span>
+        </div>
+      </div>
+
+      <div class="ai teal" style="margin-bottom:0;">
+        <div class="word-label">ה. סַפָּר לעומת קַנָּאי — שניהם קַטָּל <span style="font-size:0.78rem;color:var(--text-muted);">(3 נק׳)</span></div>
+        <div class="answer-text">
+          סַפָּר = <strong class="answer-correct">בעל מקצוע</strong> (עוסק בתספורת) | קַנָּאי = <strong class="answer-correct">בעל תכונה</strong> (קנאות — לא מקצוע!)<br>
+          ההבדל: <strong>קַטָּל יכול לציין גם מקצוע וגם תכונה קבועה</strong> — ההקשר קובע!<br>
+          <span style="color:var(--teal);font-size:0.81rem;">ניקוד: זיהוי סַפָּר (1נ) + זיהוי קַנָּאי (1נ) + הסבר ההבדל (1נ)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div style="border-right:4px solid var(--sun);background:#fef9e7;border-radius:0 12px 12px 0;padding:14px 18px;margin-bottom:16px;">
+      <div style="font-weight:800;color:#7a5200;font-size:0.95rem;margin-bottom:12px;">שאלה 3 — בניין מילה חדשה (15 נקודות | 3 נקודות לכל בנייה)</div>
+
+      <div class="ai sun" style="margin-bottom:8px;">
+        <div class="word-label">א. שורש ר.ק.ד + מַקְטֵל <span style="font-size:0.78rem;color:var(--text-muted);">(3 נק׳)</span></div>
+        <div class="answer-text">
+          המילה: <strong class="answer-correct">מַרְקֵד</strong> | משמעות: כלי לריקוד / מכשיר מוזיקלי (מקבלים כל תצורה נכונה)<br>
+          <span style="font-size:0.81rem;color:#7a5200;">מילה (1.5נ) + משמעות (1.5נ)</span>
+        </div>
+      </div>
+
+      <div class="ai sun" style="margin-bottom:8px;">
+        <div class="word-label">ב. בסיס כִּנּוֹר + -ָן <span style="font-size:0.78rem;color:var(--text-muted);">(3 נק׳)</span></div>
+        <div class="answer-text">
+          המילה: <strong class="answer-correct">כִּנּוֹרָן</strong> | משמעות: מי שמנגן בכינור<br>
+          <span style="font-size:0.81rem;color:#7a5200;">מילה (1.5נ) + משמעות (1.5נ)</span>
+        </div>
+      </div>
+
+      <div class="ai sun" style="margin-bottom:8px;">
+        <div class="word-label">ג. שורש ל.מ.ד + קְטִילָה <span style="font-size:0.78rem;color:var(--text-muted);">(3 נק׳)</span></div>
+        <div class="answer-text">
+          המילה: <strong class="answer-correct">לְמִידָה</strong> | משמעות: פעולת הלמידה — שם פעולה<br>
+          <span style="font-size:0.81rem;color:#7a5200;">מילה (1.5נ) + משמעות (1.5נ)</span>
+        </div>
+      </div>
+
+      <div class="ai sun" style="margin-bottom:8px;">
+        <div class="word-label">ד. בסיס שִׁיר + -ִיָּה <span style="font-size:0.78rem;color:var(--text-muted);">(3 נק׳)</span></div>
+        <div class="answer-text">
+          המילה: <strong class="answer-correct">שִׁירִיָּה</strong> | משמעות: מקום שירה / אוסף שירים<br>
+          <span style="font-size:0.81rem;color:#7a5200;">מילה (1.5נ) + משמעות (1.5נ)</span>
+        </div>
+      </div>
+
+      <div class="ai sun" style="margin-bottom:0;">
+        <div class="word-label">ה. שורש ש.מ.ר + קַטָּל <span style="font-size:0.78rem;color:var(--text-muted);">(3 נק׳)</span></div>
+        <div class="answer-text">
+          המילה: <strong class="answer-correct">שַׁמָּר</strong> | משמעות: שומר, מי שעוסק בשמירה (מקבלים גם שׁוֹמֵר)<br>
+          <span style="font-size:0.81rem;color:#7a5200;">מילה (1.5נ) + משמעות (1.5נ)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div style="border-right:4px solid var(--purple);background:#f0ebff;border-radius:0 12px 12px 0;padding:14px 18px;margin-bottom:16px;">
+      <div style="font-weight:800;color:var(--purple);font-size:0.95rem;margin-bottom:12px;">שאלה 4 — ניתוח בהקשר — סגנון בגרות (20 נקודות | 5 נקודות לכל ניתוח)</div>
+
+      <div style="background:#fef3f2;border:1px solid #fecdca;border-radius:10px;padding:12px 14px;margin-bottom:14px;font-size:0.9rem;line-height:2.0;color:var(--text-mid);">
+        "ה<strong>סְפָרִיָּה</strong> העירונית רכשה <strong>מַחְשֵׁבִים</strong> חדשים. ה<strong>סַפְרָנִית</strong> המנוסה <strong>תִּכְנְתָה</strong> מערכת ניהול חדשה, ו<strong>לְמִידַת</strong> הממשק החלה מיד. המנהלת ציינה כי <strong>חַדְשָׁנוּת</strong> טכנולוגית היא ערך מרכזי בספרייה."
+      </div>
+
+      <div class="ai purple" style="margin-bottom:8px;">
+        <div class="word-label">א. סְפָרִיָּה <span style="font-size:0.78rem;color:var(--text-muted);">(5 נק׳)</span></div>
+        <div class="answer-text">
+          דרך תצורה: <strong class="answer-correct">הדבקה</strong> | בסיס: <strong class="answer-correct">סֵפֶר</strong> + סיומת: <strong>-ִיָּה</strong> | משמעות: מקום ספרים<br>
+          <span style="font-size:0.81rem;color:var(--purple);">ניקוד: זיהוי (1נ) + בסיס (1.5נ) + סיומת (1נ) + משמעות (1.5נ)</span>
+        </div>
+      </div>
+
+      <div class="ai purple" style="margin-bottom:8px;">
+        <div class="word-label">ב. מַחְשֵׁבִים (יחיד: מַחְשֵׁב) <span style="font-size:0.78rem;color:var(--text-muted);">(5 נק׳)</span></div>
+        <div class="answer-text">
+          דרך תצורה: <strong class="answer-correct">היתוך</strong> | שורש: <strong class="answer-correct">ח.ש.ב</strong> + משקל: <strong>מַקְטֵל</strong> | כלי חישוב<br>
+          <span style="font-size:0.81rem;color:var(--purple);">ניקוד: זיהוי (1נ) + שורש (1.5נ) + משקל (1נ) + משמעות (1.5נ)</span>
+        </div>
+      </div>
+
+      <div class="ai purple" style="margin-bottom:8px;">
+        <div class="word-label">ג. סַפְרָנִית <span style="font-size:0.78rem;color:var(--text-muted);">(5 נק׳)</span></div>
+        <div class="answer-text">
+          <strong class="answer-correct">שני שלבים:</strong><br>
+          שלב א׳: ס.פ.ר + קַטָּל → <strong>סַפְרָן</strong> (בעל מקצוע)<br>
+          שלב ב׳: <strong>סַפְרָן</strong> + -ִית → סַפְרָנִית (נקבה) | אישה בספרייה<br>
+          <span style="font-size:0.81rem;color:var(--purple);">ניקוד: שני שלבים (2נ) + שלב א׳ (1.5נ) + שלב ב׳ (1.5נ). חצי ניקוד לשלב אחד בלבד.</span>
+        </div>
+      </div>
+
+      <div class="ai purple" style="margin-bottom:0;">
+        <div class="word-label">ד. חַדְשָׁנוּת <span style="font-size:0.78rem;color:var(--text-muted);">(5 נק׳)</span></div>
+        <div class="answer-text">
+          דרך תצורה: <strong class="answer-correct">הדבקה</strong><br>
+          <strong>אפשרות א׳ (מועדפת):</strong> בסיס <strong>חַדְשָׁן</strong> + סיומת <strong>-וּת</strong><br>
+          <strong>אפשרות ב׳ (מקובלת):</strong> חָדָשׁ + -ָן + -וּת (שני שלבים)<br>
+          משמעות: <strong class="answer-correct">נטייה לחדשנות — מצב מופשט</strong><br>
+          ⚠️ <strong>שתי האפשרויות מקובלות!</strong><br>
+          <span style="font-size:0.81rem;color:var(--purple);">ניקוד: זיהוי (1נ) + בסיס (1.5נ) + סיומת (1נ) + משמעות (1.5נ)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Score summary -->
+    <div class="card" style="background:linear-gradient(135deg,#0c2040,#1a3a6b);color:#fff;text-align:center;margin-top:8px;">
+      <div style="font-family:'Secular One',sans-serif;font-size:1.1rem;margin-bottom:14px;">📊 מפתח ניקוד — דף עבודה</div>
+      <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:14px;">
+        <div style="background:rgba(255,255,255,0.1);border-radius:100px;padding:8px 18px;text-align:center;">
+          <div style="font-size:1.3rem;font-weight:900;color:#a8d4f0;">20</div>
+          <div style="font-size:0.7rem;color:rgba(255,255,255,0.6);">שאלה 1<br>4 נק׳ × 5</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.1);border-radius:100px;padding:8px 18px;text-align:center;">
+          <div style="font-size:1.3rem;font-weight:900;color:#a8d4f0;">15</div>
+          <div style="font-size:0.7rem;color:rgba(255,255,255,0.6);">שאלה 2<br>3 נק׳ × 5</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.1);border-radius:100px;padding:8px 18px;text-align:center;">
+          <div style="font-size:1.3rem;font-weight:900;color:#a8d4f0;">15</div>
+          <div style="font-size:0.7rem;color:rgba(255,255,255,0.6);">שאלה 3<br>3 נק׳ × 5</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.1);border-radius:100px;padding:8px 18px;text-align:center;">
+          <div style="font-size:1.3rem;font-weight:900;color:#f5c842;">20</div>
+          <div style="font-size:0.7rem;color:rgba(255,255,255,0.6);">שאלה 4<br>5 נק׳ × 4</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.2);border-radius:100px;padding:10px 24px;text-align:center;">
+          <div style="font-size:2rem;font-weight:900;color:#fff;font-family:'Secular One',sans-serif;">70</div>
+          <div style="font-size:0.7rem;color:rgba(255,255,255,0.6);">סה"כ</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- הערות פדגוגיות -->
+    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:16px 20px;margin-top:16px;">
+      <div style="font-family:'Secular One',sans-serif;font-size:0.95rem;color:var(--navy);margin-bottom:10px;">📝 הערות פדגוגיות</div>
+      <ul style="font-size:0.86rem;color:var(--text-mid);line-height:2.2;list-style:none;padding:0;">
+        <li>▸ <strong>ש׳ 4ג (סַפְרָנִית):</strong> מקבלים חלקית — שלב אחד = חצי ניקוד.</li>
+        <li>▸ <strong>ש׳ 4ד (חַדְשָׁנוּת):</strong> שתי האפשרויות (חַדְשָׁן+-וּת / חָדָשׁ+שני שלבים) מקובלות לניקוד מלא.</li>
+        <li>▸ <strong>מלכודות שכיחות:</strong> מַדְפֶּסֶת כהדבקה ("מד+פסת") — הסבירו שמד לא עומד לבדו.</li>
+        <li>▸ <strong>ש׳ 2ד (מְכוֹנִית):</strong> אם תלמיד כתב "הקטנה" — הפסידו 0.5 נקודה בלבד אם הגיון ההסבר נכון.</li>
+        <li>▸ <strong>ש׳ 3:</strong> מקבלים וריאציות — כל עוד המילה נבנתה נכון מהשורש/בסיס שניתן.</li>
+      </ul>
+    </div>
+  </div>
+
+</div><!-- /teacher answers -->
+
+
+
 <!-- ─── BACK/NEXT BAR ─── -->
 <div class="no-print" style="margin:32px 0 8px;">
-  <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 20px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+  <!-- שינוי 3: כפתורי nav רספונסיביים -->
+  <div class="btn-row" style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 20px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
     <div style="font-size:0.88rem;color:var(--text-muted);">✅ סיום יחידה 2 — כל הכבוד!</div>
     <a href="index.html" style="display:inline-flex;align-items:center;gap:8px;background:var(--navy-lt);color:#fff;padding:10px 22px;border-radius:10px;font-family:'Heebo',sans-serif;font-size:0.9rem;font-weight:700;text-decoration:none;min-height:44px;">🏠 חזרה לתפריט</a>
   </div>
@@ -587,7 +1411,8 @@
 <!-- FOOTER -->
 <footer class="no-print" style="background:var(--navy);color:rgba(255,255,255,0.55);text-align:center;padding:20px;font-size:0.78rem;margin-top:60px;">
   פלטפורמת לשון עברית — כיתה י׳ | יחידה 2: מערכת השם | שיעור 5 — סיכום<br>
-  תואם תכנית המפמ"ר ומיצ"ב 2026 | © כל הזכויות שמורות
+  <!-- שינוי 1: עדכון תוכן גם בפוטר -->
+  שיעור תיאוריה | תואם תכנית המפמ"ר ומיצ"ב 2026 | © כל הזכויות שמורות
 </footer>
 
 <script>
@@ -597,7 +1422,6 @@ function showTab(id, btn) {
   document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.style.color = 'var(--text-muted)'; });
   document.getElementById(id).classList.add('active');
   if (btn) { btn.classList.add('active'); btn.style.color = ''; }
-  // handle string button reference for programmatic calls
 }
 // Allow calling showTab with element or selector string
 document.querySelectorAll('[onclick*="showTab(\'tp"]').forEach(b => {
@@ -606,6 +1430,7 @@ document.querySelectorAll('[onclick*="showTab(\'tp"]').forEach(b => {
 
 /* ─── Timer ─── */
 let tInt=null, tSec=2700, elapsed=0;
+// שינוי 1: עדכון תוויות שלבי הטיימר ל'תיאוריה'
 const phases=[{end:600,label:'📚 תיאוריה'},{end:1500,label:'🎯 תרגול'},{end:2400,label:'✏️ דף עבודה'},{end:2700,label:'🔚 סיכום'}];
 function startTimer(){
   if(tInt)return;
@@ -843,7 +1668,8 @@ function updateScore() {
   const disp  = document.getElementById('score-display');
   disp.style.display = 'block';
   document.getElementById('score-text').textContent = `${total} / ${max} — ${pct}%`;
-  document.getElementById('score-msg').textContent  = pct >= 85 ? '🌟 מצוין! מוכנים לבגרות!' : pct >= 70 ? '💪 טוב מאוד — עוד קצת תרגול!' : '📝 חזרו על ההלכה ונסו שוב';
+  // שינוי 1: עדכון ההודעה בציון ל'תיאוריה'
+  document.getElementById('score-msg').textContent  = pct >= 85 ? '🌟 מצוין! מוכנים לבגרות!' : pct >= 70 ? '💪 טוב מאוד — עוד קצת תרגול!' : '📝 חזרו על התיאוריה ונסו שוב';
 }
 
 /* ─── Submit ─── */
@@ -874,17 +1700,39 @@ initMatch();
   if (dt && !dt.value) dt.value = new Date().toLocaleDateString('he-IL');
 })();
 
-// ─── ROLE=TEACHER SECURITY (v4) ─────────────────────────────────────────
+// ─── ROLE=TEACHER SECURITY (v5) ─────────────────────────────────────────
 (function applyTeacherRole() {
   var params = new URLSearchParams(window.location.search);
   var isTeacher = params.get('role') === 'teacher';
 
-  // No teacher-only tabs in this file — enforce student default regardless
-  if (!isTeacher) {
+  if (isTeacher) {
+    // מורה: חשוף את טאב הפתרונות וכל teacher-only
+    document.querySelectorAll('.teacher-only').forEach(function(el){
+      el.style.removeProperty('display');
+    });
+    // הצג טאב פתרונות בניווט
+    var taBtn = document.querySelector('.tab-btn[onclick*="\'ta\'"]');
+    if (taBtn) {
+      taBtn.style.removeProperty('display');
+    }
+    // הפעל טאב פתרונות כברירת מחדל למורה
+    document.querySelectorAll('.tab-pane').forEach(function(p){ p.classList.remove('active'); });
+    document.querySelectorAll('.tab-btn').forEach(function(b){ b.classList.remove('active'); b.style.color = 'var(--text-muted)'; });
+    var taPane = document.getElementById('ta');
+    if (taPane) {
+      taPane.classList.add('active');
+      taPane.style.removeProperty('display');
+    }
+    if (taBtn) {
+      taBtn.classList.add('active');
+      taBtn.style.color = 'var(--navy)';
+    }
+  } else {
+    // תלמיד: הסתר teacher-only
     document.querySelectorAll('.teacher-only').forEach(function(el){
       el.style.display = 'none';
     });
-    // Ensure theory tab is active
+    // ודא שטאב תיאוריה פעיל
     var defPane = document.getElementById('th') || document.getElementById('tab-theory');
     if (defPane && !defPane.classList.contains('active')) {
       document.querySelectorAll('.tab-pane').forEach(function(p){ p.classList.remove('active'); });
