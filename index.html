@@ -541,6 +541,10 @@ a { text-decoration:none; }
 .lesson-row:not(.locked):hover { background:var(--surface2); box-shadow:inset 3px 0 0 var(--blue); }
 .lesson-row:not(.locked):active { transform:scale(0.97); background:var(--surface3); }
 .lesson-row.locked { opacity:.7; cursor:default; pointer-events:none; }
+/* Teacher view: locked cards still clickable (for teacher access) */
+.lesson-row.locked.teacher-clickable { opacity:.75; cursor:pointer; pointer-events:auto; }
+.lesson-row.locked.teacher-clickable:hover { background:var(--surface2); }
+.lesson-row.locked.teacher-clickable:active { transform:scale(0.97); background:var(--surface3); }
 
 /* Status accent bar — thin vertical on right */
 .lesson-row::before {
@@ -618,6 +622,10 @@ a { text-decoration:none; }
 .lesson-row:not(.locked):hover .lr-chevron { opacity:1; transform:translateX(-2px); }
 
 
+/* ─── TEACHER BAR — single button + toggle, inline ─── */
+.lr-teacher-bar {
+  display:flex; align-items:center; gap:.4rem; flex-shrink:0; margin-right:auto;
+}
 .lr-actions { display:flex; align-items:center; gap:.28rem; flex-shrink:0; }
 
 .btn-main {
@@ -1450,36 +1458,28 @@ function buildLessonRow(l,isT){
       clickHandler=`onclick="openLesson('${sUrl}')"`;
       chevron=`<span class="lr-chevron">‹</span>`;
     }
+  } else {
+    // Teacher: card click opens teacher URL
+    const tOpenUrl=l.exam&&l.solFile ? l.solFile : tUrl;
+    clickHandler=`onclick="openLesson('${tOpenUrl}')"`;
+    chevron=`<span class="lr-chevron">‹</span>`;
   }
 
-  // ── Teacher actions (bottom bar, unchanged) ──
-  let actions='';
-  let lockToggle='';
+  // ── Teacher: lock toggle only (no open-button) ──
+  let teacherBar='';
   if(isT){
     const chkId='lt-'+l.id;
-    lockToggle=`
-      <div class="lr-lock-wrap">
-        <span class="lr-lock-label">${locked?'נעול':'פתוח'}</span>
-        <label class="lr-toggle" title="${locked?'לחץ לפתיחה':'לחץ לנעילה'}">
-          <input type="checkbox" id="${chkId}" ${!locked?'checked':''}
-                 onchange="quickToggleLock('${l.id}',this.checked)">
-          <span class="lr-slider"></span>
-        </label>
+    teacherBar=`
+      <div class="lr-teacher-bar">
+        <div class="lr-lock-wrap">
+          <span class="lr-lock-label">${locked?'נעול':'פתוח'}</span>
+          <label class="lr-toggle" title="${locked?'לחץ לפתיחה':'לחץ לנעילה'}">
+            <input type="checkbox" id="${chkId}" ${!locked?'checked':''}
+                   onchange="quickToggleLock('${l.id}',this.checked)">
+            <span class="lr-slider"></span>
+          </label>
+        </div>
       </div>`;
-
-    if(locked){
-      actions=`<a href="${tUrl}" class="btn-icon guide" target="_blank" title="טיוטה">📋</a>`;
-    }else if(l.exam && l.solFile){
-      actions=`
-        <a href="${l.solFile}" class="btn-icon sol-exam" target="_blank" title="מפתח תשובות">👁</a>
-        <a href="${tUrl}"      class="btn-icon guide"    target="_blank" title="מדריך למורה">📖</a>
-        <a href="${sUrl}"      class="btn-icon prev"     target="_blank" title="צפה כתלמיד">🎓</a>`;
-    }else{
-      actions=`
-        <a href="${tUrl}" class="btn-icon sol"   target="_blank" title="פתרונות ומפתח">🔑</a>
-        <a href="${tUrl}" class="btn-icon guide"  target="_blank" title="מדריך למורה">📖</a>
-        <a href="${sUrl}" class="btn-icon prev"   target="_blank" title="צפה כתלמיד">👁</a>`;
-    }
   }
 
   // ── Lock badge for students (instead of disabled button) ──
@@ -1488,7 +1488,7 @@ function buildLessonRow(l,isT){
     : '';
 
   return`
-<div class="lesson-row${locked?' locked':''}${l.exam?' exam-row':''}" style="--lr-color:${l.color}" ${clickHandler}>
+<div class="lesson-row${locked?' locked':''}${l.exam?' exam-row':''}${isT&&locked?' teacher-clickable':''}" style="--lr-color:${l.color}" ${clickHandler}>
   <div class="lr-top-mob">
     <div class="lr-em" style="background:${l.color}18">${l.emoji}</div>
     <div class="lr-info">
@@ -1505,8 +1505,7 @@ function buildLessonRow(l,isT){
       <span class="lr-mins">${l.mins}′</span>
       ${done&&dDate?`<span class="done-stamp">✓ ${dDate}</span>`:''}
     </div>
-    ${isT ? `<div class="lr-actions">${actions}</div>` : ''}
-    ${lockToggle}
+    ${teacherBar}
   </div>
   ${chevron}
 </div>`;
