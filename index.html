@@ -525,14 +525,14 @@ a { text-decoration:none; }
 .unit-body.open { max-height:4000px; }
 
 /* ══════════════════════════════════════════════════
-   LESSON CARD  (replaces lesson-row)
+   LESSON CARD
 ══════════════════════════════════════════════════ */
 .lesson-row {
   display:flex; align-items:center; gap:.7rem;
-  padding:.95rem 1.15rem;
+  padding:.85rem 1.15rem;
   border-bottom:1px solid var(--border);
   transition:background .12s, transform .15s cubic-bezier(.34,1.2,.64,1), box-shadow .15s;
-  position:relative; min-height:64px;
+  position:relative; min-height:60px;
   cursor:pointer;
   -webkit-tap-highlight-color:transparent;
   user-select:none;
@@ -540,11 +540,7 @@ a { text-decoration:none; }
 .lesson-row:last-child { border-bottom:none; }
 .lesson-row:not(.locked):hover { background:var(--surface2); box-shadow:inset 3px 0 0 var(--blue); }
 .lesson-row:not(.locked):active { transform:scale(0.97); background:var(--surface3); }
-.lesson-row.locked { opacity:.7; cursor:default; pointer-events:none; }
-/* Teacher view: locked cards still clickable (for teacher access) */
-.lesson-row.locked.teacher-clickable { opacity:.75; cursor:pointer; pointer-events:auto; }
-.lesson-row.locked.teacher-clickable:hover { background:var(--surface2); }
-.lesson-row.locked.teacher-clickable:active { transform:scale(0.97); background:var(--surface3); }
+.lesson-row.locked { opacity:.65; cursor:default; pointer-events:none; }
 
 /* Status accent bar — thin vertical on right */
 .lesson-row::before {
@@ -561,14 +557,24 @@ a { text-decoration:none; }
 }
 
 .lr-info { flex:1; min-width:0; }
-.lr-top-mob { display:contents; }
-.lr-bar     { display:contents; }
-
 .lr-short { font-size:.56rem; font-weight:800; color:var(--subtle); text-transform:uppercase; letter-spacing:.06em; }
 .lr-title { font-size:.86rem; font-weight:700; line-height:1.3; margin-top:1px; word-break:break-word; overflow-wrap:anywhere; }
 .lr-desc  { font-size:.66rem; color:var(--subtle); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-top:2px; }
-.lr-right { display:flex; align-items:center; gap:.4rem; flex-shrink:0; }
-.lr-mins  { font-size:.62rem; color:var(--subtle); white-space:nowrap; }
+
+/* Meta cluster — chips, mins, toggle */
+.lr-meta {
+  display:flex; align-items:center; gap:.38rem; flex-shrink:0;
+}
+.lr-mins { font-size:.62rem; color:var(--subtle); white-space:nowrap; }
+
+/* ─── INDICATOR (chevron / lock) — far left ─── */
+.lr-indicator {
+  flex-shrink:0; font-size:.85rem;
+  opacity:.5; transition:opacity .12s, transform .12s;
+}
+.lr-chevron-icon { color:var(--subtle); }
+.lr-lock-icon    { font-size:.7rem; }
+.lesson-row:not(.locked):hover .lr-indicator { opacity:1; transform:translateX(-2px); }
 
 /* ─── STATUS CHIPS — text-only, minimal ─── */
 .chip { display:inline-flex; align-items:center; gap:.15rem; padding:.15rem .55rem; border-radius:var(--r-pill); font-size:.6rem; font-weight:700; white-space:nowrap; }
@@ -605,79 +611,12 @@ a { text-decoration:none; }
   padding:.08rem .38rem; margin-bottom:.2rem;
 }
 
-/* ─── CARD LOCK BADGE ─── */
-.lr-lock-badge {
-  font-size:.6rem; font-weight:700; color:var(--muted);
-  background:var(--surface3); border:1px solid var(--border);
-  border-radius:var(--r-pill); padding:.12rem .5rem;
-  display:inline-flex; align-items:center; gap:.2rem;
-  white-space:nowrap;
+.done-stamp {
+  font-size:.58rem; font-weight:700; color:var(--blue); background:var(--blue-lt);
+  border-radius:var(--r-pill); padding:.08rem .42rem; white-space:nowrap;
 }
-/* ─── CARD CHEVRON ─── */
-.lr-chevron {
-  flex-shrink:0; font-size:.8rem; color:var(--subtle);
-  margin-right:auto; /* pushes to the left in RTL context = visual left edge */
-  opacity:.6; transition:opacity .12s, transform .12s;
-}
-.lesson-row:not(.locked):hover .lr-chevron { opacity:1; transform:translateX(-2px); }
 
-
-/* ─── TEACHER BAR — single button + toggle, inline ─── */
-.lr-teacher-bar {
-  display:flex; align-items:center; gap:.4rem; flex-shrink:0; margin-right:auto;
-}
-.lr-actions { display:flex; align-items:center; gap:.28rem; flex-shrink:0; }
-
-.btn-main {
-  display:inline-flex; align-items:center; gap:.2rem;
-  padding:.35rem .75rem; border:none; border-radius:var(--r-sm);
-  font-size:.63rem; font-weight:700; cursor:pointer;
-  white-space:nowrap; transition:all .12s; text-decoration:none; min-height:32px;
-}
-.btn-main:active:not(.dis) { transform:scale(0.96); }
-.btn-main.prim  { background:var(--blue); color:#fff; }
-.btn-main.prim:hover  { background:var(--blue-dk); box-shadow:0 2px 8px rgba(26,86,219,.28); }
-.btn-main.exam  { background:var(--amber); color:#fff; }
-.btn-main.exam:hover  { filter:brightness(.92); }
-.btn-main.ghost { background:var(--surface2); color:var(--text); border:1px solid var(--border); }
-.btn-main.ghost:hover { background:var(--surface3); }
-.btn-main.dis   { background:var(--surface2); color:var(--subtle); border:1px solid var(--border); cursor:not-allowed; }
-
-/* Teacher text buttons */
-.btn-t {
-  display:inline-flex; align-items:center; gap:.2rem;
-  padding:.35rem .7rem; border:none; border-radius:var(--r-sm);
-  font-size:.68rem; font-weight:700; cursor:pointer;
-  white-space:nowrap; transition:all .12s; text-decoration:none; min-height:38px;
-}
-.btn-t.sol   { background:var(--purple-lt); color:var(--purple); }
-.btn-t.sol:hover   { background:#ede9fe; }
-.btn-t.guide { background:var(--amber-lt); color:var(--amber); }
-.btn-t.guide:hover { background:#fde68a; }
-.btn-t.prev  { background:var(--surface2); color:var(--muted); border:1px solid var(--border); }
-.btn-t.prev:hover  { background:var(--surface3); }
-.btn-t-sep   { width:1px; height:14px; background:var(--border); flex-shrink:0; }
-
-/* Icon buttons — clean circles, no emoji overload */
-.btn-icon {
-  display:inline-flex; align-items:center; justify-content:center;
-  width:28px; height:28px; border:none; border-radius:50%;
-  font-size:.75rem; cursor:pointer; text-decoration:none;
-  background:var(--surface2); color:var(--muted);
-  transition:all .12s; flex-shrink:0; min-height:28px;
-}
-.btn-icon:hover  { background:var(--surface3); transform:scale(1.07); }
-.btn-icon:active { transform:scale(.92); }
-.btn-icon.sol      { background:var(--purple-lt); color:var(--purple); }
-.btn-icon.sol:hover{ background:#ede9fe; }
-.btn-icon.guide    { background:var(--amber-lt); color:var(--amber); }
-.btn-icon.guide:hover{ background:#fef3c7; }
-.btn-icon.prev     { background:var(--surface2); color:var(--muted); }
-.btn-icon.prev:hover{ background:var(--surface3); }
-.btn-icon.sol-exam { background:var(--blue-lt); color:var(--blue); }
-.btn-icon.sol-exam:hover{ background:#bfdbfe; }
-
-/* ─── INLINE LOCK TOGGLE ─── */
+/* ─── INLINE LOCK TOGGLE (teacher only) ─── */
 .lr-lock-wrap { display:flex; align-items:center; gap:.28rem; flex-shrink:0; }
 .lr-lock-label { font-size:.56rem; color:var(--muted); white-space:nowrap; }
 .lr-toggle { position:relative; width:28px; height:15px; cursor:pointer; display:inline-block; flex-shrink:0; }
@@ -695,11 +634,6 @@ a { text-decoration:none; }
 .lr-toggle input:checked + .lr-slider { background:var(--green); }
 .lr-toggle input:checked + .lr-slider::before { right:2px; }
 .lr-toggle input:focus-visible + .lr-slider { outline:2px solid var(--blue); outline-offset:2px; }
-
-.done-stamp {
-  font-size:.58rem; font-weight:700; color:var(--blue); background:var(--blue-lt);
-  border-radius:var(--r-pill); padding:.08rem .42rem; white-space:nowrap;
-}
 
 /* ══════════════════════════════════════════════════
    TOAST
@@ -860,35 +794,20 @@ a { text-decoration:none; }
   #settings-modal { max-width:100%; border-radius:var(--r-xl) var(--r-xl) var(--r-lg) var(--r-lg); max-height:92vh; }
   #toast { bottom:1.6rem; right:.85rem; left:.85rem; text-align:center; }
 
-  /* Lesson row stacked on mobile */
-  .lesson-row {
-    flex-direction:column; align-items:stretch;
-    padding:.75rem .85rem .6rem; gap:0; min-height:unset;
-  }
-  .lr-top-mob {
-    display:flex !important;
-    align-items:flex-start; gap:.48rem; width:100%; margin-bottom:.38rem;
-  }
-  .lr-em { width:30px; height:30px; margin-top:.1rem; font-size:.85rem; flex-shrink:0; }
-  .lr-info { flex:1; min-width:0; }
+  /* Lesson row on mobile */
+  .lesson-row { padding:.65rem .75rem; min-height:unset; }
+  .lr-em { width:30px; height:30px; font-size:.85rem; }
   .lr-short { font-size:.53rem; }
-  .lr-title { font-size:.84rem; font-weight:700; line-height:1.3; white-space:normal; word-break:break-word; overflow-wrap:anywhere; }
-  .lr-desc  { font-size:.62rem; color:var(--subtle); white-space:normal; display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; overflow:hidden; margin-top:.1rem; }
-  .lr-bar {
-    display:flex !important;
-    align-items:center; gap:.28rem; width:100%;
-    border-top:1px solid var(--border); padding-top:.38rem;
-  }
-  .lr-right { display:flex; align-items:center; gap:.2rem; flex:1; min-width:0; flex-wrap:nowrap; overflow:hidden; }
+  .lr-title { font-size:.84rem; }
+  .lr-desc  { font-size:.62rem; }
+  .lr-meta  { gap:.25rem; }
   .lr-mins  { font-size:.56rem; }
-  .lr-actions { display:flex; align-items:center; gap:.2rem; flex-shrink:0; margin-right:auto; }
-  .btn-icon { width:24px; height:24px; font-size:.7rem; }
-  .lr-lock-wrap { display:flex; align-items:center; gap:.18rem; flex-shrink:0; transform:scale(.76); transform-origin:left center; }
+  .lr-lock-wrap { transform:scale(.82); transform-origin:center; }
   .teacher-strip { padding:.35rem .95rem; }
 }
 
 @media(max-width:640px){
-  .lr-bar { flex-wrap:wrap; }
+  .lr-meta { flex-wrap:wrap; justify-content:flex-end; }
 }
 </style>
 </head>
@@ -1436,13 +1355,35 @@ function buildLessonRow(l,isT){
   const dDate =S.prog[l.id]?.date||'';
   const sUrl  =l.file+'?role=student';
   const tUrl  =isT?l.file+'?role=teacher':null;
-  const solUrl=l.solFile||(isT?l.file+'?role=teacher':null);
 
-  // Clean text-only chips — no icons
-  const chip=locked?'<span class="chip ch-lock">נעול</span>'
-            :l.exam ?'<span class="chip ch-exam">מבחן</span>'
-            :done   ?'<span class="chip ch-done">הוגש</span>'
-                    :'<span class="chip ch-open">פתוח</span>';
+  // ── Determine click target ──
+  let clickHandler='';
+  if(isT){
+    const tOpenUrl=l.exam&&l.solFile ? l.solFile : tUrl;
+    clickHandler=`onclick="openLesson('${tOpenUrl}')"`;
+  } else if(!locked){
+    clickHandler=`onclick="openLesson('${sUrl}')"`;
+  }
+
+  // ── Inline indicator: chevron for open, lock for locked ──
+  const indicator=locked
+    ? `<span class="lr-indicator lr-lock-icon">🔒</span>`
+    : `<span class="lr-indicator lr-chevron-icon">‹</span>`;
+
+  // ── Teacher lock toggle (inline, right side) ──
+  let lockToggle='';
+  if(isT){
+    const chkId='lt-'+l.id;
+    lockToggle=`
+      <div class="lr-lock-wrap" onclick="event.stopPropagation()">
+        <span class="lr-lock-label">${locked?'נעול':'פתוח'}</span>
+        <label class="lr-toggle" title="${locked?'לחץ לפתיחה':'לחץ לנעילה'}">
+          <input type="checkbox" id="${chkId}" ${!locked?'checked':''}
+                 onchange="quickToggleLock('${l.id}',this.checked)">
+          <span class="lr-slider"></span>
+        </label>
+      </div>`;
+  }
 
   const examLabel=l.exam
     ? (l.theory
@@ -1450,64 +1391,27 @@ function buildLessonRow(l,isT){
         : '<div class="exam-label">משימת סיכום</div>')
     : '';
 
-  // ── Student: whole card is clickable, no bottom bar buttons ──
-  let clickHandler='';
-  let chevron='';
-  if(!isT){
-    if(!locked){
-      clickHandler=`onclick="openLesson('${sUrl}')"`;
-      chevron=`<span class="lr-chevron">‹</span>`;
-    }
-  } else {
-    // Teacher: card click opens teacher URL
-    const tOpenUrl=l.exam&&l.solFile ? l.solFile : tUrl;
-    clickHandler=`onclick="openLesson('${tOpenUrl}')"`;
-    chevron=`<span class="lr-chevron">‹</span>`;
-  }
-
-  // ── Teacher: lock toggle only (no open-button) ──
-  let teacherBar='';
-  if(isT){
-    const chkId='lt-'+l.id;
-    teacherBar=`
-      <div class="lr-teacher-bar">
-        <div class="lr-lock-wrap">
-          <span class="lr-lock-label">${locked?'נעול':'פתוח'}</span>
-          <label class="lr-toggle" title="${locked?'לחץ לפתיחה':'לחץ לנעילה'}">
-            <input type="checkbox" id="${chkId}" ${!locked?'checked':''}
-                   onchange="quickToggleLock('${l.id}',this.checked)">
-            <span class="lr-slider"></span>
-          </label>
-        </div>
-      </div>`;
-  }
-
-  // ── Lock badge for students (instead of disabled button) ──
-  const lockBadge=(!isT && locked)
-    ? `<span class="lr-lock-badge">🔒 טרם נפתח</span>`
-    : '';
+  const chip=locked?'<span class="chip ch-lock">נעול</span>'
+            :l.exam ?'<span class="chip ch-exam">מבחן</span>'
+            :done   ?'<span class="chip ch-done">הוגש</span>'
+                    :'<span class="chip ch-open">פתוח</span>';
 
   return`
-<div class="lesson-row${locked?' locked':''}${l.exam?' exam-row':''}${isT&&locked?' teacher-clickable':''}" style="--lr-color:${l.color}" ${clickHandler}>
-  <div class="lr-top-mob">
-    <div class="lr-em" style="background:${l.color}18">${l.emoji}</div>
-    <div class="lr-info">
-      ${examLabel}
-      <div class="lr-short">${l.short}</div>
-      <div class="lr-title">${l.title}</div>
-      <div class="lr-desc">${l.desc}</div>
-      ${lockBadge}
-    </div>
+<div class="lesson-row${locked&&!isT?' locked':''}${l.exam?' exam-row':''}" style="--lr-color:${l.color}" ${clickHandler}>
+  <div class="lr-em" style="background:${l.color}18">${l.emoji}</div>
+  <div class="lr-info">
+    ${examLabel}
+    <div class="lr-short">${l.short}</div>
+    <div class="lr-title">${l.title}</div>
+    <div class="lr-desc">${l.desc}</div>
   </div>
-  <div class="lr-bar">
-    <div class="lr-right">
-      ${chip}
-      <span class="lr-mins">${l.mins}′</span>
-      ${done&&dDate?`<span class="done-stamp">✓ ${dDate}</span>`:''}
-    </div>
-    ${teacherBar}
+  <div class="lr-meta">
+    ${chip}
+    <span class="lr-mins">${l.mins}′</span>
+    ${done&&dDate?`<span class="done-stamp">✓ ${dDate}</span>`:''}
+    ${lockToggle}
   </div>
-  ${chevron}
+  ${indicator}
 </div>`;
 }
 
