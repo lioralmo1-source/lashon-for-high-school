@@ -557,6 +557,7 @@ a { text-decoration:none; color:inherit; }
 .ar-arrow  { color:var(--subtle); font-size:.8rem; }
 .ar-answer { font-weight:800; color:var(--green); font-size:.95rem; }
 .ar-note   { font-size:.72rem; color:var(--muted); margin-right:auto; }
+.answer-row .ex-num { background:var(--surface3); border:1px solid var(--border2); color:var(--muted); }
 
 .ped-tip {
   background:var(--gold-lt); border:1px solid var(--gold);
@@ -1117,89 +1118,112 @@ a { text-decoration:none; color:inherit; }
         <!-- Unlocked content -->
         <div id="teacher-content" style="display:none">
 
-          <!-- Key: Task 1 -->
+          <!-- Summary header -->
+          <div style="background:var(--purple-lt);border:1px solid var(--purple);border-radius:var(--r);padding:.85rem 1.1rem;margin-bottom:1.2rem;font-size:.84rem;line-height:1.7">
+            <strong style="color:var(--purple);display:block;margin-bottom:.3rem">📋 סיכום לשיעור — גזרת הנחים ל"א ו-ל"ה</strong>
+            שיעור זה עוסק בשתי גזרות עיקריות: <strong>ל"א</strong> (האלף נשמעת ונשמרת בכתיב) ו-<strong>ל"ה</strong> (ה׳ שורשית הופכת ל-י׳ לפני סיומות, ונעלמת לפני ו׳ הרבים).
+            ה-10 שאלות מחולקות: 6 מיון, 3 הטיה לגוף נסתר, 1 יוצא-הדופן.
+          </div>
+
+          <!-- Key: Task 1 — full -->
           <div class="answer-section">
-            <div class="as-title">🗝️ תשובות — משימה 1 (מיון)</div>
+            <div class="as-title">🗝️ משימה 1 — מיון ל"א / ל"ה (6 שאלות)</div>
+
             <div class="answer-row">
+              <span class="ex-num" style="flex-shrink:0">1</span>
               <span class="ar-verb">מָצָאתִי</span>
               <span class="ar-arrow">→</span>
-              <span class="ar-answer">ל&quot;א</span>
-              <span class="ar-note">שורש מ-צ-א׳, האלף נשמעת במקור לִמְצוֹא</span>
+              <span class="ar-answer" style="color:var(--blue)">ל"א</span>
+              <span class="ar-note">שורש מ-צ-א׳. בשם הפועל: לִמְצוֹא — האלף נשמעת. בצורת הרבים: מָצְאוּ (קמץ → שווא לפני ו׳).</span>
             </div>
             <div class="answer-row">
+              <span class="ex-num" style="flex-shrink:0">2</span>
               <span class="ar-verb">בָּנִינוּ</span>
               <span class="ar-arrow">→</span>
-              <span class="ar-answer">ל&quot;ה</span>
-              <span class="ar-note">שורש ב-נ-ה׳, ה׳ → י לפני נינוּ</span>
+              <span class="ar-answer" style="color:var(--green)">ל"ה</span>
+              <span class="ar-note">שורש ב-נ-ה׳. ה׳ → י׳ לפני הסיומת נינוּ. שם הפועל: לִבְנוֹת (ללא אלף).</span>
             </div>
             <div class="answer-row">
+              <span class="ex-num" style="flex-shrink:0">3</span>
               <span class="ar-verb">קָרְאוּ</span>
               <span class="ar-arrow">→</span>
-              <span class="ar-answer">ל&quot;א</span>
-              <span class="ar-note">שורש ק-ר-א׳, קמץ → שווא לפני ו'</span>
+              <span class="ar-answer" style="color:var(--blue)">ל"א</span>
+              <span class="ar-note">שורש ק-ר-א׳. הקמץ שלפני האלף מתקצר לשווא לפני ו׳ הרבים: קָרְאוּ. האלף שקטה אך כתובה.</span>
             </div>
             <div class="answer-row">
+              <span class="ex-num" style="flex-shrink:0">4</span>
               <span class="ar-verb">רָצִיתָ</span>
               <span class="ar-arrow">→</span>
-              <span class="ar-answer">ל&quot;ה</span>
-              <span class="ar-note">שורש ר-צ-ה׳, ה׳ → י לפני תָ</span>
+              <span class="ar-answer" style="color:var(--green)">ל"ה</span>
+              <span class="ar-note">שורש ר-צ-ה׳. ה׳ → י׳ לפני סיומת תָ. שם הפועל: לִרְצוֹת.</span>
             </div>
             <div class="answer-row">
+              <span class="ex-num" style="flex-shrink:0">5</span>
               <span class="ar-verb">הִקְפִּיא</span>
               <span class="ar-arrow">→</span>
-              <span class="ar-answer">ל&quot;א</span>
-              <span class="ar-note">שורש ק-פ-א׳ בהפעיל; האלף נשמעת</span>
+              <span class="ar-answer" style="color:var(--blue)">ל"א</span>
+              <span class="ar-note">שורש ק-פ-א׳ בבניין הפעיל. גם בבניינים כבדים, האלף בסוף נשמעת ונשמרת בכתיב.</span>
             </div>
             <div class="answer-row">
+              <span class="ex-num" style="flex-shrink:0">6</span>
               <span class="ar-verb">שָׁתְתָה</span>
               <span class="ar-arrow">→</span>
-              <span class="ar-answer">ל&quot;ה</span>
-              <span class="ar-note">שורש ש-ת-ה׳, ה׳ נעלמת ועוד ה׳ נקבה נוספה</span>
+              <span class="ar-answer" style="color:var(--green)">ל"ה</span>
+              <span class="ar-note">שורש ש-ת-ה׳. הה׳ השורשית נעלמת, ומוסיפים ה׳ נקבה בסוף: שָׁתְ-תָה. שם הפועל: לִשְׁתּוֹת.</span>
             </div>
           </div>
 
-          <!-- Key: Task 2 -->
+          <!-- Key: Task 2 — full -->
           <div class="answer-section">
-            <div class="as-title">🗝️ תשובות — משימה 2 (הטיה)</div>
+            <div class="as-title">🗝️ משימה 2 — הטיה לגוף נסתר (הוא) (3 שאלות)</div>
+
             <div class="answer-row">
+              <span class="ex-num" style="flex-shrink:0">7</span>
               <span class="ar-verb">בּוֹנֶה</span>
-              <span class="ar-arrow">→</span>
+              <span class="ar-arrow">הווה → עבר (הוא)</span>
               <span class="ar-answer">בָּנָה</span>
-              <span class="ar-note">ל&quot;ה — ה׳ שורשית חוזרת בגוף נסתר (הוא)</span>
+              <span class="ar-note">ל"ה — בגוף נסתר, ה׳ השורשית חוזרת כ-ה׳ מפיק. הניקוד: בָּ-נָ-ה.</span>
             </div>
             <div class="answer-row">
+              <span class="ex-num" style="flex-shrink:0">8</span>
               <span class="ar-verb">קוֹרֵא</span>
-              <span class="ar-arrow">→</span>
+              <span class="ar-arrow">הווה → עבר (הוא)</span>
               <span class="ar-answer">קָרָא</span>
-              <span class="ar-note">ל&quot;א — האלף נשמעת ונשארת</span>
+              <span class="ar-note">ל"א — האלף נשמעת ונשמרת. הניקוד: קָ-רָ-א (שתי קמצות + אלף).</span>
             </div>
             <div class="answer-row">
+              <span class="ex-num" style="flex-shrink:0">9</span>
               <span class="ar-verb">רוֹצֶה</span>
-              <span class="ar-arrow">→</span>
+              <span class="ar-arrow">הווה → עבר (הוא)</span>
               <span class="ar-answer">רָצָה</span>
-              <span class="ar-note">ל&quot;ה — ה׳ שורשית חוזרת בגוף נסתר (הוא)</span>
+              <span class="ar-note">ל"ה — בגוף נסתר, ה׳ השורשית חוזרת. ניקוד: רָ-צָ-ה. תלמידים נוטים לכתוב בטעות "רצה" ללא ניקוד — קבל גם ללא ניקוד.</span>
             </div>
           </div>
 
           <!-- Key: Task 3 -->
           <div class="answer-section">
-            <div class="as-title">🗝️ תשובה — משימה 3 (יוצא הדופן)</div>
+            <div class="as-title">🗝️ משימה 3 — יוצא הדופן (1 שאלה)</div>
             <div class="answer-row">
+              <span class="ex-num" style="flex-shrink:0">10</span>
               <span class="ar-verb">מָצָא</span>
               <span class="ar-arrow">→</span>
-              <span class="ar-answer">יוצא הדופן</span>
-              <span class="ar-note">היחיד מגזרת ל&quot;א; האחרים (קנה, בנה, רצה) מגזרת ל&quot;ה</span>
+              <span class="ar-answer">יוצא הדופן ✓</span>
+              <span class="ar-note">מָצָא = ל"א (שורש מ-צ-א׳). השאר — קָנָה, בָּנָה, רָצָה — כולם ל"ה (שורשים: ק-נ-ה, ב-נ-ה, ר-צ-ה).</span>
             </div>
           </div>
 
-          <!-- Pedagogic tip -->
+          <!-- Pedagogic tip — enhanced -->
           <div class="ped-tip">
             <div class="pt-title">💡 טיפ פדגוגי</div>
-            <strong>הדגישו לתלמידים שגזרת ל&quot;ה היא הגזרה הגדולה והנפוצה ביותר בעברית.</strong>
+            <strong>הדגישו לתלמידים שגזרת ל"ה היא הגזרה הגדולה והנפוצה ביותר בעברית.</strong>
             <br><br>
-            מחקרים לשוניים מראים שמרבית הפעלים בעברית המודרנית הם מגזרת ל&quot;ה — כולל פעלים שאולים (טִיְּיל, אִרְגֵּן) ופעלים מן הדיבור היומיומי (שָׁכַח → שָׁכַחְתִּי, אבל: שָׁכַח ← שָׁכְחוּ).
+            מרבית הפעלים בעברית המודרנית הם מגזרת ל"ה — כולל פעלים שאולים (טִיְּיל, אִרְגֵּן) ופעלים מן הדיבור היומיומי.
             <br><br>
-            דרך מעשית לזיהוי בכיתה: בקשו מהתלמידים לגזור שם פועל (מקור) מהפועל הנתון ולשמוע את הסוף: מסתיים ב-<strong>ות</strong> עם אלף נשמעת = ל&quot;א. מסתיים ב-<strong>ות</strong> בלי אלף = ל&quot;ה.
+            <strong>דרך מעשית לזיהוי בכיתה:</strong> בקשו מהתלמידים לגזור שם פועל (מקור) מהפועל הנתון ולשמוע את הסוף:
+            מסתיים ב-<strong>ות</strong> עם אלף נשמעת = ל"א (לִמְצוֹא, לִקְרוֹא).
+            מסתיים ב-<strong>ות</strong> בלי אלף = ל"ה (לִבְנוֹת, לִרְצוֹת).
+            <br><br>
+            <strong>טעות נפוצה:</strong> תלמידים מתבלבלים בין צורת ל"ה בגוף נסתר (בָּנָה) לבין צורת ל"א (קָרָא) — שתיהן נראות דומות. הדרך לזכור: ל"ה תמיד מסתיימת ב-ה׳ בגוף נסתר עבר, ל"א — באלף.
           </div>
 
         </div><!-- /teacher-content -->
@@ -1284,18 +1308,18 @@ const ANSWERS_T1 = {
 };
 
 const FEEDBACK_T1 = {
-  'sel-t1-1':{ ok:'נכון! שורש מ-צ-א׳ — האלף נשמעת בשם הפועל לִמְצוֹא.',
-               err:'לא מדויק. שורש מ-צ-א׳ — שמעו: לִמְצוֹא. האלף בסוף נשמעת = ל&quot;א.' },
-  'sel-t1-2':{ ok:'נכון! שורש ב-נ-ה׳ — ה׳ → י לפני הסיומת: בָּנִינוּ.',
-               err:'לא מדויק. שורש ב-נ-ה׳ — שם הפועל לִבְנוֹת (ללא אלף). זוהי ל&quot;ה.' },
-  'sel-t1-3':{ ok:'נכון! שורש ק-ר-א׳ — קָרְאוּ: הקמץ מתקצר לשווא לפני ו'.',
-               err:'לא מדויק. שורש ק-ר-א׳ — שם הפועל לִקְרוֹא (אלף נשמעת). זוהי ל&quot;א.' },
-  'sel-t1-4':{ ok:'נכון! שורש ר-צ-ה׳ — ה׳ → י לפני תָ: רָצִיתָ.',
-               err:'לא מדויק. שורש ר-צ-ה׳ — שם הפועל לִרְצוֹת (ללא אלף). זוהי ל&quot;ה.' },
-  'sel-t1-5':{ ok:'נכון! שורש ק-פ-א׳ בהפעיל — האלף נשמעת בסוף הִקְפִּיא.',
-               err:'לא מדויק. שורש ק-פ-א׳ — גם בהפעיל, האלף נשמעת בסוף. זוהי ל&quot;א.' },
-  'sel-t1-6':{ ok:'נכון! שורש ש-ת-ה׳ — ה׳ שורשית נעלמת ומוסיפים ה׳ נקבה.',
-               err:'לא מדויק. שורש ש-ת-ה׳ — שם הפועל לִשְׁתּוֹת (ללא אלף). זוהי ל&quot;ה.' }
+  'sel-t1-1':{ ok:`נכון! שורש מ-צ-א׳ — האלף נשמעת בשם הפועל לִמְצוֹא.`,
+               err:`לא מדויק. שורש מ-צ-א׳ — שמעו: לִמְצוֹא. האלף בסוף נשמעת = ל"א.` },
+  'sel-t1-2':{ ok:`נכון! שורש ב-נ-ה׳ — ה׳ → י לפני הסיומת: בָּנִינוּ.`,
+               err:`לא מדויק. שורש ב-נ-ה׳ — שם הפועל לִבְנוֹת (ללא אלף). זוהי ל"ה.` },
+  'sel-t1-3':{ ok:`נכון! שורש ק-ר-א׳ — קָרְאוּ: הקמץ מתקצר לשווא לפני ו'.`,
+               err:`לא מדויק. שורש ק-ר-א׳ — שם הפועל לִקְרוֹא (אלף נשמעת). זוהי ל"א.` },
+  'sel-t1-4':{ ok:`נכון! שורש ר-צ-ה׳ — ה׳ → י לפני תָ: רָצִיתָ.`,
+               err:`לא מדויק. שורש ר-צ-ה׳ — שם הפועל לִרְצוֹת (ללא אלף). זוהי ל"ה.` },
+  'sel-t1-5':{ ok:`נכון! שורש ק-פ-א׳ בהפעיל — האלף נשמעת בסוף הִקְפִּיא.`,
+               err:`לא מדויק. שורש ק-פ-א׳ — גם בהפעיל, האלף נשמעת בסוף. זוהי ל"א.` },
+  'sel-t1-6':{ ok:`נכון! שורש ש-ת-ה׳ — ה׳ שורשית נעלמת ומוסיפים ה׳ נקבה.`,
+               err:`לא מדויק. שורש ש-ת-ה׳ — שם הפועל לִשְׁתּוֹת (ללא אלף). זוהי ל"ה.` }
 };
 
 // Task 2 — conjugation (accept with or without niqqud)
@@ -1306,12 +1330,12 @@ const ANSWERS_T2 = {
 };
 
 const FEEDBACK_T2 = {
-  'inp-t2-1':{ ok:'מצוין! בָּנָה — ל&quot;ה: ה׳ שורשית חוזרת בגוף נסתר.',
-               err:'נסו שוב. רמז: בּוֹנֶה מגזרת ל&quot;ה (שורש ב-נ-ה). בעבר גוף נסתר (הוא): בָּנָה.' },
-  'inp-t2-2':{ ok:'מצוין! קָרָא — ל&quot;א: האלף נשמעת ונשארת בגוף נסתר.',
-               err:'נסו שוב. רמז: קוֹרֵא מגזרת ל&quot;א (שורש ק-ר-א). בעבר גוף נסתר (הוא): קָרָא.' },
-  'inp-t2-3':{ ok:'מצוין! רָצָה — ל&quot;ה: ה׳ שורשית חוזרת בגוף נסתר.',
-               err:'נסו שוב. רמז: רוֹצֶה מגזרת ל&quot;ה (שורש ר-צ-ה). בעבר גוף נסתר (הוא): רָצָה.' }
+  'inp-t2-1':{ ok:`מצוין! בָּנָה — ל"ה: ה׳ שורשית חוזרת בגוף נסתר.`,
+               err:`נסו שוב. רמז: בּוֹנֶה מגזרת ל"ה (שורש ב-נ-ה). בעבר גוף נסתר (הוא): בָּנָה.` },
+  'inp-t2-2':{ ok:`מצוין! קָרָא — ל"א: האלף נשמעת ונשארת בגוף נסתר.`,
+               err:`נסו שוב. רמז: קוֹרֵא מגזרת ל"א (שורש ק-ר-א). בעבר גוף נסתר (הוא): קָרָא.` },
+  'inp-t2-3':{ ok:`מצוין! רָצָה — ל"ה: ה׳ שורשית חוזרת בגוף נסתר.`,
+               err:`נסו שוב. רמז: רוֹצֶה מגזרת ל"ה (שורש ר-צ-ה). בעבר גוף נסתר (הוא): רָצָה.` }
 };
 
 /* ════════════════════════════════════════
@@ -1373,8 +1397,8 @@ function checkAll(){
     }
     fb3.className  = 'ex-feedback show '+(ok?'ok':'err');
     fb3.innerHTML  = ok
-      ? '✅ נכון! מָצָא הוא מגזרת ל&quot;א (שורש מ-צ-א׳), בעוד השאר הם ל&quot;ה.'
-      : '❌ לא מדויק. מָצָא הוא היחיד מגזרת ל&quot;א — שם הפועל לִמְצוֹא (אלף נשמעת).';
+      ? `✅ נכון! מָצָא הוא מגזרת ל"א (שורש מ-צ-א׳), בעוד השאר הם ל"ה.`
+      : `❌ לא מדויק. מָצָא הוא היחיד מגזרת ל"א — שם הפועל לִמְצוֹא (אלף נשמעת).`;
     fb3.style.display='flex';
   }
 
