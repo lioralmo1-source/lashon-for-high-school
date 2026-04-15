@@ -531,14 +531,16 @@ a { text-decoration:none; }
   display:flex; align-items:center; gap:.7rem;
   padding:.95rem 1.15rem;
   border-bottom:1px solid var(--border);
-  transition:background .1s, transform .1s cubic-bezier(.34,1.2,.64,1);
+  transition:background .12s, transform .15s cubic-bezier(.34,1.2,.64,1), box-shadow .15s;
   position:relative; min-height:64px;
-  cursor:default;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  user-select:none;
 }
 .lesson-row:last-child { border-bottom:none; }
-.lesson-row:not(.locked):hover { background:var(--surface2); }
-.lesson-row:not(.locked):active { transform:scale(.99); background:var(--surface3); }
-.lesson-row.locked { opacity:.42; }
+.lesson-row:not(.locked):hover { background:var(--surface2); box-shadow:inset 3px 0 0 var(--blue); }
+.lesson-row:not(.locked):active { transform:scale(0.97); background:var(--surface3); }
+.lesson-row.locked { opacity:.7; cursor:default; pointer-events:none; }
 
 /* Status accent bar — thin vertical on right */
 .lesson-row::before {
@@ -599,7 +601,23 @@ a { text-decoration:none; }
   padding:.08rem .38rem; margin-bottom:.2rem;
 }
 
-/* ─── ACTIONS ─── */
+/* ─── CARD LOCK BADGE ─── */
+.lr-lock-badge {
+  font-size:.6rem; font-weight:700; color:var(--muted);
+  background:var(--surface3); border:1px solid var(--border);
+  border-radius:var(--r-pill); padding:.12rem .5rem;
+  display:inline-flex; align-items:center; gap:.2rem;
+  white-space:nowrap;
+}
+/* ─── CARD CHEVRON ─── */
+.lr-chevron {
+  flex-shrink:0; font-size:.8rem; color:var(--subtle);
+  margin-right:auto; /* pushes to the left in RTL context = visual left edge */
+  opacity:.6; transition:opacity .12s, transform .12s;
+}
+.lesson-row:not(.locked):hover .lr-chevron { opacity:1; transform:translateX(-2px); }
+
+
 .lr-actions { display:flex; align-items:center; gap:.28rem; flex-shrink:0; }
 
 .btn-main {
@@ -856,15 +874,12 @@ a { text-decoration:none; }
   .lr-right { display:flex; align-items:center; gap:.2rem; flex:1; min-width:0; flex-wrap:nowrap; overflow:hidden; }
   .lr-mins  { font-size:.56rem; }
   .lr-actions { display:flex; align-items:center; gap:.2rem; flex-shrink:0; margin-right:auto; }
-  .lr-actions .btn-main { min-height:26px; font-size:.58rem; padding:.18rem .5rem; border-radius:6px; }
   .btn-icon { width:24px; height:24px; font-size:.7rem; }
   .lr-lock-wrap { display:flex; align-items:center; gap:.18rem; flex-shrink:0; transform:scale(.76); transform-origin:left center; }
   .teacher-strip { padding:.35rem .95rem; }
 }
 
 @media(max-width:640px){
-  .lr-actions { flex-direction:column; align-items:stretch; width:100%; gap:.28rem; margin-right:0; margin-top:.3rem; }
-  .lr-actions .btn-main, .lr-actions a.btn-main { width:100%; justify-content:center; min-height:34px; font-size:.72rem; padding:.4rem .6rem; }
   .lr-bar { flex-wrap:wrap; }
 }
 </style>
@@ -1427,22 +1442,18 @@ function buildLessonRow(l,isT){
         : '<div class="exam-label">משימת סיכום</div>')
     : '';
 
-  let actions='';
+  // ── Student: whole card is clickable, no bottom bar buttons ──
+  let clickHandler='';
+  let chevron='';
   if(!isT){
-    if(locked){
-      actions=`<button class="btn-main dis" disabled>טרם נפתח</button>`;
-    }else if(done){
-      actions=`<button class="btn-main ghost" onclick="openLesson('${sUrl}')">פתח שוב</button>`;
-    }else{
-      actions=`<button class="btn-main ${l.exam?'exam':'prim'}" onclick="openLesson('${sUrl}')">
-        ${l.exam?'פתח מבחן':'▶ פתח שיעור'}
-      </button>`;
-      if(l.exam && l.solFile){
-        actions+=`<a href="${l.solFile}" class="btn-icon sol-exam" target="_blank" title="מפתח תשובות">👁</a>`;
-      }
+    if(!locked){
+      clickHandler=`onclick="openLesson('${sUrl}')"`;
+      chevron=`<span class="lr-chevron">‹</span>`;
     }
   }
 
+  // ── Teacher actions (bottom bar, unchanged) ──
+  let actions='';
   let lockToggle='';
   if(isT){
     const chkId='lt-'+l.id;
@@ -1471,8 +1482,13 @@ function buildLessonRow(l,isT){
     }
   }
 
+  // ── Lock badge for students (instead of disabled button) ──
+  const lockBadge=(!isT && locked)
+    ? `<span class="lr-lock-badge">🔒 טרם נפתח</span>`
+    : '';
+
   return`
-<div class="lesson-row${locked?' locked':''}${l.exam?' exam-row':''}" style="--lr-color:${l.color}">
+<div class="lesson-row${locked?' locked':''}${l.exam?' exam-row':''}" style="--lr-color:${l.color}" ${clickHandler}>
   <div class="lr-top-mob">
     <div class="lr-em" style="background:${l.color}18">${l.emoji}</div>
     <div class="lr-info">
@@ -1480,6 +1496,7 @@ function buildLessonRow(l,isT){
       <div class="lr-short">${l.short}</div>
       <div class="lr-title">${l.title}</div>
       <div class="lr-desc">${l.desc}</div>
+      ${lockBadge}
     </div>
   </div>
   <div class="lr-bar">
@@ -1488,9 +1505,10 @@ function buildLessonRow(l,isT){
       <span class="lr-mins">${l.mins}′</span>
       ${done&&dDate?`<span class="done-stamp">✓ ${dDate}</span>`:''}
     </div>
-    <div class="lr-actions">${actions}</div>
+    ${isT ? `<div class="lr-actions">${actions}</div>` : ''}
     ${lockToggle}
   </div>
+  ${chevron}
 </div>`;
 }
 
