@@ -3,1308 +3,698 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>שיעור 1 | גזרת השלמים | יחידה 3 | כיתה י׳</title>
-<script src="https://cdn.tailwindcss.com"></script>
+<title>שיעור 1 | גזרת השלמים | יחידה 3</title>
 <link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-/* ═══════════════════════════════════════════════════
-   DESIGN TOKENS — v3 Gold Standard (ירוק לגזרות)
-═══════════════════════════════════════════════════ */
+
 :root {
-  --bg:#f0f2f5; --surface:#fff; --surface2:#f0f2f5;
-  --border:#dadde1; --border-lt:#e4e6ea;
-  --ink:#1c1e21; --ink-mid:#3e4042; --muted:#606770; --dim:#90949c;
-  /* Theme: green */
-  --primary:#16a34a; --primary-lt:#dcfce7; --primary-dk:#15803d;
-  /* Accents */
-  --blue:#1877f2; --blue-lt:#e7f3ff;
-  --red:#fa3e3e; --red-lt:#fdecea;
-  --gold:#f7b928; --gold-lt:#fff8e1;
-  --purple:#7c3aed; --purple-lt:#ede9fe;
-  --amber:#b45309; --amber-lt:#fef3c7;
-  --danger:#c0392b; --danger-lt:#fdecea;
-  --sun:#e8a020; --navy:#1a3a6b; --navy-lt:#2563b8; --forest:#15803d;
-  --radius:1rem; --radius-sm:.625rem; --shadow:0 2px 12px rgba(0,0,0,.09);
+  --bg:          #f0f2f5;
+  --surface:     #ffffff;
+  --surface2:    #e8edf3;
+  --surface3:    #d4dbe8;
+  --border:      #d0d7e3;
+  --border2:     #b8c3d8;
+  --navy:        #1a3a6b;
+  --navy-lt:     #2563b8;
+  --navy-bg:     #eff3fc;
+  --teal:        #0d7a6a;
+  --teal-lt:     #16a890;
+  --teal-bg:     #e6f7f5;
+  --gold:        #b45309;
+  --gold-lt:     #f5c842;
+  --gold-bg:     #fffbeb;
+  --red:         #c0392b;
+  --red-bg:      #fdecea;
+  --green:       #15803d;
+  --green-bg:    #e6f4ea;
+  --text:        #1c2433;
+  --text-mid:    #3e4a5c;
+  --muted:       #6b7a8d;
+  --subtle:      #9aa8bb;
+  --wa:          #25D366;
+  --r-sm:        10px;
+  --r:           16px;
+  --r-lg:        20px;
+  --r-xl:        28px;
+  --r-pill:      999px;
+  --sh1: 0 1px 4px rgba(13,20,36,.07), 0 1px 2px rgba(13,20,36,.04);
+  --sh2: 0 4px 16px rgba(13,20,36,.09), 0 1px 4px rgba(13,20,36,.04);
+  --sh3: 0 12px 36px rgba(13,20,36,.12), 0 3px 8px rgba(13,20,36,.05);
 }
+@media(prefers-color-scheme:dark){
+  :root{
+    --bg:#0b0f17; --surface:#131924; --surface2:#192030; --surface3:#1f2840;
+    --border:#252f47; --border2:#313d5c;
+    --navy:#4d8aff; --navy-lt:#6aa0ff; --navy-bg:#162040;
+    --teal:#34d4c2; --teal-lt:#5de8d8; --teal-bg:#0c221e;
+    --gold:#f5a623; --gold-lt:#f5c842; --gold-bg:#28200c;
+    --red:#fc8080; --red-bg:#281414;
+    --green:#34d875; --green-bg:#0c2618;
+    --text:#d8dfe8; --text-mid:#a0adc5; --muted:#7a8aaa; --subtle:#50607e;
+  }
+}
+
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Heebo',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--ink);direction:rtl;text-align:right;line-height:1.6;font-size:15px}
+html{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);
+  scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{line-height:1.6;min-height:100vh;direction:rtl;text-align:right;}
+button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
+a{text-decoration:none;color:inherit;}
 
-/* ── NAV ── */
-nav{position:sticky;top:0;z-index:50;background:var(--primary);box-shadow:0 2px 8px rgba(21,128,61,.4)}
-.nav-inner{max-width:860px;margin:0 auto;padding:0 16px;display:flex;align-items:center;gap:4px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;height:50px}
-.nav-inner::-webkit-scrollbar{display:none}
-.tab-btn{flex-shrink:0;padding:7px 16px;border-radius:var(--radius-sm);border:none;background:transparent;color:rgba(255,255,255,.75);font-family:'Heebo',sans-serif;font-size:.83rem;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap;touch-action:manipulation;min-height:44px}
-.tab-btn:hover{background:rgba(255,255,255,.18);color:#fff}
-.tab-btn.active{background:rgba(255,255,255,.22);color:#fff;font-weight:800}
-.tab-pane{display:none}
-.tab-pane.active{display:block}
+/* TOPBAR */
+.topbar{background:var(--surface);border-bottom:1px solid var(--border);
+  padding:.65rem 1.2rem;display:flex;align-items:center;gap:.75rem;
+  position:sticky;top:0;z-index:50;box-shadow:var(--sh1);}
+.btn-back{display:inline-flex;align-items:center;gap:.35rem;padding:.38rem .85rem;
+  border-radius:var(--r-sm);border:1.5px solid var(--border);background:var(--surface2);
+  color:var(--muted);font-size:.78rem;font-weight:700;cursor:pointer;transition:all .14s;
+  text-decoration:none;white-space:nowrap;min-height:40px;}
+.btn-back:hover{background:var(--surface3);color:var(--text);}
+.topbar-meta{flex:1;min-width:0;}
+.topbar-lesson{font-family:'Secular One',sans-serif;font-size:.9rem;color:var(--text);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.topbar-unit{font-size:.62rem;color:var(--subtle);margin-top:.02rem;}
+.topbar-badge{font-size:.6rem;font-weight:800;letter-spacing:.04em;padding:.18rem .6rem;
+  border-radius:var(--r-pill);background:var(--teal-bg);color:var(--teal);
+  border:1px solid var(--teal);white-space:nowrap;flex-shrink:0;}
 
-/* ── HERO ── */
-.lesson-hero{background:var(--primary);padding:22px 20px 0}
-.lesson-hero-inner{max-width:860px;margin:0 auto;padding-bottom:18px}
+/* PAGE WRAP */
+.page-wrap{max-width:860px;margin:0 auto;padding:0 1rem 4rem;}
 
-/* ── LAYOUT ── */
-main{max-width:860px;margin:0 auto;padding:20px 16px}
+/* HERO */
+.lesson-hero{margin-top:1.4rem;background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r-lg);padding:1.4rem 1.5rem;box-shadow:var(--sh1);
+  display:flex;align-items:flex-start;gap:1rem;}
+.hero-emoji{font-size:2.2rem;flex-shrink:0;line-height:1;margin-top:.1rem;}
+.hero-body{flex:1;min-width:0;}
+.hero-eyebrow{font-size:.62rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--teal);margin-bottom:.3rem;}
+.hero-title{font-family:'Secular One',sans-serif;
+  font-size:clamp(1.3rem,3.5vw,1.75rem);color:var(--text);line-height:1.2;margin-bottom:.35rem;}
+.hero-desc{font-size:.85rem;color:var(--muted);line-height:1.6;}
+.hero-chips{display:flex;flex-wrap:wrap;gap:.38rem;margin-top:.75rem;}
+.hchip{font-size:.62rem;font-weight:700;padding:.18rem .62rem;border-radius:var(--r-pill);
+  background:var(--surface3);border:1px solid var(--border);color:var(--muted);}
+.hchip.accent{background:var(--teal-bg);color:var(--teal);border-color:var(--teal);}
+.hchip.navy{background:var(--navy-bg);color:var(--navy);border-color:var(--navy);}
 
-/* ── CARDS ── */
-.card{background:var(--surface);border-radius:var(--radius);padding:20px;margin-bottom:14px;box-shadow:var(--shadow);border:1px solid var(--border)}
+/* TABS */
+.tabs-wrap{margin-top:1.2rem;}
+.tabs-nav{display:flex;gap:.3rem;background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r-lg) var(--r-lg) 0 0;padding:.5rem .6rem 0;border-bottom:none;
+  overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.tabs-nav::-webkit-scrollbar{display:none;}
+.tab-btn{flex:1;min-width:80px;padding:.6rem .5rem;border:none;
+  border-radius:var(--r-sm) var(--r-sm) 0 0;background:transparent;color:var(--muted);
+  font-size:.8rem;font-weight:700;cursor:pointer;transition:all .14s;
+  display:flex;align-items:center;justify-content:center;gap:.35rem;white-space:nowrap;
+  min-height:44px;touch-action:manipulation;}
+.tab-btn:hover:not(.active):not(.locked-tab){background:var(--surface2);color:var(--text-mid);}
+.tab-btn.active{background:var(--navy-bg);color:var(--navy);box-shadow:inset 0 -2px 0 var(--navy);}
+.tab-btn.locked-tab{color:var(--subtle);cursor:not-allowed;}
+.tabs-body{background:var(--surface);border:1px solid var(--border);border-top:none;
+  border-radius:0 0 var(--r-lg) var(--r-lg);padding:1.4rem;box-shadow:var(--sh1);}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
 
-/* ── THEORY BLOCKS ── */
-.tb{border-right:5px solid var(--navy-lt);padding:1rem 1.25rem;background:#e7f3ff;border-radius:0 10px 10px 0;margin-bottom:1rem}
-.tb .bt{font-weight:800;color:var(--navy);font-size:.9rem;margin-bottom:7px;display:flex;align-items:center;gap:6px}
-.tb.green{border-right-color:var(--forest);background:var(--primary-lt)}
-.tb.green .bt{color:var(--forest)}
-.tb.tip{border-right-color:var(--sun);background:#fef9e7}
-.tb.tip .bt{color:#7a5200}
-.tb.danger{border-right-color:var(--danger);background:var(--danger-lt)}
-.tb.danger .bt{color:var(--danger)}
-.tb.purple{border-right-color:var(--purple);background:var(--purple-lt)}
-.tb.purple .bt{color:var(--purple)}
-.ab{font-size:.97rem;line-height:2;color:var(--ink-mid)}
-.ab p{margin-bottom:1.1em}
+/* THEORY COMPONENTS */
+.theory-section{margin-bottom:1.8rem;}
+.theory-section:last-child{margin-bottom:0;}
+.section-title{font-family:'Secular One',sans-serif;font-size:1.05rem;color:var(--text);
+  margin-bottom:.75rem;display:flex;align-items:center;gap:.45rem;}
+.st-em{width:28px;height:28px;border-radius:8px;background:var(--teal-bg);color:var(--teal);
+  display:flex;align-items:center;justify-content:center;font-size:.88rem;font-weight:900;flex-shrink:0;}
+.theory-block{background:var(--surface2);border:1px solid var(--border);
+  border-right:4px solid var(--teal);border-radius:var(--r);
+  padding:1rem 1.15rem;margin-bottom:.85rem;font-size:.88rem;line-height:1.8;}
+.theory-block.navy{border-right-color:var(--navy);background:var(--navy-bg);}
+.theory-block.gold{border-right-color:var(--gold);background:var(--gold-bg);}
+.theory-block.red{border-right-color:var(--red);background:var(--red-bg);}
+.theory-block.green{border-right-color:var(--green);background:var(--green-bg);}
+.theory-block strong{color:var(--text);font-weight:800;}
+.theory-block em{font-style:normal;color:var(--teal);font-weight:700;}
+.letter-pill{display:inline-flex;align-items:center;justify-content:center;
+  width:28px;height:28px;border-radius:8px;background:var(--teal-bg);color:var(--teal);
+  font-weight:900;font-size:.95rem;border:1px solid var(--teal);margin:0 .1rem;}
+.letter-pill.navy{background:var(--navy-bg);color:var(--navy);border-color:var(--navy);}
+.gtr{color:var(--navy);font-weight:800;}
+.qtr{color:var(--teal);font-weight:800;}
+.dbl{color:var(--navy);font-weight:800;}
 
-/* ── TABLES ── */
-.ctable{width:100%;border-collapse:collapse}
-.ctable th{background:var(--primary);color:#fff;padding:10px 12px;font-size:.78rem;font-weight:700;text-align:right}
-.ctable td{padding:9px 12px;font-size:.86rem;border-bottom:1px solid var(--border-lt)}
-.ctable tr:last-child td{border-bottom:none}
-.ctable tr:hover td{background:var(--surface2)}
-.ctable .c-sh{background:var(--primary-lt);font-weight:700;color:var(--forest)}
-.ctable .c-bad{background:var(--danger-lt);color:var(--danger)}
+/* TABLE */
+.ctable-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--r);box-shadow:var(--sh1);}
+.ctable{width:100%;min-width:460px;border-collapse:collapse;font-size:.83rem;}
+.ctable caption{font-size:.68rem;font-weight:800;color:var(--subtle);letter-spacing:.05em;
+  text-transform:uppercase;padding:.5rem .85rem;text-align:right;background:var(--surface2);
+  border-bottom:1px solid var(--border);}
+.ctable th{background:var(--navy);color:#fff;font-size:.72rem;font-weight:700;
+  padding:.62rem .85rem;text-align:right;border-bottom:2px solid var(--border2);}
+.ctable td{padding:.58rem .85rem;border-bottom:1px solid var(--border);vertical-align:middle;}
+.ctable tr:last-child td{border-bottom:none;}
+.ctable tr:nth-child(even) td{background:var(--surface2);}
+.ctable .tense-label{font-size:.68rem;font-weight:800;color:var(--subtle);text-transform:uppercase;letter-spacing:.04em;}
+.ctable .form-teal{font-weight:800;color:var(--teal);font-size:.92rem;}
+.ctable .form-navy{font-weight:800;color:var(--navy);font-size:.92rem;}
+.ctable .form-note{font-size:.68rem;color:var(--muted);display:block;margin-top:.08rem;}
 
-/* ── INPUTS ── */
-input[type="text"],textarea,select{font-family:'Heebo',sans-serif;direction:rtl;text-align:right;width:100%;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:10px 14px;font-size:.9rem;color:var(--ink);transition:border-color .15s,box-shadow .15s;-webkit-appearance:none;min-height:44px}
-input:focus,textarea:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(21,128,61,.14);background:#fff}
-input.ok{border-color:var(--forest);background:#f0fdf4}
-input.err{border-color:var(--danger);background:var(--danger-lt)}
-textarea{resize:vertical;line-height:1.6}
-@media(max-width:640px){input[type="text"],textarea,select{font-size:16px!important}}
+/* GOLD TIP */
+.gold-tip{background:var(--gold-bg);border:1px solid var(--gold);border-right:4px solid var(--gold);
+  border-radius:var(--r);padding:1rem 1.2rem;font-size:.86rem;line-height:1.75;}
+.gold-tip .gt-title{font-weight:800;color:var(--gold);font-size:.92rem;margin-bottom:.45rem;
+  display:flex;align-items:center;gap:.4rem;}
 
-/* ── DRAG SORT ── */
-.sort-bank{display:flex;flex-wrap:wrap;gap:.5rem;padding:.75rem;background:var(--surface2);border-radius:10px;min-height:52px;margin-bottom:.75rem}
-.sort-cols{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:.75rem}
-@media(max-width:560px){.sort-cols{grid-template-columns:1fr}}
-.sort-col{border-radius:10px;border:2px solid;padding:.7rem .9rem;min-height:110px}
-.sort-col.sh{border-color:var(--forest)}
-.sort-col.bad{border-color:var(--danger)}
-.sort-col-title{font-size:.75rem;font-weight:800;margin-bottom:.5rem;display:flex;align-items:center;gap:.3rem}
-.sort-col.sh .sort-col-title{color:var(--forest)}
-.sort-col.bad .sort-col-title{color:var(--danger)}
-.drop-zone{display:flex;flex-wrap:wrap;gap:.4rem;min-height:36px;border:2px dashed var(--border);border-radius:8px;padding:.4rem;transition:background .18s,border-color .18s}
-.drop-zone.drag-over{background:var(--primary-lt);border-color:var(--forest)}
-.verb-chip{background:var(--surface);border:2px solid var(--border);border-radius:8px;padding:.28rem .7rem;font-size:.9rem;font-weight:700;cursor:grab;user-select:none;transition:all .18s;box-shadow:0 1px 4px rgba(0,0,0,.07)}
-.verb-chip:hover{border-color:var(--primary);color:var(--primary);transform:translateY(-1px)}
-.verb-chip.correct{background:var(--primary-lt);border-color:var(--forest);color:var(--forest)}
-.verb-chip.wrong{background:var(--danger-lt);border-color:var(--danger);color:var(--danger)}
+/* SUMMARY BOX */
+.summary-box{background:linear-gradient(135deg,var(--teal-bg) 0%,var(--navy-bg) 100%);
+  border:1px solid var(--teal);border-radius:var(--r);padding:1rem 1.2rem;margin-top:1rem;
+  font-size:.86rem;line-height:1.75;}
+.summary-box .sb-title{font-family:'Secular One',sans-serif;font-size:.92rem;margin-bottom:.5rem;
+  display:flex;align-items:center;gap:.4rem;}
 
-/* ── BUTTONS ── */
-.btn-primary{background:var(--primary);color:#fff;border:none;border-radius:var(--radius-sm);padding:11px 26px;font-family:'Heebo',sans-serif;font-size:.92rem;font-weight:700;cursor:pointer;touch-action:manipulation;min-height:44px;box-shadow:0 1px 4px rgba(21,128,61,.3);transition:background .15s}
-.btn-primary:hover{background:var(--primary-dk)}
-.btn-ghost{background:var(--surface2);color:var(--ink-mid);border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:9px 20px;font-family:'Heebo',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer;min-height:44px;transition:all .15s}
-.btn-ghost:hover{background:var(--border)}
+/* PRACTICE */
+.progress-pill{display:flex;align-items:center;gap:.6rem;background:var(--surface2);
+  border:1px solid var(--border);border-radius:var(--r-pill);padding:.35rem .85rem;
+  margin-bottom:1rem;font-size:.75rem;color:var(--muted);}
+.progress-pill b{color:var(--navy);}
+.pp-track{flex:1;height:6px;background:var(--border);border-radius:var(--r-pill);overflow:hidden;}
+.pp-fill{height:100%;background:var(--navy);border-radius:var(--r-pill);transition:width .4s ease;width:0%;}
+.practice-section{margin-bottom:2rem;}
+.practice-section:last-child{margin-bottom:0;}
+.ps-header{display:flex;align-items:center;gap:.6rem;margin-bottom:.85rem;flex-wrap:wrap;}
+.ps-badge{font-size:.62rem;font-weight:800;padding:.2rem .65rem;border-radius:var(--r-pill);
+  white-space:nowrap;background:var(--navy-bg);color:var(--navy);border:1px solid var(--navy);}
+.ps-badge.teal{background:var(--teal-bg);color:var(--teal);border-color:var(--teal);}
+.ps-badge.gold{background:var(--gold-bg);color:var(--gold);border-color:var(--gold);}
+.ps-title{font-family:'Secular One',sans-serif;font-size:.95rem;color:var(--text);}
+.ps-instruction{font-size:.82rem;color:var(--muted);margin-bottom:.85rem;line-height:1.6;}
+.ex-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);
+  padding:.9rem 1.1rem;margin-bottom:.65rem;transition:border-color .15s,background .15s;}
+.ex-row{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;}
+.ex-num{width:24px;height:24px;border-radius:50%;background:var(--surface3);border:1px solid var(--border2);
+  display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;
+  color:var(--muted);flex-shrink:0;}
+.ex-verb{font-size:1.1rem;font-weight:800;color:var(--text);min-width:85px;letter-spacing:.02em;}
+.ex-label{font-size:.75rem;color:var(--muted);flex:1;}
+.ex-select{padding:.42rem .75rem;border-radius:var(--r-sm);border:1.5px solid var(--border2);
+  background:var(--surface);color:var(--text);font-size:.82rem;cursor:pointer;outline:none;
+  transition:border-color .14s;min-width:120px;min-height:40px;}
+.ex-select:focus{border-color:var(--navy);}
+.ex-input{padding:.42rem .75rem;border-radius:var(--r-sm);border:1.5px solid var(--border2);
+  background:var(--surface);color:var(--text);font-size:.9rem;outline:none;
+  transition:border-color .14s;width:150px;text-align:center;direction:rtl;min-height:40px;}
+.ex-input:focus{border-color:var(--navy);}
 
-/* ── FEEDBACK ── */
-.feedback{border-radius:var(--radius-sm);padding:.65rem 1rem;font-size:.88rem;font-weight:600;margin-top:.65rem;display:none}
-.feedback.ok{background:var(--primary-lt);color:var(--forest);display:block}
-.feedback.info{background:var(--blue-lt);color:var(--blue);display:block}
-.feedback.err{background:var(--danger-lt);color:var(--danger);display:block}
+/* ODD-ONE-OUT */
+.odd-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.55rem;margin-bottom:.65rem;}
+@media(max-width:400px){.odd-grid{grid-template-columns:1fr;}}
+.odd-card{border:2px solid var(--border);border-radius:var(--r);padding:.75rem 1rem;
+  cursor:pointer;transition:all .15s;text-align:center;background:var(--surface);
+  -webkit-tap-highlight-color:transparent;user-select:none;}
+.odd-card:hover{border-color:var(--navy);background:var(--navy-bg);}
+.odd-card.selected{border-color:var(--navy);background:var(--navy-bg);
+  box-shadow:0 0 0 3px rgba(26,58,107,.15);}
+.odd-card-verb{font-size:1.05rem;font-weight:800;color:var(--text);}
+.odd-card-root{font-size:.68rem;color:var(--subtle);margin-top:.18rem;}
 
-/* ── PROGRESS BAR ── */
-.prog-wrap{background:var(--border);border-radius:999px;height:6px;margin-top:.4rem;overflow:hidden}
-.prog-fill{height:100%;background:var(--primary);border-radius:999px;transition:width .4s}
+/* TEACHER TAB */
+.teacher-locked-msg{text-align:center;padding:2.5rem 1rem;}
+.tlm-icon{font-size:2.5rem;margin-bottom:.75rem;}
+.tlm-title{font-family:'Secular One',sans-serif;font-size:1.05rem;color:var(--text);margin-bottom:.4rem;}
+.tlm-sub{font-size:.82rem;color:var(--muted);}
+.tlm-sub code{background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:.1rem .38rem;font-size:.78rem;}
+.answer-section{margin-bottom:1.5rem;}
+.answer-section:last-child{margin-bottom:0;}
+.as-title{font-size:.72rem;font-weight:800;color:var(--subtle);text-transform:uppercase;
+  letter-spacing:.06em;margin-bottom:.65rem;padding-bottom:.4rem;border-bottom:1px solid var(--border);}
+.answer-row{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;padding:.5rem .6rem;
+  border-radius:var(--r-sm);background:var(--surface2);border:1px solid var(--border);
+  margin-bottom:.4rem;font-size:.84rem;}
+.ar-verb{font-size:1rem;font-weight:800;min-width:90px;}
+.ar-arrow{color:var(--subtle);font-size:.8rem;}
+.ar-answer{font-weight:800;color:var(--teal);font-size:.95rem;}
+.ar-note{font-size:.72rem;color:var(--muted);margin-right:auto;}
+.ped-tip{background:var(--gold-bg);border:1px solid var(--gold);border-right:4px solid var(--gold);
+  border-radius:var(--r);padding:1rem 1.15rem;margin-top:1.2rem;font-size:.85rem;line-height:1.75;}
+.ped-tip .pt-title{font-weight:800;color:var(--gold);display:flex;align-items:center;gap:.4rem;
+  margin-bottom:.45rem;font-size:.9rem;}
+.teacher-summary{background:var(--teal-bg);border:1px solid var(--teal);border-radius:var(--r);
+  padding:.85rem 1.1rem;margin-bottom:1.2rem;font-size:.84rem;line-height:1.7;}
+.teacher-summary strong{color:var(--teal);display:block;margin-bottom:.3rem;}
 
-/* ── ANSWER ITEMS ── */
-.ai{padding:11px 14px;border-radius:var(--radius-sm);background:var(--surface2);font-size:.87rem;margin-bottom:9px;color:var(--ink-mid);border:1px solid var(--border);border-right:3px solid var(--primary);line-height:1.7}
-.ai.danger{border-right-color:var(--danger);background:var(--danger-lt)}
-.ai.gold{border-right-color:var(--gold);background:var(--gold-lt)}
+/* WA PANEL */
+.wa-send-panel{margin-top:2rem;background:var(--surface2);border:1.5px solid var(--border);
+  border-radius:var(--r-lg);padding:1.4rem 1.5rem;box-shadow:var(--sh1);}
+.wa-panel-header{display:flex;align-items:center;gap:.65rem;margin-bottom:1.2rem;
+  padding-bottom:.85rem;border-bottom:1px solid var(--border);}
+.wa-panel-icon{width:38px;height:38px;border-radius:10px;background:#25D366;
+  display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;
+  box-shadow:0 3px 10px rgba(37,211,102,.3);}
+.wa-panel-title{font-family:'Secular One',sans-serif;font-size:1rem;color:var(--text);}
+.wa-panel-sub{font-size:.72rem;color:var(--muted);margin-top:.08rem;}
+.wa-fields{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1rem;}
+@media(max-width:480px){.wa-fields{grid-template-columns:1fr;}}
+.wa-field label{font-size:.7rem;font-weight:700;color:var(--muted);display:block;margin-bottom:.32rem;}
+.wa-field input{width:100%;padding:.72rem .95rem;border:1.5px solid var(--border2);
+  border-radius:var(--r);background:var(--surface);color:var(--text);font-size:.9rem;outline:none;
+  transition:border-color .14s,box-shadow .15s;direction:rtl;min-height:44px;}
+.wa-field input:focus{border-color:#25D366;box-shadow:0 0 0 3px rgba(37,211,102,.15);}
+.btn-wa{width:100%;padding:.9rem 1rem;border:none;border-radius:var(--r-lg);
+  background:linear-gradient(135deg,#25D366,#20b958);color:#fff;font-size:.95rem;font-weight:800;
+  cursor:pointer;transition:all .16s;display:flex;align-items:center;justify-content:center;
+  gap:.55rem;box-shadow:0 4px 18px rgba(37,211,102,.35);letter-spacing:.01em;min-height:48px;}
+.btn-wa:hover{background:linear-gradient(135deg,#2de070,#25D366);transform:translateY(-1px);}
+.btn-wa:active{transform:scale(.98);}
+.wa-note{font-size:.68rem;color:var(--subtle);text-align:center;margin-top:.65rem;}
 
-/* ── SECTION HEADINGS ── */
-.teal-h{font-family:'Secular One',sans-serif;color:var(--forest);font-size:1.3rem;margin-bottom:16px}
+/* TOAST */
+#toast{position:fixed;bottom:1.2rem;right:1.2rem;z-index:9999;background:var(--text);
+  color:var(--surface);border-radius:var(--r);padding:.65rem 1.15rem;font-size:.82rem;
+  font-weight:700;opacity:0;transform:translateY(8px);
+  transition:all .22s cubic-bezier(.34,1.56,.64,1);pointer-events:none;
+  box-shadow:var(--sh3);max-width:290px;}
+#toast.show{opacity:1;transform:translateY(0);}
 
-/* ── MOBILE ── */
-button,.tab-btn,.btn-primary,.btn-ghost,.verb-chip{touch-action:manipulation}
-@media print{nav,.no-print{display:none!important}.tab-pane{display:block!important;page-break-after:always}body{background:#fff}}
+/* CONFETTI CANVAS */
+#confetti-canvas{position:fixed;top:0;left:0;width:100%;height:100%;
+  pointer-events:none;z-index:9998;display:none;}
+
+/* PRINT */
+@media print{
+  @page{size:A4 portrait;margin:1.5cm 1.4cm 1.8cm;}
+  *,*::before,*::after{print-color-adjust:exact !important;-webkit-print-color-adjust:exact !important;}
+  .no-print,.topbar,nav,#toast,#confetti-canvas,
+  .wa-send-panel,.btn-back,.btn-wa{display:none !important;}
+  .tab-panel{display:block !important;page-break-after:always;}
+  html,body{background:#fff !important;font-size:11pt;color:#111;}
+  .page-wrap{max-width:100% !important;padding:0 !important;}
+  .tabs-nav{display:none !important;}
+  .tabs-body{border:none !important;box-shadow:none !important;padding:0 !important;}
+  .ex-card{border:1pt solid #d0d7e3 !important;box-shadow:none !important;break-inside:avoid;}
+  .ctable{font-size:9pt !important;}
+  .teacher-locked-msg{display:none !important;}
+  body.is-teacher #teacher-content{display:block !important;}
+  body.is-teacher .teacher-summary,body.is-teacher .answer-section,
+  body.is-teacher .ped-tip{display:block !important;background:#fffbeb !important;
+    border:1.5pt solid #fde68a !important;border-radius:5pt !important;
+    padding:.3cm .4cm !important;margin-top:.3cm !important;}
+}
+
+/* MOBILE */
+@media(max-width:600px){
+  .page-wrap{padding:0 .6rem 4rem;}
+  .tabs-body{padding:1rem .9rem;}
+  .lesson-hero{padding:1.1rem 1rem;flex-direction:column;gap:.6rem;}
+  .hero-emoji{font-size:1.8rem;}
+  .tabs-nav{padding:.4rem .4rem 0;gap:.18rem;}
+  .tab-btn{font-size:.72rem;padding:.5rem .28rem;min-width:60px;}
+  .ctable{font-size:.76rem;}
+  .ctable th,.ctable td{padding:.5rem .55rem;}
+  .ex-verb{font-size:1rem;min-width:70px;}
+  .ex-select,.ex-input{font-size:.78rem;}
+  .wa-send-panel{padding:1.1rem 1rem;}
+  .odd-grid{grid-template-columns:repeat(2,1fr);}
+}
+
 </style>
-
-<!-- ══════════════════════════════════
-     SECURITY SCRIPT
-     Removes .teacher-only from DOM
-     when role≠teacher
-══════════════════════════════════ -->
-<script>
-(function(){
-  var isT = new URLSearchParams(window.location.search).get('role') === 'teacher';
-  function purge(){
-    document.querySelectorAll('.teacher-only').forEach(function(el){
-      if(el.parentNode) el.parentNode.removeChild(el);
-    });
-    // Activate first visible pane
-    var order=['th','tw','tab-theory'];
-    for(var i=0;i<order.length;i++){
-      var el=document.getElementById(order[i]);
-      if(el){ document.querySelectorAll('.tab-pane').forEach(function(p){p.classList.remove('active');}); el.classList.add('active'); break; }
-    }
-  }
-  if(!isT){
-    if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',purge);
-    else purge();
-    // MutationObserver as second layer
-    var obs=new MutationObserver(function(ms){
-      ms.forEach(function(m){
-        m.addedNodes.forEach(function(n){
-          if(n.nodeType===1){
-            if(n.classList&&n.classList.contains('teacher-only')&&n.parentNode) n.parentNode.removeChild(n);
-            if(n.querySelectorAll) n.querySelectorAll('.teacher-only').forEach(function(el){if(el.parentNode)el.parentNode.removeChild(el);});
-          }
-        });
-      });
-    });
-    document.addEventListener('DOMContentLoaded',function(){ obs.observe(document.documentElement,{childList:true,subtree:true}); });
-  }
-})();
-</script>
 </head>
 <body>
-
-<!-- HERO -->
-<div class="lesson-hero">
-  <div class="lesson-hero-inner">
-    <div id="greeting-bar" style="display:none;align-items:center;gap:8px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:100px;padding:4px 14px;font-size:.82rem;font-weight:700;color:#fff;width:fit-content;margin-bottom:10px">
-      <span>👋</span><span id="greeting-name">שלום!</span>
+<div id="toast"></div>
+<canvas id="confetti-canvas"></canvas>
+<div class="topbar">
+  <a class="btn-back" href="index.html">← תפריט</a>
+  <div class="topbar-meta">
+    <div class="topbar-lesson">גזרת השלמים</div>
+    <div class="topbar-unit">יחידה 3 · שיעור 1</div>
+  </div>
+  <span class="topbar-badge">🌳 שלמים</span>
+  <button onclick="window.print()" style="background:none;border:none;cursor:pointer;font-size:.85rem;color:var(--muted);padding:.3rem .6rem;min-height:40px" class="no-print">🖨️</button>
+</div>
+<div class="page-wrap">
+  <div class="lesson-hero">
+    <div class="hero-emoji">🌳</div>
+    <div class="hero-body">
+      <div class="hero-eyebrow">יחידה 3 — גזרות הפועל · שיעור 1</div>
+      <h1 class="hero-title">גזרת השלמים</h1>
+      <p class="hero-desc">פעלים ששלושת אותיות שורשם שלמות (אין גרוניות, נחות או כפולים) — הבסיס לכל הגזרות</p>
+      <div class="hero-chips"><span class="hchip accent">⏱️ 45 דקות</span><span class="hchip accent">שורש שלם</span><span class="hchip accent">שלושה תזמנים</span><span class="hchip accent">שבעת הבניינים</span></div>
     </div>
-    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:10px">
-      <div>
-        <div style="display:inline-block;background:rgba(255,255,255,.2);border-radius:100px;padding:3px 12px;font-size:.72rem;font-weight:700;color:#fff;letter-spacing:.06em;margin-bottom:8px">🌳 לשון עברית · כיתה י׳ · יחידה 3 · שיעור 1 מתוך 5</div>
-        <h1 style="font-family:'Heebo',sans-serif;font-size:clamp(1.4rem,3.5vw,2rem);font-weight:800;color:#fff;line-height:1.2;margin-bottom:6px">גזרות הפועל — מבוא וגזרת השלמים</h1>
-        <p style="font-size:.88rem;color:rgba(255,255,255,.8);max-width:520px">הכרת מערכת הגזרות · זיהוי שורשי שלמים · גרוניות · מרובעים · תחיליות אית"ן</p>
-      </div>
-      <div style="display:flex;flex-wrap:wrap;gap:7px;padding-top:4px">
-        <span style="display:inline-flex;padding:3px 10px;border-radius:100px;font-size:.73rem;font-weight:700;background:rgba(255,255,255,.2);color:#fff">⏱ 45 דקות</span>
-        <span style="display:inline-flex;padding:3px 10px;border-radius:100px;font-size:.73rem;font-weight:700;background:rgba(255,255,255,.2);color:#fff">📐 מיצ"ב</span>
-      </div>
-    </div>
+  </div>
+<div class="tabs-wrap"><nav class="tabs-nav" role="tablist"><button class="tab-btn active" id="tab-theory-btn" onclick="switchTab('theory')" role="tab" aria-selected="true">📚 תיאוריה</button><button class="tab-btn" id="tab-practice-btn" onclick="switchTab('practice')" role="tab" aria-selected="false">✏️ תרגול</button><button class="tab-btn locked-tab" id="tab-teacher-btn" onclick="tryTeacherTab()" role="tab" aria-selected="false"><span id="teacher-lock-icon">🔒</span> 👨‍🏫 מורה</button></nav>
+<div class="tabs-body">
+<div class="tab-panel active" id="panel-theory">
+<div class="theory-section">
+  <h2 class="section-title"><span class="st-em">א</span> מהי גזרת השלמים?</h2>
+  <div class="theory-block">
+    <strong>שלמים</strong> = שלושת אותיות השורש הן עיצורים רגילים — אינן גרוניות (א ה ח ע ר), אינן נחות, ואינן כפולות. זוהי הגזרה הבסיסית שמשמשת מודל לכל שאר הגזרות.
+  </div>
+  <div class="theory-block navy">
+    <strong>דוגמאות לשורשים שלמים:</strong> כ-ת-ב · ש-מ-ר · ל-מ-ד · פ-ת-ח · ס-פ-ר<br>
+    <strong>אינם שלמים:</strong> ע-מ-ד (פ׳ גרונית) · ק-ר-א (ל׳ נחה) · ס-ב-ב (כפולים)
   </div>
 </div>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-inner">
-    <button class="tab-btn teacher-only" onclick="showTab('tt',this)">📋 מדריך</button>
-    <button class="tab-btn active" onclick="showTab('th',this)">📚 תיאוריה</button>
-    <button class="tab-btn" onclick="showTab('tw',this)">✏️ דף עבודה</button>
-    <button class="tab-btn teacher-only" onclick="showTab('ta',this)">🔑 פתרונות</button>
-    <button class="tab-btn" onclick="showTab('tab-assess',this);if(window.calcAssessment)window.calcAssessment()">📊 הערכה</button>
-    <button class="tab-btn no-print" onclick="window.print()" style="margin-right:auto">🖨️</button>
-  </div>
-</nav>
-
-<main>
-
-<!-- ═══════════════════════════════════
-     TAB: TEACHER GUIDE
-═══════════════════════════════════ -->
-<div id="tt" class="tab-pane teacher-only">
-  <h2 class="teal-h">📋 מדריך למורה — יחידה 3, שיעור 1</h2>
-
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-    <div class="card" style="border-top:3px solid var(--forest);text-align:center"><div style="font-size:1.6rem;margin-bottom:4px">🎯</div><div style="font-size:.8rem;font-weight:700;color:var(--forest)">מטרה</div><div style="font-size:.73rem;color:var(--muted);margin-top:3px">סימני זיהוי שלמים, מלכודת אית"ן, מרובעים, הבחנה מגרוניות</div></div>
-    <div class="card" style="border-top:3px solid var(--blue);text-align:center"><div style="font-size:1.6rem;margin-bottom:4px">🔗</div><div style="font-size:.8rem;font-weight:700;color:var(--blue)">קודם לשיעור</div><div style="font-size:.73rem;color:var(--muted);margin-top:3px">שבעת הבניינים, תורת ההגה (שיעור 0), אותיות אהח"ע</div></div>
-    <div class="card" style="border-top:3px solid var(--amber);text-align:center"><div style="font-size:1.6rem;margin-bottom:4px">⏱</div><div style="font-size:.8rem;font-weight:700;color:var(--amber)">פילוס זמן</div><div style="font-size:.73rem;color:var(--muted);margin-top:3px">12′ תיאוריה · 15′ מיון ומרובעים · 10′ שאלת הבנה+אתגר · 8′ סיכום</div></div>
-    <div class="card" style="border-top:3px solid var(--danger);text-align:center"><div style="font-size:1.6rem;margin-bottom:4px">⚠️</div><div style="font-size:.8rem;font-weight:700;color:var(--danger)">שגיאות נפוצות</div><div style="font-size:.73rem;color:var(--muted);margin-top:3px">גרונית נשמרת = שלמים (טעות!); יָשַׁב — י׳ שורש לא קידומת</div></div>
-  </div>
-
-  <!-- דגשים להוראה -->
-  <div class="tb danger" style="margin-bottom:1rem">
-    <div class="bt">🎯 דגשים להוראה — הטעויות הנפוצות ביותר</div>
-    <div style="font-size:.9rem;line-height:1.9;color:var(--ink-mid)">
-      <p><strong style="color:var(--danger)">1. "הגרונית נשמרת, אז הוא שלמים"</strong> — הטעות הכי שכיחה. תלמידים רואים שב-אָמַר, אָהַב, עָמַד כל האותיות מופיעות בצורה, ומסיקים שאלו שורשים שלמים. יש לשאול: <em>"מה קורה לאות הראשונה בעתיד?"</em> — יֹאמַר (חֵירֵק נעלם), יַאֲהַב (פתח גנובה) → כאן מורגשת הגרוניות. <strong>הדרך:</strong> הדגישו שגרונית היא תכונה פונטית, לא רק תכונה של השמטה.</p>
-      <!-- מוקש בחינה -->
-      <div style="background:linear-gradient(135deg,#7f1d1d,#991b1b);border-radius:10px;padding:.85rem 1.05rem;margin:.6rem 0;color:#fff">
-        <div style="font-size:.75rem;font-weight:800;letter-spacing:.06em;color:#fca5a5;margin-bottom:.35rem">💣 מוקש בחינה נפוץ — אָהַב (שורש א–ה–ב)</div>
-        <div style="font-size:.88rem;line-height:1.7">שורש א–ה–ב מכיל <strong>שתי</strong> גרוניות: א׳ (פ"פ) וה׳ (ע"פ). תלמידים רבים מסווגים אותו כשלמים כי "הכל נשמר". <strong>הוכחה:</strong> בעתיד — יֶ<u>אֱ</u>הַב — פתח גנובה לפני הה׳ הגרונית. זהו ניקוד שאינו קיים בשלמים. <strong>המלצה:</strong> הפכו את א–ה–ב לדוגמת הפתיחה של השיעור — "מה יש כאן שמוציא משלמים?"</div>
-      </div>
-      <p><strong style="color:var(--danger)">2. "י׳ בתחילת הפועל = תמיד קידומת"</strong> — ביָשַׁב, יָלַד, יָצָא הי׳ היא <em>אות שורש</em>. הבחן בעזרת ציווי: שֵׁב! (← י׳ נעלמה = קידומת); אך: לֵד / לָדֶת (שורש י–ל–ד, הי׳ לעיתים נשמרת). <strong>הכלל המעשי:</strong> אם אות ה-י׳ מופיעה גם בצורת עבר (כגון יָשַׁב) — היא אות שורש.</p>
-      <p><strong style="color:var(--danger)">3. "4 אותיות = שלמים"</strong> — שורש מרובע אינו "שלמים" בהגדרה הרשמית, אלא גזרה עצמאית. הוא <em>מתנהג</em> כמו שלמים (ללא השמטות), אבל מופיע רק בבניינים הדגושים.</p>
-    </div>
-  </div>
-
-  <div class="tb tip" style="margin-bottom:1rem">
-    <div class="bt">💡 טיפים פדגוגיים</div>
-    <ul style="font-size:.9rem;line-height:1.9;color:#7a5200;padding-right:1.1rem;list-style:disc">
-      <li><strong>Hook פתיחה:</strong> שאלו "מה הופך נ–פ–ל שונה מכ–ת–ב?" — תנו לתלמידים להגיע לתשובה בעצמם.</li>
-      <li><strong>ר׳ גרונית:</strong> שנויה במחלוקת — קבלו שתי תשובות לגבי ד–ב–ר ו-ש–מ–ר.</li>
-      <li><strong>יָשַׁב vs יִלְבַּשׁ:</strong> כתבו את שניהם על הלוח זה ליד זה — שאלו "איזו י׳ היא קידומת ואיזו שורש?"</li>
-      <li><strong>מרובעים:</strong> אמרו "מי מכיר מילים שנשמעות כאילו יש בהן 4 עיצורי שורש?" — תדלק, פרסם, סנכרן.</li>
-      <li><strong>שאלת ההבנה (אָהַב):</strong> לא לתת תשובה מיד — שאלו תחילה "איך ניכר ש-א׳ גרונית בצורת העתיד?"</li>
-    </ul>
-  </div>
-
-</div><!-- /tt -->
-
-
-<!-- ═══════════════════════════════════
-     TAB: THEORY
-═══════════════════════════════════ -->
-<div id="th" class="tab-pane active">
-
-  <h2 class="teal-h">📚 גזרות הפועל — מבוא וגזרת השלמים</h2>
-
-  <!-- HOOK: שאלת הפעלה -->
-  <div id="hook-card" style="background:linear-gradient(135deg,#052e16,#15803d);border-radius:14px;padding:18px 20px;margin-bottom:20px;color:#fff">
-    <div style="font-size:.72rem;font-weight:700;letter-spacing:.07em;opacity:.7;margin-bottom:6px">🧠 שאלת פתיחה — לפני שנתחיל</div>
-    <div style="font-size:1rem;font-weight:700;margin-bottom:14px;line-height:1.5">
-      הסתכלו על שני הפעלים האלה ושימו לב מה קורה להם בעתיד:<br>
-      <span style="font-size:1.25rem;letter-spacing:.04em;display:inline-block;margin-top:8px">
-        <strong>כָּתַב</strong> ← יִכְתֹּב &nbsp;&nbsp;|&nbsp;&nbsp;
-        <strong>נָפַל</strong> ← <span style="color:#fde68a">יִ<u>פֹּ</u>ל</span>
-      </span>
-    </div>
-    <div style="font-size:.88rem;opacity:.85;margin-bottom:12px">מה קרה לנ׳ של "נפל" בצורת העתיד? לחצו על התשובה שנראית לכם נכונה:</div>
-    <div style="display:flex;flex-wrap:wrap;gap:.5rem" id="hook-opts">
-      <button onclick="hookAnswer(this,false)" style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:8px;color:#fff;padding:8px 14px;font-family:'Heebo',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;min-height:44px;transition:all .18s">א. הנ׳ השתנתה לפ׳</button>
-      <button onclick="hookAnswer(this,true)" style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:8px;color:#fff;padding:8px 14px;font-family:'Heebo',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;min-height:44px;transition:all .18s">ב. הנ׳ נשמטה לחלוטין</button>
-      <button onclick="hookAnswer(this,false)" style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:8px;color:#fff;padding:8px 14px;font-family:'Heebo',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;min-height:44px;transition:all .18s">ג. לא קרה שום דבר</button>
-      <button onclick="hookAnswer(this,false)" style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:8px;color:#fff;padding:8px 14px;font-family:'Heebo',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;min-height:44px;transition:all .18s">ד. הנ׳ הוכפלה</button>
-    </div>
-    <div id="hook-fb" style="display:none;margin-top:10px;padding:8px 12px;border-radius:8px;font-size:.88rem;font-weight:600"></div>
-  </div>
-
-  <div class="tb green">
-    <div class="bt">📖 מהי גזרה?</div>
-    <div class="ab">
-      <p><strong>גזרה</strong> היא קבוצת שורשים שמתנהגים אותו דבר בנטייה — עוברים שינויים פונולוגיים זהים בכל צורות הפועל. הגזרה נובעת <strong>מהאותיות עצמן</strong>: לחלק מהאותיות יש תכונות פונטיות (גרוניות, חלשות, נחות) שגורמות לשינויים. שורש שאותיותיו "נורמליות" לחלוטין שייך ל<strong>גזרת השלמים</strong> — הגדולה ביותר.</p>
-    </div>
-  </div>
-
-  <div style="overflow-x:auto;margin-bottom:1.2rem;-webkit-overflow-scrolling:touch">
+<div class="theory-section">
+  <h2 class="section-title"><span class="st-em">ב</span> נטיית השלמים בבניין קל — עבר</h2>
+  <div class="ctable-scroll">
     <table class="ctable">
-      <thead><tr><th>הגזרה</th><th>המאפיין</th><th>דוגמאות</th><th>הערה</th></tr></thead>
+      <caption>בניין קל — שורש כ-ת-ב | עבר</caption>
+      <thead><tr><th>גוף</th><th>צורה</th><th>ניקוד מיוחד</th></tr></thead>
       <tbody>
-        <tr class="c-sh"><td style="font-weight:800">שלמים ✅</td><td>כל 3 האותיות שמורות בכל נטייה</td><td>כ–ת–ב, ש–מ–ר, ל–מ–ד</td><td>הנטייה "צפויה" לחלוטין</td></tr>
-        <tr><td style="font-weight:700">פ"א/ע/ח גרונית</td><td>אות ראשונה גרונית</td><td>א–מ–ר, ע–מ–ד, ח–ש–ב</td><td>שינויי תנועות, דגש חסר</td></tr>
-        <tr><td style="font-weight:700">חלולים ע"ו/י</td><td>אות שנייה ו׳ / י׳</td><td>ק–ו–מ, ב–ו–א</td><td>האות נשמטת בעתיד</td></tr>
-        <tr><td style="font-weight:700">נחי ל"ה</td><td>אות שלישית ה׳</td><td>ב–נ–ה, ג–ל–ה</td><td>ה׳ נשמטת בנטיות</td></tr>
-        <tr><td style="font-weight:700">נחי פ"נ</td><td>אות ראשונה נ׳ נשמטת</td><td>נ–פ–ל, נ–ת–נ</td><td>נ׳ נשמטת לפני שווא</td></tr>
-        <tr><td style="font-weight:700">כפולים ע"ע</td><td>ע"פ ול"פ זהות</td><td>ס–ב–ב, נ–ד–ד</td><td>מיזוג בנטיות</td></tr>
-        <tr><td style="font-weight:800;color:var(--purple)">מרובעים</td><td>שורש בן 4 אותיות</td><td>פ–ר–ס–מ, ט–ל–פ–נ</td><td>פיעל/התפיעל בעיקר</td></tr>
+        <tr><td>הוא</td><td class="form-navy">כָּתַב</td><td>—</td></tr>
+        <tr><td>היא</td><td class="form-navy">כָּתְבָה</td><td>קמץ → שווא לפני סיומת</td></tr>
+        <tr><td>אני</td><td class="form-navy">כָּתַבְתִּי</td><td>—</td></tr>
+        <tr><td>אתה</td><td class="form-navy">כָּתַבְתָּ</td><td>—</td></tr>
+        <tr><td>את</td><td class="form-navy">כָּתַבְתְּ</td><td>שווא נח בסוף</td></tr>
+        <tr><td>הם/ן</td><td class="form-navy">כָּתְבוּ</td><td>קמץ → שווא לפני ו׳</td></tr>
+        <tr><td>אנחנו</td><td class="form-navy">כָּתַבְנוּ</td><td>—</td></tr>
+        <tr><td>אתם</td><td class="form-navy">כְּתַבְתֶּם</td><td>קמץ → שווא בתחילה</td></tr>
+        <tr><td>אתן</td><td class="form-navy">כְּתַבְתֶּן</td><td>קמץ → שווא בתחילה</td></tr>
       </tbody>
     </table>
-  </div>
-
-  <!-- מיני-בוחן זיהוי גזרה -->
-  <div id="gzara-quiz" style="background:var(--surface);border:2px solid var(--border);border-radius:14px;padding:16px 18px;margin-bottom:1.2rem">
-    <div style="font-size:.78rem;font-weight:800;color:var(--primary);letter-spacing:.05em;margin-bottom:10px">✍️ בדוק את עצמך — לאיזו גזרה שייך כל שורש?</div>
-    <div id="gq-items"></div>
-    <div style="display:flex;gap:.6rem;margin-top:10px;flex-wrap:wrap">
-      <button class="btn-primary" style="padding:8px 18px;font-size:.82rem" onclick="checkGzaraQuiz()">✔ בדוק</button>
-      <button class="btn-ghost" style="padding:7px 16px;font-size:.8rem" onclick="resetGzaraQuiz()">↺ אפס</button>
-    </div>
-    <div id="gq-fb" class="feedback"></div>
-  </div>
-
-  <div class="tb green">
-    <div class="bt">✅ גזרת השלמים — הגדרה</div>
-    <div class="ab">
-      <p>שורש שייך לגזרת השלמים אם <strong>שלוש אותיותיו (פ"פ, ע"פ, ל"פ) נשמרות בכל צורות הנטייה</strong> ואינן גרוניות, חלשות, כפולות או נשמטות.</p>
-      <p>דוגמה — שורש <strong>ש–מ–ר</strong> בפעל: שָׁמַר · שָׁמַרְתָּ · שָׁמְרָה · שָׁמְרוּ · יִשְׁמֹר · שְׁמֹר — בכל צורה ש׳, מ׳, ר׳ נשמרות. ✅ גזרת שלמים.</p>
-    </div>
-  </div>
-
-  <!-- ══ סימני הזיהוי של השלמים ══ -->
-  <div class="tb green" style="border-right-color:#15803d">
-    <div class="bt">🔎 סימני הזיהוי של גזרת השלמים</div>
-    <div class="ab" style="margin-bottom:.7rem">
-      <p>כדי שפועל יהיה שייך לגזרת השלמים, שלוש אותיות השורש <strong>חייבות לעמוד בשני תנאים בו-זמנית</strong>:</p>
-    </div>
-
-    <!-- תנאי 1 — אין גרוניות -->
-    <div style="background:#fff;border-radius:10px;padding:.9rem 1rem;margin-bottom:.7rem;border:1.5px solid #bbf7d0">
-      <div style="font-size:.78rem;font-weight:800;color:var(--forest);margin-bottom:.5rem;letter-spacing:.04em">תנאי א׳ — אין אותיות גרוניות בשורש</div>
-      <p style="font-size:.92rem;color:var(--ink-mid);line-height:1.7;margin-bottom:.6rem">אותיות גרוניות הן: <strong style="color:var(--amber)">א&nbsp;ה&nbsp;ח&nbsp;ע</strong> (ו-ר׳ לפי חלק מהחכמים). שורש שמכיל אחת מהן <u>לעולם</u> אינו שלמים — גם אם האות נשמרת בנטייה, תכונתה הפונטית גורמת לשינויי תנועה.</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;font-size:.86rem">
-        <div style="background:var(--primary-lt);border-radius:7px;padding:.5rem .8rem"><span style="color:var(--forest);font-weight:800">כ–ת–ב ✅</span><br><span style="color:var(--muted)">כ, ת, ב — אין גרונית כלל</span></div>
-        <div style="background:var(--danger-lt);border-radius:7px;padding:.5rem .8rem"><span style="color:var(--danger);font-weight:800">א–מ–ר ❌</span><br><span style="color:var(--muted)">א׳ גרונית — יֹאמַר (לא יִאְמַר)</span></div>
-        <div style="background:var(--primary-lt);border-radius:7px;padding:.5rem .8rem"><span style="color:var(--forest);font-weight:800">ל–מ–ד ✅</span><br><span style="color:var(--muted)">ל, מ, ד — אין גרונית</span></div>
-        <div style="background:var(--danger-lt);border-radius:7px;padding:.5rem .8rem"><span style="color:var(--danger);font-weight:800">א–ה–ב ❌</span><br><span style="color:var(--muted)">א׳ וה׳ — שתי גרוניות!</span></div>
-      </div>
-    </div>
-
-    <!-- תנאי 2 — אין אהוי כאות שורש -->
-    <div style="background:#fff;border-radius:10px;padding:.9rem 1rem;margin-bottom:.7rem;border:1.5px solid #bbf7d0">
-      <div style="font-size:.78rem;font-weight:800;color:var(--forest);margin-bottom:.5rem;letter-spacing:.04em">תנאי ב׳ — אין אותיות אהו"י כאות שורש (≠ כקידומת/סיומת)</div>
-      <p style="font-size:.92rem;color:var(--ink-mid);line-height:1.7;margin-bottom:.6rem">האותיות <strong>א, ה, ו, י</strong> יכולות לשמש <em>כקידומות בניין</em> (כגון: הִ בהפעיל, יְ בעתיד) — וזה בסדר גמור. הבעיה היא כשהן <strong>אות שורש עצמה</strong>: אז גוזרת השלמים נפסלת.</p>
-      <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
-        <table class="ctable" style="font-size:.84rem">
-          <thead><tr><th>פועל</th><th>שורש</th><th>האות החשודה</th><th>תפקידה</th><th>שייך לשלמים?</th></tr></thead>
-          <tbody>
-            <tr class="c-sh"><td>יִלְבַּשׁ</td><td>ל–ב–שׁ</td><td style="color:var(--primary);font-weight:700">י — קידומת עתיד</td><td>קידומת בניין, לא שורש</td><td>✅ שלמים</td></tr>
-            <tr class="c-bad"><td>יָשַׁב</td><td>י–שׁ–ב</td><td style="color:var(--danger);font-weight:700">י — פ"פ שורש!</td><td>חלק מהשורש עצמו</td><td>❌ נחי פ"י</td></tr>
-            <tr class="c-sh"><td>הִשְׁמִיד</td><td>ש–מ–ד</td><td style="color:var(--primary);font-weight:700">הִ — קידומת הפעיל</td><td>קידומת בניין, לא שורש</td><td>✅ שלמים</td></tr>
-            <tr class="c-bad"><td>הָלַךְ</td><td>ה–ל–כ</td><td style="color:var(--danger);font-weight:700">ה — פ"פ שורש!</td><td>חלק מהשורש עצמו</td><td>❌ פ"ה גרונית</td></tr>
-            <tr class="c-bad"><td>קָם</td><td>ק–ו–מ</td><td style="color:var(--danger);font-weight:700">ו — ע"פ שורש!</td><td>האות האמצעית — חלול</td><td>❌ חלול ע"ו</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- כלל הזיהוי המהיר -->
-    <div style="background:linear-gradient(135deg,#052e16,#166534);border-radius:10px;padding:.85rem 1rem;color:#fff;font-size:.9rem">
-      <strong style="color:#86efac">✅ כלל זיהוי מהיר:</strong> אם אחרי הסרת כל קידומות הבניין (הִ, נִ, הִתְ…) ותחיליות הזמן (א, י, ת, נ), נשארים שלושה עיצורים שאינם מ-אהח"ע-ר ואינם אהו"י — <strong>גזרת שלמים!</strong>
-    </div>
-  </div>
-
-  <!-- ══ מלכודת אית"ן ══ -->
-  <div class="tb tip">
-    <div class="bt">⚠️ "מלכודת אית"ן" — הבחנה בין קידומת לאות שורש</div>
-    <div class="ab" style="margin-bottom:.8rem">
-      <p><strong>אית"ן</strong> הוא קיצור ל-<strong>א</strong>ני&nbsp;/ <strong>י</strong>הוא&nbsp;/ <strong>ת</strong>אתה&nbsp;/ <strong>נ</strong>אנחנו — תחיליות הפועל בזמן עתיד. כשרואים אחת מהאותיות הללו בתחילת פועל עתיד, <u>אסור</u> לחשוב שהיא אות שורש.</p>
-      <p>הסכנה: שתי הצורות <strong>יִלְבַּשׁ</strong> ו-<strong>יָשַׁב</strong> מתחילות באותה אות י׳ — אבל מקורן שונה לחלוטין:</p>
-    </div>
-
-    <!-- Comparison visual -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:.8rem">
-      <div style="background:var(--primary-lt);border:2px solid var(--forest);border-radius:12px;padding:1rem;text-align:center">
-        <div style="font-size:1.5rem;font-weight:900;color:var(--forest);margin-bottom:4px">יִלְבַּשׁ</div>
-        <div style="font-size:.78rem;color:var(--muted);margin-bottom:.5rem">עתיד, הוא, בניין פעל</div>
-        <div style="display:inline-flex;gap:.3rem;margin-bottom:.5rem">
-          <div style="background:var(--amber);color:#fff;border-radius:6px;padding:2px 8px;font-size:.75rem;font-weight:800">י׳ = עתיד</div>
-          <div style="background:var(--forest);color:#fff;border-radius:6px;padding:2px 8px;font-size:.75rem;font-weight:800">ל–ב–שׁ</div>
-        </div>
-        <div style="font-size:.82rem;color:var(--forest);font-weight:700">✅ שורש ל–ב–שׁ = שלמים</div>
-        <div style="font-size:.75rem;color:var(--muted)">הי׳ נשמטת: לָבַשׁ, לִבֵּשׁ</div>
-      </div>
-      <div style="background:var(--danger-lt);border:2px solid var(--danger);border-radius:12px;padding:1rem;text-align:center">
-        <div style="font-size:1.5rem;font-weight:900;color:var(--danger);margin-bottom:4px">יָשַׁב</div>
-        <div style="font-size:.78rem;color:var(--muted);margin-bottom:.5rem">עבר, הוא, בניין פעל</div>
-        <div style="display:inline-flex;gap:.3rem;margin-bottom:.5rem">
-          <div style="background:var(--danger);color:#fff;border-radius:6px;padding:2px 8px;font-size:.75rem;font-weight:800">י׳ = פ"פ שורש!</div>
-          <div style="background:var(--danger);color:#fff;border-radius:6px;padding:2px 8px;font-size:.75rem;font-weight:800">י–שׁ–ב</div>
-        </div>
-        <div style="font-size:.82rem;color:var(--danger);font-weight:700">❌ שורש י–שׁ–ב = נחי פ"י</div>
-        <div style="font-size:.75rem;color:var(--muted)">הי׳ נשמטת: יֵשֵׁב, שֵׁב!</div>
-      </div>
-    </div>
-    <div style="background:var(--gold-lt);border-right:3px solid var(--gold);border-radius:0 8px 8px 0;padding:9px 13px;font-size:.88rem;color:#7a5200">
-      <strong>הכלל:</strong> שאלו — האם האות הראשונה מופיעה גם בצורות עבר / ציווי? אם כן — היא <u>אות שורש</u>. אם לא — היא <u>קידומת עתיד</u>.<br>
-      <strong>דוגמה:</strong> שֵׁב! (ציווי) — ה-י׳ נעלמה → הייתה קידומת. אבל: יָשַׁב (עבר) — הי׳ כאן → היא אות שורש.
-    </div>
-    <div style="background:linear-gradient(135deg,#7c3aed,#5b21b6);border-radius:10px;padding:.9rem 1.1rem;margin-top:.75rem;color:#fff">
-      <strong style="color:#e9d5ff;font-size:.88rem;letter-spacing:.04em">💛 טיפ זהב:</strong>
-      <span style="font-size:.92rem;font-weight:700"> כדי לדעת אם אות היא חלק מהשורש, העבירו תמיד לזמן עבר (נסתר — "הוא אתמול"). מה שנשאר שם — הוא השורש!</span><br>
-      <span style="font-size:.81rem;opacity:.85;margin-top:.3rem;display:inline-block">יִלְבַּשׁ → <strong>לָבַשׁ</strong> (הוא) — נשאר ל–ב–שׁ ✅ &nbsp;|&nbsp; יָשַׁב → <strong>יָשַׁב</strong> (הוא, עבר) — הי׳ כאן → שורש י–שׁ–ב ✅</span>
-    </div>
-  </div>
-
-  <!-- ══ מרובעים — מבנה ובניינים ══ -->
-  <div class="tb purple">
-    <div class="bt">🔷 שורשים מרובעים — מבנה, בניינים ודמיון לשלמים</div>
-    <div style="font-size:.97rem;line-height:2;color:var(--ink-mid);margin-bottom:.75rem">
-      <p><strong>שורש מרובע</strong> הוא שורש בן 4 אותיות. הוא מופיע <strong>אך ורק בבניינים הדגושים</strong>: פִּיעֵל, פֻּעַל, הִתְפַּעֵל (שנקראים לעיתים "פִּעֵל, פֻּעַל, הִתְפַּעֵל" על מרובע). שורשים מרובעים נוצרו לרוב משאילה מלשונות אחרות או מצירוף שתי מילים עבריות.</p>
-      <p><strong>המרובע מתנהג בדיוק כמו שלמים</strong> — כל ארבע אותיותיו נשמרות בכל נטייה, ואין בו השמטות, כפילויות או גרוניות. ההבדל היחיד הוא <em>מספר האותיות</em>.</p>
-    </div>
-
-    <!-- visual comparison 3 vs 4 -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:.85rem">
-      <div style="background:var(--primary-lt);border:2px solid var(--forest);border-radius:11px;padding:.9rem 1rem">
-        <div style="font-size:.72rem;font-weight:800;color:var(--forest);margin-bottom:.4rem;letter-spacing:.04em">שלמים — 3 אותיות</div>
-        <div style="display:flex;gap:.3rem;margin-bottom:.5rem">
-          <div style="background:var(--forest);color:#fff;border-radius:7px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1rem">כ</div>
-          <div style="background:var(--forest);color:#fff;border-radius:7px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1rem">ת</div>
-          <div style="background:var(--forest);color:#fff;border-radius:7px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1rem">ב</div>
-        </div>
-        <div style="font-size:.82rem;color:var(--ink-mid)">בניינים: כל השבעה<br>כָּתַב · יִכְתֹּב · כְּתֹב!</div>
-      </div>
-      <div style="background:var(--purple-lt);border:2px solid var(--purple);border-radius:11px;padding:.9rem 1rem">
-        <div style="font-size:.72rem;font-weight:800;color:var(--purple);margin-bottom:.4rem;letter-spacing:.04em">מרובע — 4 אותיות</div>
-        <div style="display:flex;gap:.3rem;margin-bottom:.5rem">
-          <div style="background:var(--purple);color:#fff;border-radius:7px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1rem">פ</div>
-          <div style="background:var(--purple);color:#fff;border-radius:7px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1rem">ר</div>
-          <div style="background:var(--purple);color:#fff;border-radius:7px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1rem">ס</div>
-          <div style="background:var(--purple);color:#fff;border-radius:7px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1rem">מ</div>
-        </div>
-        <div style="font-size:.82rem;color:var(--ink-mid)">בניינים: פיעל · פועל · התפעל<br>פֵּרְסֵם · פֻּרְסַם · הִתְפַּרְסֵם</div>
-      </div>
-    </div>
-
-    <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
-      <table class="ctable">
-        <thead><tr><th>פועל</th><th>שורש (4 אות׳)</th><th>בניין</th><th>מקור</th></tr></thead>
-        <tbody>
-          <tr><td style="font-weight:700;color:var(--purple)">פֵּרְסֵם</td><td>פ–ר–ס–מ</td><td>פיעל על מרובע</td><td>מ"פרסה" (ארמית)</td></tr>
-          <tr><td style="font-weight:700;color:var(--purple)">טִלְפֵּן</td><td>ט–ל–פ–נ</td><td>פיעל על מרובע</td><td>מ"טלפון"</td></tr>
-          <tr><td style="font-weight:700;color:var(--purple)">הִתְפַּרְסֵם</td><td>פ–ר–ס–מ</td><td>התפיעל</td><td>רפלקסיבי של פרסם</td></tr>
-          <tr><td style="font-weight:700;color:var(--purple)">תִּדְלֵק</td><td>ת–ד–ל–ק</td><td>פיעל על מרובע</td><td>מ"תדלוקת" — ת׳ בשורש!</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-    <div style="font-size:.93rem;line-height:1.8;color:var(--ink-mid);margin-bottom:.7rem">
-      שורש שאחת מאותיותיו היא <strong>אות גרונית</strong> אינו שייך לגזרת השלמים, גם אם האות נשמרת בנטייה — כי היא גורמת לשינויים בתנועות ולדגש חסר. <strong>שגיאה נפוצה:</strong> א–מ–ר נראה "שלם" כי הא׳ נשמרת, אך האל"ף גרונית לפי תכונתה הפונטית!
-    </div>
-    <div style="display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.7rem">
-      <div style="text-align:center;background:var(--amber-lt);border:2px solid var(--amber);border-radius:10px;padding:.5rem .9rem;font-size:1.2rem;font-weight:900;color:var(--amber)">א</div>
-      <div style="text-align:center;background:var(--amber-lt);border:2px solid var(--amber);border-radius:10px;padding:.5rem .9rem;font-size:1.2rem;font-weight:900;color:var(--amber)">ה</div>
-      <div style="text-align:center;background:var(--amber-lt);border:2px solid var(--amber);border-radius:10px;padding:.5rem .9rem;font-size:1.2rem;font-weight:900;color:var(--amber)">ח</div>
-      <div style="text-align:center;background:var(--amber-lt);border:2px solid var(--amber);border-radius:10px;padding:.5rem .9rem;font-size:1.2rem;font-weight:900;color:var(--amber)">ע</div>
-      <div style="text-align:center;background:var(--amber-lt);border:2px solid var(--amber);border-radius:10px;padding:.5rem .9rem;font-size:1.2rem;font-weight:900;color:var(--amber)">ר</div>
-      <div style="display:flex;align-items:center;font-size:.78rem;color:var(--muted);padding-right:.3rem">(ר׳ — לפי חלק מהחכמים)</div>
-    </div>
-    <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
-      <table class="ctable">
-        <thead><tr><th>פועל</th><th>שורש</th><th>האות הגרונית</th><th>הגזרה</th><th>מדוע לא שלמים?</th></tr></thead>
-        <tbody>
-          <tr><td>אָמַר</td><td>א–מ–ר</td><td style="color:var(--amber);font-weight:700">א (פ"פ)</td><td>פ"א גרונית</td><td>שגיאה נפוצה! גרונית למרות שנשמרת</td></tr>
-          <tr><td>עָמַד</td><td>ע–מ–ד</td><td style="color:var(--amber);font-weight:700">ע (פ"פ)</td><td>פ"ע גרונית</td><td>פתח גנובה: יַ<u>עֲ</u>מֹד</td></tr>
-          <tr><td>שָׁלַח</td><td>ש–ל–ח</td><td style="color:var(--amber);font-weight:700">ח (ל"פ)</td><td>ל"ח גרונית</td><td>ח׳ דוחה דגש חזק</td></tr>
-          <tr><td>בָּנָה</td><td>ב–נ–ה</td><td style="color:var(--amber);font-weight:700">ה (ל"פ)</td><td>נחי ל"ה</td><td>ה׳ נשמטת: יִבְנֶה, בְּנוּ</td></tr>
-          <tr class="c-sh"><td>שָׁמַר</td><td>ש–מ–ר</td><td style="color:var(--forest);font-weight:700">— (אין גרונית)</td><td>✅ שלמים</td><td>כל אותיות רגילות</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <div class="tb">
-    <div class="bt">🔍 השוואה ישירה — שלמים לעומת גרוניות</div>
-    <div class="ab">
-      <p>השוו: <strong>כָּתַב → יִכְתֹּב</strong> (כ–ת–ב, שלמים — כל האותיות שמורות) לעומת <strong>עָמַד → יַעֲמֹד</strong> (ע–מ–ד, פ"ע גרונית — פתח גנובה). גם: <strong>שָׁמַר → יִשְׁמֹר</strong> (שלמים) לעומת <strong>אָמַר → יֹאמַר</strong> (פ"א גרונית — שינוי תנועה).</p>
-    </div>
-  </div>
-
-  <div class="tb tip">
-    <div class="bt">💡 כלל בן 4 שאלות לזיהוי שלמים</div>
-    <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
-      <table class="ctable">
-        <thead><tr><th>#</th><th>שאל</th><th>אם כן</th><th>אם לא</th></tr></thead>
-        <tbody>
-          <tr><td style="font-weight:700">1</td><td>יש אות גרונית (אהח"ע-ר)?</td><td style="color:var(--danger)">❌ אינו שלמים</td><td>המשך לשאלה 2</td></tr>
-          <tr><td style="font-weight:700">2</td><td>האות השנייה ו׳ / י׳?</td><td style="color:var(--danger)">❌ חלול</td><td>המשך לשאלה 3</td></tr>
-          <tr><td style="font-weight:700">3</td><td>האות הראשונה נ׳ ונשמטת?</td><td style="color:var(--danger)">❌ נחי פ"נ</td><td>המשך לשאלה 4</td></tr>
-          <tr><td style="font-weight:700">4</td><td>ע"פ ול"פ זהות?</td><td style="color:var(--danger)">❌ כפולים</td><td style="color:var(--forest);font-weight:800">✅ גזרת שלמים!</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-</div><!-- /th -->
-
-
-<!-- ═══════════════════════════════════
-     TAB: WORKSHEET
-═══════════════════════════════════ -->
-<div id="tw" class="tab-pane">
-
-  <div class="card" style="background:linear-gradient(135deg,var(--surface2),var(--surface));margin-bottom:20px">
-    <h2 style="font-family:'Secular One',sans-serif;font-size:1.15rem;color:var(--ink);margin-bottom:14px">✏️ דף עבודה — גזרות הפועל: גזרת השלמים</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div><label style="font-size:.8rem;font-weight:600;color:var(--muted);display:block;margin-bottom:4px">שם מלא</label><input type="text" id="sname" placeholder="הקלד/י שם..."></div>
-      <div><label style="font-size:.8rem;font-weight:600;color:var(--muted);display:block;margin-bottom:4px">כיתה</label><input type="text" id="sclass" placeholder="לדוגמה: י׳3"></div>
-      <div><label style="font-size:.8rem;font-weight:600;color:var(--muted);display:block;margin-bottom:4px">תאריך</label><input type="text" id="sdate" placeholder="יום/חודש/שנה"></div>
-    </div>
-  </div>
-
-  <!-- ── שאלה 1 ── -->
-  <div class="card" style="border-right:4px solid var(--primary)">
-    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px">
-      <div style="background:var(--primary);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.88rem;flex-shrink:0">1</div>
-      <div><div style="font-weight:700;font-size:1rem">זיהוי שורש ובניין</div><div style="font-size:.84rem;color:var(--muted)">(14 נקודות — שורש + בניין לכל פועל)</div></div>
-    </div>
-    <p style="font-size:.91rem;margin-bottom:14px;color:var(--ink-mid)">לכל פועל — כתבו בנפרד את <strong>השורש</strong> ואת <strong>שם הבניין</strong>. שימו לב: לא כולם שלמים!</p>
-    <div id="q1-rows"></div>
-    <div style="margin-top:12px;display:flex;gap:.6rem;flex-wrap:wrap">
-      <button class="btn-primary" onclick="checkQ1()">✔ בדוק</button>
-      <button class="btn-ghost" onclick="resetQ1()">↺ אפס</button>
-    </div>
-    <div id="q1-fb" class="feedback"></div>
-    <div id="q1-score" style="display:none;margin-top:.5rem;font-size:.85rem;color:var(--muted)">
-      <div class="prog-wrap"><div class="prog-fill" id="q1-bar" style="width:0%"></div></div>
-      <span id="q1-score-txt"></span>
-    </div>
-    <!-- פידבק מפורט לכל שאלה -->
-    <div id="q1-detail" style="display:none;margin-top:12px"></div>
-  </div>
-
-  <!-- ── שאלה 2 ── -->
-  <div class="card" style="border-right:4px solid var(--forest)">
-    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px">
-      <div style="background:var(--forest);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.88rem;flex-shrink:0">2</div>
-      <div><div style="font-weight:700;font-size:1rem">מיון חכם — שלמים או לא שלמים?</div><div style="font-size:.84rem;color:var(--muted)">(20 נקודות — 2 לכל פועל)</div></div>
-    </div>
-    <div style="background:var(--amber-lt);border-right:3px solid var(--amber);border-radius:0 8px 8px 0;padding:9px 13px;font-size:.86rem;color:#7a5200;margin-bottom:12px">
-      ⚠️ <strong>שימו לב:</strong> חלק מהפעלים מבלבלים — בחנו אם הגרונית / האות החשודה היא <u>אות שורש</u> או <u>קידומת בניין</u> בלבד!
-    </div>
-    <p style="font-size:.91rem;margin-bottom:12px;color:var(--ink-mid)">גרור כל פועל לעמודה המתאימה. לאחר המיון לחץ "בדוק".</p>
-    <div class="sort-bank" id="sort-bank"></div>
-    <div class="sort-cols">
-      <div class="sort-col sh"><div class="sort-col-title">✅ גזרת שלמים</div><div class="drop-zone" id="drop-sh" ondragover="allowDrop(event)" ondrop="dropVerb(event,'sh')" ondragenter="this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')"></div></div>
-      <div class="sort-col bad"><div class="sort-col-title">❌ לא גזרת שלמים</div><div class="drop-zone" id="drop-bad" ondragover="allowDrop(event)" ondrop="dropVerb(event,'bad')" ondragenter="this.classList.add('drag-over')" ondragleave="this.classList.remove('drag-over')"></div></div>
-    </div>
-    <div style="display:flex;gap:.6rem;flex-wrap:wrap">
-      <button class="btn-primary" onclick="checkSort()">✔ בדוק</button>
-      <button class="btn-ghost" onclick="resetSort()">↺ אפס</button>
-    </div>
-    <div id="sort-fb" class="feedback"></div>
-    <!-- פירוט סיבות לתשובות שגויות -->
-    <div id="sort-detail" style="display:none;margin-top:10px"></div>
-  </div>
-
-  <!-- ── שאלה 3 ── -->
-  <div class="card" style="border-right:4px solid var(--purple)">
-    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px">
-      <div style="background:var(--purple);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.88rem;flex-shrink:0">3</div>
-      <div><div style="font-weight:700;font-size:1rem">חילוץ שורש מרובע</div><div style="font-size:.84rem;color:var(--muted)">(16 נקודות — 4 לכל פועל)</div></div>
-    </div>
-    <p style="font-size:.91rem;margin-bottom:14px;color:var(--ink-mid)">לכל פועל — חלצו את 4 אותיות השורש וציינו את הבניין (זכרו: הסירו קידומות בניין וסיומות גוף לפני הספירה):</p>
-    <div id="ex3-container"></div>
-    <div style="display:flex;gap:.6rem;margin-top:12px;flex-wrap:wrap">
-      <button class="btn-primary" onclick="checkQ3()">✔ בדוק</button>
-      <button class="btn-ghost" onclick="resetQ3()">↺ אפס</button>
-    </div>
-    <div id="q3-fb" class="feedback"></div>
-    <div id="q3-detail" style="display:none;margin-top:10px"></div>
-  </div>
-
-  <!-- ── שאלה 5: שאלת הבנה ── -->
-  <div class="card" style="border-right:4px solid var(--danger)">
-    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px">
-      <div style="background:var(--danger);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.88rem;flex-shrink:0">5</div>
-      <div><div style="font-weight:700;font-size:1rem">שאלת הבנה — הסבירו בלשונכם</div><div style="font-size:.84rem;color:var(--muted)">(10 נקודות)</div></div>
-    </div>
-    <div style="background:var(--danger-lt);border-right:3px solid var(--danger);border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:14px;font-size:.93rem;color:var(--ink-mid)">
-      <strong style="color:var(--danger)">שאלה:</strong> הפועל <strong>אָהַב</strong> (שורש א–ה–ב) נראה שלם — כל שלוש אותיותיו מופיעות בצורה. ובכל זאת הוא <u>אינו</u> שייך לגזרת השלמים. הסבירו מדוע.
-    </div>
-    <textarea id="q5-understanding" rows="3" placeholder="כתבו את הסברכם כאן — הזכירו את המושג הנכון..."></textarea>
-    <div style="margin-top:10px;display:flex;gap:.6rem;flex-wrap:wrap">
-      <button class="btn-primary" onclick="checkUnderstanding()">✔ בדוק תשובה</button>
-      <button class="btn-ghost" onclick="resetUnderstanding()">↺ אפס</button>
-    </div>
-    <div id="q5-fb" class="feedback"></div>
-    <div id="q5-model" style="display:none;margin-top:10px;padding:10px 14px;background:var(--primary-lt);border-right:3px solid var(--forest);border-radius:0 8px 8px 0;font-size:.88rem;color:var(--ink-mid);line-height:1.6"></div>
-  </div>
-
-  <!-- ── שאלה 6: אתגר אית"ן ── -->
-  <div class="card" style="border:2px dashed var(--sun);background:rgba(232,160,32,.04)">
-    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:12px">
-      <div style="background:var(--sun);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.88rem;flex-shrink:0">6</div>
-      <div><div style="font-weight:700;font-size:1rem;color:var(--sun)">⭐ אתגר — תחיליות אית"ן לעומת אות שורש</div><div style="font-size:.84rem;color:var(--muted)">(20 נקודות | הרחבה)</div></div>
-    </div>
-    <div style="background:var(--gold-lt);border-right:3px solid var(--gold);border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:14px;font-size:.88rem;color:#7a5200">
-      <strong>תחיליות אית"ן — א׳ / י׳ / ת׳ / נ׳:</strong> אלו קידומות הפועל בעתיד. הן <u>אינן</u> חלק מהשורש — אל תתבלבלו!<br>
-      <strong>דוגמה:</strong> <span style="font-weight:700">יַלְבִּישׁ</span> — י׳ = קידומת עתיד (הוא) + שורש <strong>ל–ב–שׁ</strong> בהפעיל. <br>
-      לעומת זאת: <span style="font-weight:700">יָשַׁב</span> — הי׳ היא <u>האות הראשונה של השורש</u> (י–שׁ–ב), לא קידומת!
-    </div>
-    <p style="font-size:.91rem;margin-bottom:14px;color:var(--ink-mid)">לכל פועל — (א) כתבו את השורש בלבד, (ב) קבעו: שלמים או לא?</p>
-    <div id="q4-container"></div>
-    <div style="display:flex;gap:.6rem;margin-top:12px;flex-wrap:wrap">
-      <button class="btn-primary" onclick="checkQ4()">✔ בדוק</button>
-      <button class="btn-ghost" onclick="resetQ4()">↺ אפס</button>
-    </div>
-    <div id="q4-fb" class="feedback"></div>
-  </div>
-
-  <!-- ── שאלת רפלקציה ── -->
-  <div class="card" style="border-right:4px solid var(--blue)">
-    <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:10px">
-      <div style="background:var(--blue);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.88rem;flex-shrink:0">5</div>
-      <div><div style="font-weight:700;font-size:1rem;color:var(--blue)">🪞 רפלקציה — מה למדתי?</div><div style="font-size:.84rem;color:var(--muted)">(לא נספר — לכתיבה אישית)</div></div>
-    </div>
-    <p style="font-size:.91rem;margin-bottom:14px;color:var(--ink-mid)">ענו על אחת מהשאלות הבאות בכמה משפטים:</p>
-    <div style="background:var(--blue-lt);border-right:3px solid var(--blue);border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:12px;font-size:.87rem;color:#1d4ed8">
-      <div style="margin-bottom:5px">🔹 מה ההבדל בין שורש שלמים לשורש עם אות גרונית? תנו דוגמה לכל אחד.</div>
-      <div style="margin-bottom:5px">🔹 מה גרם לכם לטעות באחד מהתרגילים? מה עשיתם בסוף?</div>
-      <div>🔹 תחשבו על מילה מהחיים היומיומיים — איך תבדקו לאיזו גזרה שורשה שייך?</div>
-    </div>
-    <textarea id="q5-reflect" rows="4" placeholder="כתבו כאן את מחשבתכם..."></textarea>
-  </div>
-
-  <!-- שליחה -->
-  <div class="card no-print" style="background:linear-gradient(135deg,var(--surface2),var(--surface));border:1.5px solid var(--forest);text-align:center">
-    <div style="font-size:2rem;margin-bottom:8px">📤</div>
-    <h3 style="font-weight:700;font-size:1.05rem;color:var(--ink);margin-bottom:6px">שליחה למורה</h3>
-    <p style="font-size:.85rem;color:var(--muted);margin-bottom:16px">לחצו לשליחת דף העבודה המלא</p>
-    <button onclick="submitWS()" style="background:var(--forest);color:#fff;border:none;padding:12px 36px;border-radius:10px;font-family:'Heebo',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;min-height:44px;transition:all .2s">שלח/י דף עבודה</button>
-  </div>
-
-</div><!-- /tw -->
-
-
-<!-- ═══════════════════════════════════
-     TAB: ANSWERS  (teacher-only)
-═══════════════════════════════════ -->
-<div id="ta" class="tab-pane teacher-only">
-
-  <div style="background:linear-gradient(135deg,#052e16,#15803d);border-radius:14px;padding:18px 20px;margin-bottom:20px">
-    <div style="display:flex;align-items:center;gap:12px">
-      <div style="font-size:2rem">🔑</div>
-      <div><div style="font-family:'Secular One',sans-serif;font-size:1.2rem;color:#fff">מפתח תשובות — גזרת השלמים</div><div style="font-size:.8rem;color:rgba(255,255,255,.6)">לעיני המורה בלבד · מוסר מה-DOM לתלמידים</div></div>
-    </div>
-  </div>
-
-  <!-- שאלה 1 -->
-  <h3 style="font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--forest);margin:0 0 12px">שאלה 1 — זיהוי שורש ובניין (12 נקודות)</h3>
-  <div style="overflow-x:auto;margin-bottom:20px;-webkit-overflow-scrolling:touch">
-    <table class="ctable">
-      <thead><tr><th>פועל</th><th>שורש</th><th>בניין</th><th>גזרה</th><th>הערה לניקוד</th></tr></thead>
-      <tbody>
-        <tr class="c-sh"><td style="font-weight:700">כָּתַב</td><td>כ–ת–ב</td><td>קַל (פעל)</td><td>✅ שלמים</td><td>כל 3 האותיות שמורות בכל נטייה</td></tr>
-        <tr class="c-sh"><td style="font-weight:700">לִמֵּד</td><td>ל–מ–ד</td><td>פִּיעֵל</td><td>✅ שלמים</td><td>דגש חזק במ׳; קבל "פיעל" ללא ניקוד</td></tr>
-        <tr class="c-sh"><td style="font-weight:700">הִשְׁמִיד</td><td>ש–מ–ד</td><td>הִפְעִיל</td><td>✅ שלמים</td><td>קבל "הפעיל" ללא ניקוד</td></tr>
-        <tr class="c-sh"><td style="font-weight:700">נִשְׁמַר</td><td>ש–מ–ר</td><td>נִפְעַל</td><td>✅ שלמים*</td><td>*ר׳ גרונית לחלק — קבל שתי תשובות</td></tr>
-        <tr class="c-sh"><td style="font-weight:700">הִתְלַבֵּשׁ</td><td>ל–ב–שׁ</td><td>הִתְפַּעֵל</td><td>✅ שלמים</td><td>הִתְ = קידומת; שורש ל–ב–שׁ שלם</td></tr>
-        <tr class="c-bad"><td style="font-weight:700">שָׁלַח</td><td>ש–ל–ח</td><td>קַל (פעל)</td><td>❌ ל"ח גרונית</td><td>ח׳ בסוף גרונית — דוחה דגש חזק</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- שאלה 2 -->
-  <h3 style="font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--forest);margin:0 0 12px">שאלה 2 — מיון חכם (20 נקודות)</h3>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4" style="margin-bottom:10px">
-    <div style="background:var(--primary-lt);border:2px solid var(--forest);border-radius:12px;padding:1rem">
-      <div style="font-size:.78rem;font-weight:800;color:var(--forest);margin-bottom:.6rem">✅ גזרת שלמים</div>
-      <div id="ak-sh-list"></div>
-    </div>
-    <div style="background:var(--danger-lt);border:2px solid var(--danger);border-radius:12px;padding:1rem">
-      <div style="font-size:.78rem;font-weight:800;color:var(--danger);margin-bottom:.6rem">❌ לא גזרת שלמים</div>
-      <div id="ak-bad-list"></div>
-    </div>
-  </div>
-  <div class="ai gold" style="margin-bottom:20px;font-size:.83rem">
-    ⚠️ <strong>הערת ניקוד — פעלים מבלבלים:</strong> יָשַׁב — שורש י–שׁ–ב, נחי פ"י (❌). עָמַד — ע׳ גרונית (❌). בָּחַן — ח׳ גרונית (❌). הִתְכַּתֵּב — שורש כ–ת–ב, שלמים (✅). תלמיד שהסביר נכון את הסיבה אף אם טעה בסיווג — מגיע ניקוד חלקי.
-  </div>
-
-  <!-- שאלה 3 -->
-  <h3 style="font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--purple);margin:0 0 12px">שאלה 3 — חילוץ שורש מרובע (16 נקודות)</h3>
-  <div style="overflow-x:auto;margin-bottom:20px;-webkit-overflow-scrolling:touch">
-    <table class="ctable">
-      <thead><tr><th>פועל</th><th>שורש (4 אות׳)</th><th>בניין</th><th>הסבר לניקוד</th></tr></thead>
-      <tbody>
-        <tr><td style="font-weight:700;color:var(--purple)">סִנְכְרְנוּ</td><td>ס–נ–כ–ר</td><td>פיעל על מרובע</td><td>נוּ = סיומת גוף; שורש ס–נ–כ–ר</td></tr>
-        <tr><td style="font-weight:700;color:var(--purple)">הִתְפַּרְסְמוּ</td><td>פ–ר–ס–מ</td><td>התפיעל</td><td>הִתְ = קידומת; וּ = ג׳ זכר רבים; שורש פ–ר–ס–מ</td></tr>
-        <tr><td style="font-weight:700;color:var(--purple)">טִלְפַּנְתָּ</td><td>ט–ל–פ–נ</td><td>פיעל על מרובע</td><td>תָּ = סיומת ג׳ זכר; שורש ט–ל–פ–נ</td></tr>
-        <tr><td style="font-weight:700;color:var(--purple)">מֻסְלַם</td><td>מ–ס–ל–מ</td><td>פֻּעַל על מרובע</td><td>קיבוץ תחת מ׳ = פֻּעַל; שורש מ–ס–ל–מ</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- שאלה 5 — הבנה -->
-  <h3 style="font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--danger);margin:0 0 12px">שאלה 5 — שאלת הבנה: אָהַב (10 נקודות)</h3>
-  <div class="ai" style="margin-bottom:20px">
-    <strong>תשובה מלאה (10 נקודות):</strong> שורש א–ה–ב מכיל שתי אותיות גרוניות — א׳ (פ"פ) וה׳ (ע"פ). אות גרונית מוציאה שורש מגזרת השלמים בגלל תכונתה <em>הפונטית</em>, גם אם נשמרת בנטייה. <strong>ראיה:</strong> בזמן עתיד — יֶאֱהַב: פתח גנובה לפני ה׳ הגרונית.<br>
-    <div style="margin-top:.5rem;font-size:.82rem;color:var(--muted)">
-      <strong>ניקוד:</strong> 4 נק׳ — ציון "גרונית" | 3 נק׳ — הסבר מהי גרונית | 3 נק׳ — דוגמה/ראיה מנטייה
-    </div>
-  </div>
-
-  <!-- שאלה 4 -->
-  <h3 style="font-family:'Secular One',sans-serif;font-size:1.1rem;color:var(--sun);margin:0 0 12px">שאלה 4 — אתגר: תחיליות אית"ן (20 נקודות)</h3>
-  <div id="ak-q4" style="margin-bottom:20px"></div>
-
-  <!-- כרטיס ניקוד -->
-  <div class="card" style="background:linear-gradient(135deg,#052e16,#166534);color:#fff;text-align:center">
-    <div style="font-family:'Secular One',sans-serif;font-size:1.1rem;margin-bottom:14px">סה"כ ניקוד — שיעור 1 יחידה 3</div>
-    <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:12px">
-      <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:8px 14px;min-width:65px"><div style="font-size:1.3rem;font-weight:900;color:#86efac">12</div><div style="font-size:.65rem;color:rgba(255,255,255,.6)">שאלה 1</div></div>
-      <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:8px 14px;min-width:65px"><div style="font-size:1.3rem;font-weight:900;color:#86efac">16</div><div style="font-size:.65rem;color:rgba(255,255,255,.6)">שאלה 2</div></div>
-      <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:8px 14px;min-width:65px"><div style="font-size:1.3rem;font-weight:900;color:#86efac">12</div><div style="font-size:.65rem;color:rgba(255,255,255,.6)">שאלה 3</div></div>
-      <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:8px 14px;min-width:65px"><div style="font-size:1.3rem;font-weight:900;color:#fde68a">20</div><div style="font-size:.65rem;color:rgba(255,255,255,.6)">אתגר</div></div>
-    </div>
-    <div style="font-size:1rem;font-weight:800;color:#a7f3d0">סה"כ: 60 (+ 20 הרחבה)</div>
-  </div>
-
-</div><!-- /ta -->
-
-
-<!-- ═══════════════════════════════════
-     TAB: ASSESSMENT
-═══════════════════════════════════ -->
-<div id="tab-assess" class="tab-pane">
-  <div class="card">
-    <h2 style="font-weight:700;font-size:1.1rem;margin-bottom:12px">📊 הערכת מילוי דף העבודה</h2>
-    <button class="btn-primary" onclick="if(window.calcAssessment)window.calcAssessment()">חשב הערכה</button>
-    <div id="assessment-content" style="display:none;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;margin-top:12px;direction:rtl;text-align:right;min-height:56px"></div>
   </div>
 </div>
 
-</main>
+<div class="theory-section">
+  <h2 class="section-title"><span class="st-em">ג</span> נטיית השלמים — הווה ועתיד</h2>
+  <div class="ctable-scroll">
+    <table class="ctable">
+      <caption>בניין קל — הווה ועתיד</caption>
+      <thead><tr><th>זמן</th><th>גוף</th><th>צורה</th><th>תבנית</th></tr></thead>
+      <tbody>
+        <tr><td rowspan="4"><span class="tense-label">הווה</span></td><td>זכר יחיד</td><td class="form-teal">כּוֹתֵב</td><td>קוֹטֵל</td></tr>
+        <tr><td>נקבה יחידה</td><td class="form-teal">כּוֹתֶבֶת</td><td>קוֹטֶלֶת</td></tr>
+        <tr><td>זכר רבים</td><td class="form-teal">כּוֹתְבִים</td><td>קוֹטְלִים</td></tr>
+        <tr><td>נקבה רבות</td><td class="form-teal">כּוֹתְבוֹת</td><td>קוֹטְלוֹת</td></tr>
+        <tr><td rowspan="3"><span class="tense-label">עתיד</span></td><td>הוא</td><td class="form-navy">יִכְתֹּב</td><td>יִקְטֹל</td></tr>
+        <tr><td>היא</td><td class="form-navy">תִּכְתֹּב</td><td>תִּקְטֹל</td></tr>
+        <tr><td>הם</td><td class="form-navy">יִכְתְּבוּ</td><td>יִקְטְלוּ</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
-<script>
-/* ── Tab switcher ── */
-function showTab(id,btn){
-  document.querySelectorAll('.tab-pane').forEach(function(p){p.classList.remove('active')});
-  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
-  var el=document.getElementById(id); if(el) el.classList.add('active');
-  if(btn) btn.classList.add('active');
-}
+<div class="theory-section">
+  <h2 class="section-title"><span class="st-em">ד</span> גזרת השלמים בשבעת הבניינים</h2>
+  <div class="ctable-scroll">
+    <table class="ctable">
+      <caption>שורש כ-ת-ב בכל שבעת הבניינים — עבר גוף שלישי יחיד זכר</caption>
+      <thead><tr><th>בניין</th><th>צורה</th><th>משמעות</th></tr></thead>
+      <tbody>
+        <tr><td><strong>קַל</strong></td><td class="form-teal">כָּתַב</td><td>פעל הבסיסי</td></tr>
+        <tr><td><strong>נִפְעַל</strong></td><td class="form-teal">נִכְתַּב</td><td>נפעלה עליו הפעולה</td></tr>
+        <tr><td><strong>פִּיעֵל</strong></td><td class="form-teal">כִּתֵּב</td><td>פעולה מוגברת/סיבתית</td></tr>
+        <tr><td><strong>פֻּעַל</strong></td><td class="form-teal">כֻּתַּב</td><td>בינוני סביל של פיעל</td></tr>
+        <tr><td><strong>הִתְפַּעֵל</strong></td><td class="form-teal">הִתְכַּתֵּב</td><td>פעולה הדדית / רפלקסיבית</td></tr>
+        <tr><td><strong>הִפְעִיל</strong></td><td class="form-teal">הִכְתִּיב</td><td>גרם לאחר לפעול</td></tr>
+        <tr><td><strong>הֻפְעַל</strong></td><td class="form-teal">הֻכְתַּב</td><td>בינוני סביל של הפעיל</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="gold-tip" style="margin-top:12px">
+    <div class="gt-title">💡 מרובעים — שורש בן ארבע אותיות</div>
+    גזרת השלמים כוללת גם <strong>שורשים מרובעים</strong> (4 עיצורים): ת-ר-ג-ם, ב-ל-ב-ל, פ-ק-פ-ק.
+    הנטייה דומה — אבל בתבנית פיעל/פועל/התפעל בלבד: <span class="form-teal">תִּרְגֵּם / תֻּרְגַּם / הִתְתַּרְגֵּם</span>
+  </div>
+</div>
 
-/* ════════════════════════════
-   DATA — inside closure
-   Answers never accessible
-   in student DOM (nodes removed)
-════════════════════════════ */
-(function(){
+<div class="summary-box">
+  <div class="sb-title">📌 סיכום גזרת השלמים</div>
+  <strong>הגדרה:</strong> שורש שלושת אותיותיו שלמות (ללא גרוניות / נחות / כפולים)<br>
+  <strong>עבר:</strong> קמץ בפ״פ, פתח בע״פ (כָּתַב). ב-2 רבים: קמץ → שווא (כְּתַבְתֶּם)<br>
+  <strong>הווה:</strong> תבנית קוֹטֵל / קוֹטֶלֶת / קוֹטְלִים / קוֹטְלוֹת<br>
+  <strong>עתיד:</strong> חירק תחת הנה (יִ/תִּ), חולם תחת ל׳ (יִכְתֹּב)
+</div>
+</div><!-- /theory -->
+<div class="tab-panel" id="panel-practice"><div class="progress-pill"><span>התקדמות: <b id="prog-label">0 / 10</b></span><div class="pp-track"><div class="pp-fill" id="pp-fill"></div></div></div>
+<div class="practice-section">
+  <div class="ps-header"><span class="ps-badge">חלק א׳</span><span class="ps-title">זיהוי גזרה — שלמים או לא?</span></div>
+  <p class="ps-instruction">בחרו לכל שורש: האם הוא <strong>שלמים</strong> (כל האותיות רגילות) או <strong>אינו שלמים</strong>?</p>
+  <div class="ex-card"><div class="ex-row">
+    <span class="ex-num">1</span><span class="ex-verb">כָּתַב</span><span class="ex-label">שורש: כ-ת-ב</span>
+    <select class="ex-select" id="sel-a1" onchange="updateProgress()">
+      <option value="">— בחרו —</option><option value="shalem">שלמים</option><option value="lo">אינו שלמים</option>
+    </select>
+  </div></div>
+  <div class="ex-card"><div class="ex-row">
+    <span class="ex-num">2</span><span class="ex-verb">עָמַד</span><span class="ex-label">שורש: ע-מ-ד</span>
+    <select class="ex-select" id="sel-a2" onchange="updateProgress()">
+      <option value="">— בחרו —</option><option value="shalem">שלמים</option><option value="lo">אינו שלמים</option>
+    </select>
+  </div></div>
+  <div class="ex-card"><div class="ex-row">
+    <span class="ex-num">3</span><span class="ex-verb">שָׁמַר</span><span class="ex-label">שורש: ש-מ-ר</span>
+    <select class="ex-select" id="sel-a3" onchange="updateProgress()">
+      <option value="">— בחרו —</option><option value="shalem">שלמים</option><option value="lo">אינו שלמים</option>
+    </select>
+  </div></div>
+  <div class="ex-card"><div class="ex-row">
+    <span class="ex-num">4</span><span class="ex-verb">סָבַב</span><span class="ex-label">שורש: ס-ב-ב</span>
+    <select class="ex-select" id="sel-a4" onchange="updateProgress()">
+      <option value="">— בחרו —</option><option value="shalem">שלמים</option><option value="lo">אינו שלמים</option>
+    </select>
+  </div></div>
+  <div class="ex-card"><div class="ex-row">
+    <span class="ex-num">5</span><span class="ex-verb">פָּתַח</span><span class="ex-label">שורש: פ-ת-ח</span>
+    <select class="ex-select" id="sel-a5" onchange="updateProgress()">
+      <option value="">— בחרו —</option><option value="shalem">שלמים</option><option value="lo">אינו שלמים</option>
+    </select>
+  </div></div>
+</div>
+<div class="practice-section">
+  <div class="ps-header"><span class="ps-badge teal">חלק ב׳</span><span class="ps-title">הטיית שורש פ-ת-ח (קל) — עבר</span></div>
+  <p class="ps-instruction">מלאו את הטיית הפועל <strong>פָּתַח</strong> בבניין קל:</p><div class="ex-card"><div class="ex-row"><span class="ex-num" style="min-width:35px;width:auto;padding:0 6px">הוא</span><input type="text" class="ex-input" id="פָּתַח" placeholder="הקלד..." dir="rtl" oninput="updateProgress()" style="flex:1;width:auto"></div></div><div class="ex-card"><div class="ex-row"><span class="ex-num" style="min-width:35px;width:auto;padding:0 6px">היא</span><input type="text" class="ex-input" id="pb2" placeholder="הקלד..." dir="rtl" oninput="updateProgress()" style="flex:1;width:auto"></div></div><div class="ex-card"><div class="ex-row"><span class="ex-num" style="min-width:35px;width:auto;padding:0 6px">אני</span><input type="text" class="ex-input" id="pb3" placeholder="הקלד..." dir="rtl" oninput="updateProgress()" style="flex:1;width:auto"></div></div><div class="ex-card"><div class="ex-row"><span class="ex-num" style="min-width:35px;width:auto;padding:0 6px">הם</span><input type="text" class="ex-input" id="pb4" placeholder="הקלד..." dir="rtl" oninput="updateProgress()" style="flex:1;width:auto"></div></div><div class="ex-card"><div class="ex-row"><span class="ex-num" style="min-width:35px;width:auto;padding:0 6px">אתם</span><input type="text" class="ex-input" id="pb5" placeholder="הקלד..." dir="rtl" oninput="updateProgress()" style="flex:1;width:auto"></div></div>
+</div><div class="wa-send-panel no-print">
+  <div class="wa-panel-header">
+    <div class="wa-panel-icon">💬</div>
+    <div>
+      <div class="wa-panel-title">שליחת התרגול לבדיקת המורה</div>
+      <div class="wa-panel-sub">מלאו את הפרטים ושלחו ישירות לוואטסאפ</div>
+    </div>
+  </div>
+  <div class="wa-fields">
+    <div class="wa-field"><label for="wa-name">שם התלמיד/ה</label><input type="text" id="wa-name" placeholder="שם מלא..." autocomplete="name"></div>
+    <div class="wa-field"><label for="wa-class">כיתה</label><input type="text" id="wa-class" placeholder="י׳2" autocomplete="off"></div>
+  </div>
+  <button class="btn-wa" onclick="sendToTeacher()">💬 שלח תשובות למורה בוואטסאפ</button>
+  <p class="wa-note">לחיצה תפתח את וואטסאפ עם הודעה מוכנה הכוללת את כל תשובותיכם</p>
+</div>
+</div><!-- /practice -->
+<div class="tab-panel" id="panel-teacher"><div id="teacher-locked" class="teacher-locked-msg">
+  <div class="tlm-icon">🔒</div>
+  <div class="tlm-title">גישה שמורה למורים בלבד</div>
+  <div class="tlm-sub">הטאב נפתח בכניסה דרך <code>?role=teacher</code></div>
+</div>
+<div id="teacher-content" style="display:none">
+<div class="teacher-summary"><strong>📋 מדריך המורה — גזרת השלמים</strong>
+מטרה: הבנת הגזרה הבסיסית + זיהוי שלמים מול שאר הגזרות.
+45 דק׳: 5′ פתיחה | 15′ עבר | 10′ הווה+עתיד | 10′ שבעת הבניינים | 5′ תרגול
+</div>
+<div class="answer-section">
+  <div class="as-title">🗝️ מפתח — חלק א׳ (זיהוי)</div>
+  <div class="answer-row"><span class="ar-verb">כ-ת-ב</span><span class="ar-answer">שלמים ✓</span></div>
+  <div class="answer-row"><span class="ar-verb">ע-מ-ד</span><span class="ar-answer">לא שלמים</span><span class="ar-note">פ׳ גרונית (ע׳)</span></div>
+  <div class="answer-row"><span class="ar-verb">ש-מ-ר</span><span class="ar-answer">שלמים ✓</span></div>
+  <div class="answer-row"><span class="ar-verb">ס-ב-ב</span><span class="ar-answer">לא שלמים</span><span class="ar-note">כפולים (ב+ב)</span></div>
+  <div class="answer-row"><span class="ar-verb">פ-ת-ח</span><span class="ar-answer">שלמים ✓</span></div>
+</div>
+<div class="answer-section">
+  <div class="as-title">🗝️ מפתח — חלק ב׳ (הטיית פ-ת-ח)</div>
+  <div class="answer-row"><span class="ar-verb">היא</span><span class="ar-answer">פָּתְחָה</span><span class="ar-note">קמץ → שווא לפני ה</span></div>
+  <div class="answer-row"><span class="ar-verb">אני</span><span class="ar-answer">פָּתַחְתִּי</span></div>
+  <div class="answer-row"><span class="ar-verb">הם</span><span class="ar-answer">פָּתְחוּ</span><span class="ar-note">קמץ → שווא לפני ו׳</span></div>
+  <div class="answer-row"><span class="ar-verb">אתם</span><span class="ar-answer">פְּתַחְתֶּם</span><span class="ar-note">קמץ → שווא בתחילה</span></div>
+</div>
+<div class="ped-tip"><div class="pt-title">💡 טיפ פדגוגי</div>
+  הדגישו: גזרת שלמים = הדגם שממנו "סוטות" כל הגזרות האחרות.
+  תלמידים צריכים לשנן את קוֹטֵל/קוֹטֶלֶת כדי להבין כל חריגה מגזרת הגרוניים ואילך.
+  טעות נפוצה: כְּתַבְתֶּם — תלמידים שמים קמץ. הסבירו: ריבוי לחץ הטעם → שווא.
+</div>
+</div>
+</div><!-- /panel-teacher -->
+</div><!-- /tabs-body --></div><!-- /tabs-wrap -->
+<div class="no-print" style="max-width:860px;margin:24px auto 0;padding:0 1rem 8px;">
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:12px 18px;box-shadow:var(--sh1);">
+    <span style="font-size:.82rem;color:var(--muted);">שיעור 1 מתוך 4</span>
+    <div style="display:flex;gap:8px;"><a href="unit3_lesson0_phonology_v3.html" style="display:inline-flex;align-items:center;gap:6px;background:var(--surface2);color:var(--text-mid);border:1px solid var(--border);padding:9px 18px;border-radius:10px;font-family:'Heebo',sans-serif;font-size:.88rem;font-weight:700;text-decoration:none;min-height:44px;">← תורת ההגה</a><a href="unit3_lesson2.html" style="display:inline-flex;align-items:center;gap:6px;background:var(--navy);color:#fff;border:none;padding:10px 22px;border-radius:10px;font-family:'Heebo',sans-serif;font-size:.88rem;font-weight:700;text-decoration:none;min-height:44px;">גזרת הגרוניים →</a></div>
+  </div>
+</div>
+</div><!-- /page-wrap --><script>
 
-var ex1Data=[
-  // שדה נפרד לשורש ובניין — מאפשר פידבק מדויק
-  // [id_prefix, verb, root, binyan, binyanForms, gzera, hint]
-  {p:'q1a',verb:'כָּתַב',     root:'כ–ת–ב', binyan:'קַל',        bf:['קל','פעל'],         gzera:'שלמים',     hint:'כ, ת, ב — כולם עיצורים רגילים. מה הזמן? עבר + גוף ג׳ זכר = בניין...'},
-  {p:'q1b',verb:'לִמֵּד',     root:'ל–מ–ד', binyan:'פִּיעֵל',     bf:['פיעל'],              gzera:'שלמים',     hint:'שימו לב לדגש החזק במ׳ — זה סימן ה...'},
-  {p:'q1c',verb:'הִשְׁמִיד',  root:'ש–מ–ד', binyan:'הִפְעִיל',    bf:['הפעיל'],             gzera:'שלמים',     hint:'הקידומת הִ + שְׁ... מה הבניין שמתחיל ב-הִ ומשמש לגרימה?'},
-  {p:'q1d',verb:'נִשְׁמַר',   root:'ש–מ–ר', binyan:'נִפְעַל',     bf:['נפעל'],              gzera:'שלמים',     hint:'הקידומת נִ — מה הבניין הסביל שמתחיל בנ׳?'},
-  {p:'q1e',verb:'הִתְלַבֵּשׁ',root:'ל–ב–שׁ', binyan:'הִתְפַּעֵל',  bf:['התפעל'],             gzera:'שלמים',     hint:'הִתְ בתחילה — מה הבניין שמסמל פעולה שעושים על עצמכם?'},
-  {p:'q1f',verb:'שָׁלַח',    root:'ש–ל–ח', binyan:'קַל',        bf:['קל','פעל'],         gzera:'לא שלמים',  hint:'שימו לב לאות האחרונה ח׳ — האם היא גרונית?'},
-  {p:'q1g',verb:'אָמַר',     root:'א–מ–ר', binyan:'קַל',        bf:['קל','פעל'],         gzera:'לא שלמים',  hint:'שגיאה נפוצה: נראה שלם, אבל האות הראשונה — האם היא גרונית?'},
-];
+'use strict';
 
-var sortData=[
-  // שלמים ברורים
-  ['שָׁמַר',      'sh',  'ש–מ–ר — אין גרוניות, אין חלשות: שלמים ✅'],
-  ['כָּתַב',       'sh',  'כ–ת–ב — כל האותיות עיצורים רגילים: שלמים ✅'],
-  ['הִתְכַּתֵּב',  'sh',  'כ–ת–ב — הִתְ = קידומת בניין; שורש כ–ת–ב שלם ✅'],
-  ['הִתְלַבֵּשׁ',  'sh',  'ל–ב–שׁ — גם בהתפעל הכבד, השורש ל–ב–שׁ נשאר שלם לחלוטין ✅'],
-  // מבלבלים — גרונית נסתרת
-  ['עָמַד',        'bad', 'ע–מ–ד — ע׳ גרונית (פ"ע גרונית): יַעֲמֹד ❌'],
-  ['יָשַׁב',       'bad', 'י–שׁ–ב — י׳ היא פ"פ שורש! נחי פ"י ❌'],
-  ['בָּחַן',        'bad', 'ב–ח–נ — ח׳ גרונית (ע"ח גרונית): בָּחַן → יִבְחַן ❌'],
-  // מבלבלים — קידומת vs שורש
-  ['הִלְבִּישׁ',   'sh',  'ל–ב–שׁ — הִ = קידומת הפעיל; שורש שלם ✅'],
-  ['נָפַל',        'bad', 'נ–פ–ל — נחי פ"נ: הנ׳ נשמטת ביִפֹּל ❌'],
-  ['קָם',          'bad', 'ק–ו–מ — חלול ע"ו: הו"ו נשמטת ❌'],
-  ['בָּנָה',        'bad', 'ב–נ–ה — נחי ל"ה: הה"א נשמטת: יִבְנֶה ❌'],
-];
-
-var ex3Data=[
-  {verb:'סִנְכְרְנוּ',    root:'ס–נ–כ–ר', binyan:'פיעל על שורש מרובע', note:'מ"סינכרון" — 4 עיצורי שורש'},
-  {verb:'הִתְפַּרְסְמוּ', root:'פ–ר–ס–מ', binyan:'התפיעל',              note:'הִתְ = קידומת; שורש מרובע פ–ר–ס–מ'},
-  {verb:'טִלְפַּנְתָּ',   root:'ט–ל–פ–נ', binyan:'פיעל על שורש מרובע', note:'ת׳ הסוף = סיומת גוף; שורש ט–ל–פ–נ'},
-  {verb:'מֻסְלַם',       root:'מ–ס–ל–מ', binyan:'פועל (פֻּעַל) על מרובע',note:'מ"אסלאם" — 4 עיצורי שורש, פֻּעַל'},
-];
-
-// שאלת הבנה — מדוע אָהַב אינו שלמים
-var understandingData={
-  verb:'אָהַב',
-  question:'מדוע הפועל אָהַב אינו שייך לגזרת השלמים, למרות שכל שלוש אותיותיו מופיעות בצורה?',
-  correctKws:['גרונית','גרוניות','אלף','א׳','פונטי','פונטית','תנועה'],
-  answer:'שורש א–ה–ב מכיל שתי אותיות גרוניות — א׳ (פ"פ) וה׳ (ע"פ). אות גרונית מוציאה שורש מגזרת השלמים בגלל תכונתה הפונטית, גם אם היא נשמרת בנטייה. ראיה: בזמן עתיד — יֶאֱהַב (פתח גנובה ← ה׳ גרונית).',
+/* ─── FIREBASE ─── */
+// Firebase SDK — הוסיפו לפני שימוש:
+// <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+// <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+const FIREBASE_CONFIG = {
+  apiKey:            "YOUR_API_KEY",
+  authDomain:        "lashon-lesson.firebaseapp.com",
+  projectId:         "lashon-lesson",
+  storageBucket:     "lashon-lesson.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId:             "YOUR_APP_ID"
 };
-
-var ex4Data=[
-  {verb:'יַלְבִּישׁ', prefix:'(י) = קידומת עתיד + ל–ב–שׁ', root:'ל–ב–שׁ', isSh:true,  explain:'י׳ = קידומת עתיד (אית"ן). שורש ל–ב–שׁ — שלמים ✅'},
-  {verb:'יָשַׁב',     prefix:'י׳ = פ"פ של השורש!',          root:'י–שׁ–ב', isSh:false, explain:'שורש י–שׁ–ב — הי׳ היא אות השורש, לא קידומת. גזרת נחי פ"י ❌'},
-  {verb:'תִּכְתֹּב',  prefix:'(ת) = קידומת עתיד + כ–ת–ב',  root:'כ–ת–ב', isSh:true,  explain:'ת׳ = קידומת עתיד (אית"ן). שורש כ–ת–ב — שלמים ✅'},
-  {verb:'אֶשְׁמֹר',   prefix:'(א) = קידומת עתיד + ש–מ–ר',  root:'ש–מ–ר', isSh:true,  explain:'א׳ = קידומת עתיד (דובר ראשון). שורש ש–מ–ר — שלמים ✅'},
-  {verb:'יִפֹּל',     prefix:'(י) = קידומת עתיד, נ׳ נשמטה',root:'נ–פ–ל', isSh:false, explain:'י׳ = קידומת עתיד. שורש נ–פ–ל — נחי פ"נ ❌ (הנ׳ נשמטה)'},
-  {verb:'נִשְׁמֹר',   prefix:'(נ) = קידומת עתיד + ש–מ–ר',  root:'ש–מ–ר', isSh:true,  explain:'נ׳ = קידומת עתיד (אנחנו). שורש ש–מ–ר — שלמים ✅ ⚠️ לא לבלבל עם נחי פ"נ!'},
-];
-
-/* ── מיני-בוחן גזרות ── */
-var gzaraQuizData=[
-  {root:'ב–נ–ה', ans:'נחי ל"ה',   opts:['שלמים','נחי פ"נ','נחי ל"ה','חלול'], hint:'מה האות האחרונה?'},
-  {root:'ק–ו–מ', ans:'חלול',      opts:['שלמים','חלול','כפולים','פ"ע גרונית'], hint:'מה האות האמצעית?'},
-  {root:'נ–פ–ל', ans:'נחי פ"נ',   opts:['שלמים','נחי פ"נ','פ"א גרונית','כפולים'], hint:'מה האות הראשונה? מה קורה לה בעתיד?'},
-  {root:'ס–ב–ב', ans:'כפולים',    opts:['שלמים','חלול','כפולים','נחי ל"ה'], hint:'האם ע"פ ול"פ זהות?'},
-  {root:'כ–ת–ב', ans:'שלמים',     opts:['שלמים','נחי פ"נ','פ"א גרונית','חלול'], hint:'בדקו: האם יש גרונית, חלשה, או כפולה?'},
-];
-
-/* ── Hook פתיחה ── */
-window.hookAnswer=function(btn,correct){
-  var opts=document.getElementById('hook-opts');
-  var fb=document.getElementById('hook-fb');
-  if(opts.dataset.answered) return;
-  opts.dataset.answered='1';
-  // Style all buttons
-  opts.querySelectorAll('button').forEach(function(b){b.style.opacity='.55';b.style.cursor='default';});
-  btn.style.opacity='1';
-  if(correct){
-    btn.style.background='rgba(134,239,172,.3)';
-    btn.style.borderColor='#86efac';
-    fb.style.display='block';
-    fb.style.background='rgba(134,239,172,.2)';
-    fb.style.color='#bbf7d0';
-    fb.textContent='✅ נכון! הנ׳ נשמטת ביִפֹּל — זו הסיבה שנ–פ–ל אינו בגזרת השלמים. שורש שאחת מאותיותיו "נעלמת" שייך לגזרה אחרת. המשיכו לקרוא כדי לגלות איזו!';
-  } else {
-    btn.style.background='rgba(252,165,165,.25)';
-    btn.style.borderColor='#fca5a5';
-    fb.style.display='block';
-    fb.style.background='rgba(252,165,165,.15)';
-    fb.style.color='#fca5a5';
-    fb.textContent='❌ לא בדיוק. ב׳ היא הנכונה — הנ׳ נשמטת לחלוטין: נָפַל → יִ<ל>(הנ׳ + דגש בפ׳ = יִפֹּל). המשיכו לקרוא!';
-  }
-};
-
-/* ── מיני-בוחן גזרות — בניית UI ── */
-function buildGzaraQuiz(){
-  var c=document.getElementById('gq-items'); if(!c)return;
-  c.innerHTML='';
-  gzaraQuizData.forEach(function(item,i){
-    var optsHtml=item.opts.map(function(o){
-      return '<button onclick="gqSelect(this,'+i+')" data-val="'+o+'" style="background:var(--surface2);border:1.5px solid var(--border);border-radius:7px;padding:5px 11px;font-family:\'Heebo\',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;min-height:36px;transition:all .15s;color:var(--ink-mid)">'+o+'</button>';
-    }).join('');
-    c.innerHTML+=
-      '<div id="gq-row-'+i+'" style="display:flex;align-items:center;gap:.6rem;padding:.55rem 0;border-bottom:1px solid var(--border-lt);flex-wrap:wrap">'+
-        '<div style="font-size:1rem;font-weight:800;min-width:90px;color:var(--forest)">'+item.root+'</div>'+
-        '<div style="display:flex;gap:.4rem;flex-wrap:wrap">'+optsHtml+'</div>'+
-        '<div id="gq-hint-'+i+'" style="display:none;font-size:.75rem;color:var(--muted);font-style:italic">💡 '+item.hint+'</div>'+
-      '</div>';
-  });
-}
-window.gqSelect=function(btn,rowIdx){
-  var row=document.getElementById('gq-row-'+rowIdx);
-  if(row.dataset.locked) return;
-  row.querySelectorAll('button').forEach(function(b){
-    b.style.background='var(--surface2)'; b.style.borderColor='var(--border)'; b.style.color='var(--ink-mid)';
-  });
-  btn.style.background='var(--primary-lt)'; btn.style.borderColor='var(--forest)'; btn.style.color='var(--forest)';
-  btn.dataset.selected='1';
-};
-window.checkGzaraQuiz=function(){
-  var score=0,total=gzaraQuizData.length;
-  gzaraQuizData.forEach(function(item,i){
-    var row=document.getElementById('gq-row-'+i);
-    var sel=row.querySelector('[data-selected]');
-    if(!sel){
-      document.getElementById('gq-hint-'+i).style.display='block';
-      return;
-    }
-    row.dataset.locked='1';
-    var ok=sel.dataset.val===item.ans;
-    if(ok){
-      sel.style.background='#dcfce7'; sel.style.borderColor='var(--forest)'; sel.style.color='var(--forest)';
-      score++;
-    } else {
-      sel.style.background='var(--danger-lt)'; sel.style.borderColor='var(--danger)'; sel.style.color='var(--danger)';
-      // Show correct
-      row.querySelectorAll('button').forEach(function(b){
-        if(b.dataset.val===item.ans){b.style.background='#dcfce7';b.style.borderColor='var(--forest)';b.style.color='var(--forest)';b.textContent+=' ✓';}
-      });
-      document.getElementById('gq-hint-'+i).style.display='block';
-    }
-  });
-  var fb=document.getElementById('gq-fb');
-  fb.className='feedback '+(score===total?'ok':'info');
-  fb.textContent=score===total?'🎉 מצוין! ידעת את כל הגזרות!':score+'/'+total+' — הרמזים בכחול עוזרים לתשובות השגויות.';
-};
-window.resetGzaraQuiz=function(){
-  buildGzaraQuiz();
-  document.getElementById('gq-fb').className='feedback';
-};
-
-/* ── Build Q1 — שדות נפרדים לשורש ובניין ── */
-function buildQ1(){
-  var c=document.getElementById('q1-rows'); if(!c)return;
-  var letters='אבגדהוז';
-  c.innerHTML='';
-  ex1Data.forEach(function(item,i){
-    c.innerHTML+=
-      '<div style="display:grid;grid-template-columns:auto 1fr 1fr;gap:.5rem;align-items:center;padding:.55rem .8rem;border-radius:10px;background:var(--surface2);margin-bottom:.5rem">'+
-        '<div style="font-size:.82rem;font-weight:800;color:var(--muted);min-width:24px">'+letters[i]+'.</div>'+
-        '<div>'+
-          '<div style="font-size:.72rem;color:var(--muted);margin-bottom:2px">פועל</div>'+
-          '<div style="font-size:1rem;font-weight:700">'+item.verb+'</div>'+
-        '</div>'+
-        '<div style="display:flex;gap:.4rem;flex-wrap:wrap">'+
-          '<div>'+
-            '<div style="font-size:.68rem;color:var(--muted);margin-bottom:2px">שורש</div>'+
-            '<input type="text" id="'+item.p+'-root" placeholder="?–?–?" style="width:90px">'+
-          '</div>'+
-          '<div>'+
-            '<div style="font-size:.68rem;color:var(--muted);margin-bottom:2px">בניין</div>'+
-            '<input type="text" id="'+item.p+'-bin" placeholder="בניין..." style="width:110px">'+
-          '</div>'+
-        '</div>'+
-      '</div>';
-  });
-}
-
-/* ── Build Q3 — with note field ── */
-function buildEx3(){
-  var c=document.getElementById('ex3-container'); if(!c)return;
-  c.innerHTML='';
-  ex3Data.forEach(function(item,i){
-    c.innerHTML+=
-      '<div style="padding:.7rem .9rem;border-radius:10px;background:var(--surface2);margin-bottom:.6rem">'+
-        '<div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.3rem">'+
-          '<div style="font-size:1rem;font-weight:700;min-width:150px;color:var(--purple)">'+item.verb+'</div>'+
-          '<div style="display:flex;gap:.5rem;flex-wrap:wrap">'+
-            '<div><div style="font-size:.68rem;color:var(--muted);margin-bottom:2px">שורש (4 אות׳)</div>'+
-            '<input type="text" id="ex3-root-'+i+'" placeholder="?–?–?–?" style="width:115px"></div>'+
-            '<div><div style="font-size:.68rem;color:var(--muted);margin-bottom:2px">בניין</div>'+
-            '<input type="text" id="ex3-bin-'+i+'" placeholder="בניין..." style="width:165px"></div>'+
-          '</div>'+
-        '</div>'+
-        '<div style="font-size:.75rem;color:var(--muted);font-style:italic">💡 '+item.note+'</div>'+
-      '</div>';
-  });
-}
-
-/* ── checkUnderstanding — שאלת הבנה ── */
-window.checkUnderstanding=function(){
-  var ta=document.getElementById('q5-understanding');
-  var fb=document.getElementById('q5-fb');
-  var model=document.getElementById('q5-model');
-  if(!ta||!fb||!model)return;
-  var val=ta.value.trim().toLowerCase();
-  if(!val){fb.className='feedback err';fb.textContent='אנא כתבו תשובה לפני הבדיקה.';return;}
-  var hit=understandingData.correctKws.some(function(kw){return val.indexOf(kw)!==-1;});
-  if(hit){
-    fb.className='feedback ok';
-    fb.textContent='✅ כן! תשובתך מכילה את המושג המרכזי.';
-    model.style.display='block';
-    model.innerHTML='<strong style="color:var(--forest)">תשובה מלאה:</strong><br>'+understandingData.answer;
-  } else {
-    fb.className='feedback info';
-    fb.textContent='💡 כמעט! נסו לכלול בתשובה את המילה "גרונית" ולהסביר מה המשמעות שלה.';
-  }
-};
-window.resetUnderstanding=function(){
-  var ta=document.getElementById('q5-understanding');
-  var fb=document.getElementById('q5-fb');
-  var model=document.getElementById('q5-model');
-  if(ta)ta.value=''; if(fb)fb.className='feedback'; if(model)model.style.display='none';
-};
-
-/* ── Build Q4 ── */
-function buildQ4(){
-  var c=document.getElementById('q4-container'); if(!c)return;
-  c.innerHTML='';
-  ex4Data.forEach(function(item,i){
-    c.innerHTML+=
-      '<div style="display:flex;align-items:center;gap:.6rem;padding:.65rem .9rem;border-radius:10px;background:var(--surface2);margin-bottom:.5rem">'+
-        '<div style="font-size:1rem;font-weight:800;min-width:115px;color:var(--sun)">'+item.verb+'</div>'+
-        '<div style="display:flex;gap:.5rem;flex:1;flex-wrap:wrap">'+
-          '<div><div style="font-size:.68rem;color:var(--muted);margin-bottom:2px">שורש (ללא קידומת)</div>'+
-          '<input type="text" id="q4-root-'+i+'" placeholder="_–_–_" style="width:90px"></div>'+
-          '<div><div style="font-size:.68rem;color:var(--muted);margin-bottom:2px">שלמים?</div>'+
-          '<select id="q4-sh-'+i+'" style="width:130px">'+
-            '<option value="">-- בחר/י --</option>'+
-            '<option value="yes">✅ שלמים</option>'+
-            '<option value="no">❌ לא שלמים</option>'+
-          '</select></div>'+
-        '</div>'+
-      '</div>';
-  });
-}
-
-/* ── Q1 check — שדות נפרדים + פידבק מפורט לכל פועל ── */
-window.checkQ1=function(){
-  var score=0, details=[];
-  ex1Data.forEach(function(item){
-    var ri=document.getElementById(item.p+'-root');
-    var bi=document.getElementById(item.p+'-bin');
-    if(!ri||!bi)return;
-    var rv=nr(ri.value), bv=bi.value.toLowerCase().trim();
-    var rootOk = rv===nr(item.root);
-    var binOk  = item.bf.some(function(b){return bv.indexOf(b)!==-1;});
-    // Clear old marks
-    ri.className=ri.className.replace(/\b(ok|err)\b/g,'').trim();
-    bi.className=bi.className.replace(/\b(ok|err)\b/g,'').trim();
-    if(ri.value.trim()) ri.className+= rootOk?' ok':' err';
-    if(bi.value.trim()) bi.className+= binOk?' ok':' err';
-    var both=rootOk&&binOk;
-    if(both) score++;
-    // Collect feedback details for wrong items
-    if(!both && (ri.value.trim()||bi.value.trim())){
-      var msg='<strong>'+item.verb+'</strong>: ';
-      if(!rootOk) msg+='שורש נכון: <strong>'+item.root+'</strong>. ';
-      if(!binOk)  msg+='בניין נכון: <strong>'+item.binyan+'</strong>. ';
-      msg+='<span style="font-size:.8rem;color:var(--muted)">💡 '+item.hint+'</span>';
-      details.push(msg);
-    }
-  });
-  var fb=document.getElementById('q1-fb');
-  var pct=Math.round(score/ex1Data.length*100);
-  fb.className='feedback '+(score===ex1Data.length?'ok':'info');
-  fb.textContent=score===ex1Data.length?'🎉 מצוין! כל התשובות נכונות!':
-    'ענית נכון על '+score+' מתוך '+ex1Data.length+'.';
-  document.getElementById('q1-score').style.display='block';
-  document.getElementById('q1-bar').style.width=pct+'%';
-  document.getElementById('q1-score-txt').textContent=score+'/'+ex1Data.length+' ('+pct+'%)';
-  // Per-item feedback
-  var det=document.getElementById('q1-detail');
-  if(details.length&&det){
-    det.style.display='block';
-    det.innerHTML='<div style="font-size:.78rem;font-weight:800;color:var(--danger);margin-bottom:6px">תיקונים לשאלות השגויות:</div>'+
-      details.map(function(d){return '<div style="padding:7px 10px;background:var(--danger-lt);border-right:3px solid var(--danger);border-radius:0 7px 7px 0;margin-bottom:5px;font-size:.86rem;color:var(--ink-mid);line-height:1.6">'+d+'</div>';}).join('');
-  } else if(det) { det.style.display='none'; }
-};
-window.resetQ1=function(){
-  buildQ1();
-  document.getElementById('q1-fb').className='feedback';
-  document.getElementById('q1-score').style.display='none';
-  var det=document.getElementById('q1-detail'); if(det)det.style.display='none';
-};
-
-/* ── Normalize ── */
-function nr(s){return s.replace(/[\s–\-]/g,'').trim();}
-
-/* ── Sort ── */
-function buildSort(){
-  var bank=document.getElementById('sort-bank');
-  var ds=document.getElementById('drop-sh');
-  var db=document.getElementById('drop-bad');
-  if(!bank||!ds||!db)return;
-  bank.innerHTML='';ds.innerHTML='';db.innerHTML='';
-  ds.classList.remove('drag-over');db.classList.remove('drag-over');
-  sortData.forEach(function(item){
-    var chip=document.createElement('div');
-    chip.className='verb-chip'; chip.draggable=true;
-    chip.textContent=item[0]; chip.dataset.verb=item[0]; chip.dataset.ans=item[1];
-    chip.addEventListener('dragstart',function(e){e.dataTransfer.setData('text',item[0]);});
-    chip.addEventListener('touchstart',touchStart,{passive:true});
-    chip.addEventListener('touchend',touchEnd,{passive:true});
-    bank.appendChild(chip);
-  });
-}
-window.allowDrop=function(e){e.preventDefault();};
-window.dropVerb=function(e,col){
-  e.preventDefault();
-  var v=e.dataTransfer.getData('text');
-  var chip=document.querySelector('[data-verb="'+v+'"]'); if(!chip)return;
-  var target=document.getElementById('drop-'+col);
-  target.classList.remove('drag-over'); target.appendChild(chip);
-};
-var _tc=null;
-function touchStart(e){_tc=e.currentTarget;}
-function touchEnd(e){
-  if(!_tc)return;
-  var t=e.changedTouches[0];
-  var el=document.elementFromPoint(t.clientX,t.clientY);
-  var area=el&&(el.classList.contains('drop-zone')?el:el.closest('.drop-zone'));
-  if(area)area.appendChild(_tc); _tc=null;
-}
-window.checkSort=function(){
-  var correct=0, wrongDetails=[];
-  sortData.forEach(function(item){
-    var chip=document.querySelector('[data-verb="'+item[0]+'"]'); if(!chip)return;
-    var inSh=!!document.getElementById('drop-sh').querySelector('[data-verb="'+item[0]+'"]');
-    var inBad=!!document.getElementById('drop-bad').querySelector('[data-verb="'+item[0]+'"]');
-    if(!inSh&&!inBad)return;
-    var ok=(inSh&&item[1]==='sh')||(inBad&&item[1]==='bad');
-    chip.classList.toggle('correct',ok); chip.classList.toggle('wrong',!ok);
-    if(ok) correct++;
-    else wrongDetails.push('<strong>'+item[0]+'</strong> — '+item[2]);
-  });
-  var placed=document.querySelectorAll('#drop-sh .verb-chip, #drop-bad .verb-chip').length;
-  var fb=document.getElementById('sort-fb');
-  fb.className='feedback '+(correct===sortData.length?'ok':'info');
-  fb.textContent=correct===sortData.length?'🎉 כל הפעלים מוינו נכון!':
-    'נכון: '+correct+'/'+placed+' — ירוק = נכון, אדום = שגוי.';
-  // הצג הסברים לשגויים
-  var det=document.getElementById('sort-detail');
-  if(det){
-    if(wrongDetails.length){
-      det.style.display='block';
-      det.innerHTML='<div style="font-size:.78rem;font-weight:800;color:var(--danger);margin-bottom:6px">למה טעיתי?</div>'+
-        wrongDetails.map(function(d){return '<div style="padding:7px 10px;background:var(--danger-lt);border-right:3px solid var(--danger);border-radius:0 7px 7px 0;margin-bottom:4px;font-size:.85rem;color:var(--ink-mid);line-height:1.5">'+d+'</div>';}).join('');
-    } else { det.style.display='none'; }
-  }
-};
-window.resetSort=function(){buildSort();document.getElementById('sort-fb').className='feedback';var det=document.getElementById('sort-detail');if(det)det.style.display='none';};
-
-/* ── Q3 ── */
-window.checkQ3=function(){
-  var score=0, details=[];
-  ex3Data.forEach(function(item,i){
-    var ri=document.getElementById('ex3-root-'+i);
-    var bi=document.getElementById('ex3-bin-'+i);
-    if(!ri||!bi)return;
-    var rootOk=nr(ri.value)===nr(item.root);
-    var bv=bi.value.trim();
-    var binOk=bv.indexOf('פיעל')!==-1||bv.indexOf('התפיעל')!==-1||bv.indexOf('פועל')!==-1||
-              bv.indexOf('פֻּעַל')!==-1||bv.indexOf('פִּיעֵל')!==-1||bv.indexOf('הִתְפַּעֵל')!==-1;
-    ri.className=ri.className.replace(/\b(ok|err)\b/g,'').trim();
-    bi.className=bi.className.replace(/\b(ok|err)\b/g,'').trim();
-    if(ri.value.trim()) ri.className+=rootOk?' ok':' err';
-    if(bi.value.trim()) bi.className+=binOk?' ok':' err';
-    if(rootOk&&binOk) score++;
-    else if(ri.value.trim()||bi.value.trim()){
-      var msg='<strong>'+item.verb+'</strong>: ';
-      if(!rootOk) msg+='שורש נכון: <strong>'+item.root+'</strong>. ';
-      if(!binOk)  msg+='בניין נכון: <strong>'+item.binyan+'</strong>. ';
-      msg+='<span style="font-size:.78rem;color:var(--muted)">'+item.note+'</span>';
-      details.push(msg);
-    }
-  });
-  var fb=document.getElementById('q3-fb');
-  fb.className='feedback '+(score===ex3Data.length?'ok':'info');
-  fb.textContent=score===ex3Data.length?'🎉 כל השורשים המרובעים זוהו!':score+'/'+ex3Data.length+' — תשובות שגויות מסומנות.';
-  // per-item detail
-  var det=document.getElementById('q3-detail');
-  if(det){
-    if(details.length){
-      det.style.display='block';
-      det.innerHTML='<div style="font-size:.78rem;font-weight:800;color:var(--danger);margin-bottom:5px">תיקונים:</div>'+
-        details.map(function(d){return '<div style="padding:6px 10px;background:var(--danger-lt);border-right:3px solid var(--danger);border-radius:0 7px 7px 0;margin-bottom:4px;font-size:.85rem;color:var(--ink-mid);line-height:1.5">'+d+'</div>';}).join('');
-    } else { det.style.display='none'; }
-  }
-};
-window.resetQ3=function(){buildEx3();document.getElementById('q3-fb').className='feedback';var d=document.getElementById('q3-detail');if(d)d.style.display='none';};
-
-/* ── Q4 ── */
-window.checkQ4=function(){
-  var score=0;
-  ex4Data.forEach(function(item,i){
-    var ri=document.getElementById('q4-root-'+i);
-    var si=document.getElementById('q4-sh-'+i);
-    if(!ri||!si)return;
-    var rootOk=nr(ri.value)===nr(item.root);
-    var shOk=(si.value==='yes')===item.isSh;
-    ri.className=ri.className.replace(/\b(ok|err)\b/g,'').trim();
-    if(ri.value.trim()) ri.className+=rootOk?' ok':' err';
-    if(rootOk&&shOk)score++;
-  });
-  var fb=document.getElementById('q4-fb');
-  fb.className='feedback '+(score===ex4Data.length?'ok':'info');
-  fb.textContent=score===ex4Data.length?'🎉 מצוין! כל הפעלים נותחו נכון!':
-    'ענית נכון על '+score+'/'+ex4Data.length+'. עיין/י בהסברים בפתרונות המורה.';
-};
-window.resetQ4=function(){buildQ4();document.getElementById('q4-fb').className='feedback';};
-
-/* ── Teacher keys ── */
-function buildTeacherKeys(){
-  var akSh=document.getElementById('ak-sh-list');
-  var akBad=document.getElementById('ak-bad-list');
-  if(akSh&&akBad){
-    var shL=[],badL=[];
-    sortData.forEach(function(item){
-      var line='<div style="font-size:.88rem;font-weight:600;line-height:2.1">'+
-        item[0]+' <span style="font-size:.72rem;color:var(--muted);font-weight:400">('+item[2]+')</span></div>';
-      if(item[1]==='sh')shL.push(line);else badL.push(line);
-    });
-    akSh.innerHTML=shL.join(''); akBad.innerHTML=badL.join('');
-  }
-  var ak4=document.getElementById('ak-q4');
-  if(ak4){
-    ak4.innerHTML='';
-    ex4Data.forEach(function(item){
-      var chipSt=item.isSh?'background:var(--primary-lt);color:var(--forest)':'background:var(--danger-lt);color:var(--danger)';
-      ak4.innerHTML+=
-        '<div class="ai '+(item.isSh?'':'danger')+'">'+
-          '<strong>'+item.verb+'</strong>'+
-          ' &nbsp;<span style="'+chipSt+';border-radius:999px;padding:.1rem .5rem;font-size:.7rem;font-weight:800">'+
-            (item.isSh?'✅ שלמים':'❌ לא שלמים')+'</span>'+
-          '<br><span style="font-size:.8rem;color:var(--muted)">קידומת/הערה: '+item.prefix+'</span>'+
-          '<br><span style="font-size:.82rem;color:var(--ink-mid)">'+item.explain+'</span>'+
-        '</div>';
-    });
-  }
-}
-
-/* ── Submit ── */
-window.submitWS=function(){
-  var name=(document.getElementById('sname')||{}).value||'';
-  var cls=(document.getElementById('sclass')||{}).value||'';
-  var date=(document.getElementById('sdate')||{}).value||new Date().toLocaleDateString('he-IL');
-  if(!name){alert('אנא הזינו שם לפני השליחה.');return;}
-  alert('✅ דף העבודה של '+name+(cls?' ('+cls+')':'')+' נשמר — '+date+'.\nהמורה יקבל את המשוב בקרוב.');
-  try{localStorage.setItem('lashon_submit_u3l1',JSON.stringify({name:name,cls:cls,date:date,ts:Date.now()}));}catch(e){}
-  if(window.lessonDone)window.lessonDone('u3_l1',date);
-};
-
-/* ── Assessment ── */
-window.calcAssessment=function(){
-  var ac=document.getElementById('assessment-content'); if(!ac)return;
-  var sname=(document.getElementById('sname')||{value:''}).value.trim();
-  var sclass=(document.getElementById('sclass')||{value:''}).value.trim();
-  var sdate=(document.getElementById('sdate')||{value:''}).value.trim()||new Date().toLocaleDateString('he-IL');
-  var filled=0,qData=[];
-
-  // Q1 — שדות נפרדים
-  ex1Data.forEach(function(item){
-    var rv=(document.getElementById(item.p+'-root')||{}).value||'';
-    var bv=(document.getElementById(item.p+'-bin')||{}).value||'';
-    var ok=rv.trim()!==''&&bv.trim()!==''; if(ok)filled++;
-    qData.push({label:'שאלה 1 — '+item.verb,ok:ok});
-  });
-
-  // Q2 — מיון (count placed chips)
-  var shChips=document.querySelectorAll('#drop-sh .verb-chip').length;
-  var badChips=document.querySelectorAll('#drop-bad .verb-chip').length;
-  var placedSort=shChips+badChips;
-  if(placedSort>0){filled++;qData.push({label:'שאלה 2 — מיון ('+placedSort+' פעלים הוזזו)',ok:true});}
-  else{qData.push({label:'שאלה 2 — מיון (לא בוצע)',ok:false});}
-
-  // Q3 — מרובעים
-  ex3Data.forEach(function(item,i){
-    var rv=(document.getElementById('ex3-root-'+i)||{}).value||'';
-    var bv=(document.getElementById('ex3-bin-'+i)||{}).value||'';
-    var ok=rv.trim()!==''&&bv.trim()!==''; if(ok)filled++;
-    qData.push({label:'שאלה 3 — '+item.verb,ok:ok});
-  });
-
-  // Q5 — שאלת הבנה
-  var q5v=(document.getElementById('q5-understanding')||{value:''}).value||'';
-  var q5ok=q5v.trim().length>10; if(q5ok)filled++;
-  qData.push({label:'שאלה 5 — הבנה: אָהַב',ok:q5ok});
-
-  // Q6 — אתגר אית"ן
-  ex4Data.forEach(function(item,i){
-    var rv=(document.getElementById('q4-root-'+i)||{}).value||'';
-    var sv=(document.getElementById('q4-sh-'+i)||{}).value||'';
-    var ok=rv.trim()!==''&&sv!==''; if(ok)filled++;
-    qData.push({label:'שאלה 6 — '+item.verb,ok:ok});
-  });
-
-  var total=qData.length;
-  var pct=total>0?Math.round(filled/total*100):0;
-  var bc=pct>=80?'#15803d':pct>=50?'#b45309':'#c0392b';
-  var bg=pct>=80?'#dcfce7':pct>=50?'#fef3c7':'#fdecea';
-  var html="<div style='background:#f0fdf4;border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:.88rem;direction:rtl'>";
-  html+="<strong>תלמיד/ה:</strong> "+(sname||"לא הוזן");
-  if(sclass)html+=" &nbsp;|&nbsp; <strong>כיתה:</strong> "+sclass;
-  html+=" &nbsp;|&nbsp; <strong>תאריך:</strong> "+sdate+"</div>";
-  html+="<div style='background:"+bg+";color:"+bc+";padding:12px;border-radius:10px;text-align:center;font-weight:800;font-size:1rem;margin-bottom:10px;direction:rtl'>";
-  html+=(pct>=80?"⭐":pct>=50?"💪":"📝")+" "+filled+"/"+total+" — "+pct+"%</div>";
-  html+="<div style='height:8px;background:#e8edf5;border-radius:5px;margin-bottom:14px;overflow:hidden'>";
-  html+="<div style='height:100%;width:"+pct+"%;background:"+bc+";border-radius:5px'></div></div>";
-  html+="<div style='font-size:.8rem;direction:rtl'>";
-  qData.forEach(function(q){
-    html+="<div style='display:flex;align-items:baseline;gap:6px;padding:3px 0;border-bottom:1px solid #f0f3ff'>";
-    html+="<span>"+(q.ok?"✅":"○")+"</span>";
-    html+="<span style='flex:1;color:"+(q.ok?"#15803d":"#9ca3af")+"'>"+q.label+"</span></div>";
-  });
-  html+="</div>";
-  ac.innerHTML=html; ac.style.display='block';
-};
-
-/* ── Greeting bar ── */
-function injectStudentName(){
+let _fbApp=null,_db=null;
+function getDb(){
+  if(_db)return _db;
   try{
-    var p=new URLSearchParams(window.location.search);
-    var n=(p.get('student')||p.get('name')||'').trim();
-    if(!n){try{n=JSON.parse(localStorage.getItem('lashon_current_student')||'""')||'';}catch(_){}}
-    if(!n){try{n=JSON.parse(localStorage.getItem('lashon_uname')||'""')||'';}catch(_){}}
+    if(typeof firebase==='undefined')return null;
+    if(!firebase.apps.length)_fbApp=firebase.initializeApp(FIREBASE_CONFIG);
+    else _fbApp=firebase.app();
+    _db=firebase.firestore();return _db;
+  }catch(e){console.warn('[Firebase]',e);return null;}
+}
+async function saveScoreToCloud(lessonId,score,studentName,extra={}){
+  const db=getDb();if(!db)return;
+  try{
+    await db.collection('student_scores').add({
+      lessonId,score:score??null,
+      studentName:studentName||'תלמיד/ה',
+      ts:firebase.firestore.FieldValue.serverTimestamp(),
+      date:new Date().toLocaleDateString('he-IL'),...extra
+    });
+  }catch(e){console.error('[Firebase]',e);}
+}
+
+/* ─── TOAST ─── */
+let _tt;
+function toast(msg){
+  const el=document.getElementById('toast');
+  if(!el)return;
+  el.textContent=msg;el.classList.add('show');
+  clearTimeout(_tt);_tt=setTimeout(()=>el.classList.remove('show'),2800);
+}
+
+/* ─── CONFETTI ─── */
+function launchConfetti(){
+  const canvas=document.getElementById('confetti-canvas');
+  if(!canvas)return;
+  canvas.style.display='block';
+  const ctx=canvas.getContext('2d');
+  canvas.width=window.innerWidth;canvas.height=window.innerHeight;
+  const COLORS=['#1a3a6b','#0d7a6a','#f5c842','#c0392b','#25D366','#ffffff'];
+  const pieces=Array.from({length:120},()=>({
+    x:Math.random()*canvas.width,y:Math.random()*canvas.height-canvas.height,
+    r:Math.random()*6+3,color:COLORS[Math.floor(Math.random()*COLORS.length)],
+    speed:Math.random()*4+2,angle:Math.random()*Math.PI*2,
+    spin:Math.random()*.2-.1,swing:Math.random()*2-1
+  }));
+  let frame=0;
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    pieces.forEach(p=>{
+      ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.angle);
+      ctx.fillStyle=p.color;ctx.fillRect(-p.r/2,-p.r/2,p.r,p.r*2);
+      ctx.restore();
+      p.y+=p.speed;p.x+=p.swing;p.angle+=p.spin;
+      if(p.y>canvas.height){p.y=-10;p.x=Math.random()*canvas.width;}
+    });
+    frame++;
+    if(frame<180)requestAnimationFrame(draw);
+    else{ctx.clearRect(0,0,canvas.width,canvas.height);canvas.style.display='none';}
+  }
+  draw();
+}
+
+/* ─── TABS ─── */
+function switchTab(name){
+  const TABS=['theory','practice','teacher'];
+  TABS.forEach(t=>{
+    const panel=document.getElementById('panel-'+t);
+    const btn=document.getElementById('tab-'+t+'-btn');
+    if(panel)panel.classList.toggle('active',t===name);
+    if(btn){btn.classList.toggle('active',t===name);btn.setAttribute('aria-selected',String(t===name));}
+  });
+}
+function tryTeacherTab(){
+  if(IS_TEACHER){unlockTeacher();switchTab('teacher');}
+  else toast('🔒 גישה למורים בלבד — פתח דרך ?role=teacher');
+}
+function unlockTeacher(){
+  const locked=document.getElementById('teacher-locked');
+  const content=document.getElementById('teacher-content');
+  const btn=document.getElementById('tab-teacher-btn');
+  const icon=document.getElementById('teacher-lock-icon');
+  if(locked)locked.style.display='none';
+  if(content)content.style.display='block';
+  if(btn)btn.classList.remove('locked-tab');
+  if(icon)icon.textContent='👨‍🏫';
+}
+
+/* ─── PROGRESS ─── */
+function updateProgress(){
+  if(typeof countAnswered!=='function')return;
+  const {answered,total}=countAnswered();
+  const pct=total>0?Math.round(answered/total*100):0;
+  const fill=document.getElementById('pp-fill');
+  const label=document.getElementById('prog-label');
+  if(fill)fill.style.width=pct+'%';
+  if(label)label.textContent=answered+' / '+total;
+}
+
+/* ─── WA SEND (reads from localStorage) ─── */
+function sendToTeacher(){
+  const name=(document.getElementById('wa-name')||{}).value||'';
+  const klass=(document.getElementById('wa-class')||{}).value||'';
+  if(!name.trim()){toast('⚠️ נא הזינו שם');return;}
+  if(!klass.trim()){toast('⚠️ נא הזינו כיתה');return;}
+
+  // Get phone from localStorage (set by index.html)
+  let phone=(()=>{try{return JSON.parse(localStorage.getItem('lashon_teacher_phone')||'""');}catch(e){return '';}})();
+  if(!phone){
+    // Fallback: ask
+    toast('⚠️ לא הוגדר מספר המורה. כנסו לדף הראשי → הגדרות.');
+    return;
+  }
+  phone='972'+phone.replace(/^0/,'');
+
+  const lines=buildMessageLines(name,klass);
+  const msg=lines.join('\n');
+  window.open('https://wa.me/'+phone+'?text='+encodeURIComponent(msg),'_blank');
+  toast('✅ פותח וואטסאפ...');
+  launchConfetti();
+}
+
+/* ─── STUDENT INJECT ─── */
+function injectStudent(){
+  try{
+    let n='';
+    try{n=JSON.parse(localStorage.getItem('lashon_current_student')||'""');}catch(_){}
+    if(!n){const p=new URLSearchParams(window.location.search);n=p.get('student')||p.get('name')||'';}
     if(n){
-      var bar=document.getElementById('greeting-bar'),gn=document.getElementById('greeting-name');
-      if(bar&&gn){gn.textContent='שלום, '+n+'!';bar.style.display='flex';}
-      var sn=document.getElementById('sname'); if(sn&&!sn.value)sn.value=n;
-      try{localStorage.setItem('lashon_current_student',JSON.stringify(n));}catch(_){}
+      const el=document.getElementById('wa-name');if(el&&!el.value)el.value=n;
     }
-    var dt=document.getElementById('sdate'); if(dt&&!dt.value)dt.value=new Date().toLocaleDateString('he-IL');
   }catch(e){}
 }
 
-/* ── Input feedback ── */
-function initInputFeedback(){
-  var skip=['sname','sclass','sdate'];
-  document.querySelectorAll('input[type="text"],textarea').forEach(function(el){
-    if(skip.indexOf(el.id)>=0)return;
-    el.addEventListener('input',function(){
-      this.className=this.className.replace(/\b(ok|err)\b/g,'').trim();
-      if(this.value.trim())this.className+=' ok';
-    });
-    if(el.value&&el.value.trim())el.className+=' ok';
-  });
+
+function countAnswered(){
+  let a=0;
+  for(let i=1;i<=5;i++){if(document.getElementById('sel-a'+i)?.value)a++;}
+  ['pb2','pb3','pb4','pb5'].forEach(id=>{if(document.getElementById(id)?.value?.trim())a++;});
+  return {answered:a,total:9};
+}
+function buildMessageLines(name,klass){
+  const s=(id)=>document.getElementById(id)?.value||'—';
+  return [
+    '📚 *גזרת השלמים — יחידה 3 שיעור 1*','',
+    '👤 *שם:* '+name,' 🏫 *כיתה:* '+klass,'━━━━━━━━━━━━━━━━━',
+    '*חלק א — זיהוי:*',
+    '1. כ-ת-ב: '+s('sel-a1'),'2. ע-מ-ד: '+s('sel-a2'),'3. ש-מ-ר: '+s('sel-a3'),'4. ס-ב-ב: '+s('sel-a4'),'5. פ-ת-ח: '+s('sel-a5'),
+    '*חלק ב — הטיית פ-ת-ח:*',
+    'היא: '+s('pb2'),' אני: '+s('pb3'),' הם: '+s('pb4'),' אתם: '+s('pb5'),
+    '━━━━━━━━━━━━━━━━━','_נשלח דרך לשון Lesson_'
+  ];
 }
 
-/* ── Init ── */
-document.addEventListener('DOMContentLoaded',function(){
-  buildQ1(); buildEx3(); buildQ4(); buildSort();
-  buildGzaraQuiz();
-  buildTeacherKeys();
-  injectStudentName();
-  initInputFeedback();
-});
+/* ─── ROLE CHECK ─── */
+const IS_TEACHER=new URLSearchParams(window.location.search).get('role')==='teacher';
+if(IS_TEACHER){
+  document.body.classList.add('is-teacher');
+  document.addEventListener('DOMContentLoaded',()=>{unlockTeacher();});
+}
+document.addEventListener('DOMContentLoaded',()=>{ injectStudent(); });
 
-})();
 </script>
 </body>
 </html>

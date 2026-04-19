@@ -466,133 +466,188 @@ a { text-decoration:none; }
 .prog-stat { font-size:.68rem; color:var(--muted); }
 .prog-stat b { color:var(--text); font-weight:700; }
 
-/* ─── UNITS WRAP ─── */
-.units-wrap { padding:1.2rem 1.4rem; }
-.unit-block { margin-bottom:1.2rem; animation:unitFadeIn .35s ease both; }
-@keyframes unitFadeIn{from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)}}
-.unit-block:nth-child(1){animation-delay:.04s}
-.unit-block:nth-child(2){animation-delay:.1s}
-.unit-block:nth-child(3){animation-delay:.16s}
+/* ─── UNITS WRAP — Mobile-first dashboard grid ─── */
+.units-wrap {
+  padding:1rem 1rem 2rem;
+  display:flex; flex-direction:column; gap:1rem;
+}
 @keyframes contentFade{from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)}}
 .units-wrap.fading { animation:contentFade .28s ease both; }
 
-/* ─── UNIT TRIGGER ─── */
-.unit-trigger {
-  width:100%; display:flex; align-items:center; gap:.7rem;
-  background:var(--surface);
+/* ─── UNIT CARD (the big tappable card) ─── */
+.unit-block {
+  border-radius:var(--r-xl);
+  box-shadow:var(--sh2);
+  overflow:hidden;
   border:1px solid var(--border);
-  border-radius:var(--r-lg);
-  padding:.95rem 1.15rem;
+  background:var(--surface);
+  animation:unitFadeIn .38s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes unitFadeIn{from{opacity:0;transform:translateY(12px) scale(.98)} to{opacity:1;transform:translateY(0) scale(1)}}
+.unit-block:nth-child(1){animation-delay:.04s}
+.unit-block:nth-child(2){animation-delay:.12s}
+.unit-block:nth-child(3){animation-delay:.20s}
+
+/* ─── UNIT TRIGGER — big card header ─── */
+.unit-trigger {
+  width:100%; display:flex; align-items:center; gap:1rem;
+  padding:1.2rem 1.3rem 1.15rem;
   cursor:pointer; text-align:right;
-  transition:all .16s;
-  min-height:56px;
-  box-shadow:var(--sh1);
+  transition:background .18s, transform .18s cubic-bezier(.34,1.2,.64,1);
+  min-height:76px;
+  border:none;
+  background:var(--surface);
+  position:relative; overflow:hidden;
+  -webkit-tap-highlight-color:transparent;
 }
-.unit-trigger:hover {
-  border-color:var(--blue);
-  box-shadow:0 0 0 3px rgba(26,86,219,.07), var(--sh2);
+/* Subtle color band on the right edge of each card */
+.unit-trigger::after {
+  content:''; position:absolute; top:0; right:0; bottom:0; width:4px;
+  background:var(--ut-color, var(--blue));
+  border-radius:0 var(--r-xl) var(--r-xl) 0;
+  opacity:.7;
 }
-.unit-trigger:active { transform:scale(0.993); background:var(--surface3); }
-.unit-trigger.open {
-  border-color:var(--blue);
-  border-bottom-left-radius:0; border-bottom-right-radius:0;
-  border-bottom-color:var(--border);
-  background:var(--blue-lt);
+.unit-trigger:active { transform:scale(0.985); background:var(--surface2); }
+.unit-trigger.open { background:var(--surface2); }
+
+/* Emoji circle badge */
+.ut-em-wrap {
+  width:52px; height:52px; border-radius:16px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.55rem;
+  background:var(--ut-color-lt, var(--blue-lt));
+  box-shadow:0 2px 8px rgba(0,0,0,.07);
 }
-.ut-em { font-size:1.15rem; flex-shrink:0; }
-.ut-body { flex:1; min-width:0; }
-.ut-name { font-size:.9rem; font-weight:800; }
-.ut-meta { font-size:.65rem; color:var(--subtle); margin-top:.08rem; }
-.ut-right { display:flex; align-items:center; gap:.55rem; flex-shrink:0; }
-.ut-bar-wrap { width:58px; }
-.ut-bar-track { height:4px; background:var(--surface3); border-radius:var(--r-pill); overflow:hidden; }
-.ut-bar-fill { height:100%; background:var(--green); border-radius:var(--r-pill); transition:width .4s; }
-.ut-bar-pct { font-size:.6rem; color:var(--subtle); margin-top:.18rem; text-align:center; }
-.ut-chev { font-size:.65rem; color:var(--subtle); transition:transform .22s; flex-shrink:0; }
+.ut-em { font-size:1.55rem; }
+
+.ut-body { flex:1; min-width:0; text-align:right; }
+.ut-label { font-size:.62rem; font-weight:800; color:var(--ut-color,var(--blue)); letter-spacing:.06em; text-transform:uppercase; margin-bottom:.18rem; }
+.ut-name  { font-size:1.02rem; font-weight:800; line-height:1.25; color:var(--text); }
+.ut-meta  { font-size:.68rem; color:var(--subtle); margin-top:.22rem; }
+
+.ut-right { display:flex; flex-direction:column; align-items:flex-start; gap:.4rem; flex-shrink:0; }
+.ut-bar-wrap { width:54px; }
+.ut-bar-track { height:5px; background:var(--surface3); border-radius:var(--r-pill); overflow:hidden; border:1px solid var(--border); }
+.ut-bar-fill { height:100%; background:var(--ut-color,var(--green)); border-radius:var(--r-pill); transition:width .5s ease; }
+.ut-bar-pct { font-size:.62rem; font-weight:700; color:var(--ut-color,var(--blue)); margin-top:.15rem; text-align:center; }
+.ut-chev {
+  font-size:.7rem; color:var(--subtle);
+  transition:transform .25s cubic-bezier(.34,1.2,.64,1); flex-shrink:0;
+  margin-top:.2rem;
+}
 .unit-trigger.open .ut-chev { transform:rotate(180deg); }
+
+/* Divider between header and lessons */
+.unit-divider {
+  height:1px; background:var(--border); margin:0;
+  display:none;
+}
+.unit-body.open + .unit-divider,
+.unit-trigger.open ~ .unit-divider { display:block; }
 
 /* ─── UNIT BODY ─── */
 .unit-body {
-  background:var(--surface);
-  border:1px solid var(--blue);
-  border-top:none;
-  border-bottom-left-radius:var(--r-lg);
-  border-bottom-right-radius:var(--r-lg);
+  background:var(--surface2);
   overflow:hidden; max-height:0;
-  transition:max-height .32s ease;
-  box-shadow:var(--sh1);
+  transition:max-height .36s cubic-bezier(.22,1,.36,1);
 }
 .unit-body.open { max-height:4000px; }
 
 /* ══════════════════════════════════════════════════
-   LESSON CARD
+   LESSON ROW — Touch-friendly, production-grade
 ══════════════════════════════════════════════════ */
 .lesson-row {
-  display:flex; align-items:center; gap:.7rem;
-  padding:.85rem 1.15rem;
+  display:flex; align-items:center; gap:.85rem;
+  padding:1rem 1.3rem;
   border-bottom:1px solid var(--border);
-  transition:background .12s, transform .15s cubic-bezier(.34,1.2,.64,1), box-shadow .15s;
-  position:relative; min-height:60px;
+  transition:background .15s, transform .16s cubic-bezier(.34,1.2,.64,1), box-shadow .15s;
+  position:relative; min-height:70px;
   cursor:pointer;
   -webkit-tap-highlight-color:transparent;
   user-select:none;
+  background:var(--surface);
 }
 .lesson-row:last-child { border-bottom:none; }
-.lesson-row:not(.locked):hover { background:var(--surface2); box-shadow:inset 3px 0 0 var(--blue); }
-.lesson-row:not(.locked):active { transform:scale(0.97); background:var(--surface3); }
-.lesson-row.locked { opacity:.65; cursor:default; pointer-events:none; }
+.lesson-row:not(.locked):hover {
+  background:var(--blue-lt);
+  box-shadow:inset 0 0 0 1px rgba(26,86,219,.12);
+}
+.lesson-row:not(.locked):active { transform:scale(0.975); background:var(--surface3); }
+.lesson-row.locked { opacity:.52; cursor:default; pointer-events:none; }
 
-/* Status accent bar — thin vertical on right */
+/* Done row — subtle green wash */
+.lesson-row.is-done { background:linear-gradient(to left, var(--green-lt) 0%, var(--surface) 65%); }
+.lesson-row.is-done:hover { background:linear-gradient(to left, #dcfce7 0%, var(--blue-lt) 65%); }
+
+/* Colored right-edge accent */
 .lesson-row::before {
   content:''; position:absolute; top:10px; bottom:10px; right:0;
-  width:3px; border-radius:var(--r-pill);
-  background:var(--lr-color,transparent); opacity:.5;
+  width:3.5px; border-radius:var(--r-pill);
+  background:var(--lr-color, transparent); opacity:.55;
 }
 
-/* Emoji badge */
-.lr-em {
-  width:34px; height:34px; border-radius:10px; flex-shrink:0;
+/* Done row — green right edge */
+.lesson-row.is-done::before { background:var(--green); opacity:.7; }
+
+/* ── Done checkmark badge (top-left corner of emoji) ── */
+.lr-done-badge {
+  position:absolute; top:-3px; right:-3px;
+  width:16px; height:16px; border-radius:50%;
+  background:var(--green); color:#fff;
+  font-size:.58rem; font-weight:900;
   display:flex; align-items:center; justify-content:center;
-  font-size:.95rem; box-shadow:var(--sh1);
+  box-shadow:0 1px 4px rgba(21,128,61,.4);
+  border:2px solid var(--surface);
+  z-index:1; line-height:1;
 }
+
+/* Emoji badge wrapper */
+.lr-em-wrap { position:relative; flex-shrink:0; }
+.lr-em {
+  width:42px; height:42px; border-radius:13px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.15rem; box-shadow:var(--sh1);
+  transition:transform .15s;
+}
+.lesson-row:not(.locked):hover .lr-em { transform:scale(1.08); }
 
 .lr-info { flex:1; min-width:0; }
-.lr-short { font-size:.56rem; font-weight:800; color:var(--subtle); text-transform:uppercase; letter-spacing:.06em; }
-.lr-title { font-size:.86rem; font-weight:700; line-height:1.3; margin-top:1px; word-break:break-word; overflow-wrap:anywhere; }
-.lr-desc  { font-size:.66rem; color:var(--subtle); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-top:2px; }
+.lr-short { font-size:.58rem; font-weight:800; color:var(--subtle); text-transform:uppercase; letter-spacing:.06em; }
+.lr-title { font-size:.93rem; font-weight:700; line-height:1.3; margin-top:1px; word-break:break-word; overflow-wrap:anywhere; }
+.lr-desc  { font-size:.68rem; color:var(--subtle); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-top:3px; }
 
-/* Meta cluster — chips, mins, toggle */
-.lr-meta {
-  display:flex; align-items:center; gap:.38rem; flex-shrink:0;
-}
-.lr-mins { font-size:.62rem; color:var(--subtle); white-space:nowrap; }
+/* Meta cluster */
+.lr-meta  { display:flex; align-items:center; gap:.38rem; flex-shrink:0; flex-wrap:wrap; justify-content:flex-end; }
+.lr-mins  { font-size:.62rem; color:var(--subtle); white-space:nowrap; }
 
-/* ─── INDICATOR (chevron / lock) — far left ─── */
-.lr-indicator {
-  flex-shrink:0; font-size:.85rem;
-  opacity:.5; transition:opacity .12s, transform .12s;
-}
+/* Far-left chevron / lock */
+.lr-indicator { flex-shrink:0; font-size:.9rem; opacity:.4; transition:opacity .12s, transform .14s; }
 .lr-chevron-icon { color:var(--subtle); }
-.lr-lock-icon    { font-size:.7rem; }
-.lesson-row:not(.locked):hover .lr-indicator { opacity:1; transform:translateX(-2px); }
+.lr-lock-icon    { font-size:.75rem; }
+.lesson-row:not(.locked):hover .lr-indicator { opacity:.9; transform:translateX(-2px); }
 
-/* ─── STATUS CHIPS — text-only, minimal ─── */
-.chip { display:inline-flex; align-items:center; gap:.15rem; padding:.15rem .55rem; border-radius:var(--r-pill); font-size:.6rem; font-weight:700; white-space:nowrap; }
-.ch-open  { background:var(--green-lt);  color:var(--green); }
+/* ─── STATUS CHIPS ─── */
+.chip {
+  display:inline-flex; align-items:center; gap:.15rem;
+  padding:.18rem .6rem; border-radius:var(--r-pill);
+  font-size:.62rem; font-weight:700; white-space:nowrap;
+  transition:box-shadow .12s;
+}
+.ch-open  { background:var(--green-lt);  color:var(--green);  border:1px solid #86efac; }
 .ch-lock  { background:var(--surface3);  color:var(--subtle); border:1px solid var(--border); }
-.ch-done  { background:var(--blue-lt);   color:var(--blue); }
-.ch-exam  { background:var(--amber-lt);  color:var(--amber); }
+.ch-done  { background:#dcfce7; color:#15803d; border:1px solid #86efac; font-weight:800; }
+.ch-exam  { background:var(--amber-lt);  color:var(--amber);  border:1px solid #fde68a; }
 
 /* ─── EXAM ROW ─── */
 .lesson-row.exam-row {
   background:linear-gradient(to left,var(--blue-lt) 0%,var(--surface) 55%);
 }
 .lesson-row.exam-row:not(.locked):hover {
-  background:linear-gradient(to left,var(--blue-lt) 0%,var(--surface2) 55%);
+  background:linear-gradient(to left,#dbeafe 0%,var(--blue-lt) 55%);
 }
 .lesson-row.exam-row::after {
   content:''; position:absolute; top:8px; bottom:8px; right:0;
-  width:3px; border-radius:var(--r-pill); background:var(--blue); opacity:.45;
+  width:3.5px; border-radius:var(--r-pill); background:var(--blue); opacity:.5;
 }
 .lesson-row.exam-row::before { background:transparent; }
 
@@ -612,8 +667,9 @@ a { text-decoration:none; }
 }
 
 .done-stamp {
-  font-size:.58rem; font-weight:700; color:var(--blue); background:var(--blue-lt);
-  border-radius:var(--r-pill); padding:.08rem .42rem; white-space:nowrap;
+  font-size:.58rem; font-weight:700; color:var(--green); background:var(--green-lt);
+  border-radius:var(--r-pill); padding:.1rem .5rem; white-space:nowrap;
+  border:1px solid #86efac;
 }
 
 /* ─── INLINE LOCK TOGGLE (teacher only) ─── */
@@ -783,8 +839,21 @@ a { text-decoration:none; }
   .ls-cards { max-width:340px; }
   .lc { padding:1.15rem 1.4rem; }
 
-  /* Layout */
-  .units-wrap { padding:.7rem .6rem; }
+  /* Dashboard cards */
+  .units-wrap { padding:.7rem .6rem 2rem; gap:.75rem; }
+  .unit-trigger { padding:1rem 1rem; min-height:72px; }
+  .ut-em-wrap { width:46px; height:46px; border-radius:14px; font-size:1.3rem; }
+  .ut-name { font-size:.96rem; }
+
+  /* Lesson rows */
+  .lesson-row { padding:.85rem 1rem; min-height:64px; }
+  .lr-em { width:36px; height:36px; font-size:1rem; }
+  .lr-title { font-size:.88rem; }
+  .lr-desc  { font-size:.64rem; }
+  .lr-meta  { gap:.22rem; }
+  .lr-lock-wrap { transform:scale(.82); transform-origin:center; }
+
+  /* Topbar */
   .prog-banner { padding:.75rem .95rem; }
   .topbar { padding:.6rem .95rem; gap:.45rem; }
   .tb-greeting { font-size:.72rem; padding:.26rem .7rem; }
@@ -793,21 +862,165 @@ a { text-decoration:none; }
   #settings-overlay { padding:.5rem .5rem 0; align-items:flex-end; justify-content:center; }
   #settings-modal { max-width:100%; border-radius:var(--r-xl) var(--r-xl) var(--r-lg) var(--r-lg); max-height:92vh; }
   #toast { bottom:1.6rem; right:.85rem; left:.85rem; text-align:center; }
-
-  /* Lesson row on mobile */
-  .lesson-row { padding:.65rem .75rem; min-height:unset; }
-  .lr-em { width:30px; height:30px; font-size:.85rem; }
-  .lr-short { font-size:.53rem; }
-  .lr-title { font-size:.84rem; }
-  .lr-desc  { font-size:.62rem; }
-  .lr-meta  { gap:.25rem; }
-  .lr-mins  { font-size:.56rem; }
-  .lr-lock-wrap { transform:scale(.82); transform-origin:center; }
   .teacher-strip { padding:.35rem .95rem; }
 }
 
 @media(max-width:640px){
   .lr-meta { flex-wrap:wrap; justify-content:flex-end; }
+}
+
+/* ══════════════════════════════════════════════════
+   STUDENT SETTINGS BUTTON (gear icon, top-right)
+══════════════════════════════════════════════════ */
+.btn-student-settings {
+  display:inline-flex; align-items:center; justify-content:center;
+  width:40px; height:40px; border-radius:50%;
+  border:1.5px solid var(--border);
+  background:var(--surface2); color:var(--muted);
+  cursor:pointer; transition:all .15s; flex-shrink:0;
+  font-size:1rem;
+}
+.btn-student-settings:hover {
+  background:var(--surface3); color:var(--text);
+  border-color:var(--blue); transform:rotate(30deg);
+}
+
+/* ══════════════════════════════════════════════════
+   STUDENT SETTINGS MODAL
+══════════════════════════════════════════════════ */
+#student-settings-overlay {
+  position:fixed; inset:0; z-index:800;
+  background:rgba(0,0,0,.5); backdrop-filter:blur(6px);
+  display:none; align-items:center; justify-content:center;
+  padding:1.2rem;
+}
+#student-settings-overlay.open { display:flex; }
+#student-settings-modal {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:var(--r-xl); width:100%; max-width:420px;
+  box-shadow:0 8px 32px rgba(0,0,0,.2), 0 32px 80px rgba(0,0,0,.3);
+  animation:popIn .24s cubic-bezier(.34,1.45,.64,1);
+  overflow:hidden;
+}
+.ssm-header {
+  padding:1rem 1.25rem .8rem; border-bottom:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between;
+  background:linear-gradient(135deg,var(--blue-lt),var(--surface2));
+}
+.ssm-title { font-family:'Secular One',sans-serif; font-size:.95rem; color:var(--text); }
+.ssm-close {
+  width:30px; height:30px; border:none; background:var(--surface3);
+  border-radius:50%; cursor:pointer; font-size:.95rem;
+  display:flex; align-items:center; justify-content:center;
+  color:var(--muted); transition:all .12s;
+}
+.ssm-close:hover { background:var(--border); color:var(--text); }
+.ssm-body { padding:1.2rem 1.25rem; display:flex; flex-direction:column; gap:.9rem; }
+.ssm-info {
+  font-size:.73rem; color:var(--muted); line-height:1.6;
+  background:var(--surface2); border:1px solid var(--border);
+  border-radius:var(--r-sm); padding:.7rem .9rem;
+}
+.ssm-info strong { color:var(--blue); }
+.ssm-field { display:flex; flex-direction:column; gap:.35rem; }
+.ssm-label { font-size:.68rem; font-weight:700; color:var(--muted); }
+.ssm-input {
+  width:100%; padding:.75rem 1rem; border:1.5px solid var(--border);
+  border-radius:var(--r); font-size:.9rem; outline:none;
+  transition:border-color .14s, box-shadow .16s; direction:ltr;
+  background:var(--surface); color:var(--text); min-height:48px;
+}
+.ssm-input:focus { border-color:var(--blue); box-shadow:0 0 0 3px rgba(26,86,219,.08); }
+.ssm-input::placeholder { color:var(--subtle); direction:rtl; }
+.ssm-save {
+  width:100%; padding:.8rem; border:none; border-radius:var(--r-sm);
+  background:var(--blue); color:#fff; font-size:.88rem; font-weight:700;
+  cursor:pointer; transition:all .12s; min-height:48px;
+  font-family:'Heebo',sans-serif;
+}
+.ssm-save:hover { background:var(--blue-dk); box-shadow:0 3px 12px rgba(26,86,219,.3); }
+.ssm-saved-preview {
+  font-size:.7rem; color:var(--green); background:var(--green-lt);
+  border:1px solid #86efac; border-radius:var(--r-sm);
+  padding:.5rem .8rem; display:none; gap:.35rem; align-items:center;
+}
+.ssm-saved-preview.show { display:flex; }
+
+/* Mobile adjustments for student settings */
+@media(max-width:660px){
+  #student-settings-overlay { padding:.5rem .5rem 0; align-items:flex-end; justify-content:center; }
+  #student-settings-modal { max-width:100%; border-radius:var(--r-xl) var(--r-xl) var(--r-lg) var(--r-lg); }
+}
+
+/* ══════════════════════════════════════════════════
+   PRINT — index page (progress summary only)
+══════════════════════════════════════════════════ */
+@media print {
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+
+  /* Hide all navigation and interactive chrome */
+  .sidebar,
+  #sb-backdrop,
+  .topbar,
+  .teacher-strip,
+  .btn-hamburger,
+  .btn-student-settings,
+  #settings-overlay,
+  #student-settings-overlay,
+  #toast,
+  .btn-logout,
+  .sb-foot,
+  .unit-trigger .ut-chev,
+  .lr-lock-wrap,
+  .lr-indicator,
+  .btn-settings,
+  .tb-t-row { display:none !important; }
+
+  body, html { background:#fff !important; }
+
+  /* Make main fill full width */
+  #app.on { display:block !important; }
+  .main { width:100% !important; }
+
+  /* Progress banner — keep, print-friendly */
+  .prog-banner {
+    border:1px solid #ccc; border-radius:4px;
+    margin:0 0 .8rem; padding:.6rem 1rem;
+    background:#fff !important;
+  }
+  .prog-fill { print-color-adjust:exact; -webkit-print-color-adjust:exact; }
+
+  /* Unit cards */
+  .units-wrap { padding:.3rem 0; gap:.5rem; }
+  .unit-block {
+    border:1px solid #d1d6e5 !important;
+    border-radius:8px !important;
+    box-shadow:none !important;
+    break-inside:avoid;
+    page-break-inside:avoid;
+  }
+  .unit-trigger {
+    background:#f8f9fb !important;
+    min-height:auto !important;
+    padding:.7rem 1rem !important;
+    print-color-adjust:exact;
+    -webkit-print-color-adjust:exact;
+  }
+  .unit-trigger::after { print-color-adjust:exact; -webkit-print-color-adjust:exact; }
+  .unit-body { max-height:none !important; }
+
+  /* Lesson rows */
+  .lesson-row {
+    padding:.55rem 1rem !important;
+    min-height:auto !important;
+    border-bottom:1px solid #eee !important;
+  }
+  .lesson-row.locked { opacity:1 !important; }
+
+  /* Chips */
+  .chip { print-color-adjust:exact; -webkit-print-color-adjust:exact; }
+  .ch-done { background:#f0fdf4 !important; color:#15803d !important; }
 }
 </style>
 </head>
@@ -909,6 +1122,8 @@ a { text-decoration:none; }
         <span class="tb-greeting" id="tb-greeting">שלום, מורה!</span>
         <button class="btn-settings" onclick="openSettings()">⚙️ הגדרות</button>
       </div>
+      <!-- Student gear icon -->
+      <button class="btn-student-settings" id="btn-student-settings" onclick="openStudentSettings()" title="הגדרות" style="display:none" aria-label="הגדרות">⚙️</button>
     </div>
 
     <!-- Teacher admin strip -->
@@ -999,6 +1214,41 @@ a { text-decoration:none; }
       <button class="sm-btn danger" onclick="clearAllData()" style="display:block;width:100%">🗑️ נקה את כל הנתונים</button>
     </div>
 
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     STUDENT SETTINGS MODAL
+════════════════════════════════════ -->
+<div id="student-settings-overlay" onclick="if(event.target===this)closeStudentSettings()">
+  <div id="student-settings-modal">
+    <div class="ssm-header">
+      <span class="ssm-title">⚙️ הגדרות — פרטי מורה</span>
+      <button class="ssm-close" onclick="closeStudentSettings()">✕</button>
+    </div>
+    <div class="ssm-body">
+      <div class="ssm-info">
+        הזינו את פרטי המורה כדי לאפשר שליחת תרגולים ישירות.<br>
+        הפרטים נשמרים <strong>רק במכשיר שלכם</strong>.
+      </div>
+
+      <div class="ssm-field">
+        <label class="ssm-label" for="ss-email">📧 מייל המורה:</label>
+        <input type="email" id="ss-email" class="ssm-input" placeholder="teacher@school.co.il" autocomplete="off">
+      </div>
+
+      <div class="ssm-field">
+        <label class="ssm-label" for="ss-whatsapp">📱 וואטסאפ המורה (ספרות בלבד):</label>
+        <input type="tel" id="ss-whatsapp" class="ssm-input" placeholder="05XXXXXXXX" autocomplete="off">
+      </div>
+
+      <button class="ssm-save" onclick="saveStudentSettings()">💾 שמור פרטים</button>
+
+      <div class="ssm-saved-preview" id="ssm-preview">
+        <span>✅</span>
+        <span id="ssm-preview-text"></span>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1273,6 +1523,8 @@ function enterApp(role,name){
     document.getElementById('tb-title').textContent='לשון עברית — כיתה י׳';
   }
   document.getElementById('prog-banner').style.display=role==='teacher'?'none':'';
+  const btnSS = document.getElementById('btn-student-settings');
+  if (btnSS) btnSS.style.display = role === 'student' ? 'inline-flex' : 'none';
   const strip=document.getElementById('teacher-strip');
   if(strip){
     if(role==='teacher'){
@@ -1318,18 +1570,29 @@ function render(){
 }
 
 /* ════════════════════════
+   UNIT COLOR MAP
+════════════════════════ */
+const UNIT_STYLES={
+  u1:{ color:'#4f46e5', colorLt:'#eef2ff' },
+  u2:{ color:'#0f766e', colorLt:'#f0fdfa' },
+  u3:{ color:'#15803d', colorLt:'#f0fdf4' }
+};
+
+/* ════════════════════════
    BUILD UNIT
 ════════════════════════ */
 function buildUnit(u,isT){
   const open=u.lessons.filter(l=>!isLocked(l.id,l.locked));
   const done=open.filter(l=>S.prog[l.id]?.done);
   const pct=open.length?Math.round(done.length/open.length*100):0;
+  const st=UNIT_STYLES[u.id]||{color:'#1a56db',colorLt:'#eff4ff'};
   return`
-<div class="unit-block" id="ub-${u.id}">
+<div class="unit-block" id="ub-${u.id}" style="--ut-color:${st.color};--ut-color-lt:${st.colorLt}">
   <button class="unit-trigger" onclick="toggleUnit(this)">
-    <span class="ut-em">${u.emoji}</span>
+    <div class="ut-em-wrap"><span class="ut-em">${u.emoji}</span></div>
     <div class="ut-body">
-      <div class="ut-name">${u.label}: ${u.title}</div>
+      <div class="ut-label">${u.label}</div>
+      <div class="ut-name">${u.title}</div>
       <div class="ut-meta">${open.length} שיעורים פתוחים${!isT?' · '+done.length+' הושלמו':''}</div>
     </div>
     <div class="ut-right">
@@ -1337,8 +1600,8 @@ function buildUnit(u,isT){
         <div class="ut-bar-track"><div class="ut-bar-fill" style="width:${pct}%"></div></div>
         <div class="ut-bar-pct">${pct}%</div>
       </div>`:''}
+      <span class="ut-chev">▼</span>
     </div>
-    <span class="ut-chev">▼</span>
   </button>
   <div class="unit-body">
     ${u.lessons.map(l=>buildLessonRow(l,isT)).join('')}
@@ -1391,14 +1654,17 @@ function buildLessonRow(l,isT){
         : '<div class="exam-label">משימת סיכום</div>')
     : '';
 
-  const chip=locked?'<span class="chip ch-lock">נעול</span>'
-            :l.exam ?'<span class="chip ch-exam">מבחן</span>'
-            :done   ?'<span class="chip ch-done">הוגש</span>'
+  const chip=locked?'<span class="chip ch-lock">🔒 נעול</span>'
+            :l.exam ?'<span class="chip ch-exam">📝 מבחן</span>'
+            :done   ?'<span class="chip ch-done">✅ בוצע</span>'
                     :'<span class="chip ch-open">פתוח</span>';
 
   return`
-<div class="lesson-row${locked&&!isT?' locked':''}${l.exam?' exam-row':''}" style="--lr-color:${l.color}" ${clickHandler}>
-  <div class="lr-em" style="background:${l.color}18">${l.emoji}</div>
+<div class="lesson-row${locked&&!isT?' locked':''}${l.exam?' exam-row':''}${done?' is-done':''}" style="--lr-color:${l.color}" ${clickHandler}>
+  <div class="lr-em-wrap">
+    <div class="lr-em" style="background:${l.color}18">${l.emoji}</div>
+    ${done?'<div class="lr-done-badge">✓</div>':''}
+  </div>
   <div class="lr-info">
     ${examLabel}
     <div class="lr-short">${l.short}</div>
@@ -1578,7 +1844,159 @@ window.lessonDone=function(id,date){
   toast('✅ השיעור הוגש בהצלחה!');
 };
 
+/* ════════════════════════
+   SEND WORK TO TEACHER
+   ── גלובלי — זמין בכל שיעור ──
+════════════════════════ */
+window.sendWorkToTeacher = function(content, lessonTitle) {
+  const email = localStorage.getItem('teacher_email')
+    ? JSON.parse(localStorage.getItem('teacher_email')) : '';
+  const wa    = localStorage.getItem('teacher_whatsapp')
+    ? JSON.parse(localStorage.getItem('teacher_whatsapp')) : '';
+
+  if (!email && !wa) {
+    const go = confirm('לא הוגדרו פרטי מורה.\nלחצו אישור כדי לפתוח הגדרות.');
+    if (go) {
+      // If called from lesson page, open settings URL
+      if (window.opener) { window.opener.postMessage({type:'openStudentSettings'},'*'); }
+      else { alert('כנסו לדף הראשי → הגדרות (⚙️) והזינו פרטי מורה.'); }
+    }
+    return;
+  }
+
+  const title  = lessonTitle || document.title || 'שיעור';
+  const student= localStorage.getItem('lashon_uname')
+    ? JSON.parse(localStorage.getItem('lashon_uname')) : 'תלמיד/ה';
+  const msg    = `📚 ${title}\n👤 תלמיד/ה: ${student}\n\n${content}`;
+
+  if (wa) {
+    const phone = '972' + wa.replace(/^0/, '');
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(msg)}`, '_blank');
+  } else if (email) {
+    const subject = encodeURIComponent(`📚 תרגיל: ${title} — ${student}`);
+    const body    = encodeURIComponent(msg);
+    window.open(`mailto:${email}?subject=${subject}&body=${body}`, '_blank');
+  }
+};
+
 initApp();
+
+/* ════════════════════════
+   LESSON WINDOW LISTENER
+   מאזין לחלונות שיעור שנסגרים
+════════════════════════ */
+window.addEventListener('message', function(e) {
+  if (!e.data) return;
+  if (e.data.type === 'lessonDone' && e.data.id) {
+    window.lessonDone(e.data.id);
+  }
+  if (e.data.type === 'openStudentSettings') {
+    openStudentSettings();
+  }
+});
+
+/* ════════════════════════
+   FIREBASE — לשון Lesson
+════════════════════════ */
+// ── SDK scripts (הוסיפו בתגית <head> לפני שימוש) ──
+// <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+// <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+const FIREBASE_CONFIG = {
+  apiKey:            "YOUR_API_KEY",
+  authDomain:        "lashon-lesson.firebaseapp.com",
+  projectId:         "lashon-lesson",
+  storageBucket:     "lashon-lesson.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId:             "YOUR_APP_ID"
+};
+
+// אתחול בטוח — בודק אם כבר אותחל
+let _fbApp = null;
+let _db    = null;
+function getDb() {
+  if (_db) return _db;
+  try {
+    if (typeof firebase === 'undefined') return null;
+    if (!firebase.apps.length) { _fbApp = firebase.initializeApp(FIREBASE_CONFIG); }
+    else                       { _fbApp = firebase.app(); }
+    _db = firebase.firestore();
+    return _db;
+  } catch(e) { console.warn('[Firebase] init failed:', e); return null; }
+}
+
+/**
+ * saveScoreToCloud — שמירת ציון ב-Firestore
+ * @param {string} lessonId   — מזהה שיעור (e.g. 'u1_l1')
+ * @param {number|null} score — ציון (0–100) או null
+ * @param {string} studentName
+ * @param {object} [extra]    — שדות נוספים אופציונליים
+ */
+async function saveScoreToCloud(lessonId, score, studentName, extra = {}) {
+  const db = getDb();
+  if (!db) {
+    console.warn('[Firebase] Firestore not available — score not saved to cloud.');
+    return;
+  }
+  try {
+    await db.collection('student_scores').add({
+      lessonId,
+      score:       score ?? null,
+      studentName: studentName || 'תלמיד/ה',
+      ts:          firebase.firestore.FieldValue.serverTimestamp(),
+      date:        new Date().toLocaleDateString('he-IL'),
+      ...extra
+    });
+    console.log('[Firebase] ✅ Score saved:', { lessonId, score, studentName });
+  } catch(e) {
+    console.error('[Firebase] ❌ Save failed:', e);
+  }
+}
+
+/* ════════════════════════
+   STUDENT SETTINGS MODAL
+════════════════════════ */
+function openStudentSettings() {
+  const email = LS.get('teacher_email', '') || '';
+  const wa    = LS.get('teacher_whatsapp', '') || '';
+  document.getElementById('ss-email').value     = email;
+  document.getElementById('ss-whatsapp').value  = wa;
+  updateStudentSettingsPreview(email, wa);
+  document.getElementById('student-settings-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeStudentSettings() {
+  document.getElementById('student-settings-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function saveStudentSettings() {
+  const email = (document.getElementById('ss-email').value || '').trim();
+  const wa    = (document.getElementById('ss-whatsapp').value || '').replace(/\D/g, '');
+  if (!email && !wa) { toast('⚠️ הזינו לפחות אחד מהשדות'); return; }
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { toast('⚠️ כתובת מייל לא תקינה'); return; }
+  if (wa && wa.length < 9) { toast('⚠️ מספר וואטסאפ לא תקין'); return; }
+  LS.set('teacher_email', email);
+  LS.set('teacher_whatsapp', wa);
+  updateStudentSettingsPreview(email, wa);
+  toast('✅ פרטי המורה נשמרו!');
+}
+
+function updateStudentSettingsPreview(email, wa) {
+  const prev = document.getElementById('ssm-preview');
+  const txt  = document.getElementById('ssm-preview-text');
+  if (email || wa) {
+    const parts = [];
+    if (email) parts.push('מייל: ' + email);
+    if (wa)    parts.push('וואטסאפ: ' + wa);
+    txt.textContent = parts.join(' | ');
+    prev.classList.add('show');
+  } else {
+    prev.classList.remove('show');
+  }
+}
+
 </script>
 </body>
 </html>

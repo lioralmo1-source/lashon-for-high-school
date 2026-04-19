@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
+<!-- Firebase SDK — הוסיפו לפני שימוש:
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+-->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>שיעור 5 | סיכום יחידה 2 | מערכת השם | כיתה י׳</title>
@@ -141,8 +145,34 @@
   #modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center; }
   #modal.show { display:flex; }
 
-  /* ─── PRINT ─── */
-  @media print { .no-print{display:none!important} .tab-pane{display:block!important} body{background:#fff} }
+  
+/* ── PRINT — v3 teacher-aware ── */
+@media print {
+  @page { size:A4 portrait; margin:1.5cm 1.4cm 1.8cm; }
+  *,*::before,*::after { print-color-adjust:exact !important; -webkit-print-color-adjust:exact !important; }
+  .no-print, nav, header, footer,
+  .topbar, .lesson-topbar, .w-topbar,
+  .btn-back, .btn-print, .btn-send,
+  .w-btn-back, .w-btn-print, .w-btn-send, .w-btn-ak,
+  .w-footer, .footer-send-card, #w-toast, #toast, #ak-overlay,
+  #success-modal, #modal,
+  .btn-submit, .submit-card { display:none !important; }
+  .tab-pane { display:block !important; page-break-after:always; }
+  html, body { background:#fff !important; font-size:11pt; color:#111; }
+  .hero { background:#1a3a6b !important; padding:.5cm .75cm !important; }
+  .card { border:1pt solid #d1d6e5 !important; box-shadow:none !important; break-inside:avoid; page-break-inside:avoid; }
+  .q-card { border:1pt solid #d1d6e5 !important; box-shadow:none !important; break-inside:avoid; page-break-inside:avoid; }
+  input[type="text"], textarea, select {
+    border:none !important; border-bottom:1pt solid #999 !important;
+    background:transparent !important; min-height:1.8cm !important; box-shadow:none !important;
+  }
+  .mc-opt { border:1pt solid #d1d6e5 !important; background:#fff !important; break-inside:avoid; min-height:auto !important; }
+  .teacher-only { display:none !important; }
+  body.is-teacher .teacher-only { display:block !important; background:#fffbeb !important; border:1.5pt solid #fde68a !important; border-radius:5pt !important; padding:.28cm .42cm !important; margin-top:.3cm !important; }
+  body.is-teacher .teacher-only strong { color:#92400e !important; }
+  body.teacher-mode .teacher-only { display:block !important; background:#fffbeb !important; border:1.5pt solid #fde68a !important; border-radius:5pt !important; padding:.28cm .42cm !important; margin-top:.3cm !important; }
+}
+ .tab-pane{display:block!important} body{background:#fff} }
 
   /* ─── MOBILE ─── */
   @media (max-width:640px) {
@@ -1743,5 +1773,59 @@ initMatch();
 })();
 // ─── END ROLE=TEACHER SECURITY ──────────────────────────────────────────
 </script>
+
+/* ════════════════════════
+   FIREBASE — לשון Lesson
+════════════════════════ */
+const FIREBASE_CONFIG = {
+  apiKey:            "YOUR_API_KEY",
+  authDomain:        "lashon-lesson.firebaseapp.com",
+  projectId:         "lashon-lesson",
+  storageBucket:     "lashon-lesson.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId:             "YOUR_APP_ID"
+};
+let _fbApp=null,_db=null;
+function getDb(){
+  if(_db)return _db;
+  try{
+    if(typeof firebase==='undefined')return null;
+    if(!firebase.apps.length){_fbApp=firebase.initializeApp(FIREBASE_CONFIG);}
+    else{_fbApp=firebase.app();}
+    _db=firebase.firestore();return _db;
+  }catch(e){console.warn('[Firebase]',e);return null;}
+}
+async function saveScoreToCloud(lessonId,score,studentName,extra={}){
+  const db=getDb();if(!db)return;
+  try{
+    await db.collection('student_scores').add({
+      lessonId,score:score??null,studentName:studentName||'תלמיד/ה',
+      ts:firebase.firestore.FieldValue.serverTimestamp(),
+      date:new Date().toLocaleDateString('he-IL'),...extra
+    });
+  }catch(e){console.error('[Firebase]',e);}
+}
+
+/* ════════════════════════
+   SEND WORK — WhatsApp / Email
+════════════════════════ */
+function sendWorkToTeacher(content, lessonTitle) {
+  const email = (localStorage.getItem('teacher_email') ? JSON.parse(localStorage.getItem('teacher_email')) : '') || '';
+  const wa    = (localStorage.getItem('teacher_whatsapp') ? JSON.parse(localStorage.getItem('teacher_whatsapp')) : '') || '';
+  if (!email && !wa) {
+    alert('לא הוגדרו פרטי מורה. כנסו לדף הראשי ← הגדרות (⚙️) והזינו פרטי מורה.');
+    return;
+  }
+  const title   = lessonTitle || document.title || 'שיעור';
+  const student = (localStorage.getItem('lashon_uname') ? JSON.parse(localStorage.getItem('lashon_uname')) : '') || 'תלמיד/ה';
+  const msg     = '📚 ' + title + '\n👤 ' + student + '\n\n' + content;
+  if (wa) {
+    const phone = '972' + wa.replace(/^0/, '');
+    window.open('https://wa.me/' + phone + '?text=' + encodeURIComponent(msg), '_blank');
+  } else {
+    const subject = encodeURIComponent('📚 ' + title + ' — ' + student);
+    window.open('mailto:' + email + '?subject=' + subject + '&body=' + encodeURIComponent(msg), '_blank');
+  }
+}
 </body>
 </html>

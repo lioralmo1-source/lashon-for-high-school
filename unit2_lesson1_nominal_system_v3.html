@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
+<!-- Firebase SDK — הוסיפו לפני שימוש:
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+-->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>יחידה 2 שיעור 1 — שורש ומשקל | לשון עברית י׳</title>
@@ -220,7 +224,10 @@ textarea{resize:vertical;line-height:1.6}
   margin-top:8px;font-size:.84rem;color:#92400e;
 }
 
-@media print{nav,.no-print{display:none!important}.tab-pane{display:block!important;page-break-after:always}body{background:#fff}}
+@media print{nav,.no-print{display:none!important}.tab-pane{display:block!important;page-break-after:always}body{background:#fff}
+  body.is-teacher .teacher-only{display:block !important;background:#fffbeb !important;border:1.5pt solid #fde68a !important;border-radius:5pt !important;padding:.28cm .42cm !important;margin-top:.3cm !important;}
+  body.teacher-mode .teacher-only{display:block !important;background:#fffbeb !important;border:1.5pt solid #fde68a !important;}
+}
 
 
 /* ─── v4 MOBILE ENHANCEMENTS ─── */
@@ -877,5 +884,59 @@ injectStudent();
 // ─── END ROLE=TEACHER SECURITY ──────────────────────────────────────────
 
 </script>
+
+/* ════════════════════════
+   FIREBASE — לשון Lesson
+════════════════════════ */
+const FIREBASE_CONFIG = {
+  apiKey:            "YOUR_API_KEY",
+  authDomain:        "lashon-lesson.firebaseapp.com",
+  projectId:         "lashon-lesson",
+  storageBucket:     "lashon-lesson.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId:             "YOUR_APP_ID"
+};
+let _fbApp=null,_db=null;
+function getDb(){
+  if(_db)return _db;
+  try{
+    if(typeof firebase==='undefined')return null;
+    if(!firebase.apps.length){_fbApp=firebase.initializeApp(FIREBASE_CONFIG);}
+    else{_fbApp=firebase.app();}
+    _db=firebase.firestore();return _db;
+  }catch(e){console.warn('[Firebase]',e);return null;}
+}
+async function saveScoreToCloud(lessonId,score,studentName,extra={}){
+  const db=getDb();if(!db)return;
+  try{
+    await db.collection('student_scores').add({
+      lessonId,score:score??null,studentName:studentName||'תלמיד/ה',
+      ts:firebase.firestore.FieldValue.serverTimestamp(),
+      date:new Date().toLocaleDateString('he-IL'),...extra
+    });
+  }catch(e){console.error('[Firebase]',e);}
+}
+
+/* ════════════════════════
+   SEND WORK — WhatsApp / Email
+════════════════════════ */
+function sendWorkToTeacher(content, lessonTitle) {
+  const email = (localStorage.getItem('teacher_email') ? JSON.parse(localStorage.getItem('teacher_email')) : '') || '';
+  const wa    = (localStorage.getItem('teacher_whatsapp') ? JSON.parse(localStorage.getItem('teacher_whatsapp')) : '') || '';
+  if (!email && !wa) {
+    alert('לא הוגדרו פרטי מורה. כנסו לדף הראשי ← הגדרות (⚙️) והזינו פרטי מורה.');
+    return;
+  }
+  const title   = lessonTitle || document.title || 'שיעור';
+  const student = (localStorage.getItem('lashon_uname') ? JSON.parse(localStorage.getItem('lashon_uname')) : '') || 'תלמיד/ה';
+  const msg     = '📚 ' + title + '\n👤 ' + student + '\n\n' + content;
+  if (wa) {
+    const phone = '972' + wa.replace(/^0/, '');
+    window.open('https://wa.me/' + phone + '?text=' + encodeURIComponent(msg), '_blank');
+  } else {
+    const subject = encodeURIComponent('📚 ' + title + ' — ' + student);
+    window.open('mailto:' + email + '?subject=' + subject + '&body=' + encodeURIComponent(msg), '_blank');
+  }
+}
 </body>
 </html>

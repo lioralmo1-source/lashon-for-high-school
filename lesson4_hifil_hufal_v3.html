@@ -2,11 +2,296 @@
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>שיעור 4 | הִפְעִיל וְהֻפְעַל | כיתה י׳</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>שיעור 4 — בנייני הגורם: הפעיל והופעל | לשון Lesson</title>
+<link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
-
+<!-- Firebase SDK — הוסיפו לפני שימוש:
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+-->
 <style>
+
+/* ══════════════════════════════════════════
+   PRODUCTION WRAPPER — לשון Lesson v3
+══════════════════════════════════════════ */
+:root {
+  --bg:#f5f6f8; --surface:#fff; --surface2:#f8f9fb; --surface3:#eef0f5;
+  --border:#e4e7ef; --text:#0d1424; --text-mid:#3d4660; --muted:#6b7594; --subtle:#9aa3be;
+  --blue:#1a56db; --blue-lt:#eff4ff; --green:#15803d; --green-lt:#f0fdf4;
+  --amber:#b45309; --amber-lt:#fffbeb; --red:#dc2626;
+  --gold:#ca8a04; --gold-lt:#fefce8;
+  --sh1:0 1px 3px rgba(13,20,36,.06),0 1px 2px rgba(13,20,36,.04);
+  --sh2:0 4px 16px rgba(13,20,36,.07),0 1px 4px rgba(13,20,36,.04);
+  --sh3:0 12px 36px rgba(13,20,36,.10),0 3px 8px rgba(13,20,36,.05);
+  --r-sm:10px; --r:16px; --r-lg:20px; --r-xl:28px; --r-pill:999px;
+  --lc: #7c3aed;
+  --lc-lt: #f5f3ff;
+}
+@media(prefers-color-scheme:dark){
+  :root{
+    --bg:#0b0f17;--surface:#131924;--surface2:#192030;--surface3:#1f2840;
+    --border:#252f47;--text:#d8dfe8;--text-mid:#a0adc5;--muted:#7a8aaa;--subtle:#50607e;
+    --blue:#4d8aff;--blue-lt:#162040;--green:#34d875;--green-lt:#0c2618;
+    --amber:#f5a623;--amber-lt:#28200c;--red:#fc8080;
+    --gold:#f5a623;--gold-lt:#28200c;
+    --sh1:0 1px 3px rgba(0,0,0,.28),0 1px 2px rgba(0,0,0,.2);
+    --sh2:0 4px 16px rgba(0,0,0,.36),0 1px 4px rgba(0,0,0,.24);
+    --sh3:0 12px 36px rgba(0,0,0,.45),0 3px 8px rgba(0,0,0,.28);
+    --lc: #7c3aed; --lc-lt: #f5f3ff;
+  }
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{line-height:1.6;}
+button,input,a,textarea,select{font-family:'Heebo',sans-serif;}
+a{text-decoration:none;}
+
+/* ── WRAPPER TOPBAR ── */
+.w-topbar{
+  position:sticky;top:0;z-index:200;
+  background:var(--surface);border-bottom:1px solid var(--border);
+  padding:.6rem 1rem;display:flex;align-items:center;gap:.55rem;
+  box-shadow:var(--sh1);
+}
+.w-btn-back{
+  display:inline-flex;align-items:center;gap:.28rem;
+  padding:.45rem .8rem;border:1.5px solid var(--border);
+  border-radius:var(--r-sm);background:var(--surface2);
+  font-size:.76rem;font-weight:700;color:var(--muted);
+  cursor:pointer;transition:all .12s;min-height:40px;flex-shrink:0;
+}
+.w-btn-back:hover{background:var(--surface3);color:var(--text);}
+.w-topbar-title{
+  flex:1;min-width:0;font-family:'Secular One',sans-serif;
+  font-size:.88rem;color:var(--text);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.w-topbar-sub{font-size:.6rem;color:var(--subtle);margin-top:.04rem;}
+.w-topbar-actions{display:flex;align-items:center;gap:.4rem;flex-shrink:0;}
+.w-btn-print{
+  display:inline-flex;align-items:center;gap:.25rem;
+  padding:.45rem .8rem;border:1.5px solid var(--border);
+  border-radius:var(--r-sm);background:var(--surface2);
+  font-size:.76rem;font-weight:700;color:var(--muted);
+  cursor:pointer;transition:all .12s;min-height:40px;
+}
+.w-btn-print:hover{background:var(--surface3);color:var(--text);}
+.w-btn-send{
+  display:inline-flex;align-items:center;gap:.25rem;
+  padding:.45rem .85rem;border:none;border-radius:var(--r-sm);
+  background:linear-gradient(135deg,#25d366,#1ebe5d);
+  font-size:.76rem;font-weight:700;color:#fff;
+  cursor:pointer;transition:all .15s;min-height:40px;
+  box-shadow:0 2px 8px rgba(37,211,102,.28);
+}
+.w-btn-send:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(37,211,102,.4);}
+.w-btn-ak{
+  display:none;padding:.45rem .8rem;border:1.5px solid var(--gold);
+  border-radius:var(--r-sm);background:var(--gold-lt);
+  font-size:.76rem;font-weight:700;color:var(--gold);
+  cursor:pointer;transition:all .12s;min-height:40px;
+  align-items:center;gap:.25rem;
+}
+
+/* ── WRAPPER HEADER ── */
+.w-header{
+  background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface) 70%);
+  border-bottom:1px solid var(--border);
+  padding:1.4rem 1.2rem 1.2rem;
+  position:relative;overflow:hidden;
+  user-select:none;cursor:default;
+}
+.w-header::before{
+  content:'';position:absolute;top:0;right:0;bottom:0;width:4px;
+  background:var(--lc);opacity:.8;
+}
+.w-unit-badge{
+  display:inline-flex;align-items:center;gap:.3rem;
+  font-size:.6rem;font-weight:800;color:var(--lc);
+  text-transform:uppercase;letter-spacing:.06em;
+  background:var(--lc-lt);border:1.5px solid var(--lc);
+  border-radius:var(--r-pill);padding:.2rem .7rem;margin-bottom:.75rem;opacity:.85;
+}
+.w-emoji{font-size:2rem;line-height:1;margin-bottom:.5rem;display:block;}
+.w-title{
+  font-family:'Secular One',sans-serif;
+  font-size:clamp(1.25rem,4vw,1.55rem);
+  color:var(--text);line-height:1.2;margin-bottom:.35rem;
+}
+.w-desc{font-size:.8rem;color:var(--muted);line-height:1.6;max-width:520px;}
+.w-meta{display:flex;align-items:center;gap:.65rem;flex-wrap:wrap;margin-top:.8rem;}
+.w-chip{
+  font-size:.62rem;font-weight:700;padding:.2rem .65rem;
+  border-radius:var(--r-pill);border:1px solid var(--border);
+  background:var(--surface);color:var(--muted);
+}
+.w-chip.time{color:var(--amber);background:var(--amber-lt);border-color:#fde68a;}
+.w-chip.teacher{background:var(--gold-lt);color:var(--gold);border-color:#fde68a;display:none;}
+#lp-bar-wrap{position:absolute;bottom:0;right:0;left:0;height:3px;display:none;overflow:hidden;}
+#lp-bar{height:100%;width:0%;background:var(--gold);transition:width 3s linear;border-radius:0 0 var(--r-lg) var(--r-lg);}
+
+/* ── CONTENT IFRAME WRAPPER ── */
+.w-content{width:100%;max-width:900px;margin:0 auto;padding:0;background:var(--bg);}
+.w-lesson-frame{
+  width:100%;min-height:70vh;
+  border:none;overflow:visible;display:block;
+  background:transparent;
+}
+/* Suppress original lesson nav/hero when embedded */
+.lesson-embedded nav,
+.lesson-embedded .hero,
+.lesson-embedded .lesson-hero,
+.lesson-embedded header.hero { display:none !important; }
+
+/* ── FOOTER SEND ── */
+.w-footer{border-top:1px solid var(--border);padding:1.1rem;max-width:900px;margin:0 auto;}
+.w-send-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r-lg);padding:1.1rem 1.2rem;
+  box-shadow:var(--sh1);text-align:center;
+}
+.w-send-card h3{font-family:'Secular One',sans-serif;font-size:.92rem;margin-bottom:.3rem;}
+.w-send-card p{font-size:.76rem;color:var(--muted);margin-bottom:.9rem;}
+.w-send-btns{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;}
+.w-btn-wa{
+  display:inline-flex;align-items:center;gap:.38rem;
+  padding:.7rem 1.15rem;border:none;border-radius:var(--r-sm);
+  background:linear-gradient(135deg,#25d366,#1ebe5d);
+  color:#fff;font-size:.84rem;font-weight:700;cursor:pointer;
+  transition:all .14s;min-height:46px;font-family:'Heebo',sans-serif;
+  box-shadow:0 2px 10px rgba(37,211,102,.28);
+}
+.w-btn-wa:hover{transform:translateY(-1px);}
+.w-btn-email{
+  display:inline-flex;align-items:center;gap:.38rem;
+  padding:.7rem 1.15rem;border:1.5px solid var(--border);
+  border-radius:var(--r-sm);background:var(--surface2);
+  color:var(--text-mid);font-size:.84rem;font-weight:700;
+  cursor:pointer;transition:all .14s;min-height:46px;font-family:'Heebo',sans-serif;
+}
+.w-btn-email:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-lt);}
+
+/* ── TOAST ── */
+#w-toast{
+  position:fixed;bottom:1.4rem;right:1.2rem;z-index:10000;
+  background:var(--text);color:var(--surface);
+  border-radius:var(--r);padding:.65rem 1.1rem;
+  font-size:.82rem;font-weight:600;
+  opacity:0;transform:translateY(6px);
+  transition:all .2s cubic-bezier(.34,1.56,.64,1);
+  pointer-events:none;box-shadow:var(--sh3);
+}
+#w-toast.show{opacity:1;transform:translateY(0);}
+
+/* ── ANSWER KEY MODAL ── */
+#ak-overlay{
+  position:fixed;inset:0;z-index:900;
+  background:rgba(0,0,0,.55);backdrop-filter:blur(5px);
+  display:none;align-items:center;justify-content:center;padding:1rem;
+}
+#ak-overlay.open{display:flex;}
+#ak-modal{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r-xl);width:100%;max-width:350px;
+  box-shadow:var(--sh3);animation:akPop .22s cubic-bezier(.34,1.56,.64,1);overflow:hidden;
+}
+@keyframes akPop{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:scale(1)}}
+.ak-head{
+  padding:.85rem 1.1rem .7rem;
+  background:linear-gradient(135deg,var(--gold-lt),var(--surface2));
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.ak-title{font-family:'Secular One',sans-serif;font-size:.9rem;}
+.ak-close{
+  width:26px;height:26px;border:none;background:var(--surface3);
+  border-radius:50%;cursor:pointer;font-size:.82rem;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--muted);transition:all .1s;
+}
+.ak-close:hover{background:var(--border);}
+.ak-body{padding:1rem 1.1rem;}
+.ak-hint{font-size:.72rem;color:var(--muted);margin-bottom:.7rem;}
+.ak-row{display:flex;gap:.45rem;}
+.ak-input{
+  flex:1;padding:.65rem .85rem;border:1.5px solid var(--border);
+  border-radius:var(--r-sm);font-size:.92rem;letter-spacing:.2em;
+  direction:ltr;text-align:center;outline:none;
+  background:var(--surface);color:var(--text);min-height:44px;
+  transition:border-color .14s;
+}
+.ak-input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(202,138,4,.1);}
+.ak-input.shake{animation:akShk .3s;border-color:var(--red);}
+@keyframes akShk{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.ak-go{
+  padding:.65rem 1rem;border:none;border-radius:var(--r-sm);
+  background:linear-gradient(135deg,var(--gold),#d97706);
+  color:#fff;font-size:.84rem;font-weight:700;
+  cursor:pointer;transition:all .13s;min-height:44px;
+  font-family:'Heebo',sans-serif;
+}
+.ak-go:hover{filter:brightness(1.08);}
+
+/* ── PRINT ── */
+@media print {
+  @page{size:A4 portrait;margin:1.5cm 1.4cm 1.8cm;}
+  /* ── Universal no-print: nav, header, footer, buttons ── */
+  .no-print, header, footer,
+  .nav-buttons, .settings-btn,
+  .lesson-topbar, .w-topbar,
+  .btn-back, .btn-print, .btn-send,
+  .w-btn-back, .w-btn-print, .w-btn-send, .w-btn-ak,
+  .w-footer, .footer-send-card, .lesson-footer,
+  #w-toast, #toast, #ak-overlay { display: none !important; }
+  html, body { background: #fff !important; font-size: 11pt; color: #111; }
+
+  *,*::before,*::after{print-color-adjust:exact !important;-webkit-print-color-adjust:exact !important;}
+  .w-topbar,
+  .w-topbar-actions,
+  .w-btn-back,
+  .w-btn-print,
+  .w-btn-send,
+  .w-btn-ak,
+  .w-footer,
+  .w-send-card,
+  .w-send-btns,
+  .w-btn-wa,
+  .w-btn-email,
+  #w-toast,
+  #ak-overlay,
+  .no-print,
+  nav { display:none !important; }
+  html,body{background:#fff !important;font-size:11pt;color:#111;}
+  .w-header{
+    background:#f5f7ff !important;
+    border:1pt solid #c7d2fe !important;
+    padding:.6cm .75cm !important;
+    margin-bottom:.5cm;
+    break-inside:avoid;
+  }
+  .w-header::before{display:none !important;}
+  .w-title{font-size:16pt !important;}
+  .w-desc{font-size:9.5pt !important;color:#444 !important;}
+  .w-content{max-width:100% !important;padding:0 !important;}
+  .w-lesson-frame{min-height:unset !important;}
+}
+
+/* ── MOBILE ── */
+@media(max-width:660px){
+  .w-header{padding:1.1rem .9rem 1rem;}
+  .w-btn-back span{display:none;}
+  .w-topbar-sub{display:none;}
+  .w-send-btns{flex-direction:column;}
+  .w-btn-wa,.w-btn-email{justify-content:center;}
+  #w-toast{bottom:1.6rem;right:.7rem;left:.7rem;text-align:center;}
+  #ak-overlay{align-items:flex-end;padding:0;}
+  #ak-modal{border-radius:var(--r-xl) var(--r-xl) var(--r) var(--r);max-width:100%;}
+  .w-btn-print .print-lbl{display:none;}
+}
+
+/* ══ Original lesson styles ══ */
+
 /* ═══════════════════════════════════════════
    UNIT-3 GOLD STANDARD — injected by updater
 ═══════════════════════════════════════════ */
@@ -240,15 +525,61 @@ input[type="text"],input[type="password"],textarea,select{
 
 /* ── PRINT ── */
 @media print{nav,.no-print{display:none!important}.tab-pane{display:block!important;page-break-after:always}body{background:#fff}}
+
 </style>
-
-
-
-
-<link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
-<!-- HERO -->
+
+<!-- Answer Key Modal -->
+<div id="ak-overlay" onclick="if(event.target===this)closeAkModal()">
+  <div id="ak-modal">
+    <div class="ak-head">
+      <span class="ak-title">🔑 מפתח תשובות</span>
+      <button class="ak-close" onclick="closeAkModal()">✕</button>
+    </div>
+    <div class="ak-body">
+      <p class="ak-hint">הזינו קוד גישה (ברירת מחדל: 1234)</p>
+      <div class="ak-row">
+        <input type="password" id="ak-pass" class="ak-input" placeholder="••••"
+               autocomplete="off" onkeydown="if(event.key==='Enter')checkAkPass()">
+        <button class="ak-go" onclick="checkAkPass()">כניסה →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Wrapper Topbar -->
+<div class="w-topbar">
+  <button class="w-btn-back" onclick="history.back()">←<span> חזרה</span></button>
+  <div style="flex:1;min-width:0">
+    <div class="w-topbar-title">שיעור 4 — בנייני הגורם: הפעיל והופעל</div>
+    <div class="w-topbar-sub">יחידה 1 — מערכת הפועל · שיעור 4</div>
+  </div>
+  <div class="w-topbar-actions">
+    <button class="w-btn-print" onclick="window.print()">🖨️<span class="print-lbl"> הדפסה</span></button>
+    <button class="w-btn-send" onclick="sendWork()">📲 שלח</button>
+    <button class="w-btn-ak" onclick="openAkModal()">🔑 מפתח</button>
+  </div>
+</div>
+
+<!-- Wrapper Header (long-press → answer key) -->
+<div class="w-header"
+     onmousedown="startLongPress(event)" onmouseup="cancelLongPress()" onmouseleave="cancelLongPress()"
+     ontouchstart="startLongPress(event)" ontouchend="cancelLongPress()" ontouchmove="cancelLongPress()">
+  <div class="w-unit-badge">📘 יחידה 1 · שיעור 4</div>
+  <span class="w-emoji">🔮</span>
+  <h1 class="w-title">בנייני הגורם: הפעיל והופעל</h1>
+  <div class="w-meta">
+    <span class="w-chip time">⏱ 45 דקות</span>
+    <span class="w-chip">שיעור 4</span>
+    <span class="w-chip teacher" id="role-chip">👑 מצב מורה</span>
+  </div>
+  <div id="lp-bar-wrap"><div id="lp-bar"></div></div>
+</div>
+
+<!-- Original lesson content, embedded -->
+<div class="w-content">
+  <!-- HERO -->
 <div class="lesson-hero">
   <div class="lesson-hero-inner">
     <div id="greeting-bar" style="display:none;align-items:center;gap:8px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:100px;padding:4px 14px;font-size:.82rem;font-weight:700;color:#fff;width:fit-content;margin-bottom:10px">
@@ -268,18 +599,7 @@ input[type="text"],input[type="password"],textarea,select{
   </div>
 </div>
 <!-- NAV -->
-<nav>
-  <div class="nav-inner">
-    <button class="tab-btn" onclick="showTab('tt',this)">📋 מדריך</button>
-    <button class="tab-btn" onclick="showTab('tx',this)">📰 הטקסט</button>
-    <button class="tab-btn" onclick="showTab('th',this)">📖 תיאוריה</button>
-    <button class="tab-btn" onclick="showTab('tw',this)">✏️ דף עבודה</button>
-    <button class="tab-btn teacher-only" onclick="showTab('ta',this)">🔑 פתרונות</button>
-    <button class="tab-btn" onclick="showTab('tab-assess',this);if(window.calcAssessment)window.calcAssessment()">📊 הערכה</button>
-    <button class="tab-btn" onclick="showTab('tab-dashboard',this)">🖥️ Dashboard</button>
-    <button class="tab-btn no-print" onclick="window.print()" style="margin-right:auto">🖨️</button>
-  </div>
-</nav>
+
 
 <main style="max-width:860px;margin:0 auto;padding:16px">
 
@@ -1340,5 +1660,545 @@ document.addEventListener('DOMContentLoaded', function() {
 // ─── END ROLE=STUDENT SECURITY ──────────────────────────────
 
 </script>
+</div>
+
+<!-- Footer send -->
+<div class="w-footer">
+  <div class="w-send-card">
+    <h3>📤 שלחו את העבודה למורה</h3>
+    <p>לחצו על הכפתור המתאים לשליחה ישירה</p>
+    <div class="w-send-btns">
+      <button class="w-btn-wa" onclick="sendViaWhatsApp()">💬 שלח בוואטסאפ</button>
+      <button class="w-btn-email" onclick="sendViaEmail()">📧 שלח במייל</button>
+    </div>
+  </div>
+</div>
+
+<div id="w-toast"></div>
+
+<script>
+
+'use strict';
+
+/* ── Firebase ── */
+const FIREBASE_CONFIG = {
+  apiKey:            "YOUR_API_KEY",
+  authDomain:        "lashon-lesson.firebaseapp.com",
+  projectId:         "lashon-lesson",
+  storageBucket:     "lashon-lesson.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId:             "YOUR_APP_ID"
+};
+let _db=null;
+function getDb(){
+  if(_db)return _db;
+  try{
+    if(typeof firebase==='undefined')return null;
+    if(!firebase.apps.length)firebase.initializeApp(FIREBASE_CONFIG);
+    _db=firebase.firestore();
+    return _db;
+  }catch(e){console.warn('[Firebase]',e);return null;}
+}
+async function saveScoreToCloud(lessonId,score,studentName,extra={}){
+  const db=getDb();if(!db)return false;
+  try{
+    const ref=await db.collection('student_scores').add({
+      lessonId,lessonTitle:LESSON_META.title,unitId:LESSON_META.unit,
+      score:score??null,studentName:studentName||'תלמיד/ה',
+      date:new Date().toLocaleDateString('he-IL'),
+      ts:firebase.firestore.FieldValue.serverTimestamp(),...extra
+    });
+    console.log('[Firebase] ✅',ref.id);return true;
+  }catch(e){console.error('[Firebase] ❌',e);return false;}
+}
+
+/* ── Metadata ── */
+const LESSON_META={
+  id:'u1_l4',unit:'u1',
+  title:'בנייני הגורם: הפעיל והופעל',short:'שיעור 4',
+  emoji:'🔮',mins:45
+};
+
+/* ── Storage ── */
+const LS={
+  get(k,fb=null){try{const v=localStorage.getItem(k);return v!==null?JSON.parse(v):fb;}catch(e){return fb;}},
+  set(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+};
+
+/* ── Role ── */
+const _params=new URLSearchParams(window.location.search);
+const isTeacher=_params.get('role')==='teacher';
+if(isTeacher){
+  document.body.classList.add('is-teacher');
+  const rc=document.getElementById('role-chip');
+  if(rc)rc.style.display='inline-flex';
+  document.querySelectorAll('.w-btn-ak').forEach(b=>b.style.display='inline-flex');
+  // Show teacher-only in the embedded lesson content too
+  document.querySelectorAll('.teacher-only').forEach(el=>{el.style.display='block';});
+}
+
+/* ── Toast ── */
+let _tt;
+function wToast(msg,dur=2800){
+  const el=document.getElementById('w-toast');
+  if(!el)return;
+  el.textContent=msg;el.classList.add('show');
+  clearTimeout(_tt);_tt=setTimeout(()=>el.classList.remove('show'),dur);
+}
+
+/* ── Answer Key Modal ── */
+const AK_PASS='1234';
+let _akUnlocked=isTeacher;
+
+function openAkModal(){
+  if(_akUnlocked){toggleAnswerKey();return;}
+  document.getElementById('ak-pass').value='';
+  document.getElementById('ak-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+  setTimeout(()=>document.getElementById('ak-pass').focus(),80);
+}
+function closeAkModal(){
+  document.getElementById('ak-overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function checkAkPass(){
+  const inp=document.getElementById('ak-pass');
+  const val=(inp.value||'').trim();
+  if(val===AK_PASS){
+    _akUnlocked=true;
+    closeAkModal();
+    document.body.classList.add('is-teacher');
+    document.querySelectorAll('.teacher-only').forEach(el=>{el.style.display='block';});
+    toggleAnswerKey(true);
+    wToast('🔑 מפתח תשובות פתוח!');
+  }else{
+    inp.classList.add('shake');
+    setTimeout(()=>inp.classList.remove('shake'),340);
+    inp.value='';inp.focus();
+    wToast('❌ קוד שגוי');
+  }
+}
+function toggleAnswerKey(force=false){
+  const els=document.querySelectorAll('.teacher-only');
+  if(!els.length){wToast('אין מפתח בשיעור זה');return;}
+  const vis=[...els].some(el=>el.style.display==='block'||el.style.display==='');
+  els.forEach(el=>{el.style.display=(force||!vis)?'block':'none';});
+  if(!force)wToast(vis?'🔑 הוסתר':'🔑 מוצג');
+}
+
+
+
+  _lpT=setTimeout(()=>{cancelLongPress();openAkModal();},3000);
+}
+
+  const bar=document.getElementById('lp-bar');
+  const wrap=document.getElementById('lp-bar-wrap');
+  if(bar){bar.style.transition='none';bar.style.width='0%';}
+  if(wrap)wrap.style.display='none';
+}
+
+/* ── Collect answers from lesson content ── */
+function collectAnswers(){
+  const lines=[
+    `📚 ${LESSON_META.title}`,
+    `📅 ${new Date().toLocaleDateString('he-IL')}`,
+    `👤 ${LS.get('lashon_uname','')||'תלמיד/ה'}`,
+    ''
+  ];
+  // textareas
+  document.querySelectorAll('textarea').forEach(ta=>{
+    if(!ta.value.trim())return;
+    const label=ta.closest('[class*="card"],[class*="q-card"]')?.querySelector('[class*="q-num"],[class*="ex-title"]')?.textContent?.trim()||ta.id||'—';
+    lines.push(`❓ ${label}: ${ta.value.trim()}`);lines.push('');
+  });
+  // text inputs (not name/date fields)
+  document.querySelectorAll('input[type=text]').forEach(inp=>{
+    if(!inp.value.trim())return;
+    if(['sname','sclass','sdate','student-name','s_name'].includes(inp.id))return;
+    lines.push(`✏️ ${inp.id||inp.placeholder||'—'}: ${inp.value.trim()}`);
+  });
+  // selected radio
+  const mcSeen=new Set();
+  document.querySelectorAll('input[type=radio]:checked,.mc-opt.chosen').forEach(el=>{
+    const name=el.name||el.getAttribute('data-group')||el.id;
+    if(!name||mcSeen.has(name))return;
+    mcSeen.add(name);
+    const label=el.closest('[class*="card"],[class*="mc"]')?.querySelector('[class*="q-num"],[class*="sec-h"]')?.textContent?.trim()||name;
+    const val=el.type==='radio'?el.value:(el.textContent?.trim()||'');
+    lines.push(`✔️ ${label}: ${val}`);
+  });
+  return lines.join('\n');
+}
+
+/* ── Submit ── */
+async function submitLesson(){
+  const studentName=LS.get('lashon_uname','')||
+    document.getElementById('sname')?.value||'תלמיד/ה';
+  const content=collectAnswers();
+  // local progress
+  const prog=LS.get('lashon_prog_'+studentName,{});
+  prog[LESSON_META.id]={done:true,date:new Date().toLocaleDateString('he-IL')};
+  LS.set('lashon_prog_'+studentName,prog);
+  // cloud
+  await saveScoreToCloud(LESSON_META.id,null,studentName,{content});
+  // notify index
+  if(window.opener){try{window.opener.postMessage({type:'lessonDone',id:LESSON_META.id},'*');}catch(e){}}
+  wToast('✅ השיעור הוגש בהצלחה!');
+  setTimeout(()=>sendWork(content),500);
+}
+
+/* ── Send to teacher ── */
+function sendWork(content){
+  const email=LS.get('teacher_email','')||'';
+  const wa=LS.get('teacher_whatsapp','')||'';
+  if(!email&&!wa){
+    alert('⚠️ לא הוגדרו פרטי מורה.\n\n1. חזרו לדף הבית\n2. לחצו ⚙️\n3. הזינו מספר וואטסאפ או מייל');
+    return;
+  }
+  const student=LS.get('lashon_uname','')||'תלמיד/ה';
+  const msg=`📚 ${LESSON_META.title}\n👤 ${student}\n\n${content||collectAnswers()}`;
+  if(wa)window.open(`https://wa.me/972${wa.replace(/^0/,'')}?text=${encodeURIComponent(msg)}`,'_blank');
+  else window.open(`mailto:${email}?subject=${encodeURIComponent('📚 '+LESSON_META.title+' — '+student)}&body=${encodeURIComponent(msg)}`,'_blank');
+}
+function sendViaWhatsApp(){
+  const wa=LS.get('teacher_whatsapp','')||'';
+  if(!wa){alert('⚠️ לא הוגדר מספר וואטסאפ.\nנא להגדיר בהגדרות בדף הבית (⚙️).');return;}
+  sendWork();
+}
+function sendViaEmail(){
+  const email=LS.get('teacher_email','')||'';
+  if(!email){alert('⚠️ לא הוגדר מייל מורה.\nנא להגדיר בהגדרות בדף הבית (⚙️).');return;}
+  sendWork();
+}
+
+/* ── Print date ── */
+(function(){
+  const h=document.querySelector('.w-header');
+  if(h)h.setAttribute('data-print-date',new Date().toLocaleDateString('he-IL'));
+})();
+
+/* ── Long-press on header → answer key (3 seconds) ── */
+let _lpTimer = null;
+
+function startLongPress(e) {
+  if (e.target.closest('button, a')) return;
+  cancelLongPress();
+  const bar  = document.getElementById('lp-bar');
+  const wrap = document.getElementById('lp-bar-wrap');
+  if (wrap) wrap.style.display = 'block';
+  if (bar) {
+    bar.style.transition = 'none';
+    bar.style.width = '0%';
+    void bar.offsetWidth; // force reflow
+    bar.style.transition = 'width 3s linear';
+    bar.style.width = '100%';
+  }
+  _lpTimer = setTimeout(() => { cancelLongPress(); openAkModal(); }, 3000);
+}
+
+function cancelLongPress() {
+  if (_lpTimer) { clearTimeout(_lpTimer); _lpTimer = null; }
+  const bar  = document.getElementById('lp-bar');
+  const wrap = document.getElementById('lp-bar-wrap');
+  if (bar)  { bar.style.transition = 'none'; bar.style.width = '0%'; }
+  if (wrap) wrap.style.display = 'none';
+}
+
+/* ── MC highlight (for embedded lesson) ── */
+document.querySelectorAll('.mc-opt').forEach(opt=>{
+  opt.addEventListener('click',function(){
+    const grp=this.getAttribute('data-group')||this.closest('.mc-opts')?.id;
+    if(grp)document.querySelectorAll(`[data-group="${grp}"]`).forEach(o=>o.classList.remove('chosen'));
+    this.classList.add('chosen');
+  });
+});
+
+</script>
+
+<!-- Original lesson scripts -->
+<script>
+
+
+// Tabs
+function showTab(id,btn){
+  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>{b.classList.remove('active');b.style.color='var(--text-mid)';});
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  if(id==='tx') setTimeout(animateBars,80);
+}
+
+// Timer
+let tInt=null,tSec=2700,elapsed=0;
+const phases=[{end:300,label:'🔥 פתיחה'},{end:900,label:'📚 רכישה'},{end:1500,label:'🎮 הדגמה'},{end:2400,label:'✏️ תרגול'},{end:2700,label:'🔚 סיכום'}];
+function startTimer(){
+  if(tInt)return;
+  tInt=setInterval(()=>{
+    elapsed++;
+    const rem=tSec-elapsed;
+    if(rem<=0){clearInterval(tInt);document.getElementById('timer-display').textContent='00:00';return;}
+    const m=Math.floor(rem/60),s=rem%60;
+    const d=document.getElementById('timer-display');
+    d.textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    d.classList.toggle('warning',rem<=120);
+    const pct=Math.round(elapsed/tSec*100);
+    document.getElementById('prog-fill').style.width=pct+'%';
+    document.getElementById('prog-pct').textContent=pct+'%';
+    const ph=phases.find(p=>elapsed<=p.end);
+    if(ph) document.getElementById('phase-ind').textContent=ph.label;
+  },1000);
+}
+function resetTimer(){
+  clearInterval(tInt);tInt=null;elapsed=0;
+  document.getElementById('timer-display').textContent='45:00';
+  document.getElementById('timer-display').classList.remove('warning');
+  document.getElementById('prog-fill').style.width='0%';
+  document.getElementById('prog-pct').textContent='0%';
+  document.getElementById('phase-ind').textContent='';
+}
+
+// Animate chart bars
+function animateBars(){
+  document.querySelectorAll('.chart-bar-fill').forEach(b=>{
+    const w=b.style.width; b.style.width='0%';
+    setTimeout(()=>{b.style.width=w;},120);
+  });
+}
+
+// Submit
+function submitWS(){
+  const name=document.getElementById('sname').value.trim()||'לא הוזן';
+  const cls=document.getElementById('sclass').value.trim()||'לא הוזנה';
+  const date=document.getElementById('sdate').value.trim()||new Date().toLocaleDateString('he-IL');
+  const q3len=document.getElementById('q3a1').value.trim().length;
+  const q7len=document.getElementById('q7').value.trim().length;
+  document.getElementById('modal-sum').innerHTML=`
+    <div style="margin-bottom:5px;"><strong style="color:var(--text);">תלמיד/ה:</strong> ${name}</div>
+    <div style="margin-bottom:5px;"><strong style="color:var(--text);">כיתה:</strong> ${cls}</div>
+    <div style="margin-bottom:5px;"><strong style="color:var(--text);">תאריך:</strong> ${date}</div>
+    <div style="margin-bottom:5px;"><strong style="color:var(--text);">שאלה 3:</strong> ${q3len?'הוזנה':'ריקה'}</div>
+    <div><strong style="color:var(--text);">שאלה 7:</strong> ${q7len} תווים</div>
+  `;
+  document.getElementById('modal').classList.add('show');
+}
+function closeModal(){document.getElementById('modal').classList.remove('show');}
+document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+// ─── AUTO-INJECTED BY DASHBOARD: read student name from URL/LS ───
+(function injectStudentName() {
+  try {
+    var p = new URLSearchParams(window.location.search);
+    var n = (p.get('student') || p.get('name') || '').trim();
+    if (!n) { try { n = JSON.parse(localStorage.getItem('lashon_current_student') || '""') || ''; } catch(_){} }
+    if (n) {
+      var bar = document.getElementById('greeting-bar'), gn = document.getElementById('greeting-name');
+      if (bar && gn) { gn.textContent = 'שלום, ' + n + '!'; bar.style.display = 'flex'; }
+      ['sname','student-name','s_name','studentName'].forEach(function(id){ var el=document.getElementById(id); if(el&&!el.value) el.value=n; });
+      try { localStorage.setItem('lashon_current_student', JSON.stringify(n)); } catch(_){}
+    }
+    var dt = document.getElementById('sdate') || document.getElementById('student-date');
+    if (dt && !dt.value) dt.value = new Date().toLocaleDateString('he-IL');
+  } catch(e) {}
+})();
+// ─── END AUTO-INJECT ───
+
+
+/* ═══ window.calcAssessment — שיעור 4 ═══ */
+/* ═══ window.calcAssessment — lesson 4 ═══ */
+window.calcAssessment = function() {
+  var ac = document.getElementById("assessment-content");
+  if (!ac) return;
+
+  // Read student info
+  var sname  = (document.getElementById("sname")  || {value:""}).value.trim();
+  var sclass = (document.getElementById("sclass") || {value:""}).value.trim();
+  var sdate  = (document.getElementById("sdate")  || {value:""}).value.trim()
+               || new Date().toLocaleDateString("he-IL");
+
+  var filled = 0;
+  var total  = 34;
+  var qData  = [];   // [{label, ok}]
+
+  // chkText: plain input or textarea
+  function chkText(id, label) {
+    var el = document.getElementById(id);
+    var ok = !!(el && el.value && el.value.trim().length > 0);
+    if (ok) filled++;
+    qData.push({label: label, ok: ok, val: el ? el.value.trim().substring(0,40) : ""});
+  }
+
+  // chkRadio: radio group by name
+  function chkRadio(name, label) {
+    var radios = document.querySelectorAll("input[type=radio][name=" + name + "]");
+    var ok = false;
+    radios.forEach(function(r) { if (r.checked) ok = true; });
+    // Also check mc-option selected class (for styled radio)
+    if (!ok) {
+      var opts = document.querySelectorAll(".mc-option.selected[data-q=" + name + "]");
+      ok = opts.length > 0;
+    }
+    if (ok) filled++;
+    qData.push({label: label, ok: ok, val: ok ? "✔" : ""});
+  }
+
+  chkText("q1a", "שאלה 1א — שורש הפעיל");
+  chkText("q1b", "שאלה 1ב — שורש הפעיל");
+  chkText("q1c", "שאלה 1ג — שורש הפעיל");
+  chkText("q1d", "שאלה 1ד — שורש הפעיל");
+  chkText("q1e", "שאלה 1ה — שורש הפעיל");
+  chkText("q1f", "שאלה 1ו — שורש הפעיל");
+  chkText("q1g", "שאלה 1ז — שורש הפעיל");
+  chkText("q1h", "שאלה 1ח — שורש הפעיל");
+  chkText("q3a1", "שאלה 3א — עבר");
+  chkText("q3a2", "שאלה 3א — הווה");
+  chkText("q3a3", "שאלה 3א — עתיד");
+  chkText("q3b1", "שאלה 3ב — עבר");
+  chkText("q3b2", "שאלה 3ב — הווה");
+  chkText("q3b3", "שאלה 3ב — עתיד");
+  chkText("q3c1", "שאלה 3ג — עבר");
+  chkText("q3c2", "שאלה 3ג — הווה");
+  chkText("q3c3", "שאלה 3ג — עתיד");
+  chkText("q3d1", "שאלה 3ד — עבר");
+  chkText("q3d2", "שאלה 3ד — הווה");
+  chkText("q3d3", "שאלה 3ד — עתיד");
+  chkText("q4a1", "שאלה 4א — פועל בהפעיל");
+  chkText("q4a2", "שאלה 4א — משפט מחודש");
+  chkText("q4b1", "שאלה 4ב — פועל בהפעיל");
+  chkText("q4b2", "שאלה 4ב — משפט מחודש");
+  chkText("q4c1", "שאלה 4ג — פועל בהפעיל");
+  chkText("q4c2", "שאלה 4ג — משפט מחודש");
+  chkText("q5a", "שאלה 5א — ניתוח");
+  chkText("q5b", "שאלה 5ב — ניתוח");
+  chkText("q5c", "שאלה 5ג — ניתוח");
+  chkText("q6a", "שאלה 6א — המרה");
+  chkText("q6b", "שאלה 6ב — המרה");
+  chkText("q6c", "שאלה 6ג — המרה");
+  chkText("q6d", "שאלה 6ד — המרה");
+  chkText("q7", "שאלה 7 — פסקה אישית");
+
+  var pct = total > 0 ? Math.round(filled / total * 100) : 0;
+  var barColor = pct >= 80 ? "#4a7c59" : pct >= 50 ? "#b45309" : "#c84b31";
+  var bgColor  = pct >= 80 ? "#e8f5e9" : pct >= 50 ? "#fff8e1" : "#ffebee";
+
+  // Build HTML
+  var html = "";
+
+  // Header: student info
+  html += "<div style='background:#f0f3ff;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:.88rem;direction:rtl'>";
+  html += "<strong>תלמיד/ה:</strong> " + (sname || "לא הוזן");
+  if (sclass) html += " &nbsp;|  <strong>כיתה:</strong> " + sclass;
+  html += " &nbsp;|  <strong>תאריך:</strong> " + sdate;
+  html += "</div>";
+
+  // Score badge
+  html += "<div style='background:" + bgColor + ";color:" + barColor + ";padding:12px 16px;border-radius:10px;text-align:center;font-weight:800;font-size:1.05rem;margin-bottom:12px;direction:rtl'>";
+  html += (pct >= 80 ? "⭐" : pct >= 50 ? "💪" : "📝") + " " + filled + " שאלות מולאו מתוך " + total + " — " + pct + "%";
+  html += "</div>";
+
+  // Progress bar
+  html += "<div style='height:10px;background:#e8edf5;border-radius:5px;margin-bottom:16px;overflow:hidden'>";
+  html += "<div style='height:100%;width:" + pct + "%;background:" + barColor + ";border-radius:5px;transition:width .6s ease'></div>";
+  html += "</div>";
+
+  // Per-question rows
+  html += "<div style='font-size:.82rem;direction:rtl'>";
+  qData.forEach(function(q, i) {
+    var icon = q.ok ? "✅" : "○";
+    var clr  = q.ok ? "#2e7d32" : "#9ca3af";
+    html += "<div style='display:flex;align-items:baseline;gap:8px;padding:4px 0;border-bottom:1px solid #f0f3ff'>";
+    html += "<span style='flex-shrink:0;font-size:.9rem'>" + icon + "</span>";
+    html += "<span style='flex:1;color:" + clr + "'>" + q.label + "</span>";
+    if (q.val && q.ok) html += "<span style='color:#6b7280;font-size:.78rem;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap'>" + q.val + "</span>";
+    html += "</div>";
+  });
+  html += "</div>";
+
+  ac.innerHTML = html;
+  ac.style.display = "block";
+};;
+
+
+/* ── Auto visual feedback on inputs (green when filled) ── */
+document.addEventListener('DOMContentLoaded', function() {
+  var skip = ['sname','sclass','sdate','student-date'];
+  document.querySelectorAll('input[type="text"],textarea').forEach(function(el){
+    if (skip.indexOf(el.id) >= 0) return;
+    el.addEventListener('input', function(){
+      this.classList.remove('ok','err');
+      if (this.value.trim()) this.classList.add('ok');
+    });
+    // mark already-filled on load
+    if (el.value && el.value.trim()) el.classList.add('ok');
+  });
+  injectStudentName();
+});
+
+// ─── ROLE=STUDENT SECURITY (v3) ─────────────────────────────
+(function applyStudentRole() {
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('role') !== 'student') return;
+
+  // Hide these tab panes
+  var hideIds = [
+    'tt', 'tab-teacher',
+    'ta', 'tab-answers',
+    'tab-assess',
+    'tab-dashboard'
+  ];
+  hideIds.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) { el.style.display = 'none'; el.setAttribute('aria-hidden','true'); }
+  });
+
+  // Hide tab buttons (by onclick content, text, or class)
+  document.querySelectorAll('.tab-btn, button').forEach(function(btn) {
+    var oc  = btn.getAttribute('onclick') || '';
+    var txt = (btn.textContent || '').trim();
+    var cls = btn.className || '';
+    var hide =
+      cls.indexOf('teacher-only') !== -1 ||
+      oc.indexOf("'tt'") !== -1          || oc.indexOf('"tt"') !== -1 ||
+      oc.indexOf("'tab-teacher'") !== -1 || oc.indexOf('"tab-teacher"') !== -1 ||
+      oc.indexOf("'ta'") !== -1          || oc.indexOf('"ta"') !== -1 ||
+      oc.indexOf("'tab-answers'") !== -1 || oc.indexOf('"tab-answers"') !== -1 ||
+      oc.indexOf("'tab-assess'") !== -1  || oc.indexOf('"tab-assess"') !== -1 ||
+      oc.indexOf("'tab-dashboard'") !== -1 || oc.indexOf('"tab-dashboard"') !== -1 ||
+      txt === '🔑 פתרונות' ||
+      txt.indexOf('Dashboard') !== -1 ||
+      txt === '📊 הערכה' ||
+      txt === '📋 מדריך' ||
+      txt === '📋 מדריך המורה';
+    if (hide) btn.style.display = 'none';
+  });
+
+  // Hide any remaining teacher-only elements
+  document.querySelectorAll('.teacher-only').forEach(function(el){
+    el.style.display = 'none';
+  });
+
+  // Activate first visible student tab: theory > text > worksheet
+  var preferOrder = ['th', 'tx', 'tw'];
+  for (var i = 0; i < preferOrder.length; i++) {
+    var pane = document.getElementById(preferOrder[i]);
+    if (pane && pane.style.display !== 'none') {
+      document.querySelectorAll('.tab-pane').forEach(function(p){ p.classList.remove('active'); });
+      pane.classList.add('active');
+      document.querySelectorAll('.tab-btn').forEach(function(b){
+        b.classList.remove('active');
+        var oc2 = b.getAttribute('onclick') || '';
+        if (oc2.indexOf("'" + preferOrder[i] + "'") !== -1 ||
+            oc2.indexOf('"' + preferOrder[i] + '"') !== -1) {
+          b.classList.add('active');
+        }
+      });
+      break;
+    }
+  }
+})();
+// ─── END ROLE=STUDENT SECURITY ──────────────────────────────
+
+
+</script>
+
 </body>
 </html>
