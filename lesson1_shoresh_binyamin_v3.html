@@ -94,16 +94,20 @@ a{text-decoration:none;}
 .is-teacher .btn-answer-key{display:inline-flex;}
 
 /* ══════════════════════════════════════════════════
-   TABS BAR — visible only to teacher
+   TABS BAR — visible to all; solutions+dashboard hidden from students
 ══════════════════════════════════════════════════ */
 .tabs-bar{
-  display:none;
+  display:flex;
   background:var(--surface);border-bottom:1px solid var(--border);
   padding:0 1rem;overflow-x:auto;-webkit-overflow-scrolling:touch;
   scrollbar-width:none;
 }
 .tabs-bar::-webkit-scrollbar{display:none;}
-.is-teacher .tabs-bar{display:flex;}
+/* Hide פתרונות + דשבורד tabs from students by default */
+#tab-btn-ta,#tab-btn-td{ display:none; }
+/* Show all tabs to teacher */
+.is-teacher #tab-btn-ta,
+.is-teacher #tab-btn-td{ display:flex; }
 .tab-btn{
   padding:.65rem 1.15rem;border:none;border-bottom:2.5px solid transparent;
   background:none;font-size:.82rem;font-weight:600;color:var(--muted);
@@ -592,7 +596,7 @@ a{text-decoration:none;}
 ════════════════════════════════════════════════ -->
 <div class="tabs-bar" id="tabs-bar">
   <button class="tab-btn" id="tab-btn-th" onclick="showTab('th',this)">📚 תיאוריה</button>
-  <button class="tab-btn active" id="tab-btn-tw" onclick="showTab('tw',this)">✏️ תרגול</button>
+  <button class="tab-btn" id="tab-btn-tw" onclick="showTab('tw',this)">✏️ תרגול</button>
   <button class="tab-btn" id="tab-btn-ta" onclick="showTab('ta',this)">🔑 פתרונות</button>
   <button class="tab-btn" id="tab-btn-td" onclick="showTab('td',this)">📊 דשבורד</button>
 </div>
@@ -699,12 +703,12 @@ a{text-decoration:none;}
 <!-- ════════════════════════════════════════════════
      TAB: WORKSHEET (tw) — default active for all users
 ════════════════════════════════════════════════ -->
-<div class="tab-pane active" id="tab-tw">
+<div class="tab-pane" id="tab-tw">
 <div class="lesson-content" id="lesson-content">
 
   <div class="section-title" style="margin-top:0">
     <div class="st-num">4</div>
-    <span>תרגול — שאלות 1–5</span>
+    <span>תרגול — שאלות 1–15</span>
   </div>
 
   <!-- שאלה 1 — זיהוי שורש -->
@@ -1292,29 +1296,28 @@ const AK_PASS = '1234';
 let _akUnlocked = isTeacher;
 
 /* ════════════════════
-   window.onload — CRITICAL EARLY RETURN
+   window.onload
 ════════════════════ */
 window.onload = function () {
   /* ── stamp print date ── */
   const h = document.querySelector('.lesson-header');
   if (h) h.setAttribute('data-print-date', new Date().toLocaleDateString('he-IL'));
 
-  /* ── TEACHER: Early return — פתח פתרונות + דשבורד אוטומטית ── */
+  attachMcListeners();
+
   if (isTeacher) {
-    attachMcListeners();
-    /* פתח את טאב הפתרונות כברירת מחדל למורה */
+    /* ── מורה: כל הטאבים גלויים (CSS כבר מציג #tab-btn-ta/td),
+       פתח פתרונות כברירת מחדל, טען דשבורד ── */
     const taBtn = document.getElementById('tab-btn-ta');
     showTab('ta', taBtn);
-    /* טען דשבורד אוטומטית */
     loadLocalStats();
     loadFirebaseDashboard();
     return;
   }
 
-  /* ── STUDENT: פתח טאב תרגול ── */
-  const twBtn = document.getElementById('tab-btn-tw');
-  showTab('tw', twBtn);
-  attachMcListeners();
+  /* ── תלמיד: פתח תיאוריה, טאבי פתרונות/דשבורד כבר מוסתרים ב-CSS ── */
+  const thBtn = document.getElementById('tab-btn-th');
+  showTab('th', thBtn);
 };
 
 /* ════════════════════
