@@ -94,6 +94,41 @@ a{text-decoration:none;}
   align-items:center;gap:.25rem;
 }
 
+/* ── BACK BUTTON INSIDE HEADER (mobile fix) ── */
+.w-header-back-btn {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: .28rem;
+  padding: .38rem .72rem;
+  border: 1.5px solid rgba(79,70,229,.25);
+  border-radius: var(--r-sm);
+  background: rgba(255,255,255,.85);
+  backdrop-filter: blur(4px);
+  font-size: .74rem;
+  font-weight: 700;
+  color: var(--lc);
+  cursor: pointer;
+  transition: all .12s;
+  min-height: 36px;
+  z-index: 10;
+  text-decoration: none;
+}
+.w-header-back-btn:hover { background: #fff; box-shadow: 0 2px 8px rgba(79,70,229,.18); }
+@media(prefers-color-scheme:dark){
+  .w-header-back-btn {
+    background: rgba(30,27,75,.85);
+    border-color: rgba(129,140,248,.3);
+    color: #818cf8;
+  }
+}
+
+/* כותרת ה-header מקבלת padding-left כדי שלא תתנגש עם כפתור החזרה */
+.w-title { padding-left: 60px; }
+@media(max-width:660px){ .w-title { padding-left: 54px; } }
+
 /* ── WRAPPER HEADER ── */
 .w-header{
   background:linear-gradient(135deg,var(--lc-lt) 0%,var(--surface) 70%);
@@ -707,7 +742,6 @@ a{text-decoration:none;}
 </style>
 </head>
 <body>
-  <a class="w-btn-back" href="index.html">← חזרה</a>
 
 <!-- Answer Key Modal -->
 <div id="ak-overlay" onclick="if(event.target===this)closeAkModal()">
@@ -745,6 +779,7 @@ a{text-decoration:none;}
 <div class="w-header"
      onmousedown="startLongPress(event)" onmouseup="cancelLongPress()" onmouseleave="cancelLongPress()"
      ontouchstart="startLongPress(event)" ontouchend="cancelLongPress()" ontouchmove="cancelLongPress()">
+  <button class="w-header-back-btn" onclick="history.back()">← <span>חזרה</span></button>
   <div class="w-unit-badge">📘 יחידה 1 · שיעור 1</div>
   <span class="w-emoji">🌱</span>
   <h1 class="w-title">שורש, גזרת השלמים ושבעת הבניינים</h1>
@@ -1743,9 +1778,24 @@ document.querySelectorAll('.mc-option').forEach(opt=>{
   if(akBtn)akBtn.style.display=isTeacher?'inline-flex':'none';
 })();
 
+/* ── window.onload ── */
 window.onload = function() {
+  // תיקון 2: אבטחת מורה — early return
   if (localStorage.getItem('userRole') === 'teacher' || localStorage.getItem('lashon_role') === 'teacher') return;
-  if (typeof showTab === 'function') showTab('tw', true);
+  // תיקון 3: ברירת מחדל לתלמיד — הפעל טאב תרגול (tw)
+  // בקובץ זה אין מערכת טאבים עם id="tw", לכן גוללים לסעיף התרגול
+  const trainingSection = document.getElementById('lesson-content');
+  if (trainingSection) {
+    const sections = trainingSection.querySelectorAll('.section-title');
+    // גלול לסעיף 4 (תרגול) אחרי טעינה
+    sections.forEach(function(sec) {
+      if (sec.textContent.trim().includes('תרגול')) {
+        setTimeout(function() {
+          sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 300);
+      }
+    });
+  }
 };
 
 </script>

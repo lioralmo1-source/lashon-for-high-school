@@ -99,13 +99,6 @@ body { line-height:1.6; }
 button,input,a,textarea,select { font-family:'Heebo',sans-serif; }
 a { text-decoration:none; }
 
-/* ─── Teacher Mode ─── */
-body.is-teacher .teacher-only { 
-  display: flex !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-}
-
 /* ══════════════════════════════════════════════════
    LOGIN SCREEN
 ══════════════════════════════════════════════════ */
@@ -401,6 +394,14 @@ body.is-teacher .teacher-only {
   display:flex; align-items:center; justify-content:center; gap:.32rem;
 }
 .btn-logout:hover { background:var(--red-lt); color:var(--red); border-color:currentColor; }
+.btn-switch-user {
+  width:100%; padding:.48rem; border:1px dashed var(--border2);
+  border-radius:var(--r-sm); background:none; color:var(--subtle);
+  font-size:.68rem; cursor:pointer; transition:all .12s; min-height:38px;
+  display:flex; align-items:center; justify-content:center; gap:.28rem;
+  margin-top:.3rem;
+}
+.btn-switch-user:hover { background:var(--blue-lt); color:var(--blue); border-color:var(--blue); }
 
 /* ─── MAIN ─── */
 .main { flex:1; min-width:0; display:flex; flex-direction:column; }
@@ -1113,6 +1114,7 @@ body.is-teacher .teacher-only {
         <span class="role-tag" id="role-tag" style="display:none">מורה</span>
       </div>
       <button class="btn-logout" onclick="doLogout()">↩ יציאה</button>
+      <button class="btn-switch-user" onclick="doSwitchUser()" title="החלף משתמש / תפקיד">🔄 החלף משתמש</button>
     </div>
   </nav>
 
@@ -1185,14 +1187,18 @@ body.is-teacher .teacher-only {
       <div class="sm-lock-list" id="sm-lock-list"></div>
     </div>
 
-    <!-- WhatsApp -->
+    <!-- WhatsApp + Email -->
     <div class="sm-section">
-      <div class="sm-sec-title">📱 וואטסאפ לקבלת תשובות</div>
+      <div class="sm-sec-title">📱 פרטי קשר לקבלת עבודות תלמידים</div>
       <div class="sm-field">
-        <label class="sm-label" for="sm-phone">מספר טלפון (ספרות בלבד):</label>
+        <label class="sm-label" for="sm-phone">וואטסאפ (ספרות בלבד):</label>
         <input type="tel" id="sm-phone" class="sm-input" placeholder="05XXXXXXXX" dir="ltr" style="text-align:left;letter-spacing:.05em">
-        <button class="sm-btn save" onclick="savePhone()" style="display:block;width:100%;margin-top:.5rem">שמור מספר</button>
       </div>
+      <div class="sm-field">
+        <label class="sm-label" for="sm-email-input">📧 כתובת מייל:</label>
+        <input type="email" id="sm-email-input" class="sm-input" placeholder="teacher@school.co.il" dir="ltr" style="text-align:left;">
+      </div>
+      <button class="sm-btn save" onclick="saveContactDetails()" style="display:block;width:100%;margin-top:.5rem">💾 שמור פרטי קשר</button>
       <div id="sm-phone-preview" style="font-size:.7rem;color:var(--muted);margin-top:.32rem;display:none"></div>
     </div>
 
@@ -1439,7 +1445,9 @@ function doStudentLogin(){
   window.history.replaceState({},'',window.location.pathname);
   LS.set('lashon_role','student');
   LS.set('lashon_uname','תלמיד/ה');
-  setTimeout(() => location.reload(), 100);
+  // sync legacy key used by lesson pages
+  localStorage.setItem('userRole','student');
+  fadeOutLogin(()=>enterApp('student','תלמיד/ה'));
 }
 
 async function doTeacherLogin(){
@@ -1457,7 +1465,9 @@ async function doTeacherLogin(){
   const h=await hashPass(pass);
   LS.set('lashon_tpass',h);LS.set('lashon_tname',tname);
   LS.set('lashon_role','teacher');LS.set('lashon_uname',tname);
-  setTimeout(() => location.reload(), 50);
+  // sync legacy key used by lesson pages
+  localStorage.setItem('userRole','teacher');
+  window.location.href=window.location.pathname+'?role=teacher';
 }
 
 function fadeOutLogin(cb){
@@ -1469,6 +1479,7 @@ function fadeOutLogin(cb){
 
 function doLogout(){
   ['lashon_role','lashon_uname','lashon_tpass','lashon_tname'].forEach(k=>LS.del(k));
+  localStorage.removeItem('userRole'); // sync legacy key
   window.history.replaceState({},'',window.location.pathname);
   document.getElementById('app').classList.remove('on');
   const ls=document.getElementById('login-screen');
@@ -1520,15 +1531,12 @@ function enterApp(role,name){
   document.getElementById('u-name').textContent=name;
   document.getElementById('role-tag').style.display=role==='teacher'?'':'none';
 
+  const tRow=document.getElementById('tb-t-row');
   if(role==='teacher'){
-    document.body.classList.add('is-teacher');
-    const tRow=document.getElementById('tb-t-row');
     tRow.style.display='flex';
     document.getElementById('tb-greeting').textContent='שלום, '+name+'!';
     document.getElementById('tb-title').textContent=name+' — מרכז ניהול';
   } else {
-    document.body.classList.remove('is-teacher');
-    const tRow=document.getElementById('tb-t-row');
     tRow.style.display='none';
     document.getElementById('tb-title').textContent='לשון עברית — כיתה י׳';
   }
@@ -1745,6 +1753,9 @@ function openSettings(){
   const phone=LS.get('lashon_teacher_phone','')||'';
   document.getElementById('sm-phone').value=phone;
   updatePhonePreview(phone);
+  const emailVal=LS.get('lashon_teacher_email','')||LS.get('teacher_email','')||'';
+  const emailInp=document.getElementById('sm-email-input');
+  if(emailInp)emailInp.value=emailVal;
   ['sm-pass-old','sm-pass-new','sm-pass-confirm'].forEach(id=>{
     const el=document.getElementById(id);if(el)el.value='';
   });
@@ -1888,6 +1899,51 @@ window.sendWorkToTeacher = function(content, lessonTitle) {
     window.open(`mailto:${email}?subject=${subject}&body=${body}`, '_blank');
   }
 };
+
+/* ════════════════════════
+   SAVE CONTACT DETAILS (teacher settings)
+   שומר וואטסאפ + מייל תחת שני מפתחות:
+   lashon_teacher_phone / teacher_whatsapp  (לתאום עם שיעורים)
+   lashon_teacher_email / teacher_email
+════════════════════════ */
+function saveContactDetails() {
+  const phone = (document.getElementById('sm-phone').value||'').replace(/\D/g,'');
+  const email = (document.getElementById('sm-email-input').value||'').trim();
+  if (phone && phone.length < 9) { toast('⚠️ מספר טלפון לא תקין'); return; }
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { toast('⚠️ כתובת מייל לא תקינה'); return; }
+  // store under both key-names so lesson pages find them
+  LS.set('lashon_teacher_phone', phone);
+  LS.set('teacher_whatsapp',     phone);
+  LS.set('lashon_teacher_email', email);
+  LS.set('teacher_email',        email);
+  updatePhonePreview(phone);
+  const parts = [];
+  if (phone) parts.push('📱 ' + phone);
+  if (email) parts.push('📧 ' + email);
+  toast(parts.length ? '✅ נשמר: ' + parts.join(' | ') : '✅ פרטים נמחקו');
+}
+
+/* ════════════════════════
+   SWITCH USER — איפוס תפקיד
+   מנקה את keys הרלוונטיים וחוזר למסך הכניסה
+════════════════════════ */
+function doSwitchUser() {
+  ['lashon_role','lashon_uname','lashon_tpass','lashon_tname','userRole'].forEach(k => {
+    try { localStorage.removeItem(k); } catch(e) {}
+  });
+  window.history.replaceState({}, '', window.location.pathname);
+  document.getElementById('app').classList.remove('on');
+  const ls = document.getElementById('login-screen');
+  ls.style.opacity = '0';
+  ls.style.removeProperty('display');
+  requestAnimationFrame(() => {
+    ls.style.transition = 'opacity .35s ease';
+    ls.style.opacity = '1';
+  });
+  hideTCP();
+  S.role = ''; S.name = '';
+  toast('🔄 בחרו תפקיד חדש');
+}
 
 initApp();
 
