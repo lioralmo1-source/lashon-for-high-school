@@ -28,7 +28,7 @@ body { font-family:'Heebo', sans-serif; background:var(--bg); color:var(--text);
 <body>
 
 <!-- Floating Back Button → Home (Early Return for Navigation) -->
-<a href="index.html" style="position:fixed; top:15px; left:15px; z-index:9999; background:white; border-radius:50%; padding:10px; box-shadow:0 2px 10px rgba(0,0,0,0.1); text-decoration:none; display:flex; align-items:center; justify-content:center; width:44px; height:44px; font-size:20px; transition:all 0.2s;">🏠</a>
+<a href="index.html" style="position:fixed; top:15px; left:15px; z-index:9999; background:white; border-radius:50%; padding:10px; box-shadow:0 2px 10px rgba(0,0,0,0.1); text-decoration:none; display:flex; align-items:center; justify-content:center; width:45px; height:45px; font-size:20px;">🔙</a>
 
 <div class="header">
   <div class="max-w-4xl mx-auto flex justify-between items-center">
@@ -80,23 +80,13 @@ function showTab(id, btn) {
 // ──── ROLE SECURITY (v7) — Early Return Pattern ────
 window.onload = function() {
   // Early Return: Check both possible role keys — if teacher, exit and show all
-  if (localStorage.getItem('userRole') === 'teacher' || localStorage.getItem('lashon_role') === 'teacher') {
-    // Teachers see everything — no hiding needed
-    return;
-  }
+  if (localStorage.getItem('userRole') === 'teacher' || localStorage.getItem('lashon_role') === 'teacher') return;
   
   // Only students reach here — hide teacher content
   document.querySelectorAll('.teacher-only').forEach(el => el.style.display = 'none');
   
-  // Ensure worksheet tab (tw) is active for students if no tab was selected
-  if (!document.querySelector('.tab-pane.active')) {
-    const twPane = document.getElementById('tw');
-    const twBtn = document.querySelector('button[onclick*="tw"]');
-    if (twPane && twBtn) {
-      twPane.classList.add('active');
-      twBtn.classList.add('active');
-    }
-  }
+  // ברירת מחדל לטאב תרגול — וודא שהשיעור נפתח בטאב התרגול
+  showTab('tw', document.querySelector('button[onclick*="tw"]'));
 };
 </script>
 </body>
