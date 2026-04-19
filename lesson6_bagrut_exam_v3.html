@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
@@ -92,6 +92,35 @@ a{text-decoration:none;}
   font-size:.76rem;font-weight:700;color:var(--gold);
   cursor:pointer;transition:all .12s;min-height:40px;
   align-items:center;gap:.25rem;
+}
+
+/* ── Floating Back Button ── */
+.floating-back-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1000;
+  display: inline-flex;
+  align-items: center;
+  gap: .25rem;
+  padding: .6rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--r);
+  background: var(--surface);
+  font-size: .76rem;
+  font-weight: 700;
+  color: var(--text);
+  cursor: pointer;
+  transition: all .12s;
+  min-height: 44px;
+  box-shadow: var(--sh2);
+}
+.floating-back-btn:hover {
+  background: var(--surface2);
+  border-color: var(--blue);
+  color: var(--blue);
+  transform: translateY(-2px);
+  box-shadow: var(--sh3);
 }
 
 /* ── WRAPPER HEADER ── */
@@ -594,6 +623,9 @@ input[type="text"],input[type="password"],textarea,select{
     <button class="w-btn-ak" onclick="openAkModal()">🔑 מפתח</button>
   </div>
 </div>
+
+<!-- Floating Back Button -->
+<a href="index.html" class="floating-back-btn">🏠 חזרה לדף הבית</a>
 
 <!-- Wrapper Header (long-press → answer key) -->
 <div class="w-header"
@@ -1233,6 +1265,9 @@ input[type="text"],input[type="password"],textarea,select{
 </div><!-- /exam -->
 
 
+<!-- Floating Back Button -->
+<a href="index.html" style="position:fixed; top:15px; left:15px; z-index:9999; background:white; border-radius:50%; width:40px; height:40px; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 10px rgba(0,0,0,0.15); text-decoration:none; font-size:18px; transition:all 0.2s;" title="חזרה לעמוד הבית">🏠</a>
+
 <!-- ════════ TAB 5 — ANSWERS ════════ -->
 <div id="ta" class="tab-pane teacher-only" style="display:none !important">
 
@@ -1412,8 +1447,8 @@ input[type="text"],input[type="password"],textarea,select{
 
 <script>
 // ━━━ ROLE CHECK — must be first ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// ברירת מחדל: תלמיד. רק ?role=teacher = מורה.
-const isTeacher = new URLSearchParams(window.location.search).get('role') === 'teacher';
+// ברירת מחדל: תלמיד. רק localStorage 'lashon_role' === 'teacher' = מורה.
+const isTeacher = localStorage.getItem('lashon_role') === 'teacher';
 
 // ─── Answer Key — נטען רק עבור מורה ─────────────────────────────────────
 // תלמידים לא מקבלים גישה למפתח התשובות, גם לא דרך Inspect Element
@@ -1787,7 +1822,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // isTeacher הוגדר כבר בסקריפט הראשי למעלה
 (function applyRoleSecurity() {
 
-  if (isTeacher) {
+  if (localStorage.getItem('lashon_role') === 'teacher') {
     // ── מורה: חשוף הכל, הפעל טאב מדריך ──────────────────────────────────
     document.querySelectorAll('.teacher-only').forEach(function(el) {
       el.style.removeProperty('display');
@@ -1942,7 +1977,7 @@ const LS={
 
 /* ── Role ── */
 const _params=new URLSearchParams(window.location.search);
-const isTeacher=_params.get('role')==='teacher';
+const isTeacher=localStorage.getItem('lashon_role')==='teacher';
 if(isTeacher){
   document.body.classList.add('is-teacher');
   const rc=document.getElementById('role-chip');
@@ -2135,8 +2170,8 @@ document.querySelectorAll('.mc-opt').forEach(opt=>{
 
 
 // ━━━ ROLE CHECK — must be first ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// ברירת מחדל: תלמיד. רק ?role=teacher = מורה.
-const isTeacher = new URLSearchParams(window.location.search).get('role') === 'teacher';
+// ברירת מחדל: תלמיד. רק localStorage 'lashon_role' === 'teacher' = מורה.
+const isTeacher = localStorage.getItem('lashon_role') === 'teacher';
 
 // ─── Answer Key — נטען רק עבור מורה ─────────────────────────────────────
 // תלמידים לא מקבלים גישה למפתח התשובות, גם לא דרך Inspect Element
@@ -2509,7 +2544,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // isTeacher הוגדר כבר בסקריפט הראשי למעלה
 (function applyRoleSecurity() {
 
-  if (isTeacher) {
+  if (localStorage.getItem('lashon_role') === 'teacher') {
     // ── מורה: חשוף הכל, הפעל טאב מדריך ──────────────────────────────────
     document.querySelectorAll('.teacher-only').forEach(function(el) {
       el.style.removeProperty('display');

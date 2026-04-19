@@ -99,6 +99,13 @@ body { line-height:1.6; }
 button,input,a,textarea,select { font-family:'Heebo',sans-serif; }
 a { text-decoration:none; }
 
+/* ─── Teacher Mode ─── */
+body.is-teacher .teacher-only { 
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
 /* ══════════════════════════════════════════════════
    LOGIN SCREEN
 ══════════════════════════════════════════════════ */
@@ -1432,7 +1439,7 @@ function doStudentLogin(){
   window.history.replaceState({},'',window.location.pathname);
   LS.set('lashon_role','student');
   LS.set('lashon_uname','תלמיד/ה');
-  fadeOutLogin(()=>enterApp('student','תלמיד/ה'));
+  setTimeout(() => location.reload(), 100);
 }
 
 async function doTeacherLogin(){
@@ -1450,7 +1457,7 @@ async function doTeacherLogin(){
   const h=await hashPass(pass);
   LS.set('lashon_tpass',h);LS.set('lashon_tname',tname);
   LS.set('lashon_role','teacher');LS.set('lashon_uname',tname);
-  window.location.href=window.location.pathname+'?role=teacher';
+  setTimeout(() => location.reload(), 50);
 }
 
 function fadeOutLogin(cb){
@@ -1513,12 +1520,15 @@ function enterApp(role,name){
   document.getElementById('u-name').textContent=name;
   document.getElementById('role-tag').style.display=role==='teacher'?'':'none';
 
-  const tRow=document.getElementById('tb-t-row');
   if(role==='teacher'){
+    document.body.classList.add('is-teacher');
+    const tRow=document.getElementById('tb-t-row');
     tRow.style.display='flex';
     document.getElementById('tb-greeting').textContent='שלום, '+name+'!';
     document.getElementById('tb-title').textContent=name+' — מרכז ניהול';
   } else {
+    document.body.classList.remove('is-teacher');
+    const tRow=document.getElementById('tb-t-row');
     tRow.style.display='none';
     document.getElementById('tb-title').textContent='לשון עברית — כיתה י׳';
   }
