@@ -1693,6 +1693,12 @@ a { text-decoration:none; }
       <div class="sm-sec-title">🗑️ ניקוי נתונים</div>
       <p style="font-size:.73rem;color:var(--muted);margin-bottom:.7rem;line-height:1.6;">מחיקת כל נתוני ההתקדמות וההגדרות השמורות.</p>
       <button class="sm-btn danger" onclick="clearAllData()" style="display:block;width:100%">🗑️ נקה את כל הנתונים</button>
+    <div class="sm-section" id="sm-progress-section">
+      <div class="sm-sec-title">📊 דוח התקדמות תלמידים</div>
+      <div id="sm-progress-content" style="font-size:.76rem;color:var(--muted);background:var(--surface2);border:1px solid var(--border);border-radius:var(--r-sm);padding:.85rem;min-height:48px">
+        לחצו ״טען דוח״ לראות הגשות תלמידים שנשמרו במכשיר זה.
+      </div>
+      <button class="sm-btn save" onclick="loadStudentProgress()" style="display:block;width:100%;margin-top:.6rem">🔄 טען דוח התקדמות</button>
     </div>
   </div>
 </div>
@@ -2419,11 +2425,15 @@ function openSettings(){
     const el=document.getElementById(id);if(el)el.value='';
   });
   buildLockList();
-  document.getElementById('student-settings-overlay').classList.add('open');
+  // Open teacher settings modal (settings-overlay has full admin panel)
+  const ov = document.getElementById('settings-overlay') || document.getElementById('student-settings-overlay');
+  if (ov) ov.classList.add('open');
   document.body.style.overflow='hidden';
 }
 function closeSettings(){
-  document.getElementById('student-settings-overlay').classList.remove('open');
+  // Close teacher settings modal
+  const ov = document.getElementById('settings-overlay') || document.getElementById('student-settings-overlay');
+  if (ov) ov.classList.remove('open');
   document.body.style.overflow='';
 }
 
@@ -2602,6 +2612,89 @@ function doSwitchUser() {
   hideTCP();
   S.role = ''; S.name = '';
   toast('🔄 בחרו תפקיד חדש');
+}
+
+
+/* ════════════════════════════════════
+   STUDENT PROGRESS PANEL (TEACHER VIEW)
+   Reads all lashon_prog_* from localStorage
+   and renders table with name / lesson / date / score / answers
+════════════════════════════════════ */
+function _escHtml(s) {
+  if (s === null || s === undefined) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function showAnswersToggle(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
+function loadStudentProgress() {
+  var el = document.getElementById('sm-progress-content');
+  if (!el) return;
+  var LNAMES = {
+    'u1_l0':'מבוא וחלקי הדיבר','u1_l1':'שורש ובניינים','u1_l2':'בניין קל',
+    'u1_l3':'בניינים כבדים','u1_l4':'בנייני הגורם','u1_l5':'סיכום ומרובעים','u1_l6':'מבחן מסכם'
+  };
+  var keys = Object.keys(localStorage).filter(function(k){ return k.startsWith('lashon_prog_'); });
+  if (!keys.length) {
+    el.innerHTML = '<p style="color:var(--muted)">אין הגשות שמורות במכשיר זה.</p>';
+    return;
+  }
+  var rows = '';
+  var total = 0;
+  keys.forEach(function(key) {
+    var student = key.replace('lashon_prog_','');
+    var prog = {};
+    try { prog = JSON.parse(localStorage.getItem(key)) || {}; } catch(e){}
+    Object.keys(prog).forEach(function(lid) {
+      var data = prog[lid];
+      if (!data || !data.done) return;
+      var lname = LNAMES[lid] || lid;
+      var date  = data.date || '—';
+      var perf  = '<span style="color:var(--green);font-weight:700">✅ הוגש</span>';
+      if (typeof data.score === 'number') {
+        var col = data.score >= 80 ? 'var(--green)' : data.score >= 60 ? 'var(--amber)' : 'var(--red)';
+        perf = '<span style="font-weight:800;color:'+col+'">'+data.score+'%</span>';
+      }
+
+      // Answers column: always show preview + expandable full view
+      var answersCell = '<span style="color:var(--muted);font-style:italic">אין תשובות</span>';
+      if (data.content) {
+        var sid = 'ans_'+String(total);
+        var preview = String(data.content).replace(/\n/g,' ').substring(0,50);
+        if (String(data.content).length > 50) preview += '...';
+        answersCell = '<div style="font-size:.7rem;color:var(--text-mid);margin-bottom:3px">'+_escHtml(preview)+'</div>'
+                    + '<button onclick="showAnswersToggle(\''+sid+'\')" style="font-size:.62rem;padding:2px 8px;background:var(--blue-lt);border:1px solid var(--blue);border-radius:4px;cursor:pointer;color:var(--blue);font-weight:700">📋 הצג תשובות מלאות</button>'
+                    + '<div id="'+sid+'" style="display:none;margin-top:6px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px;max-height:180px;overflow-y:auto;white-space:pre-wrap;font-size:.68rem;direction:rtl;text-align:right;color:var(--text)">'+_escHtml(data.content)+'</div>';
+      }
+
+      var bg = (total % 2 === 1) ? 'background:var(--surface2)' : '';
+      rows += '<tr style="border-bottom:1px solid var(--border);vertical-align:top;'+bg+'">'
+            + '<td style="padding:6px 8px;font-weight:700;white-space:nowrap">'+_escHtml(student)+'</td>'
+            + '<td style="padding:6px 8px;white-space:nowrap">'+_escHtml(lname)+'</td>'
+            + '<td style="padding:6px 8px;white-space:nowrap">'+date+'</td>'
+            + '<td style="padding:6px 8px;white-space:nowrap">'+perf+'</td>'
+            + '<td style="padding:6px 8px;min-width:180px;max-width:320px">'+answersCell+'</td>'
+            + '</tr>';
+      total++;
+    });
+  });
+  if (!total) {
+    el.innerHTML = '<p style="color:var(--muted)">לא נמצאו הגשות שהושלמו.</p>';
+    return;
+  }
+  el.innerHTML = '<div style="overflow-x:auto;max-height:420px;overflow-y:auto"><table style="width:100%;border-collapse:collapse;font-size:.74rem;direction:rtl">'
+    + '<thead><tr style="background:var(--surface3);position:sticky;top:0;z-index:1">'
+    + '<th style="padding:7px 8px;text-align:right;font-weight:800">תלמיד/ה</th>'
+    + '<th style="padding:7px 8px;font-weight:800">שיעור</th>'
+    + '<th style="padding:7px 8px;font-weight:800">תאריך</th>'
+    + '<th style="padding:7px 8px;font-weight:800">ביצועים</th>'
+    + '<th style="padding:7px 8px;font-weight:800">תשובות התלמיד</th>'
+    + '</tr></thead><tbody>'+rows+'</tbody></table></div>'
+    + '<p style="font-size:.66rem;color:var(--muted);margin-top:.4rem">סה״כ '+total+' הגשות | '+keys.length+' תלמידים</p>';
 }
 
 initApp();
