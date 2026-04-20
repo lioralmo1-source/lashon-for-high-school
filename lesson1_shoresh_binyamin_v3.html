@@ -83,15 +83,7 @@ a{text-decoration:none;}
   cursor:pointer;transition:all .12s;min-height:40px;
 }
 .btn-print:hover{background:var(--surface3);color:var(--text);}
-.btn-answer-key{
-  display:none;
-  padding:.45rem .8rem;border:1.5px solid var(--gold);
-  border-radius:var(--r-sm);background:var(--gold-lt);
-  font-size:.76rem;font-weight:700;color:var(--gold);
-  cursor:pointer;transition:all .12s;min-height:40px;
-  align-items:center;gap:.25rem;
-}
-.is-teacher .btn-answer-key{display:inline-flex;}
+/* btn-answer-key removed — access via teacher tab only */
 
 /* ══════════════════════════════════════════════════
    TABS BAR — visible to all; solutions+dashboard hidden from students
@@ -410,54 +402,7 @@ a{text-decoration:none;}
 }
 .btn-refresh:hover{background:var(--surface3);color:var(--text);}
 
-/* ══════════════════════════════════════════════════
-   ANSWER KEY MODAL
-══════════════════════════════════════════════════ */
-#ak-overlay{
-  position:fixed;inset:0;z-index:900;
-  background:rgba(0,0,0,.55);backdrop-filter:blur(5px);
-  display:none;align-items:center;justify-content:center;padding:1rem;
-}
-#ak-overlay.open{display:flex;}
-#ak-modal{
-  background:var(--surface);border:1px solid var(--border);
-  border-radius:var(--r-xl);width:100%;max-width:360px;
-  box-shadow:var(--sh3);animation:akPop .22s cubic-bezier(.34,1.56,.64,1);overflow:hidden;
-}
-@keyframes akPop{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:scale(1)}}
-.ak-head{
-  padding:.9rem 1.2rem .75rem;
-  background:linear-gradient(135deg,var(--gold-lt),var(--surface2));
-  border-bottom:1px solid var(--border);
-  display:flex;align-items:center;justify-content:space-between;
-}
-.ak-title{font-family:'Secular One',sans-serif;font-size:.92rem;}
-.ak-close{
-  width:28px;height:28px;border:none;background:var(--surface3);
-  border-radius:50%;cursor:pointer;font-size:.85rem;
-  display:flex;align-items:center;justify-content:center;color:var(--muted);transition:all .1s;
-}
-.ak-close:hover{background:var(--border);}
-.ak-body{padding:1.1rem 1.2rem;}
-.ak-hint{font-size:.73rem;color:var(--muted);margin-bottom:.75rem;}
-.ak-row{display:flex;gap:.5rem;}
-.ak-input{
-  flex:1;padding:.7rem .9rem;border:1.5px solid var(--border);
-  border-radius:var(--r-sm);font-size:.95rem;letter-spacing:.2em;
-  direction:ltr;text-align:center;outline:none;
-  background:var(--surface);color:var(--text);transition:border-color .14s;min-height:46px;
-}
-.ak-input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(202,138,4,.1);}
-.ak-input.shake{animation:akShk .3s;border-color:var(--red);}
-@keyframes akShk{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
-.ak-go{
-  padding:.7rem 1.1rem;border:none;border-radius:var(--r-sm);
-  background:linear-gradient(135deg,var(--gold),#d97706);
-  color:#fff;font-size:.85rem;font-weight:700;
-  cursor:pointer;transition:all .13s;min-height:46px;
-  font-family:'Heebo',sans-serif;box-shadow:0 2px 8px rgba(202,138,4,.3);
-}
-.ak-go:hover{filter:brightness(1.08);transform:translateY(-1px);}
+/* answer-key modal CSS removed — solutions via teacher tab only */
 
 /* ══════════════════════════════════════════════════
    TOAST
@@ -482,7 +427,7 @@ a{text-decoration:none;}
   *,*::before,*::after{print-color-adjust:exact !important;-webkit-print-color-adjust:exact !important;}
   .lesson-topbar,.tabs-bar,.topbar-actions,.btn-back,.btn-print,.btn-answer-key,
   .lesson-footer,.btn-submit,.score-display,
-  #toast,#ak-overlay,.teacher-panel,.btn-refresh{display:none !important;}
+  #toast,.teacher-panel,.btn-refresh{display:none !important;}
   html,body{background:#fff !important;font-size:11pt;color:#111;}
   .tab-pane{display:block !important;}
   .lesson-header{background:#f5f7ff !important;border:1pt solid #c7d2fe !important;
@@ -538,8 +483,6 @@ a{text-decoration:none;}
   .btn-send-wa,.btn-send-email{justify-content:center;width:100%;}
   #toast{bottom:1.6rem;right:.7rem;left:.7rem;text-align:center;}
   .btn-print .print-label{display:none;}
-  #ak-overlay{align-items:flex-end;padding:0;}
-  #ak-modal{border-radius:var(--r-xl) var(--r-xl) var(--r) var(--r);max-width:100%;}
   .tab-btn{font-size:.76rem;padding:.6rem .85rem;}
   /* Responsive tables — full bleed on mobile */
   .binyan-table-wrap{margin-left:-.85rem;margin-right:-.85rem;border-radius:0;}
@@ -555,39 +498,19 @@ a{text-decoration:none;}
 </head>
 <body>
 
-<!-- ════════════════════════════════════════════════
-     ANSWER KEY MODAL — single instance
-════════════════════════════════════════════════ -->
-<div id="ak-overlay" onclick="if(event.target===this)closeAkModal()">
-  <div id="ak-modal">
-    <div class="ak-head">
-      <span class="ak-title">🔑 מפתח תשובות — כניסת מורה</span>
-      <button class="ak-close" onclick="closeAkModal()">✕</button>
-    </div>
-    <div class="ak-body">
-      <p class="ak-hint">הזינו את קוד הגישה (ברירת מחדל: 1234)</p>
-      <div class="ak-row">
-        <input type="password" id="ak-pass" class="ak-input" placeholder="••••"
-               maxlength="20" autocomplete="off"
-               onkeydown="if(event.key==='Enter')checkAkPass()">
-        <button class="ak-go" onclick="checkAkPass()">כניסה →</button>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- answer key modal removed — solutions accessible via teacher tab only -->
 
 <!-- ════════════════════════════════════════════════
      TOPBAR — single instance
 ════════════════════════════════════════════════ -->
 <div class="lesson-topbar">
-  <button class="btn-back" onclick="history.back()" aria-label="חזרה">🔙</button>
+  <button class="btn-back" onclick="window.location.href='index.html'" aria-label="חזרה לדף הבית">🔙</button>
   <div class="topbar-title-wrap">
     <div class="lesson-topbar-title">שיעור 1 — שורש, גזרת השלמים ושבעת הבניינים</div>
     <div class="lesson-topbar-sub">יחידה 1: מערכת הפועל · לשון עברית י׳</div>
   </div>
   <div class="topbar-actions">
     <button class="btn-print" onclick="window.print()">🖨️<span class="print-label"> הדפסה</span></button>
-    <button class="btn-answer-key" onclick="openAkModal()">🔑 מפתח</button>
   </div>
 </div>
 
@@ -604,9 +527,7 @@ a{text-decoration:none;}
 <!-- ════════════════════════════════════════════════
      LESSON HEADER — long-press → answer key
 ════════════════════════════════════════════════ -->
-<div class="lesson-header"
-     onmousedown="startLongPress(event)" onmouseup="cancelLongPress()" onmouseleave="cancelLongPress()"
-     ontouchstart="startLongPress(event)" ontouchend="cancelLongPress()" ontouchmove="cancelLongPress()">
+<div class="lesson-header">
   <div class="lh-unit-badge">📘 יחידה 1</div>
   <span class="lh-emoji">🌱</span>
   <h1 class="lh-title">שורש, גזרת השלמים ושבעת הבניינים</h1>
@@ -616,7 +537,7 @@ a{text-decoration:none;}
     <span class="lh-chip">שיעור 1</span>
     <span class="lh-chip" id="role-chip">👑 מצב מורה</span>
   </div>
-  <div id="lp-bar-wrap"><div id="lp-bar"></div></div>
+  <div id="lp-bar-wrap" style="display:none"><div id="lp-bar"></div></div>
 </div>
 
 <!-- ════════════════════════════════════════════════
@@ -1290,12 +1211,6 @@ if (isTeacher) {
 }
 
 /* ════════════════════
-   ANSWER KEY PASSWORD
-════════════════════ */
-const AK_PASS = '1234';
-let _akUnlocked = isTeacher;
-
-/* ════════════════════
    window.onload
 ════════════════════ */
 window.onload = function () {
@@ -1344,71 +1259,7 @@ function toast(msg, dur = 2800) {
   _tt = setTimeout(() => el.classList.remove('show'), dur);
 }
 
-/* ════════════════════
-   ANSWER KEY MODAL
-════════════════════ */
-function openAkModal() {
-  if (_akUnlocked) { toggleAnswerKey(); return; }
-  const inp = document.getElementById('ak-pass');
-  if (inp) inp.value = '';
-  document.getElementById('ak-overlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-  setTimeout(() => document.getElementById('ak-pass')?.focus(), 80);
-}
-function closeAkModal() {
-  document.getElementById('ak-overlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-function checkAkPass() {
-  const inp = document.getElementById('ak-pass');
-  const val = (inp?.value || '').trim();
-  if (val === AK_PASS) {
-    _akUnlocked = true;
-    closeAkModal();
-    document.body.classList.add('is-teacher');
-    document.querySelectorAll('.teacher-only').forEach(el => { el.style.display = 'block'; });
-    toast('🔑 מפתח תשובות פתוח!');
-  } else {
-    inp?.classList.add('shake');
-    setTimeout(() => inp?.classList.remove('shake'), 340);
-    if (inp) { inp.value = ''; inp.focus(); }
-    toast('❌ קוד שגוי');
-  }
-}
-function toggleAnswerKey(forceOpen = false) {
-  const els = document.querySelectorAll('.teacher-only');
-  if (!els.length) { toast('אין מפתח תשובות'); return; }
-  const visible = [...els].some(el => el.style.display === 'block');
-  els.forEach(el => { el.style.display = (forceOpen || !visible) ? 'block' : 'none'; });
-  if (!forceOpen) toast(visible ? '🔑 מפתח הוסתר' : '🔑 מפתח מוצג');
-}
-
-/* ════════════════════
-   LONG-PRESS → ANSWER KEY (3 sec)
-════════════════════ */
-let _lpTimer = null;
-function startLongPress(e) {
-  if (e.target.closest('button, a')) return;
-  cancelLongPress();
-  const bar  = document.getElementById('lp-bar');
-  const wrap = document.getElementById('lp-bar-wrap');
-  if (wrap) wrap.style.display = 'block';
-  if (bar) {
-    bar.style.transition = 'none';
-    bar.style.width = '0%';
-    void bar.offsetWidth;
-    bar.style.transition = 'width 3s linear';
-    bar.style.width = '100%';
-  }
-  _lpTimer = setTimeout(() => { cancelLongPress(); openAkModal(); }, 3000);
-}
-function cancelLongPress() {
-  if (_lpTimer) { clearTimeout(_lpTimer); _lpTimer = null; }
-  const bar  = document.getElementById('lp-bar');
-  const wrap = document.getElementById('lp-bar-wrap');
-  if (bar)  { bar.style.transition = 'none'; bar.style.width = '0%'; }
-  if (wrap) wrap.style.display = 'none';
-}
+/* answer-key modal + long-press JS removed — solutions via teacher tab only */
 
 /* ════════════════════
    MC HIGHLIGHT
