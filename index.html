@@ -717,7 +717,7 @@ a { text-decoration:none; }
    SETTINGS MODAL
 ══════════════════════════════════════════════════ */
 #settings-overlay {
-  position:fixed; inset:0; z-index:800;
+  position:fixed; inset:0; z-index:1000;
   background:rgba(0,0,0,.5); backdrop-filter:blur(6px);
   display:none; align-items:center; justify-content:center;
   padding:1.2rem;
@@ -868,6 +868,8 @@ a { text-decoration:none; }
   .btn-settings { font-size:.7rem; padding:.26rem .65rem; min-height:40px; }
   .tb-sub { display:none; }
   #settings-overlay { padding:.5rem .5rem 0; align-items:flex-end; justify-content:center; }
+  #settings-overlay.open { display:flex !important; }
+  #student-settings-overlay.open { display:flex !important; }
   #settings-modal { max-width:100%; border-radius:var(--r-xl) var(--r-xl) var(--r-lg) var(--r-lg); max-height:92vh; }
   #toast { bottom:1.6rem; right:.85rem; left:.85rem; text-align:center; }
   .teacher-strip { padding:.35rem .95rem; }
@@ -897,7 +899,7 @@ a { text-decoration:none; }
    STUDENT SETTINGS MODAL
 ══════════════════════════════════════════════════ */
 #student-settings-overlay {
-  position:fixed; inset:0; z-index:800;
+  position:fixed; inset:0; z-index:1000;
   background:rgba(0,0,0,.5); backdrop-filter:blur(6px);
   display:none; align-items:center; justify-content:center;
   padding:1.2rem;
@@ -2413,10 +2415,13 @@ function quickToggleLock(id,open){
 function openSettings(){
   if(S.role!=='teacher')return;
   const name=LS.get('lashon_tname','')||S.name||'מורה';
-  document.getElementById('sm-name-text').textContent='שלום, '+name+'!';
-  document.getElementById('sm-tname-input').value=name;
+  const smName=document.getElementById('sm-name-text');
+  if(smName)smName.textContent='שלום, '+name+'!';
+  const smInput=document.getElementById('sm-tname-input');
+  if(smInput)smInput.value=name;
   const phone=LS.get('lashon_teacher_phone','')||'';
-  document.getElementById('sm-phone').value=phone;
+  const smPhone=document.getElementById('sm-phone');
+  if(smPhone)smPhone.value=phone;
   updatePhonePreview(phone);
   const emailVal=LS.get('lashon_teacher_email','')||LS.get('teacher_email','')||'';
   const emailInp=document.getElementById('sm-email-input');
@@ -2425,15 +2430,13 @@ function openSettings(){
     const el=document.getElementById(id);if(el)el.value='';
   });
   buildLockList();
-  // Open teacher settings modal (settings-overlay has full admin panel)
-  const ov = document.getElementById('settings-overlay') || document.getElementById('student-settings-overlay');
-  if (ov) ov.classList.add('open');
-  document.body.style.overflow='hidden';
+  loadStudentProgress();
+  const ov=document.getElementById('settings-overlay');
+  if(ov){ov.classList.add('open');document.body.style.overflow='hidden';}
 }
 function closeSettings(){
-  // Close teacher settings modal
-  const ov = document.getElementById('settings-overlay') || document.getElementById('student-settings-overlay');
-  if (ov) ov.classList.remove('open');
+  const ov=document.getElementById('settings-overlay');
+  if(ov)ov.classList.remove('open');
   document.body.style.overflow='';
 }
 
